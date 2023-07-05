@@ -62,16 +62,20 @@
             name="fullordering"
             type="list"
             label="JGLOBAL_SORT_BY"
-            default="a.name ASC"
+            default="a.created_at DESC"
             onchange="this.form.submit();"
         >
             <option value="">JGLOBAL_SORT_BY</option>
             <option value="a.ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
             <option value="a.ordering DESC">JGRID_HEADING_ORDERING_DESC</option>
+            <option value="a.created_at ASC">COM_FOOTBALLMANAGER_CREATED_ASC</option>
+            <option value="a.created_at DESC">COM_FOOTBALLMANAGER_CREATED_DESC</option>
             <option value="a.published ASC">JSTATUS_ASC</option>
             <option value="a.published DESC">JSTATUS_DESC</option>
             <option value="a.name ASC">JGLOBAL_TITLE_ASC</option>
             <option value="a.name DESC">JGLOBAL_TITLE_DESC</option>
+            <option value="a.created_by_username ASC">COM_FOOTBALLMANAGER_AUTHOR_ASC</option>
+            <option value="a.created_by_username DESC">COM_FOOTBALLMANAGER_AUTHOR_DESC</option>
             <option value="a.access ASC">JGRID_HEADING_ACCESS_ASC</option>
             <option value="a.access DESC">JGRID_HEADING_ACCESS_DESC</option>
             <option value="association ASC" requires="associations">JASSOCIATIONS_ASC</option>

@@ -19,6 +19,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Factory;
 
@@ -98,11 +99,11 @@ class HtmlView extends BaseHtmlView
 	{
 		$this->sidebar = Sidebar::render();
 		$canDo         = ContentHelper::getActions('com_footballmanager', 'category', $this->state->get('filter.category_id'));
-		$user          = Factory::getUser();
+		$user          = Factory::getApplication()->getIdentity();
 
 		// Get the toolbar object instance
-		$toolbar = Toolbar::getInstance('toolbar');
-		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_LOCATIONS'), 'address foo');
+		$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
+		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_LOCATIONS'), 'map-marker');
 
 		// Show Buttons only if the user is allowed to do so
 		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_footballmanager', 'core.create')) > 0)

@@ -13,9 +13,11 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Categories\CategoryFactoryInterface;
 use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
 use Joomla\CMS\Extension\ComponentInterface;
+use Joomla\CMS\Component\Router\RouterFactoryInterface;
 use Joomla\CMS\Extension\Service\Provider\CategoryFactory;
 use Joomla\CMS\Extension\Service\Provider\ComponentDispatcherFactory;
 use Joomla\CMS\Extension\Service\Provider\MVCFactory;
+use Joomla\CMS\Extension\Service\Provider\RouterFactory;
 use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
@@ -42,19 +44,22 @@ return new class implements ServiceProviderInterface {
     public function register(Container $container)
     {
 	    $container->set(AssociationExtensionInterface::class, new AssociationsHelper);
-//        $container->registerServiceProvider(new CategoryFactory('\\NXD\\Component\\Footballmanager'));
+        $container->registerServiceProvider(new CategoryFactory('\\NXD\\Component\\Footballmanager'));
         $container->registerServiceProvider(new MVCFactory('\\NXD\\Component\\Footballmanager'));
         $container->registerServiceProvider(new ComponentDispatcherFactory('\\NXD\\Component\\Footballmanager'));
-        $container->set(
+	    $container->registerServiceProvider(new RouterFactory('\\Joomla\\Component\\Footballmanager'));
+
+	    $container->set(
             ComponentInterface::class,
             function (Container $container) {
                 $component = new FootballmanagerComponent($container->get(ComponentDispatcherFactoryInterface::class));
                 $component->setRegistry($container->get(Registry::class));
                 $component->setMVCFactory($container->get(MVCFactoryInterface::class));
-//                $component->setCategoryFactory($container->get(CategoryFactoryInterface::class));
+                $component->setCategoryFactory($container->get(CategoryFactoryInterface::class));
 				$component->setAssociationExtension($container->get(AssociationExtensionInterface::class));
+	            $component->setRouterFactory($container->get(RouterFactoryInterface::class));
 
-                return $component;
+	            return $component;
             }
         );
     }

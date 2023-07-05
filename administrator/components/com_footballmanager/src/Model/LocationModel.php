@@ -13,7 +13,9 @@ namespace NXD\Component\Footballmanager\Administrator\Model;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\InputFilter;
+use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Language\LanguageHelper;
 
@@ -32,11 +34,21 @@ class LocationModel extends AdminModel
 	 */
 	public $typeAlias = 'com_footballmanager.location';
 
-	protected $associationsContext = 'com_footballmanager.location';
-
-	private $itemGroupsFromDb = array();
-	private $itemGroupIds = array();
+	protected $associationsContext = 'com_footballmanager.item';
 	private $itemId = 0;
+
+	protected $batch_copymove = 'category_id';
+
+	/**
+	 * Allowed batch commands
+	 *
+	 * @var array
+	 */
+	protected $batch_commands
+		= [
+			'assetgroup_id' => 'batchAccess',
+			'language_id'   => 'batchLanguage',
+		];
 
 	/**
 	 * Method to get the row form.
@@ -77,23 +89,9 @@ class LocationModel extends AdminModel
 		// Check the session for previously entered form data.
 		$data = $app->getUserState($this->option . 'com_footballmanager.edit.location.data', []);
 
-		if (empty($data))
-		{
-			$data = $this->getItem();
-			// Prime some default values.
-			if ($this->getState('location.id') == 0)
-			{
-				$data->set('catid', $app->input->get('catid', $app->getUserState('com_footballmanager.locations.filter.category_id'), 'int'));
-			}
-		}
+		$data = (count($data)) ? $data : $this->getItem();
 
-		if ($data->get('categories'))
-		{
-			$data->set('categories', explode(",", $data->get('categories')));
-		}
-
-
-		$this->preprocessData($this->typeAlias, $data);
+		$this->preprocessData('com_footballmanager.location', $data);
 
 		return $data;
 	}
@@ -157,22 +155,12 @@ class LocationModel extends AdminModel
 		}
 	}
 
-	/**
-	 * Prepare and sanitise the table prior to saving.
-	 *
-	 * @param   \Joomla\CMS\Table\Table  $table  The Table object
-	 *
-	 * @return  void
-	 *
-	 * @since   __BUMP_VERSION__
-	 */
-	protected function prepareTable($table)
-	{
-		$table->generateAlias();
-	}
-
 	public function save($data)
 	{
+		$app    = Factory::getApplication();
+		$input  = $app->getInput();
+		$filter = InputFilter::getInstance();
+
 //		if(!array_key_exists('groups',$data) || is_null($data['groups'])){
 //			$this->itemGroupIds = array();
 //			$data['groups'] = '';
@@ -181,7 +169,67 @@ class LocationModel extends AdminModel
 //			$data['groups']	= implode(",", $data['groups']);
 //		}
 
+		// set User ID for created & modified
+		$user = Factory::getApplication()->getIdentity();
+		if(!$data['id']) {
+			$data['created_by'] = $user->id;
+			$data['created_at'] = Factory::getDate()->toSql();
+		}
+		$data['modified_by'] = $user->id;
 
+		// Alter the title for save as copy
+		if ($input->get('task') == 'save2copy') {
+			$origTable = $this->getTable();
+
+			if ($app->isClient('site')) {
+				$origTable->load($input->getInt('a_id'));
+
+				if ($origTable->title === $data['title']) {
+					/**
+					 * If title of article is not changed, set alias to original article alias so that Joomla! will generate
+					 * new Title and Alias for the copied article
+					 */
+					$data['alias'] = $origTable->alias;
+				} else {
+					$data['alias'] = '';
+				}
+			} else {
+				$origTable->load($input->getInt('id'));
+			}
+
+			if ($data['title'] == $origTable->title) {
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+				$data['title']       = $title;
+				$data['alias']       = $alias;
+			} elseif ($data['alias'] == $origTable->alias) {
+				$data['alias'] = '';
+			}
+		}
+
+		// Automatic handling of alias for empty fields
+		if (in_array($input->get('task'), ['apply', 'save', 'save2new']) && (!isset($data['id']) || (int) $data['id'] == 0)) {
+			if ($data['alias'] == null) {
+				if ($app->get('unicodeslugs') == 1) {
+					$data['alias'] = OutputFilter::stringUrlUnicodeSlug($data['title']);
+				} else {
+					$data['alias'] = OutputFilter::stringURLSafe($data['title']);
+				}
+
+				$table = $this->getTable();
+
+				if ($table->load(['alias' => $data['alias'], 'catid' => $data['catid']])) {
+					$msg = Text::_('COM_FOOTBALLMANAGER_SAVE_WARNING');
+				}
+
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+				$data['alias']       = $alias;
+				$data['title']       = $title;
+
+				if (isset($msg)) {
+					$app->enqueueMessage($msg, 'warning');
+				}
+			}
+		}
 
 		if (parent::save($data))
 		{

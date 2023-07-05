@@ -34,8 +34,7 @@ if ($saveOrder && !empty($this->items))
 ?>
 
 <?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
-<form action="<?php echo Route::_('index.php?option=com_footballmanager'); ?>" method="post" name="adminForm"
-      id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_footballmanager'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
@@ -70,6 +69,14 @@ if ($saveOrder && !empty($this->items))
                             </th>
 
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CREATEDBY', 'a.created_by_username', $listDirn, $listOrder); ?>
+                            </th>
+
+                            <th scope="col" style="min-width: 10%" class="d-none d-md-table-cell">
+                                <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CREATEDON', 'a.created_at', $listDirn, $listOrder); ?>
+                            </th>
+
+                            <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS','access_level', $listDirn, $listOrder) ?>
                             </th>
 							<?php if ($assoc) : ?>
@@ -82,7 +89,7 @@ if ($saveOrder && !empty($this->items))
 	                                <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE','language', $listDirn, $listOrder) ?>
                                 </th>
 							<?php endif; ?>
-                            <th scope="col">
+                            <th scope="col" style="width:5%">
 	                            <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID','a.id', $listDirn, $listOrder) ?>
                             </th>
                         </tr>
@@ -132,7 +139,16 @@ if ($saveOrder && !empty($this->items))
                                        title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
 										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?>
                                     </a>
+                                    <div class="small">
+		                                <?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
+                                    </div>
                                 </th>
+                                <td class="small d-none d-md-table-cell">
+                                    <span><?php echo $item->created_by_username; ?></span>
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC4')); ?>
+                                </td>
                                 <td class="small d-none d-md-table-cell">
 									<?php echo $item->access_level; ?>
                                 </td>

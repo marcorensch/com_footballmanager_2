@@ -53,6 +53,20 @@
             <option value="-2">JTRASHED</option>
         </field>
         <field
+                name="created_by"
+                type="user"
+                label="JFIELD_CREATED_BY_LABEL"
+                readonly="true"
+                class="readonly"
+        />
+        <field
+                name="modified_by"
+                type="user"
+                label="JFIELD_MODIFIED_BY_LABEL"
+                readonly="true"
+                class="readonly"
+        />
+        <field
                 name="publish_up"
                 type="calendar"
                 label="COM_FOOTBALLMANAGER_FIELD_PUBLISH_UP_LABEL"
@@ -121,7 +135,6 @@
                 name="image"
                 type="media"
                 label="COM_FOOTBALLMANAGER_FIELD_IMAGE_LOCATION_LABEL"
-                description="COM_FOOTBALLMANAGER_FIELD_IMAGE_LOCATION_DESC"
                 directory="images"
         />
 
@@ -129,7 +142,6 @@
                 name="description"
                 type="editor"
                 label="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LOCATION_LABEL"
-                description="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LOCATION_DESC"
                 filter="safehtml"
                 buttons="true"
                 height="400"
@@ -137,22 +149,33 @@
 
         <!-- Contact Fields -->
         <field
-                name="web"
+                name="website"
                 type="url"
                 label="COM_FOOTBALLMANAGER_FIELD_WEB_LABEL"
                 hint="https://www.example.com"
+                validate="url"
         />
         <field
                 name="email"
                 type="email"
                 label="COM_FOOTBALLMANAGER_FIELD_EMAIL_LABEL"
                 hint="name@example.com"
+                validate="email"
         />
         <field
                 name="phone"
                 type="text"
                 label="COM_FOOTBALLMANAGER_FIELD_PHONE_LABEL"
                 hint="412223344"
+        />
+        <field
+                name="catid"
+                type="categoryedit"
+                label="JCATEGORY"
+                extension="com_footballmanager"
+                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+                required="true"
+                default="0"
         />
         <field name="params" type="textarea" label="params" description="params" />
 

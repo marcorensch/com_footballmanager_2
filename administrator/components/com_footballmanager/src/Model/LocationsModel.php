@@ -24,8 +24,6 @@ use Joomla\Utilities\ArrayHelper;
  */
 class LocationsModel extends ListModel
 {
-	private $groups = null;
-
     /**
      * Constructor.
      *
@@ -35,13 +33,13 @@ class LocationsModel extends ListModel
      *
      * @since   __BUMP_VERSION__
      */
-    public function __construct($config = [])
+	public function __construct($config = array())
     {
 		if(empty($config['filter_fields'])){
 			$config['filter_fields'] = array(
 				'id', 'a.id',
+				'catid', 'a.catid',
 				'title', 'a.title',
-				'catid', 'a.catid', 'category_title',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
@@ -76,9 +74,9 @@ class LocationsModel extends ListModel
         $query->select(
             $db->quoteName(
 				[
-					'a.id', 'a.title', 'a.alias', 'a.access',
+					'a.id', 'a.title', 'a.alias', 'a.access', 'a.created_at', 'a.created_by',
 					'a.published', 'a.publish_up', 'a.publish_down',
-					'a.language', 'a.ordering', 'a.state'
+					'a.language', 'a.ordering', 'a.state', 'a.catid',
 				]
             )
         );
@@ -92,12 +90,12 @@ class LocationsModel extends ListModel
 		    );
 
 		// Join over the category.
-	    /*
+
 	    $query->select($db->quoteName('c.title', 'category_title'))->join(
 		    'LEFT',
 		    $db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
 	    );
-		*/
+
 	    // Join over the language
 	    $query->select($db->quoteName('l.title', 'language_title'))
 		    ->select($db->quoteName('l.image', 'language_image'))
@@ -121,6 +119,19 @@ class LocationsModel extends ListModel
 			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
 	    }
 
+		// Join over the user
+	    $query->select($db->quoteName('u.name', 'created_by_username'))
+		    ->join(
+				'LEFT',
+				$db->quoteName('#__users', 'u') . ' ON ' . $db->quoteName('u.id') . ' = ' . $db->quoteName('a.created_by')
+		    );
+
+	    $query->select($db->quoteName('mod.name', 'modified_by_username'))
+		    ->join(
+			    'LEFT',
+			    $db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
+		    );
+
 		// Filter the language
 	    if($language = $this->getState('filter.language')){
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
@@ -140,7 +151,6 @@ class LocationsModel extends ListModel
 		}
 
 		// Filter by a single or group of categories.
-	    /*
 	    $categoryId = $this->getState('filter.category_id');
 		if (is_numeric($categoryId)) {
 			$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
@@ -149,7 +159,6 @@ class LocationsModel extends ListModel
 			$categoryId = implode(',', $categoryId);
 			$query->where($db->quoteName('a.catid') . ' IN (' . $categoryId . ')');
 		}
-		*/
 		// Filter by search name
 	    $search = $this->getState('filter.search');
 		if (!empty($search)) {
@@ -162,8 +171,8 @@ class LocationsModel extends ListModel
 		}
 
 	    // Add the list ordering clause.
-	    $orderCol = $this->state->get('list.ordering', 'a.title');
-	    $orderDirn = $this->state->get('list.direction', 'asc');
+	    $orderCol = $this->state->get('list.ordering', 'a.created_at');
+	    $orderDirn = $this->state->get('list.direction', 'desc');
 
 	    if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
 	    {

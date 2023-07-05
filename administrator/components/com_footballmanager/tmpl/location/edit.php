@@ -15,6 +15,9 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use NXD\Component\Footballmanager\Administrator\View\Location\HtmlView;
+
+/** @var HtmlView $this */
 
 $app   = Factory::getApplication();
 $input = $app->input;
@@ -33,72 +36,80 @@ $wa->useScript('keepalive')
 
 $layout = 'edit';
 $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
+
+$current_user = Factory::getApplication()->getIdentity();
+
 ?>
 
+<?php echo '<pre>' . var_export(LayoutHelper::render('joomla.edit.params', $this), 1) . '</pre>'; ?>
+
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="location-form" class="form-validate">
+      method="post" name="adminForm" id="location-form" class="form-validate form-vertical">
+
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
+
     <div class="main-card">
-		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'details']); ?>
-		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', Text::_('COM_FOOTBALLMANAGER_LOCATION_TITLE')); ?>
-        <div class="row">
-            <div class="col-sm-12">
+		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
+            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_FOOTBALLMANAGER_LOCATION_TITLE')); ?>
                 <div class="row">
-                    <div class="col-sm-12 col-md-8">
-	                    <?php echo $this->getForm()->renderField('description'); ?>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-9">
+                                <?php echo $this->getForm()->renderField('description'); ?>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <?php echo $this->getForm()->renderField('image'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 mb-3">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <h3>GeoData</h3>
+                        <?php echo $this->getForm()->renderField('street'); ?>
+                        <?php echo $this->getForm()->renderField('zip'); ?>
+                        <?php echo $this->getForm()->renderField('city'); ?>
+                        <?php echo $this->getForm()->renderField('coordinates'); ?>
                     </div>
                     <div class="col-sm-12 col-md-4">
-	                    <?php echo $this->getForm()->renderField('image'); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-9">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h3>GeoData</h3>
-		                <?php echo $this->getForm()->renderField('street'); ?>
-		                <?php echo $this->getForm()->renderField('zip'); ?>
-		                <?php echo $this->getForm()->renderField('city'); ?>
-		                <?php echo $this->getForm()->renderField('coordinates'); ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
                         <h3>Contact</h3>
-		                <?php echo $this->getForm()->renderField('web'); ?>
-		                <?php echo $this->getForm()->renderField('email'); ?>
-		                <?php echo $this->getForm()->renderField('phone'); ?>
+                        <?php echo $this->getForm()->renderField('website'); ?>
+                        <?php echo $this->getForm()->renderField('email'); ?>
+                        <?php echo $this->getForm()->renderField('phone'); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <h3>Publishing</h3>
+                        <?php echo $this->getForm()->renderField('access'); ?>
+                        <?php echo $this->getForm()->renderField('published'); ?>
+
+                        <?php echo $this->getForm()->renderField('publish_up'); ?>
+                        <?php echo $this->getForm()->renderField('publish_down'); ?>
+                        <?php echo $this->getForm()->renderField('language'); ?>
+                        <?php echo $this->getForm()->renderField('catid'); ?>
+                        <?php echo $this->getForm()->renderField('id'); ?>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-12 col-md-3">
-				<?php echo $this->getForm()->renderField('access'); ?>
-				<?php echo $this->getForm()->renderField('published'); ?>
+            <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-				<?php echo $this->getForm()->renderField('publish_up'); ?>
-				<?php echo $this->getForm()->renderField('publish_down'); ?>
-				<?php echo $this->getForm()->renderField('language'); ?>
-				<?php echo $this->getForm()->renderField('id'); ?>
-            </div>
-        </div>
-		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
-		<?php if (!$isModal && $assoc) : ?>
-			<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'associations', Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS')); ?>
-            <fieldset id="fieldset-associations" class="options-form">
-                <legend><?php echo Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS') ?></legend>
-                <div>
-					<?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
+            <?php if (!$isModal && $assoc) : ?>
+                <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'associations', Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS')); ?>
+                <fieldset id="fieldset-associations" class="options-form">
+                    <legend><?php echo Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS') ?></legend>
+                    <div>
+                        <?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
+                    </div>
+                </fieldset>
+                <?php echo HTMLHelper::_('uitab.endTab'); ?>
+            <?php elseif ($isModal && $assoc) : ?>
+                <div class="hidden">
+                    <div class="hidden"><?php echo LayoutHelper::render('joomla.edit.associations', $this); ?></div>
                 </div>
-            </fieldset>
-			<?php echo HTMLHelper::_('uitab.endTab'); ?>
-		<?php elseif ($isModal && $assoc) : ?>
-            <div class="hidden">
-                <div class="hidden"><?php echo LayoutHelper::render('joomla.edit.associations', $this); ?></div>
-            </div>
-		<?php endif; ?>
+            <?php endif; ?>
 
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
     </div>

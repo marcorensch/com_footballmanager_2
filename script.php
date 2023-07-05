@@ -63,6 +63,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 			'extension' => 'com_footballmanager',
 			'title' => 'Uncategorised',
 			'alias' => $alias,
+			'path' => $alias,
 			'description' => '',
 			'published' => 1,
 			'access' => 1,
@@ -71,7 +72,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 			'metakey' => '',
 			'metadata' => '{"page_title":"","author":"","robots":""}',
 			'created_time' => Factory::getDate()->toSql(),
-			'created_user_id' => (int) $this->getAdminId(),
+			'created_user_id' => (int) Factory::getApplication()->getIdentity()->id,
 			'language' => '*',
 			'rules' => [],
 			'parent_id' => 1,
@@ -94,7 +95,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 			return false;
 		}
 
-		$this->addDashboardMenu('companypartners', 'companypartners');
+		$this->addDashboardMenu('footballmanager', 'footballmanager');
 
 		return true;
 	}
@@ -199,50 +200,6 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_POSTFLIGHT');
 
 		return true;
-	}
-
-	/**
-	 * Retrieve the admin user id.
-	 *
-	 * @return  integer|boolean  One Administrator ID.
-	 *
-	 * @since   __BUMP_VERSION__
-	 */
-	private function getAdminId()
-	{
-		$db    = Factory::getDbo();
-		$query = $db->getQuery(true);
-
-		// Select the admin user ID
-		$query
-			->clear()
-			->select($db->quoteName('u') . '.' . $db->quoteName('id'))
-			->from($db->quoteName('#__users', 'u'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__user_usergroup_map', 'map')
-				. ' ON ' . $db->quoteName('map') . '.' . $db->quoteName('user_id')
-				. ' = ' . $db->quoteName('u') . '.' . $db->quoteName('id')
-			)
-			->join(
-				'LEFT',
-				$db->quoteName('#__usergroups', 'g')
-				. ' ON ' . $db->quoteName('map') . '.' . $db->quoteName('group_id')
-				. ' = ' . $db->quoteName('g') . '.' . $db->quoteName('id')
-			)
-			->where(
-				$db->quoteName('g') . '.' . $db->quoteName('title')
-				. ' = ' . $db->quote('Super Users')
-			);
-
-		$db->setQuery($query);
-		$id = $db->loadResult();
-
-		if (!$id || $id instanceof \Exception) {
-			return false;
-		}
-
-		return $id;
 	}
 
 	private function removeDashboardModules($dashboard)

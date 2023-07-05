@@ -28,12 +28,12 @@ class LocationsModel extends BaseDatabaseModel
 	 */
 	protected $_items = null;
 
-	protected $_groups = null;
+//	protected $_groups = null;
 
 	public function __construct($config = array(), MVCFactoryInterface $factory = null)
 	{
 		parent::__construct($config, $factory);
-		$this->_groups = $this->getAllGroups();
+//		$this->_groups = $this->getAllGroups();
 	}
 
 	/**
@@ -48,7 +48,7 @@ class LocationsModel extends BaseDatabaseModel
 		$app = Factory::getApplication();
 		$pk  = $app->input->getInt('id');
 
-		$categories_filter = Factory::getApplication()->getParams()->get('category_filter');
+//		$categories_filter = Factory::getApplication()->getParams()->get('category_filter');
 
 		if ($this->_items === null)
 		{
@@ -62,31 +62,32 @@ class LocationsModel extends BaseDatabaseModel
 				$db    = $this->getDbo();
 				$query = $db->getQuery(true);
 
-				$query->select(array('a.*', 'c.title AS category_title'))
+				$query->select(array('a.*'))
 					->from($db->quoteName('#__footballmanager_locations', 'a'))
 					->where('a.published = 1');
-				if ($categories_filter)
-				{
-					$query->where('a.catid IN (' . implode(',', $categories_filter) . ')');
-				}
-				$query->join(
-					'LEFT',
-					$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
-				)
-					->order('a.title ASC');
+//				if ($categories_filter)
+//				{
+//					$query->where('a.catid IN (' . implode(',', $categories_filter) . ')');
+//				}
+//				$query->join(
+//					'LEFT',
+//					$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
+//				)
+
+				$query->order('a.title ASC');
 
 				$db->setQuery($query);
-				$partners = $db->loadObjectList();
+				$locations = $db->loadObjectList();
 
 
-				if (empty($partners))
+				if (empty($locations))
 				{
 					return [];
 				}
 
-				$this->setFilters($partners);
+				$this->setFilters($locations);
 
-				$this->_items[$pk] = $partners;
+				$this->_items[$pk] = $locations;
 			}
 			catch (\Exception $e)
 			{
