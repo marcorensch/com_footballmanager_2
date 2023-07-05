@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_FOOTBALLMANAGER_PARTNERS_VIEW_DEFAULT_TITLE">
+        <message>
+            <![CDATA[COM_FOOTBALLMANAGER_PARTNERS_VIEW_DEFAULT_DESC]]>
+        </message>
+    </layout>
+    <fields name="params">
+        <fieldset name="options" label="COM_FOOTBALLMANAGER_MENU_PARAMS_FIELDSET_LABEL">
+            <field
+                    name="load_uikit"
+                    type="list"
+                    label="COM_FOOTBALLMANAGER_FIELD_PARAMS_LOAD_UIKIT_LABEL"
+                    default=""
+            >
+                <option value="">COM_FOOTBALLMANAGER_FIELD_PARAMS_USE_GLOBAL_LABEL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="category_filter"
+                   type="category"
+                   label="COM_FOOTBALLMANAGER_FIELD_PARAMS_CATEGORY_FILTER_LABEL"
+                   description="COM_FOOTBALLMANAGER_FIELD_PARAMS_CATEGORY_FILTER_DESC"
+                   multiple="true"
+                   extension="com_footballmanager"
+                   layout="joomla.form.field.list-fancy-select"
+            />
+            <field
+                name="show_all_button"
+                type="radio"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SHOW_ALL_BUTTON_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SHOW_ALL_BUTTON_DESC"
+                default="1"
+                filter="integer"
+                layout="joomla.form.field.radio.switcher"
+                >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                name="limit_contactoptions"
+                type="usergrouplist"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SHOW_CONTACTS_FOR_GROUPS_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SHOW_CONTACTS_FOR_GROUPS_DESC"
+                multiple="true"
+                layout="joomla.form.field.list-fancy-select"
+                />
+
+        </fieldset>
+    </fields>
+    <!-- Add fields to the requests variables for the layout -->
+    <fields name="request">
+        <fieldset name="request" addfieldprefix="NXD\Component\Footballmanager\Administrator\Field">
+
+        </fieldset>
+    </fields>
+</metadata>

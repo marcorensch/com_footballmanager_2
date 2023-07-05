@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<menu
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="urn:joomla.org"
+        xsi:schemaLocation="urn:joomla.org menu.xsd"
+>
+    <menuitem
+            title="COM_FOOTBALLMANAGER"
+            type="heading"
+            icon="comment"
+            class="class:"
+    >
+        <menuitem
+                title="COM_FOOTBALLMANAGER_LOCATIONS"
+                type="component"
+                element="com_footballmanager"
+                link="index.php?option=com_footballmanager"
+                quicktask="index.php?option=com_footballmanager&amp;view=location&amp;layout=edit"
+                quicktask-title="COM_FOOTBALLMANAGER_NEW_LOCATION"
+        />
+    </menuitem>
+
+</menu>

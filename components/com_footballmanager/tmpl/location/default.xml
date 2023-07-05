@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_COMPANYPARTNERS_PARTNER_VIEW_DEFAULT_TITLE">
+        <message>
+            <![CDATA[COM_COMPANYPARTNERS_PARTNER_VIEW_DEFAULT_DESC]]>
+        </message>
+    </layout>
+    <!-- Add fields to the requests variables for the layout -->
+    <fields name="request">
+        <fieldset name="request" addfieldprefix="NXD\Component\Companypartners\Administrator\Field">
+            <field
+                    name="id"
+                    type="modal_partner"
+                    label="COM_COMPANYPARTNERS_SELECT_PARTNER_LABEL"
+                    required="true"
+                    select="true"
+                    new="true"
+                    edit="true"
+                    clear="true"
+            />
+        </fieldset>
+    </fields>
+    <!-- Add fields to the parameters object for the layout. -->
+</metadata>

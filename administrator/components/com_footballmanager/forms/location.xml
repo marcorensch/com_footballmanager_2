@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset
+            addruleprefix="NXD\Component\Footballmanager\Administrator\Rule"
+            addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
+    >
+        <field
+                name="id"
+                type="number"
+                label="JGLOBAL_FIELD_ID_LABEL"
+                default="0"
+                class="readonly hidden"
+                hidden="true"
+                readonly="true"
+        />
+
+        <field
+                name="language"
+                type="contentlanguage"
+                label="JFIELD_LANGUAGE_LABEL"
+        >
+            <option value="*">JALL</option>
+        </field>
+        <field
+                name="title"
+                type="text"
+                validate=""
+                class=""
+                label="COM_FOOTBALLMANAGER_FIELD_NAME_LABEL"
+                size="40"
+                required="true"
+        />
+
+        <field
+                name="alias"
+                type="text"
+                label="JFIELD_ALIAS_LABEL"
+                size="45"
+                hint="JFIELD_ALIAS_PLACEHOLDER"
+        />
+        <field
+                name="published"
+                type="list"
+                label="JSTATUS"
+                default="1"
+                id="published"
+                class="custom-select-color-state"
+                size="1"
+        >
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+            <option value="2">JARCHIVED</option>
+            <option value="-2">JTRASHED</option>
+        </field>
+        <field
+                name="publish_up"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_PUBLISH_UP_LABEL"
+                translateformat="true"
+                showtime="true"
+                size="22"
+                filter="user_utc"
+        />
+        <field
+                name="publish_down"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_PUBLISH_DOWN_LABEL"
+                translateformat="true"
+                showtime="true"
+                size="22"
+                filter="user_utc"
+        />
+        <field
+                name="ordering"
+                type="ordering"
+                label="JFIELD_ORDERING_LABEL"
+                content_type="com_footballmanager.location"
+        />
+        <field
+                name="access"
+                type="accesslevel"
+                label="JFIELD_ACCESS_LABEL"
+                size="1"
+        />
+        <!-- Location Fields -->
+
+        <field
+                name="street"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_STREET_LABEL"
+                hint="COM_FOOTBALLMANAGER_FIELD_STREET_HINT"
+                filter="string"
+        />
+
+        <field
+                name="zip"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_ZIP_LABEL"
+                hint="COM_FOOTBALLMANAGER_FIELD_ZIP_HINT"
+                filter="number"
+        />
+
+        <field
+                name="city"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_CITY_LABEL"
+                hint="COM_FOOTBALLMANAGER_FIELD_CITY_HINT"
+                filter="string"
+        />
+
+        <field
+                name="coordinates"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_COORDINATES_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_COORDINATES_DESC"
+                hint="COM_FOOTBALLMANAGER_FIELD_COORDINATES_HINT"
+                filter="string"
+        />
+
+        <field
+                name="image"
+                type="media"
+                label="COM_FOOTBALLMANAGER_FIELD_IMAGE_LOCATION_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_IMAGE_LOCATION_DESC"
+                directory="images"
+        />
+
+        <field
+                name="description"
+                type="editor"
+                label="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LOCATION_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LOCATION_DESC"
+                filter="safehtml"
+                buttons="true"
+                height="400"
+        />
+
+        <!-- Contact Fields -->
+        <field
+                name="web"
+                type="url"
+                label="COM_FOOTBALLMANAGER_FIELD_WEB_LABEL"
+                hint="https://www.example.com"
+        />
+        <field
+                name="email"
+                type="email"
+                label="COM_FOOTBALLMANAGER_FIELD_EMAIL_LABEL"
+                hint="name@example.com"
+        />
+        <field
+                name="phone"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_PHONE_LABEL"
+                hint="412223344"
+        />
+        <field name="params" type="textarea" label="params" description="params" />
+
+    </fieldset>
+</form>

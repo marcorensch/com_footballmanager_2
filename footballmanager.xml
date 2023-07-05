@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="component" method="upgrade">
+    <name>COM_FOOTBALLMANAGER</name>
+    <creationDate>July 2023</creationDate>
+    <author>NXD | nx-designs</author>
+    <authorEmail>suport@nx-designs.ch</authorEmail>
+    <authorUrl>https://www.nx-designs.ch</authorUrl>
+    <copyright>Copyright ©2023 by nx-designs</copyright>
+    <license>GNU General Public License version 2 or later;</license>
+    <version>2.0.0</version>
+    <description>COM_FOOTBALLMANAGER_XML_DESCRIPTION</description>
+    <namespace path="src">NXD\Component\Footballmanager</namespace>
+    <scriptfile>script.php</scriptfile>
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+
+    <update>  <!-- Runs on update -->
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+
+    <!-- Frond-end files -->
+    <files folder="components/com_footballmanager">
+        <folder>src</folder>
+        <folder>language</folder>
+        <folder>tmpl</folder>
+    </files>
+
+    <media folder="media/com_footballmanager" destination="com_footballmanager">
+        <folder>js</folder>
+        <folder>css</folder>
+        <filename>joomla.asset.json</filename>
+    </media>
+
+    <!-- Back-end files -->
+    <administration>
+        <!-- Menu entries -->
+        <menu img="class:comment">
+            COM_FOOTBALLMANAGER
+            <params>
+                <dashboard>footballmanager</dashboard>
+            </params>
+        </menu>
+
+        <submenu>
+            <menu link="option=com_footballmanager&amp;view=locations">
+                COM_FOOTBALLMANAGER_LOCATIONS
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=location&amp;layout=edit</menu-quicktask>
+                </params>
+            </menu>
+            <menu link="option=com_fields&amp;context=com_footballmanager">JGLOBAL_FIELDS</menu>
+            <menu link="option=com_fields&amp;view=groups&amp;context=com_footballmanager">JGLOBAL_FIELD_GROUPS</menu>
+        </submenu>
+
+        <!-- Core files -->
+        <files folder="administrator/components/com_footballmanager">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <folder>services</folder>
+            <folder>sql</folder>
+            <folder>forms</folder>
+            <folder>presets</folder>
+            <folder>language</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+        </files>
+    </administration>
+
+    <changelogurl>https://updates.nx-designs.ch/com_footballmanager/changelog.xml</changelogurl>
+    <updateservers>
+        <server type="extension" name="Company Partners Updates">https://updates.nx-designs.ch/nxd_footballmanager/update.xml</server>
+    </updateservers>
+    <dlid prefix="dlid=" suffix="" />
+</extension>

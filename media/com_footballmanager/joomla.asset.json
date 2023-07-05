@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_companypartners",
+  "version": "1.0.0",
+  "description": "Joomla CMS",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+    {
+      "name": "com_footballmanager.admin-locations-letter",
+      "type": "script",
+      "uri": "com_footballmanager/admin-locations-letter.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_footballmanager.admin-locations-modal",
+      "type": "script",
+      "uri": "com_footballmanager/admin-locations-modal.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_footballmanager.uikitjs",
+      "type": "script",
+      "uri": "com_footballmanager/uikit.min.js",
+      "attributes": {
+        "defer": false
+      }
+    },
+    {
+      "name": "com_footballmanager.uikitIconsjs",
+      "type": "script",
+      "uri": "com_footballmanager/uikit-icons.min.js",
+      "attributes": {
+        "defer": false
+      }
+    },
+    {
+      "name": "com_footballmanager.uikitcss",
+      "type": "style",
+      "uri": "com_footballmanager/uikit.min.css"
+    },
+    {
+      "name": "com_footballmanager.main",
+      "type": "style",
+      "uri": "com_footballmanager/main.css"
+    }
+  ]
+}
