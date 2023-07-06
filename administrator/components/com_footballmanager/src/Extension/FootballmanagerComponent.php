@@ -20,7 +20,10 @@ use Joomla\CMS\Component\Router\RouterServiceInterface;
 use Joomla\CMS\Component\Router\RouterServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Fields\FieldsServiceInterface;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
+use Joomla\CMS\Language\Text;
 use NXD\Component\Footballmanager\Administrator\Service\HTML\AdministratorService;
 use Psr\Container\ContainerInterface;
 
@@ -29,7 +32,7 @@ use Psr\Container\ContainerInterface;
  *
  * @since  1.0.0
  */
-class FootballmanagerComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface, RouterServiceInterface
+class FootballmanagerComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface, RouterServiceInterface, FieldsServiceInterface
 {
     use CategoryServiceTrait;
 	use AssociationServiceTrait;
@@ -62,4 +65,31 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
     {
         return 'published';
     }
+
+	public function validateSection($section, $item = null)
+	{
+		if (Factory::getApplication()->isClient('site') && $section === 'form')
+		{
+			return 'footballmanager';
+		}
+
+		if ($section !== 'footballmanager' && $section !== 'form')
+		{
+			return null;
+		}
+
+		return $section;
+	}
+
+	public function getContexts(): array
+	{
+		Factory::getApplication()->getLanguage()->load('com_footballmanager', JPATH_ADMINISTRATOR);
+
+		$contexts = array(
+			'com_footballmanager.location' => Text::_('COM_FOOTBALLMANAGER_LOCATION'),
+//			'com_helloworld.categories' => JText::_('JCATEGORY')
+		);
+
+		return $contexts;
+	}
 }
