@@ -100,8 +100,6 @@ class LocationModel extends AdminModel
 	{
 		$item = parent::getItem($pk);
 
-		echo '<pre>' . var_export($item, true) . '</pre>';
-
 		// Load associated location items
 
 		if (Associations::isEnabled())
