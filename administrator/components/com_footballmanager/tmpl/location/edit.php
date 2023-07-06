@@ -92,6 +92,8 @@ $current_user = Factory::getApplication()->getIdentity();
             <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 
+	        <?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
+
 
             <?php if (!$isModal && $assoc) : ?>
                 <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'associations', Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS')); ?>
@@ -109,6 +111,7 @@ $current_user = Factory::getApplication()->getIdentity();
             <?php endif; ?>
 
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
+
     </div>
     <input type="hidden" name="task" value="">
 	<?php echo HTMLHelper::_('form.token'); ?>

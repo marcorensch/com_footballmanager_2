@@ -175,9 +175,14 @@
                 extension="com_footballmanager"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
-                default="0"
+                default=""
         />
-        <field name="params" type="textarea" label="params" description="params" />
+
+        <field name="params" type="textarea" label="params" description="params">
+            <fieldset name="foo">
+                <field name="bar" type="text" label="bar" description="bar"  />
+            </fieldset>
+        </field>
 
     </fieldset>
 </form>
