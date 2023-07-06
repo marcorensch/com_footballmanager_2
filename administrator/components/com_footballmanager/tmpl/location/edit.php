@@ -40,9 +40,6 @@ $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '
 $current_user = Factory::getApplication()->getIdentity();
 
 ?>
-
-<?php echo '<pre>' . var_export(LayoutHelper::render('joomla.edit.params', $this), 1) . '</pre>'; ?>
-
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
       method="post" name="adminForm" id="location-form" class="form-validate form-vertical">
 

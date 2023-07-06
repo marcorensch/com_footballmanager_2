@@ -68,6 +68,7 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 
 	public function validateSection($section, $item = null)
 	{
+
 		if (Factory::getApplication()->isClient('site') && $section === 'form')
 		{
 			return 'footballmanager';
