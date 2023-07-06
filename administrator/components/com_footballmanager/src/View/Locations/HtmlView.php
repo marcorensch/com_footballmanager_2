@@ -102,7 +102,7 @@ class HtmlView extends BaseHtmlView
 		$user          = Factory::getApplication()->getIdentity();
 
 		// Get the toolbar object instance
-		$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
+		$toolbar = Toolbar::getInstance();
 		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_LOCATIONS'), 'map-marker');
 
 		// Show Buttons only if the user is allowed to do so

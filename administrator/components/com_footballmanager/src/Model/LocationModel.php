@@ -100,6 +100,8 @@ class LocationModel extends AdminModel
 	{
 		$item = parent::getItem($pk);
 
+		echo '<pre>' . var_export($item, true) . '</pre>';
+
 		// Load associated location items
 
 		if (Associations::isEnabled())
@@ -139,7 +141,7 @@ class LocationModel extends AdminModel
 				{
 					$field = $fieldset->addChild('field');
 					$field->addAttribute('name', $language->lang_code);
-					$field->addAttribute('type', 'modal_partner');
+					$field->addAttribute('type', 'modal_location');
 					$field->addAttribute('language', $language->lang_code);
 					$field->addAttribute('label', $language->title);
 					$field->addAttribute('translate_label', 'false');

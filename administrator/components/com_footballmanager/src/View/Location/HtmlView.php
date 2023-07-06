@@ -85,10 +85,9 @@ class HtmlView extends BaseHtmlView
     {
         Factory::getApplication()->input->set('hidemainmenu', true);
 
-        $isNew = ($this->item->id == 0);
+	    $isNew = !$this->item->id;
 
 	    $toolbar = Toolbar::getInstance();
-
 
 	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_LOCATION_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_LOCATION_EDIT_TITLE'), 'address');
 

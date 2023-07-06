@@ -178,11 +178,7 @@
                 default=""
         />
 
-        <field name="params" type="textarea" label="params" description="params">
-            <fieldset name="foo">
-                <field name="bar" type="text" label="bar" description="bar"  />
-            </fieldset>
-        </field>
+        <field name="params" type="textarea" label="params" description="params" />
 
     </fieldset>
 </form>
