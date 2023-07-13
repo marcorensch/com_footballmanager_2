@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use NXD\Component\Footballmanager\Administrator\Model\LocationModel;
 
 /**
  * View to edit a foo.
@@ -50,8 +51,9 @@ class HtmlView extends BaseHtmlView
 	 */
     public function display($tpl = null)
     {
-        $this->form = $this->get('Form');
-        $this->item = $this->get('Item');
+	    /** @var LocationModel $model */
+	    $model      = $this->getModel();
+	    $this->item = $model->getItem();
 
 		// If we are forcing a language in modal (used for associations).
 	    if($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd')){

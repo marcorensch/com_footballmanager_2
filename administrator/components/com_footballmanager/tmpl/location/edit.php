@@ -56,6 +56,8 @@ $current_user = Factory::getApplication()->getIdentity();
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <?php echo $this->getForm()->renderField('image'); ?>
+                                <?php echo $this->getForm()->renderField('catid'); ?>
+                                <?php echo $this->getForm()->renderField('id'); ?>
                             </div>
                         </div>
                     </div>
@@ -64,35 +66,37 @@ $current_user = Factory::getApplication()->getIdentity();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-6">
                         <h3>GeoData</h3>
                         <?php echo $this->getForm()->renderField('street'); ?>
                         <?php echo $this->getForm()->renderField('zip'); ?>
                         <?php echo $this->getForm()->renderField('city'); ?>
                         <?php echo $this->getForm()->renderField('coordinates'); ?>
                     </div>
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-6">
                         <h3>Contact</h3>
                         <?php echo $this->getForm()->renderField('website'); ?>
                         <?php echo $this->getForm()->renderField('email'); ?>
                         <?php echo $this->getForm()->renderField('phone'); ?>
                     </div>
-                    <div class="col-sm-12 col-md-4">
-                        <h3>Publishing</h3>
-                        <?php echo $this->getForm()->renderField('access'); ?>
-                        <?php echo $this->getForm()->renderField('published'); ?>
-
-                        <?php echo $this->getForm()->renderField('publish_up'); ?>
-                        <?php echo $this->getForm()->renderField('publish_down'); ?>
-                        <?php echo $this->getForm()->renderField('language'); ?>
-                        <?php echo $this->getForm()->renderField('catid'); ?>
-                        <?php echo $this->getForm()->renderField('id'); ?>
-                    </div>
                 </div>
             <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_CONST_PUBLISHING')); ?>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+		            <?php echo $this->getForm()->renderField('access'); ?>
+		            <?php echo $this->getForm()->renderField('published'); ?>
 
-	        <?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
+		            <?php echo $this->getForm()->renderField('publish_up'); ?>
+		            <?php echo $this->getForm()->renderField('publish_down'); ?>
+		            <?php echo $this->getForm()->renderField('language'); ?>
+                </div>
+            </div>
+	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+
+
+        <?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
 
 
             <?php if (!$isModal && $assoc) : ?>

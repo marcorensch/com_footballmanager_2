@@ -119,8 +119,8 @@ class LocationsModel extends ListModel
 			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
 	    }
 
-		// Join over the user
-	    $query->select($db->quoteName('u.name', 'created_by_username'))
+		// Join over the author user
+	    $query->select($db->quoteName('u.name', 'author_name'))
 		    ->join(
 				'LEFT',
 				$db->quoteName('#__users', 'u') . ' ON ' . $db->quoteName('u.id') . ' = ' . $db->quoteName('a.created_by')

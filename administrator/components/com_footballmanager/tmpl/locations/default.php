@@ -44,7 +44,7 @@ if ($saveOrder && !empty($this->items))
 						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
 				<?php else : ?>
-                    <table class="table" id="partnerList">
+                    <table class="table locationList" id="locationsList">
                         <caption class="visually-hidden">
 		                    <?php echo Text::_('COM_FOOTBALLMANAGER_TABLE_CAPTION'); ?>,
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -69,10 +69,10 @@ if ($saveOrder && !empty($this->items))
                             </th>
 
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CREATEDBY', 'a.created_by_username', $listDirn, $listOrder); ?>
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'a.created_by_username', $listDirn, $listOrder); ?>
                             </th>
 
-                            <th scope="col" style="min-width: 10%" class="d-none d-md-table-cell">
+                            <th scope="col" style="min-width: 10%" class="text-center d-none d-md-table-cell">
                                 <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CREATEDON', 'a.created_at', $listDirn, $listOrder); ?>
                             </th>
 
@@ -144,10 +144,19 @@ if ($saveOrder && !empty($this->items))
                                     </div>
                                 </th>
                                 <td class="small d-none d-md-table-cell">
-                                    <span><?php echo $item->created_by_username; ?></span>
+	                                <?php if((int)$item->created_by > 0) : ?>
+                                        <a
+                                                href="<?php echo Route::_('index.php?option=com_users&task=user.edit&id=' . (int) $item->created_by); ?>"
+                                                title="<?php echo Text::_('JAUTHOR'); ?>"
+                                                target="_blank">
+			                                <?php echo $item->author_name; ?>
+                                        </a>
+	                                <?php else : ?>
+		                                <?php echo Text::_('JNONE'); ?>
+	                                <?php endif; ?>
                                 </td>
-                                <td class="d-none d-md-table-cell">
-                                    <?php echo HTMLHelper::_('date', $item->created, Text::_('DATE_FORMAT_LC4')); ?>
+                                <td class="small text-center d-none d-md-table-cell">
+                                    <?php echo HTMLHelper::_('date', $item->created_at, Text::_('DATE_FORMAT_LC4')); ?>
                                 </td>
                                 <td class="small d-none d-md-table-cell">
 									<?php echo $item->access_level; ?>

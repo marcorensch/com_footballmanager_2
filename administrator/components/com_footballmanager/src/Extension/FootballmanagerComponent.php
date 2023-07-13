@@ -22,6 +22,7 @@ use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Fields\FieldsServiceInterface;
+use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Joomla\CMS\Language\Text;
 use NXD\Component\Footballmanager\Administrator\Service\HTML\AdministratorService;
@@ -66,8 +67,25 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
         return 'published';
     }
 
+	public function countItems(array $items, string $section)
+	{
+		try{
+			$config = (object) array(
+				'related_tbl' => $this->getTableNameForSection($section),
+				'state_col' => 'published',
+				'group_col' => 'catid',
+				'relation_type' => 'category_or_group',
+			);
+			ContentHelper::countRelations($items, $config);
+		}
+		catch (Exception $e){
+			// do nothing
+		}
+	}
+
 	public function validateSection($section, $item = null)
 	{
+		error_log('validateSection: ' . $section);
 
 		if (Factory::getApplication()->isClient('site') && $section === 'form')
 		{

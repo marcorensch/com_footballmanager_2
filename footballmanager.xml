@@ -63,7 +63,12 @@
             </menu>
             <menu link="option=com_fields&amp;context=com_footballmanager.location">COM_FOOTBALLMANAGER_LOCATIONS_FIELDS</menu>
             <menu link="option=com_fields&amp;view=groups&amp;context=com_footballmanager.location">COM_FOOTBALLMANAGER_LOCATIONS_FIELDGROUPS</menu>
-            <menu link="option=com_categories&amp;extension=com_footballmanager">JCATEGORIES</menu>
+            <menu link="option=com_categories&amp;extension=com_footballmanager">JCATEGORIES
+                <params>
+                    <menu-quicktask-title>JCATEGORIES</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_categories&amp;view=category&amp;layout=edit&amp;extension=com_footballmanager</menu-quicktask>
+                </params>
+            </menu>
         </submenu>
 
         <!-- Core files -->

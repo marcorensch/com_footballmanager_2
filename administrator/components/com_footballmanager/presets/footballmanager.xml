@@ -19,5 +19,25 @@
                 quicktask-title="COM_FOOTBALLMANAGER_NEW_LOCATION"
         />
     </menuitem>
+    <menuitem
+            title="FIELDS"
+            type="heading"
+            icon="cog"
+            class="class:file-alt"
+    >
+
+        <menuitem
+                title="COM_FOOTBALLMANAGER_LOCATIONS_FIELDS"
+                type="component"
+                element="com_fields"
+                link="index.php?option=com_fields&amp;context=com_footballmanager.location"
+        />
+        <menuitem
+                title="COM_FOOTBALLMANAGER_LOCATIONS_FIELDGROUPS"
+                type="component"
+                element="com_fields"
+                link="index.php?option=com_fields&amp;view=groups&amp;context=com_footballmanager.location"
+        />
+    </menuitem>
 
 </menu>

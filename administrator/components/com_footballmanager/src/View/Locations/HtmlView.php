@@ -19,7 +19,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
-use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Factory;
 
@@ -95,7 +94,7 @@ class HtmlView extends BaseHtmlView
 		parent::display($tpl);
 	}
 
-	protected function addToolbar()
+	protected function addToolbar(): void
 	{
 		$this->sidebar = Sidebar::render();
 		$canDo         = ContentHelper::getActions('com_footballmanager', 'category', $this->state->get('filter.category_id'));
