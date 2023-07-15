@@ -31,8 +31,7 @@ $isModal = $input->get('layout') === 'modal';
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('keepalive')
-	->useScript('form.validate')
-	->useScript('com_footballmanager.admin-locations-letter');
+	->useScript('form.validate');
 
 $layout = 'edit';
 $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
@@ -41,13 +40,13 @@ $current_user = Factory::getApplication()->getIdentity();
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="location-form" class="form-validate form-vertical">
+      method="post" name="adminForm" id="sponsor-form" class="form-validate form-vertical">
 
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
     <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
-            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_FOOTBALLMANAGER_LOCATION_TITLE')); ?>
+            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_FOOTBALLMANAGER_SPONSOR_TITLE')); ?>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="row">
@@ -55,6 +54,7 @@ $current_user = Factory::getApplication()->getIdentity();
                                 <?php echo $this->getForm()->renderField('description'); ?>
                             </div>
                             <div class="col-sm-12 col-md-3">
+                                <?php echo $this->getForm()->renderField('logo'); ?>
                                 <?php echo $this->getForm()->renderField('image'); ?>
                                 <?php echo $this->getForm()->renderField('catid'); ?>
                                 <?php echo $this->getForm()->renderField('id'); ?>
@@ -71,7 +71,6 @@ $current_user = Factory::getApplication()->getIdentity();
                         <?php echo $this->getForm()->renderField('street'); ?>
                         <?php echo $this->getForm()->renderField('zip'); ?>
                         <?php echo $this->getForm()->renderField('city'); ?>
-                        <?php echo $this->getForm()->renderField('coordinates'); ?>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <h3>Contact</h3>

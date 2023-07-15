@@ -136,12 +136,10 @@
         />
 
         <field
-                name="coordinates"
-                type="text"
-                label="COM_FOOTBALLMANAGER_FIELD_COORDINATES_LABEL"
-                description="COM_FOOTBALLMANAGER_FIELD_COORDINATES_DESC"
-                hint="COM_FOOTBALLMANAGER_FIELD_COORDINATES_HINT"
-                filter="string"
+                name="image"
+                type="media"
+                label="COM_FOOTBALLMANAGER_FIELD_LOGO_LABEL"
+                directory="images"
         />
 
         <field

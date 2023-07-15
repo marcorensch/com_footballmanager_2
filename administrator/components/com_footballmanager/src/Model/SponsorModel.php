@@ -24,7 +24,7 @@ use Joomla\CMS\Language\LanguageHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class LocationModel extends AdminModel
+class SponsorModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -32,9 +32,9 @@ class LocationModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.location';
+	public $typeAlias = 'com_footballmanager.sponsor';
 
-	protected $associationsContext = 'com_footballmanager.location';
+	protected $associationsContext = 'com_footballmanager.sponsor';
 	private $itemId = 0;
 
 	protected $batch_copymove = 'category_id';
@@ -87,18 +87,18 @@ class LocationModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.location.data', []);
+		$data = $app->getUserState($this->option . 'com_footballmanager.edit.sponsor.data', []);
 
 		if(empty($data))
 		{
 			$data = $this->getItem();
-			if($this->getState('location.id') == 0)
+			if($this->getState('sponsor.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.locations.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.sponsors.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.location', $data);
+		$this->preprocessData('com_footballmanager.sponsor', $data);
 
 		return $data;
 	}
@@ -114,7 +114,7 @@ class LocationModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_locations', 'com_footballmanager.location', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_sponsors', 'com_footballmanager.sponsor', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{

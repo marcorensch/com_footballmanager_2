@@ -62,6 +62,14 @@
                 </params>
             </menu>
 
+            <menu link="option=com_footballmanager&amp;view=sponsors">
+                COM_FOOTBALLMANAGER_SPONSORS
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=sponsor&amp;layout=edit</menu-quicktask>
+                </params>
+            </menu>
+
             <menu link="option=com_footballmanager&amp;view=customfields">COM_FOOTBALLMANAGER_FIELD_GROUPS_FIELDS_LABEL</menu>
             <menu link="option=com_categories&amp;extension=com_footballmanager">JCATEGORIES
                 <params>

@@ -23,7 +23,7 @@ use Joomla\Registry\Registry;
  *
  * @since  __BUMP_VERSION__
  */
-class LocationTable extends Table
+class SponsorTable extends Table
 {
     /**
      * Constructor
@@ -34,9 +34,9 @@ class LocationTable extends Table
      */
     public function __construct(DatabaseDriver $db)
     {
-        $this->typeAlias = 'com_footballmanager.location';
+        $this->typeAlias = 'com_footballmanager.sponsor';
 
-        parent::__construct('#__footballmanager_locations', 'id', $db);
+        parent::__construct('#__footballmanager_sponsors', 'id', $db);
     }
 
     public function check()
