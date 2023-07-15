@@ -64,7 +64,7 @@ class SponsorModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'location', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'sponsor', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{

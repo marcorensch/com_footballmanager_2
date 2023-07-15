@@ -91,7 +91,7 @@ class HtmlView extends BaseHtmlView
 
 	    $toolbar = Toolbar::getInstance();
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_SPONSOR_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_SPONSOR_EDIT_TITLE'), 'fas fa-heart');
+	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_SPONSOR_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_SPONSOR_EDIT_TITLE'), 'fas fa-handshake');
 
         $toolbar->apply('sponsor.apply');
 

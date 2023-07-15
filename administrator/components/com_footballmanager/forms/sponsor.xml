@@ -136,7 +136,7 @@
         />
 
         <field
-                name="image"
+                name="logo"
                 type="media"
                 label="COM_FOOTBALLMANAGER_FIELD_LOGO_LABEL"
                 directory="images"
@@ -155,7 +155,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LOCATION_LABEL"
                 filter="safehtml"
                 buttons="true"
-                height="400"
+                height="527"
         />
 
         <!-- Contact Fields -->
@@ -166,19 +166,7 @@
                 hint="https://www.example.com"
                 validate="url"
         />
-        <field
-                name="email"
-                type="email"
-                label="COM_FOOTBALLMANAGER_FIELD_EMAIL_LABEL"
-                hint="name@example.com"
-                validate="email"
-        />
-        <field
-                name="phone"
-                type="text"
-                label="COM_FOOTBALLMANAGER_FIELD_PHONE_LABEL"
-                hint="412223344"
-        />
+
         <field
                 name="catid"
                 type="categoryedit"
