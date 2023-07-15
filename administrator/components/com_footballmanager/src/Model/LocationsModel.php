@@ -216,32 +216,6 @@ class LocationsModel extends ListModel
 	{
 		$items = parent::getItems();
 
-//		foreach($items as $item){
-//			$item->groups = self::mapGroups($item->groups);
-//		}
-
 		return $items;
 	}
-
-//	private function getAllGroups(){
-//		$db = $this->getDbo();
-//		$query = $db->getQuery(true);
-//		$query->select(array('id','alias','title'));
-//		$query->from($db->quoteName('#__companypartners_groups'));
-//		$db->setQuery($query);
-//
-//		return $db->loadObjectList('id');
-//	}
-
-//	private function mapGroups($itemGroupIds){
-//		$itemGroupIds = explode(',', $itemGroupIds);
-//		$groups       = array();
-//		foreach($itemGroupIds as $itemGroupId){
-//			if(isset($this->groups[$itemGroupId])){
-//				$groups[] = $this->groups[$itemGroupId];
-//			}
-//		}
-//
-//		return $groups;
-//	}
 }

@@ -1,0 +1,48 @@
+<?php
+/**
+ * @package     Joomla.Administrator
+ * @subpackage  com_footballmanager
+ *
+ * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+namespace NXD\Component\Footballmanager\Administrator\Model;
+
+\defined('_JEXEC') or die;
+
+use Joomla\CMS\MVC\Model\ListModel;
+use stdClass;
+
+/**
+ * Item Model for the customfields dashboard.
+ *
+ * @since  __BUMP_VERSION__
+ */
+class CustomfieldsModel extends ListModel
+{
+	protected $sections = [];
+
+	public function getSections(){
+		$this->sections[] = $this->createSection('Team', 'team', 'users');
+		$this->sections[] = $this->createSection('Player', 'player', 'user');
+		$this->sections[] = $this->createSection('Referee', 'referee', 'user');
+		$this->sections[] = $this->createSection('Coach', 'coach' , 'user');
+		$this->sections[] = $this->createSection('Location', 'location', 'map-marker-alt');
+
+		return $this->sections;
+	}
+
+	private function createSection($title, $type, $icon = 'comment'): stdClass
+	{
+		$section = new stdClass();
+		$section->title = $title;
+		$section->icon = $icon;
+		$section->fieldsdUri = 'index.php?option=com_fields&context=com_footballmanager.'.$type;
+		$section->addFieldUri = 'index.php?option=com_fields&layout=edit&context=com_footballmanager.'.$type;
+		$section->groupsUri = 'index.php?option=com_fields&view=groups&context=com_footballmanager.'.$type;
+		$section->addGroupUri = 'index.php?option=com_fields&view=groups&layout=edit&context=com_footballmanager.'.$type;
+		return $section;
+	}
+
+}

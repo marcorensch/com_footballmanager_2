@@ -102,7 +102,7 @@ class HtmlView extends BaseHtmlView
 
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance();
-		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_LOCATIONS'), 'map-marker');
+		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_LOCATIONS'), 'fas fa-map-marker-alt');
 
 		// Show Buttons only if the user is allowed to do so
 		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_footballmanager', 'core.create')) > 0)

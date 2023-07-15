@@ -4,15 +4,6 @@
               label="COM_FOOTBALLMANAGER_FIELD_CONFIG_GENERAL_DISPLAY"
               description="COM_FOOTBALLMANAGER_FIELD_CONFIG_GENERAL_DESC"
     >
-        <field name="custom_fields_enable"
-               type="radio"
-               label="JGLOBAL_CUSTOM_FIELDS_ENABLE_LABEL"
-               layout="joomla.form.field.radio.switcher"
-               default="1"
-        >
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
-        </field>
         <field
                 name="load_uikit"
                 type="radio"
@@ -45,8 +36,8 @@
                default="divider"
                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_ITEMS_LIST_TYPE_DESC"
         >
-            <option value="divider">COM_FOOTBALLMANAGER_FIELD_CONFIG_ITEM_LIST_TYPE_DIVIDER</option>
-            <option value="striped">COM_FOOTBALLMANAGER_FIELD_CONFIG_ITEM_LIST_TYPE_STRIPED</option>
+            <option value="divider">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_TYPE_DIVIDER</option>
+            <option value="striped">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_TYPE_STRIPED</option>
         </field>
         <field name="items_list_size"
                 type="list"
@@ -54,9 +45,9 @@
                 default="medium"
                 description="COM_FOOTBALLMANAGER_FIELD_PARAMS_ITEMS_LIST_SIZE_DESC"
         >
-            <option value="small">COM_FOOTBALLMANAGER_FIELD_CONFIG_ITEM_LIST_SIZE_SMALL</option>
-            <option value="medium">COM_FOOTBALLMANAGER_FIELD_CONFIG_ITEM_LIST_SIZE_MEDIUM</option>
-            <option value="large">COM_FOOTBALLMANAGER_FIELD_CONFIG_ITEM_LIST_SIZE_LARGE</option>
+            <option value="small">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_SMALL</option>
+            <option value="medium">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_MEDIUM</option>
+            <option value="large">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_LARGE</option>
         </field>
     </fieldset>
     <fieldset name="permissions"

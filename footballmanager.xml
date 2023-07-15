@@ -61,8 +61,8 @@
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=location&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
-            <menu link="option=com_fields&amp;context=com_footballmanager.location">COM_FOOTBALLMANAGER_LOCATIONS_FIELDS</menu>
-            <menu link="option=com_fields&amp;view=groups&amp;context=com_footballmanager.location">COM_FOOTBALLMANAGER_LOCATIONS_FIELDGROUPS</menu>
+
+            <menu link="option=com_footballmanager&amp;view=customfields">COM_FOOTBALLMANAGER_FIELD_GROUPS_FIELDS_LABEL</menu>
             <menu link="option=com_categories&amp;extension=com_footballmanager">JCATEGORIES
                 <params>
                     <menu-quicktask-title>JCATEGORIES</menu-quicktask-title>
