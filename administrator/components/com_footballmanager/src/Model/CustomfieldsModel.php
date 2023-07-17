@@ -23,7 +23,8 @@ class CustomfieldsModel extends ListModel
 {
 	protected $sections = [];
 
-	public function getSections(){
+	public function getSections()
+	{
 //		$this->sections[] = $this->createSection('Team', 'team', 'users');
 //		$this->sections[] = $this->createSection('Player', 'player', 'user');
 //		$this->sections[] = $this->createSection('Referee', 'referee', 'user');

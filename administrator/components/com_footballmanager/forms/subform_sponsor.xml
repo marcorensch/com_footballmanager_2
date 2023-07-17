@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Repeatable Subform -->
+<form>
+    <field
+        name="sponsor"
+        type="sponsors"
+        label="COM_FOOTBALLMANAGER_SPONSOR_TITLE"
+        onfocus="this.oldvalue = this.value;"
+        onchange="console.log(this.oldvalue, this.value);"
+        />
+</form>

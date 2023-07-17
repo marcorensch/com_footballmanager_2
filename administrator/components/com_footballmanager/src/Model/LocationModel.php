@@ -169,6 +169,12 @@ class LocationModel extends AdminModel
 		$input  = $app->getInput();
 		$user   = $app->getIdentity();
 
+		// sponsors
+
+		$data['sponsors'] = json_encode($data['sponsors']);
+
+		error_log($data['sponsors']);
+
 		// new element tasks
 		if(!isset($data['id']) || (int) $data['id'] === 0){
 			$data['created_by'] = $user->id;

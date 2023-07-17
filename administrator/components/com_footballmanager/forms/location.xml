@@ -191,6 +191,17 @@
                 default=""
         />
 
+        <field
+            name="sponsors"
+            type="subform"
+            label="COM_FOOTBALLMANAGER_SPONSORS"
+            min="0"
+            max="10"
+            layout="joomla.form.field.subform.repeatable-table"
+            multiple="true"
+            formsource="administrator/components/com_footballmanager/forms/subform_sponsor.xml"
+        />
+
         <field name="params" type="textarea" label="params" description="params" />
 
     </fieldset>

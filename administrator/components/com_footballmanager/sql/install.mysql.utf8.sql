@@ -70,19 +70,4 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_sponsors`
     CONSTRAINT `fk_sponsors_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS `#__footballmanager_locations_sponsors`
-(
-    `id`           int(11)          NOT NULL AUTO_INCREMENT,
-    `location_id`  int(11)          NOT NULL,
-    `sponsor_id`   int(11)          NOT NULL,
-    `ordering`     int(11)                   DEFAULT 0,
-
-    PRIMARY KEY (`id`),
-    KEY `idx_location` (`location_id`),
-    KEY `idx_sponsor` (`sponsor_id`),
-    CONSTRAINT `fk_locations_sponsors_location` FOREIGN KEY (`location_id`) REFERENCES `#__footballmanager_locations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_locations_sponsors_sponsor` FOREIGN KEY (`sponsor_id`) REFERENCES `#__footballmanager_sponsors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-
 /* Auto Generate: GENERATED ALWAYS AS (lower(replace(name, ' ', '-'))) STORED, */
