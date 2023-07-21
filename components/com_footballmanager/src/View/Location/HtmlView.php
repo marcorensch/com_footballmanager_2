@@ -13,12 +13,28 @@ namespace NXD\Component\Footballmanager\Site\View\Location;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Factory;
 
 class HtmlView extends BaseHtmlView
 {
 	public function display($tpl = null): void
 	{
-		$this->item = $this->get('Location');
+		$item = $this->item = $this->get('Location');
+
+		Factory::getApplication()->triggerEvent('onContentPrepare', ['com_footballmanager.location', &$item, &$item->params]);
+
+		// Store the events for later
+		$item->event = new \stdClass;
+
+		$results                        = Factory::getApplication()->triggerEvent('onContentAfterTitle', ['com_footballmanager.location', &$item, &$item->params]);
+		$item->event->afterDisplayTitle = trim(implode("\n", $results));
+
+		$results                           = Factory::getApplication()->triggerEvent('onContentBeforeDisplay', ['com_footballmanager.location', &$item, &$item->params]);
+		$item->event->beforeDisplayContent = trim(implode("\n", $results));
+
+		$results                          = Factory::getApplication()->triggerEvent('onContentAfterDisplay', ['com_footballmanager.location', &$item, &$item->params]);
+		$item->event->afterDisplayContent = trim(implode("\n", $results));
+
 		parent::display($tpl);
 	}
 }

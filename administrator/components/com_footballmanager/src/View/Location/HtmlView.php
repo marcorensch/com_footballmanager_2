@@ -91,7 +91,7 @@ class HtmlView extends BaseHtmlView
 
 	    $toolbar = Toolbar::getInstance();
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_LOCATION_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_LOCATION_EDIT_TITLE'), 'address');
+	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_LOCATION_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_LOCATION_EDIT_TITLE'), 'fas fa-map-marker-alt');
 
         $toolbar->apply('location.apply');
 

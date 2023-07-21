@@ -89,10 +89,10 @@ class LocationModel extends AdminModel
 		// Check the session for previously entered form data.
 		$data = $app->getUserState($this->option . 'com_footballmanager.edit.location.data', []);
 
-		if(empty($data))
+		if (empty($data))
 		{
 			$data = $this->getItem();
-			if($this->getState('location.id') == 0)
+			if ($this->getState('location.id') == 0)
 			{
 				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.locations.filter.category_id')));
 			}
@@ -163,73 +163,87 @@ class LocationModel extends AdminModel
 		parent::preprocessForm($form, $data, $group);
 	}
 
-	public function save($data){
+	public function save($data)
+	{
 
-		$app    = Factory::getApplication();
-		$input  = $app->getInput();
-		$user   = $app->getIdentity();
+		$app   = Factory::getApplication();
+		$input = $app->getInput();
+		$user  = $app->getIdentity();
 
 		// sponsors
 
 		$data['sponsors'] = json_encode($data['sponsors']);
 
-		error_log($data['sponsors']);
-
 		// new element tasks
-		if(!isset($data['id']) || (int) $data['id'] === 0){
+		if (!isset($data['id']) || (int) $data['id'] === 0)
+		{
 			$data['created_by'] = $user->id;
 		}
 
 		// Alter the title for save as copy
-		if ($input->get('task') == 'save2copy') {
+		if ($input->get('task') == 'save2copy')
+		{
 			$origTable = $this->getTable();
 
-			if ($app->isClient('site')) {
+			if ($app->isClient('site'))
+			{
 				$origTable->load($input->getInt('a_id'));
 
-				if ($origTable->title === $data['title']) {
+				if ($origTable->title === $data['title'])
+				{
 					/**
 					 * If title of article is not changed, set alias to original article alias so that Joomla! will generate
 					 * new Title and Alias for the copied article
 					 */
 					$data['alias'] = $origTable->alias;
-				} else {
+				}
+				else
+				{
 					$data['alias'] = '';
 				}
-			} else {
+			}
+			else
+			{
 				$origTable->load($input->getInt('id'));
 			}
 
-			if ($data['title'] == $origTable->title) {
+			if ($data['title'] == $origTable->title)
+			{
 				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
-				$data['title']       = $title;
-				$data['alias']       = $alias;
-			} elseif ($data['alias'] == $origTable->alias) {
+				$data['title'] = $title;
+				$data['alias'] = $alias;
+			}
+			elseif ($data['alias'] == $origTable->alias)
+			{
 				$data['alias'] = '';
 			}
 		}
 
 		// Automatic handling of alias for empty fields
-		if (in_array($input->get('task'), ['apply', 'save', 'save2new']) && (!isset($data['id']) || (int) $data['id'] === 0)) {
-			if ($data['alias'] == null) {
-				if ($app->get('unicodeslugs') == 1) {
-					$data['alias'] = OutputFilter::stringUrlUnicodeSlug($data['title']);
-				} else {
-					$data['alias'] = OutputFilter::stringURLSafe($data['title']);
-				}
+		if (in_array($input->get('task'), ['apply', 'save', 'save2new']) && $data['alias'] == null)
+		{
+			if ($app->get('unicodeslugs') == 1)
+			{
+				$data['alias'] = OutputFilter::stringUrlUnicodeSlug($data['title']);
+			}
+			else
+			{
+				$data['alias'] = OutputFilter::stringURLSafe($data['title']);
+			}
 
-				$table = $this->getTable();
+			$table = $this->getTable();
 
-				if ($table->load(['alias' => $data['alias'], 'catid' => $data['catid']])) {
-					$msg = Text::_('COM_CONTENT_SAVE_WARNING');
-				}
+			if ($table->load(['alias' => $data['alias'], 'catid' => $data['catid']]))
+			{
+				$msg = Text::_('COM_CONTENT_SAVE_WARNING');
+			}
 
-				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
-				$data['alias']       = $alias;
+			list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+			$data['alias'] = $alias;
 
-				if (isset($msg)) {
-					$app->enqueueMessage($msg, 'warning');
-				}
+			if (isset($msg))
+			{
+				$app->enqueueMessage($msg, 'warning');
 			}
 		}
 
