@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_locations`
     `access`       int(10) unsigned NOT NULL DEFAULT 0,
     `ordering`     int(11)                   DEFAULT 0,
     `catid`        int(11)          NOT NULL DEFAULT 0,
+    `sponsors`     TEXT                      DEFAULT NULL,
 
     PRIMARY KEY (`id`),
     KEY `idx_category` (`catid`),

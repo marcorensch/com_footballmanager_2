@@ -18,6 +18,7 @@ class HtmlView extends BaseHtmlView
 {
 	public function display($tpl = null): void
 	{
+		$this->item = $this->get('Location');
 		parent::display($tpl);
 	}
 }
