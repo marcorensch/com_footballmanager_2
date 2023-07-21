@@ -62,7 +62,6 @@ class Router extends RouterView
 
 		// locations
 		$locations = new RouterViewConfiguration('locations');
-		$locations->setKey('id');
 		$this->registerView($locations);
 
 		// location
