@@ -37,7 +37,7 @@ class HtmlView extends BaseHtmlView
      *
      * @var  object
      */
-    protected $item;
+    public $item;
 
 	/**
 	 * Display the view.

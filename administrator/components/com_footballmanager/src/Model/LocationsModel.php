@@ -146,7 +146,10 @@ class LocationsModel extends ListModel
 	    $published = $this->getState('filter.published');
 		if (is_numeric($published)) {
 			$query->where($db->quoteName('a.published') . ' = ' . (int) $published);
-		} elseif ($published === '') {
+		} elseif ($published === '*') {
+			// all filter selected
+		}else{
+			// none filter selected by default show published only
 			$query->where('(' . $db->quoteName('a.published') . ' IN (0, 1))');
 		}
 

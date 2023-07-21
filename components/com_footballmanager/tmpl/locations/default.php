@@ -28,51 +28,34 @@ if($params->get('theme','light') === 'dark'){
 
 $wa->useStyle('com_footballmanager.main');
 
-// Limit Contact Information to defined groups if active:
-$canSeeContactInfo = false;
-$allowedUserGroups = $params->get('limit_contactoptions', array());
-if(!empty($allowedUserGroups)){
-    $user = Factory::getUser();
-    $thisUsersGroups = array_intersect($allowedUserGroups, $user->getAuthorisedViewLevels());
-    if(!empty($thisUsersGroups)){
-        $canSeeContactInfo = true;
-    }
-}else{
-    $canSeeContactInfo = true;
-}
-
-$filterCls = "";
-switch($params->get('filter_type', 'tabs')){
-    case 'subnav':
-        $filterCls = "uk-subnav";
-        break;
-    case 'subnav-pills':
-        $filterCls = "uk-subnav uk-subnav-pill";
-        break;
-    case 'tabs':
-    default:
-        $filterCls = "uk-tab";
-}
-
-$uikitListCls = 'uk-list-' . $params->get('items_list_type', 'divider') . ' uk-list-' . $params->get('items_list_size', 'large');
+//// Limit Contact Information to defined groups if active:
+//$canSeeContactInfo = false;
+//$allowedUserGroups = $params->get('limit_contactoptions', array());
+//if(!empty($allowedUserGroups)){
+//    $user = Factory::getUser();
+//    $thisUsersGroups = array_intersect($allowedUserGroups, $user->getAuthorisedViewLevels());
+//    if(!empty($thisUsersGroups)){
+//        $canSeeContactInfo = true;
+//    }
+//}else{
+//    $canSeeContactInfo = true;
+//}
+//
+//$filterCls = "";
+//switch($params->get('filter_type', 'tabs')){
+//    case 'subnav':
+//        $filterCls = "uk-subnav";
+//        break;
+//    case 'subnav-pills':
+//        $filterCls = "uk-subnav uk-subnav-pill";
+//        break;
+//    case 'tabs':
+//    default:
+//        $filterCls = "uk-tab";
+//}
+//
+//$uikitListCls = 'uk-list-' . $params->get('items_list_type', 'divider') . ' uk-list-' . $params->get('items_list_size', 'large');
 
 ?>
 
-<div class="uk-section <?php echo $containerThemeCls;?>">
-	<div class="nxd-footballmanager-list-container">
-        <div uk-filter="target: .js-filter">
-
-            <ul class="<?php echo $filterCls;?>">
-                <?php include_once __DIR__ . '/default.filters.php'; ?>
-            </ul>
-
-            <ul class="js-filter uk-list <?php echo $uikitListCls;?>">
-                <?php foreach ($this->items as $partner):
-	                include(__DIR__ . '/default.item.php');
-                ?>
-                <?php endforeach; ?>
-            </ul>
-
-        </div>
-	</div>
-</div>
+hello locations!

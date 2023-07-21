@@ -33,12 +33,12 @@ use Psr\Container\ContainerInterface;
  *
  * @since  1.0.0
  */
-class FootballmanagerComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface, RouterServiceInterface, FieldsServiceInterface
+class FootballmanagerComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface, FieldsServiceInterface
 {
     use CategoryServiceTrait;
 	use AssociationServiceTrait;
     use HTMLRegistryAwareTrait;
-	use RouterServiceTrait;
+//	use RouterServiceTrait;
 
     /**
      * Booting the extension. This is the function to set up the environment of the extension like

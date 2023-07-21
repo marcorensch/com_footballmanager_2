@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Repeatable Subform -->
-<form>
+<form
+        addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
+>
     <field
         name="sponsor"
         type="sponsors"

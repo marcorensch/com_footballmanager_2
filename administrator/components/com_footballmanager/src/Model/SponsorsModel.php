@@ -142,12 +142,16 @@ class SponsorsModel extends ListModel
         }
 
 		// Filter by published state
+	    // Filter by published state
 	    $published = $this->getState('filter.published');
-		if (is_numeric($published)) {
-			$query->where($db->quoteName('a.published') . ' = ' . (int) $published);
-		} elseif ($published === '') {
-			$query->where('(' . $db->quoteName('a.published') . ' IN (0, 1))');
-		}
+	    if (is_numeric($published)) {
+		    $query->where($db->quoteName('a.published') . ' = ' . (int) $published);
+	    } elseif ($published === '*') {
+		    // all filter selected
+	    }else{
+		    // none filter selected by default show published only
+		    $query->where('(' . $db->quoteName('a.published') . ' IN (0, 1))');
+	    }
 
 		// Filter by a single or group of categories.
 	    $categoryId = $this->getState('filter.category_id');

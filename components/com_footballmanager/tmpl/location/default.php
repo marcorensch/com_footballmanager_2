@@ -12,15 +12,18 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 
-if ($this->item->params->get('show_name')) {
+//if ($this->item->params->get('show_name')) {
+//
+//	if ($this->params->get('show_locations_name_label')) {
+//		echo Text::_('COM_FOOTBALLMANAGER_NAME');
+//	}
+//
+//	echo $this->item->title;
+//}
+//
+//echo $this->item->event->afterDisplayTitle;
+//echo $this->item->event->beforeDisplayContent;
+//echo $this->item->event->afterDisplayContent;
 
-	if ($this->params->get('show_locations_name_label')) {
-		echo Text::_('COM_FOOTBALLMANAGER_NAME');
-	}
-
-	echo $this->item->title;
-}
-
-echo $this->item->event->afterDisplayTitle;
-echo $this->item->event->beforeDisplayContent;
-echo $this->item->event->afterDisplayContent;
+echo '<pre>' . var_export( $this->item, 1) . '</pre>';
+echo 'hello location!';

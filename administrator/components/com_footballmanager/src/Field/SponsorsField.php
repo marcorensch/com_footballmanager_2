@@ -47,6 +47,7 @@ class SponsorsField extends ListField{
 		$db->setQuery($query);
 		$sponsors = $db->loadObjectList();
 
+		$options = [];
 		foreach ($sponsors as $sponsor)
 		{
 			$options[] = HTMLHelper::_('select.option', $sponsor->id, $sponsor->title);
