@@ -113,7 +113,7 @@ class Router extends RouterView
 	 * @param   string  $id     ID of the category to retrieve the segments for
 	 * @param   array   $query  The request that is built right now
 	 *
-	 * @return  array|string  The segments of this item
+	 * @return  array|string  The segments of this content
 	 */
 	public function getCategoriesSegment($id, $query)
 	{
@@ -126,7 +126,7 @@ class Router extends RouterView
 	 * @param   string  $id     ID of the foo to retrieve the segments for
 	 * @param   array   $query  The request that is built right now
 	 *
-	 * @return  array|string  The segments of this item
+	 * @return  array|string  The segments of this content
 	 */
 	public function getLocationSegment($id, $query)
 	{
@@ -157,7 +157,7 @@ class Router extends RouterView
 	 * @param   string  $id     ID of the foo form to retrieve the segments for
 	 * @param   array   $query  The request that is built right now
 	 *
-	 * @return  array|string  The segments of this item
+	 * @return  array|string  The segments of this content
 	 *
 	 * @since   __BUMP_VERSION__
 	 */
@@ -172,7 +172,7 @@ class Router extends RouterView
 	 * @param   string  $segment  Segment to retrieve the ID for
 	 * @param   array   $query    The request that is parsed right now
 	 *
-	 * @return  mixed   The id of this item or false
+	 * @return  mixed   The id of this content or false
 	 */
 	public function getCategoryId($segment, $query)
 	{
@@ -203,7 +203,7 @@ class Router extends RouterView
 	 * @param   string  $segment  Segment to retrieve the ID for
 	 * @param   array   $query    The request that is parsed right now
 	 *
-	 * @return  mixed   The id of this item or false
+	 * @return  mixed   The id of this content or false
 	 */
 	public function getCategoriesId($segment, $query)
 	{
@@ -216,7 +216,7 @@ class Router extends RouterView
 	 * @param   string  $segment  Segment of the foo to retrieve the ID for
 	 * @param   array   $query    The request that is parsed right now
 	 *
-	 * @return  mixed   The id of this item or false
+	 * @return  mixed   The id of this content or false
 	 */
 	public function getLocationId($segment, $query)
 	{

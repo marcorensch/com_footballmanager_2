@@ -231,7 +231,7 @@ class SponsorModel extends AdminModel
 
 			if ($table->load(['alias' => $data['alias'], 'catid' => $data['catid']]))
 			{
-				$msg = Text::_('COM_CONTENT_SAVE_WARNING');
+				$msg = Text::_('COM_FOOTBALLMANAGER_SAVE_WARNING');
 			}
 
 			list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);

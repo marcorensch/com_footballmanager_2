@@ -185,7 +185,7 @@
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
-                extension="com_footballmanager"
+                extension="com_footballmanager.locations"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
                 default=""

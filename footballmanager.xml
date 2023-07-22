@@ -71,12 +71,7 @@
             </menu>
 
             <menu link="option=com_footballmanager&amp;view=customfields">COM_FOOTBALLMANAGER_FIELD_GROUPS_FIELDS_LABEL</menu>
-            <menu link="option=com_categories&amp;extension=com_footballmanager">JCATEGORIES
-                <params>
-                    <menu-quicktask-title>JCATEGORIES</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_categories&amp;view=category&amp;layout=edit&amp;extension=com_footballmanager</menu-quicktask>
-                </params>
-            </menu>
+            <menu link="option=com_footballmanager&amp;view=categories">JCATEGORIES</menu>
         </submenu>
 
         <!-- Core files -->

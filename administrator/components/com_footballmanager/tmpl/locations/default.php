@@ -101,7 +101,7 @@ if ($saveOrder && !empty($this->items))
 						$n = count($this->items);
 						foreach ($this->items as $i => $item) :
 							$ordering  = ($listOrder == 'ordering');
-//							$item->cat_link = Route::_('index.php?option=com_categories&extension=com_footballmanager&task=edit&type=other&cid[]=' . $item->catid);
+//							$content->cat_link = Route::_('index.php?option=com_categories&extension=com_footballmanager&task=edit&type=other&cid[]=' . $content->catid);
                             ?>
                             <tr class="row<?php echo $i % 2; ?>" data-draggable-group="<?php echo $item->catid; ?>">
                                 <td class="text-center">

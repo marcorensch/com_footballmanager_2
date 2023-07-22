@@ -171,7 +171,7 @@
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
-                extension="com_footballmanager"
+                extension="com_footballmanager.sponsors"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
                 default=""

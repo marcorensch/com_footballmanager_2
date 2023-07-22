@@ -33,7 +33,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	protected $extension = 'com_footballmanager';
 
 	/**
-	 * Array of item types
+	 * Array of content types
 	 *
 	 * @var     array   $itemTypes
 	 *
@@ -51,12 +51,12 @@ class AssociationsHelper extends AssociationExtensionHelper
 	protected $associationsSupport = true;
 
 	/**
-	 * Method to get the associations for a given item.
+	 * Method to get the associations for a given content.
 	 *
-	 * @param   integer  $id    Id of the item
+	 * @param   integer  $id    Id of the content
 	 * @param   string   $view  Name of the view
 	 *
-	 * @return  array   Array of associations for the item
+	 * @return  array   Array of associations for the content
 	 *
 	 * @since  __BUMP_VERSION__
 	 */
@@ -66,10 +66,10 @@ class AssociationsHelper extends AssociationExtensionHelper
 	}
 
 	/**
-	 * Get the associated items for an item
+	 * Get the associated items for an content
 	 *
-	 * @param   string  $typeName  The item type
-	 * @param   int     $id        The id of item for which we need the associated items
+	 * @param   string  $typeName  The content type
+	 * @param   int     $id        The id of content for which we need the associated items
 	 *
 	 * @return  array
 	 *
@@ -79,11 +79,11 @@ class AssociationsHelper extends AssociationExtensionHelper
 	{
 		$type = $this->getType($typeName);
 
-		$context    = $this->extension . '.item';
+		$context    = $this->extension . '.content';
 		$catidField = 'catid';
 
 		if ($typeName === 'category') {
-			$context    = 'com_categories.item';
+			$context    = 'com_categories.content';
 			$catidField = '';
 		}
 
@@ -102,10 +102,10 @@ class AssociationsHelper extends AssociationExtensionHelper
 	}
 
 	/**
-	 * Get item information
+	 * Get content information
 	 *
-	 * @param   string  $typeName  The item type
-	 * @param   int     $id        The id of item for which we need the associated items
+	 * @param   string  $typeName  The content type
+	 * @param   int     $id        The id of content for which we need the associated items
 	 *
 	 * @return  Table|null
 	 *
@@ -141,9 +141,9 @@ class AssociationsHelper extends AssociationExtensionHelper
 	/**
 	 * Get information about the type
 	 *
-	 * @param   string  $typeName  The item type
+	 * @param   string  $typeName  The content type
 	 *
-	 * @return  array  Array of item types
+	 * @return  array  Array of content types
 	 *
 	 * @since   __BUMP_VERSION__
 	 */

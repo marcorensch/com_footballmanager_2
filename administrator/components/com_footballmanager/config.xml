@@ -21,10 +21,10 @@
     >
 
         <field name="filter_type"
-                type="list"
-                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_FILTER_TYPE_LABEL"
-                default="tabs"
-                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_FILTER_TYPE_DESC"
+               type="list"
+               label="COM_FOOTBALLMANAGER_FIELD_PARAMS_FILTER_TYPE_LABEL"
+               default="tabs"
+               description="COM_FOOTBALLMANAGER_FIELD_PARAMS_FILTER_TYPE_DESC"
         >
             <option value="tabs">COM_FOOTBALLMANAGER_FIELD_CONFIG_FILTER_TYPE_TABS</option>
             <option value="subnav">COM_FOOTBALLMANAGER_FIELD_CONFIG_FILTER_TYPE_SUBNAV</option>
@@ -40,14 +40,51 @@
             <option value="striped">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_TYPE_STRIPED</option>
         </field>
         <field name="items_list_size"
-                type="list"
-                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_ITEMS_LIST_SIZE_LABEL"
-                default="medium"
-                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_ITEMS_LIST_SIZE_DESC"
+               type="list"
+               label="COM_FOOTBALLMANAGER_FIELD_PARAMS_ITEMS_LIST_SIZE_LABEL"
+               default="medium"
+               description="COM_FOOTBALLMANAGER_FIELD_PARAMS_ITEMS_LIST_SIZE_DESC"
         >
             <option value="small">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_SMALL</option>
             <option value="medium">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_MEDIUM</option>
             <option value="large">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_LARGE</option>
+        </field>
+    </fieldset>
+    <fieldset name="sponsors"
+              label="COM_FOOTBALLMANAGER_FIELD_CONFIG_SPONSORS_DISPLAY"
+              description="COM_FOOTBALLMANAGER_FIELD_CONFIG_SPONSORS_DESC"
+    >
+        <field
+                name="sponsors_layout"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_LAYOUT_LABEL"
+                default="sponsors.grid"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_LAYOUT_DESC"
+        >
+            <option value="sponsors.grid">COM_FOOTBALLMANAGER_FIELD_OPTION_GRID</option>
+            <option value="sponsors.list">COM_FOOTBALLMANAGER_FIELD_OPTION_LIST</option>
+        </field>
+        <field
+                name="sponsors_list_style"
+                showon="sponsors_layout:sponsors.list"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_LIST_LAYOUT_LABEL"
+                default="divider"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_LIST_LAYOUT_DESC"
+        >
+            <option value="divider">COM_FOOTBALLMANAGER_FIELD_OPTION_DIVIDER</option>
+            <option value="striped">COM_FOOTBALLMANAGER_FIELD_OPTION_STRIPED</option>
+        </field>
+        <field
+                name="render_sponsor_links"
+                type="radio"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_RENDER_LINKS_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_RENDER_LINKS_DESC"
+                default="1"
+                layout="joomla.form.field.radio.switcher"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
         </field>
     </fieldset>
     <fieldset name="permissions"

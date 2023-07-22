@@ -33,7 +33,7 @@ class HtmlView extends BaseHtmlView
     protected $form;
 
     /**
-     * The active item
+     * The active content
      *
      * @var  object
      */

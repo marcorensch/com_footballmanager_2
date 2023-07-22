@@ -10,22 +10,28 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Layout\LayoutHelper;
 
-//if ($this->item->params->get('show_name')) {
+//if ($this->content->params->get('show_name')) {
 //
 //	if ($this->params->get('show_locations_name_label')) {
 //		echo Text::_('COM_FOOTBALLMANAGER_NAME');
 //	}
 //
-//	echo $this->item->title;
+//	echo $this->content->title;
 //}
 
 $app    = Factory::getApplication();
 $params = $app->getParams();
+$sponsorsLayout = $params->get('sponsors_layout', 'sponsors.grid');
 
 echo '<pre>' . var_export($params, 1) . '</pre>';
+
+$itemImage = HTMLHelper::_('cleanImageURL', $this->item->image);
+$cleanImgUrl = $this->escape($itemImage->url);
 
 $wa = $this->document->getWebAssetManager();
 
@@ -37,11 +43,25 @@ if ($params->get('load_uikit', 1))
 
 $wa->useStyle('com_footballmanager.main');
 
+$wa->addInlineStyle('
+    .nxd-location-header {
+        background: url("/'.$cleanImgUrl.'");
+        background-size: cover;
+        background-position: center;
+        padding:0;
+    }
+    .nxd-backdrop-blurred{
+        backdrop-filter: blur(5px);
+    }
+    ');
+
+
+
 ?>
 
-    <div class="uk-section uk-section-primary uk-section-small">
-        <div class="uk-container">
-            <h1><?php echo $this->item->title; ?></h1>
+    <div class="uk-section uk-section-secondary uk-section-small nxd-location-header">
+        <div class="uk-container uk-position-relative uk-padding uk-overlay-primary nxd-backdrop-blurred">
+            <h1 class="element-header"><?php echo htmlspecialchars($this->item->title); ?></h1>
 			<?php if ($this->item->event->afterDisplayTitle): ?>
                 <div class="fields-after-display-title-container">
 					<?php echo $this->item->event->afterDisplayTitle; ?>
@@ -49,6 +69,9 @@ $wa->useStyle('com_footballmanager.main');
 			<?php endif; ?>
         </div>
     </div>
+
+<?php //echo LayoutHelper::render('joomla.html.image', ['src' => $this->item->image, 'alt' => $this->item->title, 'class' => 'uk-cover']); ?>
+
 <?php if ($this->item->event->beforeDisplayContent): ?>
     <div class="uk-section uk-section-small fields-before-display-content">
         <div class="uk-container">
@@ -59,7 +82,7 @@ $wa->useStyle('com_footballmanager.main');
 
     <div class="uk-section uk-section-small">
         <div class="uk-container">
-            CONTENT
+            <?php echo HTMLHelper::_('content.prepare', $this->item->description); ?>
         </div>
     </div>
 
@@ -70,3 +93,20 @@ $wa->useStyle('com_footballmanager.main');
         </div>
     </div>
 <?php endif; ?>
+
+<?php if ($this->item->sponsors): ?>
+    <div class="uk-section uk-section-small sponsors-section">
+        <div class="uk-container">
+
+			<?php
+
+			$data = array(
+				'sponsors' => $this->item->sponsors // Übergebe die Sponsoren-Daten in die $data-Variable
+			);
+			echo LayoutHelper::render($sponsorsLayout, $data); // Rendere das Layout
+            ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php echo '<pre>' . var_export($this->item, 1) . '</pre>'; ?>

@@ -21,12 +21,12 @@ use Joomla\Component\Categories\Administrator\Helper\CategoryAssociationHelper;
 abstract class AssociationHelper extends CategoryAssociationHelper
 {
 	/**
-	 * Method to get the associations for a given item
+	 * Method to get the associations for a given content
 	 *
-	 * @param   integer  $id    Id of the item
+	 * @param   integer  $id    Id of the content
 	 * @param   string   $view  Name of the view
 	 *
-	 * @return  array   Array of associations for the item
+	 * @return  array   Array of associations for the content
 	 *
 	 * @since  1.0.0
 	 */
