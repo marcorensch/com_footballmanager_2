@@ -15,6 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Installer\InstallerScript;
+use Joomla\Database\DatabaseInterface;
 
 /**
  * Script file of Company location Component
@@ -53,14 +54,25 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	{
 		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_INSTALL');
 
-		$db = Factory::getDbo();
+		// Install Uncategorised categories for each type of content.
+		$this->installUncategorisedCat('com_footballmanager.locations');
+		$this->installUncategorisedCat('com_footballmanager.sponsors');
+
+
+		$this->addDashboardMenu('footballmanager', 'footballmanager');
+
+		return true;
+	}
+
+	private function installUncategorisedCat($view): void
+	{
 		$alias   = ApplicationHelper::stringURLSafe('Uncategorised');
 
 		// Initialize a new category.
 		$category = Table::getInstance('Category');
 
 		$data = [
-			'extension' => 'com_footballmanager',
+			'extension' => $view,
 			'title' => 'Uncategorised',
 			'alias' => $alias,
 			'path' => $alias,
@@ -80,24 +92,19 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 
 		$category->setLocation(1, 'last-child');
 
-		// Bind the data to the table
+		// Bind the location data to the table
 		if (!$category->bind($data)) {
-			return false;
+			return;
 		}
 
-		// Check to make sure our data is valid.
+		// Check to make sure our location data is valid.
 		if (!$category->check()) {
-			return false;
+			return;
 		}
 
-		// Store the category.
+		// Store the location category.
 		if (!$category->store(true)) {
-			return false;
 		}
-
-		$this->addDashboardMenu('footballmanager', 'footballmanager');
-
-		return true;
 	}
 
 	/**
