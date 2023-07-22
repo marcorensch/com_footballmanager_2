@@ -61,7 +61,11 @@ $wa->addInlineStyle('
 
     <div class="uk-section uk-section-secondary uk-section-small nxd-location-header">
         <div class="uk-container uk-position-relative uk-padding uk-overlay-primary nxd-backdrop-blurred">
-            <h1 class="element-header"><?php echo htmlspecialchars($this->item->title); ?></h1>
+            <h1 class="uk-heading-small uk-text-bold uk-margin-remove element-header"><?php echo htmlspecialchars($this->item->title); ?></h1>
+            <?php if($this->item->city):?>
+            <div class="uk-text-lead element-header-city"><?php echo htmlspecialchars($this->item->city); ?></div>
+            <?php endif; ?>
+
 			<?php if ($this->item->event->afterDisplayTitle): ?>
                 <div class="fields-after-display-title-container">
 					<?php echo $this->item->event->afterDisplayTitle; ?>
@@ -94,16 +98,12 @@ $wa->addInlineStyle('
     </div>
 <?php endif; ?>
 
-<?php if ($this->item->sponsors): ?>
+<?php if ($params->get('location_show_sponsors', 1) && $this->item->sponsors): ?>
     <div class="uk-section uk-section-small sponsors-section">
         <div class="uk-container">
-
 			<?php
-
-			$data = array(
-				'sponsors' => $this->item->sponsors // Übergebe die Sponsoren-Daten in die $data-Variable
-			);
-			echo LayoutHelper::render($sponsorsLayout, $data); // Rendere das Layout
+            echo '<h2>' . Text::_('COM_FOOTBALLMANAGER_SPONSORED_BY') . '</h2>';
+			echo LayoutHelper::render($sponsorsLayout, $this->item->sponsors); // Rendere das Layout
             ?>
         </div>
     </div>

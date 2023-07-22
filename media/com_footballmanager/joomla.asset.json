@@ -52,6 +52,11 @@
       "name": "com_footballmanager.main",
       "type": "style",
       "uri": "com_footballmanager/main.css"
+    },
+    {
+      "name": "com_footballmanager.sponsorList",
+      "type": "style",
+      "uri": "com_footballmanager/sponsor-list.css"
     }
   ]
 }

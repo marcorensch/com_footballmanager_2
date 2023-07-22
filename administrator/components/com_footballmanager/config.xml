@@ -49,6 +49,15 @@
             <option value="medium">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_MEDIUM</option>
             <option value="large">COM_FOOTBALLMANAGER_FIELD_CONFIG_LOCATION_LIST_SIZE_LARGE</option>
         </field>
+        <field
+        name="location_show_sponsors"
+        type="radio"
+        label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SHOW_SPONSORS_LABEL"
+        default="1"
+        layout="joomla.form.field.radio.switcher">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
     </fieldset>
     <fieldset name="sponsors"
               label="COM_FOOTBALLMANAGER_FIELD_CONFIG_SPONSORS_DISPLAY"
@@ -64,6 +73,113 @@
             <option value="sponsors.grid">COM_FOOTBALLMANAGER_FIELD_OPTION_GRID</option>
             <option value="sponsors.list">COM_FOOTBALLMANAGER_FIELD_OPTION_LIST</option>
         </field>
+
+        <field
+                name="sponsors_card_style"
+                showon="sponsors_layout:sponsors.grid"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_ITEMS_LAYOUT_LABEL"
+                default="default"
+        >
+            <option value="none">COM_FOOTBALLMANAGER_FIELD_OPTION_NONE</option>
+            <option value="default">COM_FOOTBALLMANAGER_FIELD_OPTION_DEFAULT</option>
+            <option value="primary">COM_FOOTBALLMANAGER_FIELD_OPTION_PRIMARY</option>
+            <option value="secondary">COM_FOOTBALLMANAGER_FIELD_OPTION_SECONDARY</option>
+        </field>
+
+        <field
+                name="sponsors_grid_columns"
+                showon="sponsors_layout:sponsors.grid"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_LABEL"
+                default="2"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_DESC"
+        >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </field>
+
+        <field
+                name="sponsors_grid_columns_s"
+                showon="sponsors_layout:sponsors.grid"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_S_LABEL"
+                default="3"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_S_DESC"
+        >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </field>
+
+        <field
+                name="sponsors_grid_columns_m"
+                showon="sponsors_layout:sponsors.grid"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_M_LABEL"
+                default="4"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_M_DESC"
+        >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </field>
+
+        <field
+                name="sponsors_grid_columns_l"
+                showon="sponsors_layout:sponsors.grid"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_L_LABEL"
+                default="5"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_L_DESC"
+        >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </field>
+
+        <field
+                name="sponsors_grid_columns_xl"
+                showon="sponsors_layout:sponsors.grid"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_XL_LABEL"
+                default="6"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_COLUMNS_XL_DESC"
+        >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </field>
+
+        <field
+        name="sponsors_grid_size"
+        showon="sponsors_layout:sponsors.grid"
+        type="list"
+        label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_GRID_SIZE_LABEL"
+        default="small"
+        >
+            <option value="collapse">COM_FOOTBALLMANAGER_FIELD_OPTION_COLLAPSE</option>
+            <option value="small">COM_FOOTBALLMANAGER_FIELD_OPTION_SMALL</option>
+            <option value="medium">COM_FOOTBALLMANAGER_FIELD_OPTION_MEDIUM</option>
+            <option value="large">COM_FOOTBALLMANAGER_FIELD_OPTION_LARGE</option>
+        </field>
+
         <field
                 name="sponsors_list_style"
                 showon="sponsors_layout:sponsors.list"
@@ -85,6 +201,18 @@
         >
             <option value="0">JNO</option>
             <option value="1">JYES</option>
+        </field>
+
+        <field
+                name="sponsors_image_src"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_IMGSRC_LABEL"
+                default="logo"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SPONSORS_IMGSRC_DESC"
+        >
+            <option value="0">JDISABLED</option>
+            <option value="logo">COM_FOOTBALLMANAGER_FIELD_OPTION_LOGO</option>
+            <option value="image">COM_FOOTBALLMANAGER_FIELD_OPTION_IMAGE</option>
         </field>
     </fieldset>
     <fieldset name="permissions"
