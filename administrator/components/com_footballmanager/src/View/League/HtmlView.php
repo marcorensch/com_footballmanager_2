@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Footballmanager\Administrator\View\Sponsor;
+namespace NXD\Component\Footballmanager\Administrator\View\League;
 
 defined('_JEXEC') or die;
 
@@ -17,7 +17,6 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use NXD\Component\Footballmanager\Administrator\Model\LocationModel;
-use NXD\Component\Footballmanager\Administrator\Model\SponsorModel;
 
 /**
  * View to edit a foo.
@@ -52,7 +51,7 @@ class HtmlView extends BaseHtmlView
 	 */
     public function display($tpl = null)
     {
-	    /** @var SponsorModel $model */
+	    /** @var LeagueModel $model */
 	    $model      = $this->getModel();
 	    $this->item = $model->getItem();
 
@@ -92,22 +91,22 @@ class HtmlView extends BaseHtmlView
 
 	    $toolbar = Toolbar::getInstance();
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_SPONSOR_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_SPONSOR_EDIT_TITLE'), 'fas fa-handshake');
+	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_LEAGUE_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_LEAGUE_EDIT_TITLE'), 'fas fa-trophy');
 
-        $toolbar->apply('sponsor.apply');
+        $toolbar->apply('league.apply');
 
 	    $saveGroup = $toolbar->dropdownButton('save-group');
 
 	    $saveGroup->configure(
 		    function (Toolbar $childBar) {
-			    $childBar->save('sponsor.save');
-			    $childBar->save2new('sponsor.save2new');
-			    $childBar->save2copy('sponsor.save2copy');
+			    $childBar->save('league.save');
+			    $childBar->save2new('league.save2new');
+			    $childBar->save2copy('league.save2copy');
 		    }
 	    );
 
 //		ToolbarHelper::save('location.save');
 //		ToolbarHelper::save2new('location.save2new');
-        $toolbar->cancel('sponsor.cancel', 'JTOOLBAR_CLOSE');
+        $toolbar->cancel('league.cancel', 'JTOOLBAR_CLOSE');
     }
 }
