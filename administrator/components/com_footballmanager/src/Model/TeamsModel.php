@@ -35,7 +35,8 @@ class TeamsModel extends ListModel
 	 */
 	public function __construct($config = array())
 	{
-		if(empty($config['filter_fields'])){
+		if (empty($config['filter_fields']))
+		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'catid', 'a.catid',
@@ -43,17 +44,24 @@ class TeamsModel extends ListModel
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
-				'language', 'a.language'
+				'language', 'a.language',
+				'created_by', 'a.created_by',
+				'modified_by', 'a.modified_by',
+				'created_at', 'a.created_at',
+				'modified_at', 'a.modified_at',
+				'location_name', 'a.location_id'
 			);
 
 			$assoc = Associations::isEnabled();
-			if ($assoc) {
+			if ($assoc)
+			{
 				$config['filter_fields'][] = 'association';
 			}
 		}
 
 		parent::__construct($config);
 	}
+
 	/**
 	 * Build an SQL query to load the list data.
 	 *
@@ -64,19 +72,23 @@ class TeamsModel extends ListModel
 	protected function getListQuery()
 	{
 		// Create a new query object.
-		$db = $this->getDbo();
+		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
 		$query->select(
 			$db->quoteName(
 				[
-					'a.id', 'a.title', 'a.alias', 'a.access', 'a.created_at', 'a.created_by',
-					'a.published', 'a.language', 'a.ordering', 'a.state', 'a.catid',
+					'a.id', 'a.title', 'a.alias',
+					'a.shortname', 'a.shortcode', 'a.introtext', 'a.description',
+					'a.year_established', 'a.logo', 'a.image', 'a.color', 'a.my_team', 'a.location_id',
+					'a.street', 'a.zip', 'a.city', 'a.website', 'a.email', 'a.phone',
+					'a.state', 'a.published', 'a.created_at', 'a.created_by', 'a.modified_at', 'a.modified_by',
+					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid',
 				]
 			)
 		);
-		$query->from($db->quoteName('#__footballmanager_teams','a'));
+		$query->from($db->quoteName('#__footballmanager_teams', 'a'));
 
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))
@@ -106,7 +118,8 @@ class TeamsModel extends ListModel
 			);
 
 		// Join over the Associations.
-		if(Associations::isEnabled()){
+		if (Associations::isEnabled())
+		{
 			$subQuery = $db->getQuery(true)
 				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
 				->from($db->quoteName('#__associations', 'asso1'))
@@ -135,53 +148,68 @@ class TeamsModel extends ListModel
 
 		// Filter by location
 		$location = $this->getState('filter.location');
-		if( $location || $location === "0"){
+		if ($location || $location === "0")
+		{
 			$query->where($db->quoteName('a.location_id') . ' = ' . $db->quote($location));
 		}
 		// Filter the language
-		if($language = $this->getState('filter.language')){
+		if ($language = $this->getState('filter.language'))
+		{
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
 		}
 
 		// Filter by access level.
-		if ($access = $this->getState('filter.access')) {
+		if ($access = $this->getState('filter.access'))
+		{
 			$query->where($db->quoteName('a.access') . ' = ' . (int) $access);
 		}
 
 		// Filter by published state
 		// Filter by published state
 		$published = $this->getState('filter.published');
-		if (is_numeric($published)) {
+		if (is_numeric($published))
+		{
 			$query->where($db->quoteName('a.published') . ' = ' . (int) $published);
-		} elseif ($published === '*') {
+		}
+		elseif ($published === '*')
+		{
 			// all filter selected
-		}else{
+		}
+		else
+		{
 			// none filter selected by default show published only
 			$query->where('(' . $db->quoteName('a.published') . ' IN (0, 1))');
 		}
 
 		// Filter by a single or group of categories.
 		$categoryId = $this->getState('filter.category_id');
-		if (is_numeric($categoryId)) {
+		if (is_numeric($categoryId))
+		{
 			$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-		} elseif (is_array($categoryId)) {
+		}
+		elseif (is_array($categoryId))
+		{
 			$categoryId = ArrayHelper::toInteger($categoryId);
 			$categoryId = implode(',', $categoryId);
 			$query->where($db->quoteName('a.catid') . ' IN (' . $categoryId . ')');
 		}
 		// Filter by search name
 		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			if (stripos($search, 'id:') === 0) {
+		if (!empty($search))
+		{
+			if (stripos($search, 'id:') === 0)
+			{
 				$query->where($db->quoteName('a.id') . ' = ' . (int) substr($search, 3));
-			} else {
+			}
+			else
+			{
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
 				$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $search . ')');
 			}
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'a.created_at');
+		$orderCol  = $this->state->get('list.ordering', 'a.created_at');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
@@ -198,7 +226,7 @@ class TeamsModel extends ListModel
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app = Factory::getApplication();
+		$app            = Factory::getApplication();
 		$forcedLanguage = $app->input->get('forcedLanguage', '', 'cmd');
 
 		// Adjust the context to support modal layouts.
@@ -217,7 +245,8 @@ class TeamsModel extends ListModel
 		parent::populateState($ordering, $direction);
 
 		// Force a language
-		if(!empty($forcedLanguage)){
+		if (!empty($forcedLanguage))
+		{
 			$this->setState('filter.language', $forcedLanguage);
 		}
 	}
@@ -227,5 +256,15 @@ class TeamsModel extends ListModel
 		$items = parent::getItems();
 
 		return $items;
+	}
+
+	public function exportItems()
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from($db->quoteName('#__footballmanager_teams'));
+		$db->setQuery($query);
+		return $db->loadAssocList();
 	}
 }

@@ -62,19 +62,22 @@ class TeamsController extends AdminController
 		error_log('export');
 
 		$model = $this->getModel('teams');
-		$data = $model->getItems();
+		$data = $model->exportItems();
 		$filename = 'teams.csv';
-		$csvData = '';
-		$csvData .= 'id,catid,title,published,access,ordering,language' . "\n";
-		foreach ($data as $item) {
-			$csvData .= $item->id . ',' . $item->catid . ',' . $item->title . ',' . $item->published . ',' . $item->access . ',' . $item->ordering . ',' . $item->language . "\n";
-		}
+		$headers = array_keys($data[0]);
+		$output = fopen('php://output', 'w');
+		fputcsv($output, $headers);
+		foreach ($data as $row) {
 
-		error_log($csvData);
+			$quotedRow = array_map(function ($value) {
+				return '"' . $value . '"';
+			}, $row);
+			fputcsv($output, $quotedRow);
+		}
 
 		header('Content-Type: text/csv');
 		header('Content-Disposition: attachment; filename="' . $filename . '"');
-		echo $csvData;
+		fclose($output);
 		exit;
 	}
 
