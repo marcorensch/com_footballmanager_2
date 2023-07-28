@@ -2,15 +2,18 @@
 
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_hello
+ * @subpackage  com_footballmanager
  *
  * @copyright   Copyright (c) 2023 NXD | nx-designs
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-\defined('_JEXEC') or die;
+use Joomla\CMS\Layout\LayoutHelper;
 
+\defined('_JEXEC') or die;
+//echo LayoutHelper::render('admin.submenu', null); // Rendere das Layout
 ?>
+
 <div class="com_cpanel">
     <div class="cpanel-modules">
         <div class="card-columns">

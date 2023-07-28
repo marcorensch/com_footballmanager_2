@@ -6,20 +6,8 @@
                 type="text"
                 inputmode="search"
                 label="COM_FOOTBALLMANAGER_SEARCH_LABEL"
-                description="COM_FOOTBALLMANAGER_SEARCH_LEAGUES_DESC"
                 hint="JSEARCH_FILTER"
         />
-
-        <field
-                name="featured"
-                type="list"
-                onchange="this.form.submit();"
-                default=""
-        >
-            <option value="">JOPTION_SELECT_FEATURED</option>
-            <option value="0">JUNFEATURED</option>
-            <option value="1">JFEATURED</option>
-        </field>
 
         <field
                 name="published"
@@ -30,12 +18,31 @@
             <option value="">JOPTION_SELECT_PUBLISHED</option>
         </field>
         <field
+                name="category_id"
+                type="category"
+                label="JOPTION_SELECT_CATEGORY"
+                multiple="true"
+                onchange="this.form.submit();"
+                layout="joomla.form.field.list-fancy-select"
+                extension="com_footballmanager"
+                published="0,1,2"
+        />
+        <field
                 name="access"
                 type="accesslevel"
                 label="JOPTION_SELECT_ACCESS"
                 onchange="this.form.submit();"
                 >
             <option value="">JOPTION_SELECT_ACCESS</option>
+        </field>
+        <field
+                name="language"
+                type="contentLanguage"
+                label="JOPTION_SELECT_LANGUAGE"
+                onchange="this.form.submit();"
+                >
+            <option value="">JOPTION_SELECT_LANGUAGE</option>
+            <option value="*">JALL</option>
         </field>
     </fields>
     <fields name="list">
@@ -59,6 +66,10 @@
             <option value="a.author_name DESC">COM_FOOTBALLMANAGER_AUTHOR_DESC</option>
             <option value="a.access ASC">JGRID_HEADING_ACCESS_ASC</option>
             <option value="a.access DESC">JGRID_HEADING_ACCESS_DESC</option>
+            <option value="association ASC" requires="associations">JASSOCIATIONS_ASC</option>
+            <option value="association DESC" requires="associations">JASSOCIATIONS_DESC</option>
+            <option value="a.language_title ASC" requires="multilanguage">JGRID_HEADING_LANGUAGE_ASC</option>
+            <option value="a.language_title DESC" requires="multilanguage">JGRID_HEADING_LANGUAGE_DESC</option>
             <option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
             <option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
         </field>

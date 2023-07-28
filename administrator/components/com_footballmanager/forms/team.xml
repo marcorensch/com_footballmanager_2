@@ -30,6 +30,25 @@
                 size="40"
                 required="true"
         />
+        <field
+                name="shortname"
+                type="text"
+                validate=""
+                class=""
+                label="COM_FOOTBALLMANAGER_FIELD_SHORTNAME_LABEL"
+                size="40"
+                required="true"
+        />
+        <field
+                name="shortcode"
+                type="text"
+                validate=""
+                class=""
+                label="COM_FOOTBALLMANAGER_FIELD_SHORTCODE_LABEL"
+                size="10"
+                maxlength="10"
+                required="true"
+        />
 
         <field
                 name="alias"
@@ -80,24 +99,6 @@
         />
 
         <field
-                name="publish_up"
-                type="calendar"
-                label="COM_FOOTBALLMANAGER_FIELD_PUBLISH_UP_LABEL"
-                translateformat="true"
-                showtime="true"
-                size="22"
-                filter="user_utc"
-        />
-        <field
-                name="publish_down"
-                type="calendar"
-                label="COM_FOOTBALLMANAGER_FIELD_PUBLISH_DOWN_LABEL"
-                translateformat="true"
-                showtime="true"
-                size="22"
-                filter="user_utc"
-        />
-        <field
                 name="ordering"
                 type="ordering"
                 label="JFIELD_ORDERING_LABEL"
@@ -125,6 +126,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_ZIP_LABEL"
                 hint="COM_FOOTBALLMANAGER_FIELD_ZIP_HINT"
                 filter="number"
+                width="10"
         />
 
         <field
@@ -136,12 +138,10 @@
         />
 
         <field
-                name="coordinates"
-                type="text"
-                label="COM_FOOTBALLMANAGER_FIELD_COORDINATES_LABEL"
-                description="COM_FOOTBALLMANAGER_FIELD_COORDINATES_DESC"
-                hint="COM_FOOTBALLMANAGER_FIELD_COORDINATES_HINT"
-                filter="string"
+                name="logo"
+                type="media"
+                label="COM_FOOTBALLMANAGER_FIELD_LOGO_LABEL"
+                directory="images"
         />
 
         <field
@@ -152,12 +152,60 @@
         />
 
         <field
-                name="description"
+                name="introtext"
                 type="editor"
-                label="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LOCATION_LABEL"
+                label="COM_FOOTBALLMANAGER_FIELD_INTROTEXT_LABEL"
                 filter="safehtml"
                 buttons="true"
-                height="400"
+                height="200"
+        />
+        <field
+                name="description"
+                type="editor"
+                label="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LABEL"
+                filter="safehtml"
+                buttons="true"
+                height="572"
+        />
+
+        <field
+                name="year_established"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_YEAR_ESTABLISHED_LABEL"
+                translateformat="true"
+                showtime="false"
+                singleheader="false"
+                size="22"
+                filter="user_utc"
+                default="now"
+        />
+
+        <field
+                name="my_team"
+                type="radio"
+                label="COM_FOOTBALLMANAGER_FIELD_MY_TEAM_LABEL"
+                default="0"
+                layout="joomla.form.field.radio.switcher"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field
+                name="color"
+                type="color"
+                label="COM_FOOTBALLMANAGER_FIELD_COLOR_LABEL"
+                default="rgba(0,0,0, 1)"
+                format="rgba"
+        />
+        <field
+                name="location_id"
+                type="sql"
+                label="COM_FOOTBALLMANAGER_FIELD_LOCATION_LABEL"
+                query="SELECT id, title FROM #__footballmanager_locations WHERE published = 1"
+                key_field="id"
+                value_field="title"
+                header="COM_FOOTBALLMANAGER_FIELD_LOCATION_HEADER_SELECT"
         />
 
         <!-- Contact Fields -->
@@ -172,7 +220,7 @@
                 name="email"
                 type="email"
                 label="COM_FOOTBALLMANAGER_FIELD_EMAIL_LABEL"
-                hint="name@example.com"
+                hint="COM_FOOTBALLMANAGER_FIELD_EMAIL_HINT"
                 validate="email"
         />
         <field
@@ -183,25 +231,15 @@
                 hint="COM_FOOTBALLMANAGER_FIELD_PHONE_HINT"
                 message="COM_FOOTBALLMANAGER_FIELD_PHONE_MESSAGE"
         />
+
         <field
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
-                extension="com_footballmanager.locations"
+                extension="com_footballmanager.sponsors"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
                 default=""
-        />
-
-        <field
-            name="sponsors"
-            type="subform"
-            label="COM_FOOTBALLMANAGER_SPONSORS"
-            min="0"
-            max="10"
-            layout="joomla.form.field.subform.repeatable-table"
-            multiple="true"
-            formsource="administrator/components/com_footballmanager/forms/subform_sponsor.xml"
         />
 
         <field name="params" type="textarea" label="params" description="params" />

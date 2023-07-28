@@ -31,6 +31,7 @@ class CustomfieldsModel extends ListModel
 //		$this->sections[] = $this->createSection('Coach', 'coach' , 'user');
 		$this->sections[] = $this->createSection('Locations', 'location', 'map-marker-alt');
 		$this->sections[] = $this->createSection('Sponsors', 'sponsor', 'handshake');
+		$this->sections[] = $this->createSection('Teams', 'team', 'users');
 
 		return $this->sections;
 	}

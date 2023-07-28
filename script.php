@@ -54,9 +54,10 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	{
 		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_INSTALL');
 
-		// Install Uncategorised categories for each type of content.
+		// Install Uncategorised categories for each type of content that supports categories.
 		$this->installUncategorisedCat('com_footballmanager.locations');
 		$this->installUncategorisedCat('com_footballmanager.sponsors');
+		$this->installUncategorisedCat('com_footballmanager.teams');
 
 
 		$this->addDashboardMenu('footballmanager', 'footballmanager');

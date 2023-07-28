@@ -106,7 +106,7 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 
 		$contexts = array(
 			'com_footballmanager.location' => Text::_('COM_FOOTBALLMANAGER_LOCATION'),
-//			'com_helloworld.categories' => JText::_('JCATEGORY')
+//			'com_footballmanagerworld.categories' => JText::_('JCATEGORY')
 		);
 
 		return $contexts;
