@@ -11,10 +11,8 @@ namespace NXD\Component\Footballmanager\Administrator\View\Teams;
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\Helpers\Sidebar;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -141,6 +139,16 @@ class HtmlView extends BaseHtmlView
 				->text('JTOOLBAR_EMPTY_TRASH')
 				->message('JGLOBAL_CONFIRM_DELETE')
 				->listCheck(true);
+		}
+
+		// Add an export button
+		if ($user->authorise('core.edit'))
+		{
+			$toolbar->basicButton('teams.export')
+				->icon('fa fa-download')
+				->text('COM_FOOTBALLMANAGER_EXPORT')
+				->listCheck(false)
+				->task('teams.export');
 		}
 
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))

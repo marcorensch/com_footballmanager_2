@@ -86,12 +86,17 @@ class TeamsModel extends ListModel
 			);
 
 		// Join over the category.
-
 		$query->select($db->quoteName('c.title', 'category_title'))->join(
 			'LEFT',
 			$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
 		);
 
+		// Join over the location
+		$query->select($db->quoteName('loc.title', 'location_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_locations', 'loc') . ' ON ' . $db->quoteName('loc.id') . ' = ' . $db->quoteName('a.location_id')
+			);
 		// Join over the language
 		$query->select($db->quoteName('l.title', 'language_title'))
 			->select($db->quoteName('l.image', 'language_image'))
@@ -128,6 +133,11 @@ class TeamsModel extends ListModel
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
 
+		// Filter by location
+		$location = $this->getState('filter.location');
+		if( $location || $location === "0"){
+			$query->where($db->quoteName('a.location_id') . ' = ' . $db->quote($location));
+		}
 		// Filter the language
 		if($language = $this->getState('filter.language')){
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));

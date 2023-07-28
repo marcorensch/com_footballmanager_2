@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Controller;
 
 \defined('_JEXEC') or die;
 
+use JetBrains\PhpStorm\NoReturn;
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
@@ -55,4 +56,27 @@ class TeamsController extends AdminController
     {
         return parent::getModel($name, $prefix, $config);
     }
+
+	#[NoReturn] public function export(): void
+	{
+		error_log('export');
+
+		$model = $this->getModel('teams');
+		$data = $model->getItems();
+		$filename = 'teams.csv';
+		$csvData = '';
+		$csvData .= 'id,catid,title,published,access,ordering,language' . "\n";
+		foreach ($data as $item) {
+			$csvData .= $item->id . ',' . $item->catid . ',' . $item->title . ',' . $item->published . ',' . $item->access . ',' . $item->ordering . ',' . $item->language . "\n";
+		}
+
+		error_log($csvData);
+
+		header('Content-Type: text/csv');
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
+		echo $csvData;
+		exit;
+	}
+
+
 }

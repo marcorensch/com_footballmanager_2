@@ -68,6 +68,10 @@ if ($saveOrder && !empty($this->items))
 								<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
                             </th>
 
+                            <th scope="col" style="min-width:100px" class="d-none d-md-table-cell">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_HOME_GROUND', 'a.location_name', $listDirn, $listOrder); ?>
+                            </th>
+
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 		                        <?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'a.created_by_username', $listDirn, $listOrder); ?>
                             </th>
@@ -143,6 +147,9 @@ if ($saveOrder && !empty($this->items))
 		                                <?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
                                     </div>
                                 </th>
+                                <td class="small d-none d-md-table-cell">
+                                    <?php echo $item->location_name; ?>
+                                </td>
                                 <td class="small d-none d-md-table-cell">
 	                                <?php if((int)$item->created_by > 0) : ?>
                                         <a
