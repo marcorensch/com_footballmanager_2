@@ -144,8 +144,14 @@ class HtmlView extends BaseHtmlView
 		// Add an export button
 		if ($user->authorise('core.edit'))
 		{
-			$toolbar->basicButton('teams.export')
-				->icon('fa fa-download')
+			$toolbar->basicButton('import')
+				->icon('fa fa-file-import')
+				->text('COM_FOOTBALLMANAGER_IMPORT')
+				->listCheck(false)
+				->task('teams.import');
+
+			$toolbar->basicButton('export')
+				->icon('fa fa-file-export')
 				->text('COM_FOOTBALLMANAGER_EXPORT')
 				->listCheck(false)
 				->task('teams.export');

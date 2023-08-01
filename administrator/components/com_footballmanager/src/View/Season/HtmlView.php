@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Footballmanager\Administrator\View\League;
+namespace NXD\Component\Footballmanager\Administrator\View\Season;
 
 defined('_JEXEC') or die;
 
@@ -19,7 +19,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use NXD\Component\Footballmanager\Administrator\Model\LocationModel;
 
 /**
- * View to edit a foo.
+ * View to edit a season.
  *
  * @since  __BUMP_VERSION__
  */
@@ -51,7 +51,7 @@ class HtmlView extends BaseHtmlView
 	 */
     public function display($tpl = null)
     {
-	    /** @var LeagueModel $model */
+	    /** @var SeasonModel $model */
 	    $model      = $this->getModel();
 	    $this->item = $model->getItem();
 
@@ -91,22 +91,22 @@ class HtmlView extends BaseHtmlView
 
 	    $toolbar = Toolbar::getInstance();
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_LEAGUE_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_LEAGUE_EDIT_TITLE'), 'fas fa-layer-group');
+	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_SEASON_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_SEASON_EDIT_TITLE'), 'fas fa-trophy');
 
-        $toolbar->apply('league.apply');
+        $toolbar->apply('season.apply');
 
 	    $saveGroup = $toolbar->dropdownButton('save-group');
 
 	    $saveGroup->configure(
 		    function (Toolbar $childBar) {
-			    $childBar->save('league.save');
-			    $childBar->save2new('league.save2new');
-			    $childBar->save2copy('league.save2copy');
+			    $childBar->save('season.save');
+			    $childBar->save2new('season.save2new');
+			    $childBar->save2copy('season.save2copy');
 		    }
 	    );
 
 //		ToolbarHelper::save('location.save');
 //		ToolbarHelper::save2new('location.save2new');
-        $toolbar->cancel('league.cancel', 'JTOOLBAR_CLOSE');
+        $toolbar->cancel('season.cancel', 'JTOOLBAR_CLOSE');
     }
 }

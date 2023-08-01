@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Footballmanager\Administrator\View\Leagues;
+namespace NXD\Component\Footballmanager\Administrator\View\Seasons;
 
 defined('_JEXEC') or die;
 
@@ -102,12 +102,12 @@ class HtmlView extends BaseHtmlView
 
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance();
-		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_LEAGUES'), 'fas fa-layer-group');
+		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_SEASONS'), 'fas fa-trophy');
 
 		// Show Buttons only if the user is allowed to do so
 		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_footballmanager', 'core.create')) > 0)
 		{
-			$toolbar->addNew('league.add');
+			$toolbar->addNew('season.add');
 		}
 		if ($canDo->get('core.edit.state'))
 		{
@@ -119,25 +119,25 @@ class HtmlView extends BaseHtmlView
 				->listCheck(true);
 
 			$childBar = $dropdown->getChildToolbar();
-			$childBar->publish('leagues.publish')->listCheck(true);
-			$childBar->unpublish('leagues.unpublish')->listCheck(true);
-			$childBar->archive('leagues.archive')->listCheck(true);
+			$childBar->publish('seasons.publish')->listCheck(true);
+			$childBar->unpublish('seasons.unpublish')->listCheck(true);
+			$childBar->archive('seasons.archive')->listCheck(true);
 
 
 			if ($user->authorise('core.admin'))
 			{
-				$childBar->checkin('leagues.checkin')->listCheck(true);
+				$childBar->checkin('seasons.checkin')->listCheck(true);
 			}
 
 			if ($this->state->get('filter.published') != -2)
 			{
-				$childBar->trash('leagues.trash')->listCheck(true);
+				$childBar->trash('seasons.trash')->listCheck(true);
 			}
 		}
 
 		if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
 		{
-			$toolbar->delete('leagues.delete')
+			$toolbar->delete('seasons.delete')
 				->text('JTOOLBAR_EMPTY_TRASH')
 				->message('JGLOBAL_CONFIRM_DELETE')
 				->listCheck(true);

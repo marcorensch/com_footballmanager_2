@@ -54,18 +54,31 @@
         </menu>
 
         <submenu>
+            <menu link="option=com_footballmanager&amp;view=overview">
+                COM_FOOTBALLMANAGER_OVERVIEW
+            </menu>
+            <menu link="option=com_footballmanager&amp;view=seasons">
+                COM_FOOTBALLMANAGER_SEASONS
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=season&amp;layout=edit
+                    </menu-quicktask>
+                </params>
+            </menu>
             <menu link="option=com_footballmanager&amp;view=leagues">
                 COM_FOOTBALLMANAGER_LEAGUES
                 <params>
                     <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=league&amp;layout=edit</menu-quicktask>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=league&amp;layout=edit
+                    </menu-quicktask>
                 </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=locations">
                 COM_FOOTBALLMANAGER_LOCATIONS
                 <params>
                     <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=location&amp;layout=edit</menu-quicktask>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=location&amp;layout=edit
+                    </menu-quicktask>
                 </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=teams">
@@ -79,11 +92,14 @@
                 COM_FOOTBALLMANAGER_SPONSORS
                 <params>
                     <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=sponsor&amp;layout=edit</menu-quicktask>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=sponsor&amp;layout=edit
+                    </menu-quicktask>
                 </params>
             </menu>
 
-            <menu link="option=com_footballmanager&amp;view=customfields">COM_FOOTBALLMANAGER_FIELD_GROUPS_FIELDS_LABEL</menu>
+            <menu link="option=com_footballmanager&amp;view=customfields">
+                COM_FOOTBALLMANAGER_FIELD_GROUPS_FIELDS_LABEL
+            </menu>
             <menu link="option=com_footballmanager&amp;view=categories">
                 JCATEGORIES
             </menu>
@@ -105,7 +121,9 @@
 
     <changelogurl>https://updates.nx-designs.ch/com_footballmanager/changelog.xml</changelogurl>
     <updateservers>
-        <server type="extension" name="Company Partners Updates">https://updates.nx-designs.ch/nxd_footballmanager/update.xml</server>
+        <server type="extension" name="Company Partners Updates">
+            https://updates.nx-designs.ch/nxd_footballmanager/update.xml
+        </server>
     </updateservers>
-    <dlid prefix="dlid=" suffix="" />
+    <dlid prefix="dlid=" suffix=""/>
 </extension>

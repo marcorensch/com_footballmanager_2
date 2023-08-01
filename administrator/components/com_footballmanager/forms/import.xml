@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset>
+        <field
+                name="upload"
+                type="file"
+                description="COM_FOOTBALLMANAGER_FIELD_UPLOAD_DESC"
+                accept=".csv"
+                size="40"
+        />
+    </fieldset>
+</form>

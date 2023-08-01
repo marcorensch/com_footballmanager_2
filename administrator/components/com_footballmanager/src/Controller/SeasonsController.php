@@ -22,7 +22,7 @@ use Joomla\Input\Input;
  *
  * @since  __BUMP_VERSION__
  */
-class TeamsController extends AdminController
+class SeasonsController extends AdminController
 {
     /**
      * Constructor.
@@ -52,7 +52,7 @@ class TeamsController extends AdminController
      *
      * @since   __BUMP_VERSION__
      */
-    public function getModel($name = 'team', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    public function getModel($name = 'season', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {
         return parent::getModel($name, $prefix, $config);
     }
@@ -61,7 +61,7 @@ class TeamsController extends AdminController
 	{
 		$model = $this->getModel('teams');
 		$data = $model->exportItems();
-		$filename = 'teams.csv';
+		$filename = 'seasons.csv';
 		$headers = array_keys($data[0]);
 		$output = fopen('php://output', 'w');
 		fputcsv($output, $headers);
@@ -80,7 +80,7 @@ class TeamsController extends AdminController
 
 	#[NoReturn] public function import(): void
 	{
-		$this->setRedirect('index.php?option=com_footballmanager&view=import&type=teams');
+		$this->setRedirect('index.php?option=com_footballmanager&view=import&type=seasons');
 	}
 
 

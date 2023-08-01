@@ -91,6 +91,7 @@ class HtmlView extends BaseHtmlView
 				$this->filterForm->setFieldAttribute('category_id', 'language', '*,' . $forcedLanguage, 'filter');
 			}
 		}
+
 		parent::display($tpl);
 	}
 

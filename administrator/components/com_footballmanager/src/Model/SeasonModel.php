@@ -25,7 +25,7 @@ use Joomla\String\StringHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class LeagueModel extends AdminModel
+class SeasonModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -33,9 +33,9 @@ class LeagueModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.league';
+	public $typeAlias = 'com_footballmanager.season';
 
-	protected $associationsContext = 'com_footballmanager.league';
+	protected $associationsContext = 'com_footballmanager.season';
 	private $itemId = 0;
 
 	protected $batch_copymove = 'category_id';
@@ -88,18 +88,18 @@ class LeagueModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.league.data', []);
+		$data = $app->getUserState($this->option . 'com_footballmanager.edit.season.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
-			if ($this->getState('league.id') == 0)
+			if ($this->getState('season.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.leagues.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.seasons.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.league', $data);
+		$this->preprocessData('com_footballmanager.season', $data);
 
 		return $data;
 	}
@@ -115,7 +115,7 @@ class LeagueModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_leagues', 'com_footballmanager.league', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_seasons', 'com_footballmanager.season', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{
