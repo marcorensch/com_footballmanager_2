@@ -15,6 +15,7 @@ use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Input\Input;
+use NXD\Component\Footballmanager\Administrator\Helper\ExportHelper;
 
 /**
  * Foos list controller class.
@@ -55,4 +56,13 @@ class SponsorsController extends AdminController
     {
         return parent::getModel($name, $prefix, $config);
     }
+
+	public function export()
+	{
+		$ids = $this->input->get('cid', [], 'array');
+		$model = $this->getModel('sponsors');
+		$data  = $model->exportItems($ids);
+
+		ExportHelper::exportToCsv($data, 'sponsors');
+	}
 }

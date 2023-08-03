@@ -143,6 +143,13 @@ class HtmlView extends BaseHtmlView
 				->listCheck(true);
 		}
 
+		// Add import / export buttons
+		if ($user->authorise('core.edit'))
+		{
+			ToolbarHelper::custom('locations.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
+			ToolbarHelper::custom('locations.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
+		}
+
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))
 		{
 			$toolbar->preferences('com_footballmanager');

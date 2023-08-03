@@ -34,14 +34,14 @@ $saveOrder = $listOrder === 'a.ordering';
 
 if ($saveOrder && !empty($this->items))
 {
-    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=sponsors.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=leagues.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
 }
 
 ?>
 
 <?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
-<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=sponsors'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=seasonphases'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
@@ -51,7 +51,7 @@ if ($saveOrder && !empty($this->items))
 						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
 				<?php else : ?>
-                    <table class="table sponsorList" id="sponsorsList">
+                    <table class="table seasonphaseList" id="seasonphasesList">
                         <caption class="visually-hidden">
 		                    <?php echo Text::_('COM_FOOTBALLMANAGER_TABLE_CAPTION'); ?>,
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -86,16 +86,7 @@ if ($saveOrder && !empty($this->items))
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS','access_level', $listDirn, $listOrder) ?>
                             </th>
-							<?php if ($assoc) : ?>
-                                <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-	                                <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_HEADING_ASSOCIATION','association', $listDirn, $listOrder) ?>
-                                </th>
-							<?php endif; ?>
-							<?php if (Multilanguage::isEnabled()) : ?>
-                                <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-	                                <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE','language', $listDirn, $listOrder) ?>
-                                </th>
-							<?php endif; ?>
+
                             <th scope="col" style="width:5%">
 	                            <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID','a.id', $listDirn, $listOrder) ?>
                             </th>
@@ -108,9 +99,8 @@ if ($saveOrder && !empty($this->items))
 						$n = count($this->items);
 						foreach ($this->items as $i => $item) :
 							$ordering  = ($listOrder == 'ordering');
-//							$content->cat_link = Route::_('index.php?option=com_categories&extension=com_footballmanager&task=edit&type=other&cid[]=' . $content->catid);
                             ?>
-                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="<?php echo $item->catid; ?>">
+                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="seasonphaseItems">
                                 <td class="text-center">
 		                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                 </td>
@@ -134,7 +124,7 @@ if ($saveOrder && !empty($this->items))
 
                                 <td class="text-center">
 		                            <?php
-		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'sponsors.', $canChange , 'cb', $item->publish_up, $item->publish_down);
+		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'seasonphases.', $canChange , 'cb');
 		                            ?>
                                 </td>
                                 <th scope="row" class="has-context">
@@ -142,13 +132,10 @@ if ($saveOrder && !empty($this->items))
 										<?php echo $this->escape($item->title); ?>
                                     </div>
                                     <a class="hasTooltip"
-                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=sponsor.edit&id=' . (int) $item->id); ?>"
+                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=seasonphase.edit&id=' . (int) $item->id); ?>"
                                        title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
 										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?>
                                     </a>
-                                    <div class="small">
-		                                <?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-                                    </div>
                                 </th>
                                 <td class="small d-none d-md-table-cell">
 	                                <?php if((int)$item->created_by > 0) : ?>
@@ -168,18 +155,7 @@ if ($saveOrder && !empty($this->items))
                                 <td class="small d-none d-md-table-cell">
 									<?php echo $item->access_level; ?>
                                 </td>
-								<?php if ($assoc) : ?>
-                                    <td class="d-none d-md-table-cell">
-										<?php if ($item->association) : ?>
-											<?php echo HTMLHelper::_('sponsorsadministrator.association', $item->id); ?>
-										<?php endif; ?>
-                                    </td>
-								<?php endif; ?>
-								<?php if (Multilanguage::isEnabled()) : ?>
-                                    <td class="small d-none d-md-table-cell">
-										<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
-                                    </td>
-								<?php endif; ?>
+
                                 <td class="d-none d-md-table-cell">
 									<?php echo $item->id; ?>
                                 </td>

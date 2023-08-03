@@ -18,6 +18,13 @@ use Joomla\CMS\Session\Session;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
+$wa->addInlineScript("
+    jQuery(document).ready(function(){
+        jQuery('#toolbar-download').on('click', function(e){
+            const taskField = document.querySelectorAll('[name=\"task\"]');
+            taskField[0].value = '';
+        });
+    });");
 
 $canChange = true;
 $assoc = Associations::isEnabled();
@@ -34,7 +41,8 @@ if ($saveOrder && !empty($this->items))
 ?>
 
 <?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
-<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=leagues'); ?>" method="post" name="adminForm" id="adminForm">
+
+<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=seasons'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">

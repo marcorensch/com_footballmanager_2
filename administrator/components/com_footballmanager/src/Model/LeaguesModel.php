@@ -176,4 +176,15 @@ class LeaguesModel extends ListModel
 
 		return $items;
 	}
+
+	public function exportItems($ids)
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from($db->quoteName('#__footballmanager_leagues'));
+		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
+		$db->setQuery($query);
+		return $db->loadAssocList();
+	}
 }

@@ -221,4 +221,15 @@ class SponsorsModel extends ListModel
 
 		return $items;
 	}
+
+	public function exportItems($ids)
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from($db->quoteName('#__footballmanager_sponsors'));
+		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
+		$db->setQuery($query);
+		return $db->loadAssocList();
+	}
 }

@@ -45,6 +45,7 @@ class HtmlView extends BaseHtmlView
 	public $activeFilters;
 
 
+
 	public function display($tpl = null): void
 	{
 		$this->items            = $this->get('Items');
@@ -141,6 +142,13 @@ class HtmlView extends BaseHtmlView
 				->text('JTOOLBAR_EMPTY_TRASH')
 				->message('JGLOBAL_CONFIRM_DELETE')
 				->listCheck(true);
+		}
+
+		// Add import / export buttons
+		if ($user->authorise('core.edit'))
+		{
+			ToolbarHelper::custom('seasons.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
+			ToolbarHelper::custom('seasons.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))

@@ -111,4 +111,5 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 
 		return $contexts;
 	}
+
 }

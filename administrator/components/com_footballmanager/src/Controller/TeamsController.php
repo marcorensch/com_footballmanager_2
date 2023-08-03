@@ -16,6 +16,7 @@ use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Input\Input;
+use NXD\Component\Footballmanager\Administrator\Helper\ExportHelper;
 
 /**
  * Foos list controller class.
@@ -57,25 +58,13 @@ class TeamsController extends AdminController
         return parent::getModel($name, $prefix, $config);
     }
 
-	#[NoReturn] public function export(): void
+	public function export()
 	{
+		$ids = $this->input->get('cid', [], 'array');
 		$model = $this->getModel('teams');
-		$data = $model->exportItems();
-		$filename = 'teams.csv';
-		$headers = array_keys($data[0]);
-		$output = fopen('php://output', 'w');
-		fputcsv($output, $headers);
-		foreach ($data as $row) {
-			$quotedRow = array_map(function ($value) {
-				return '"' . $value . '"';
-			}, $row);
-			fputcsv($output, $quotedRow);
-		}
+		$data  = $model->exportItems($ids);
 
-		header('Content-Type: text/csv');
-		header('Content-Disposition: attachment; filename="' . $filename . '"');
-		fclose($output);
-		exit;
+		ExportHelper::exportToCsv($data, 'teams');
 	}
 
 	#[NoReturn] public function import(): void

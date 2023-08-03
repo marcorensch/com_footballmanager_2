@@ -119,6 +119,26 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_seasons`
     PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `#__footballmanager_season_phases`
+(
+    `id`          int(11)          NOT NULL AUTO_INCREMENT,
+    `title`       varchar(255)     NOT NULL,
+    `alias`       varchar(255)     NOT NULL,
+    `params`      text,
+    `state`       tinyint(3)       NOT NULL DEFAULT 0,
+    `published`   tinyint(1)       NOT NULL DEFAULT 0,
+    `created_at`  datetime                  DEFAULT NULL,
+    `created_by`  int(11)                   DEFAULT NULL,
+    `modified_at` datetime                  DEFAULT NOW(),
+    `modified_by` int(11)                   DEFAULT NULL,
+    `version`     int(11)                   DEFAULT 0,
+    `hits`        int(11)                   DEFAULT 0,
+    `access`      int(10) unsigned NOT NULL DEFAULT 0,
+    `ordering`    int(11)                   DEFAULT 0,
+
+    PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `#__footballmanager_teams`
 (
     `id`               int(11)          NOT NULL AUTO_INCREMENT,

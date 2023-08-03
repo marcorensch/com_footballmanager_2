@@ -18,6 +18,13 @@ use Joomla\CMS\Session\Session;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
+$wa->addInlineScript("
+    jQuery(document).ready(function(){
+        jQuery('#toolbar-download').on('click', function(e){
+            const taskField = document.querySelectorAll('[name=\"task\"]');
+            taskField[0].value = '';
+        });
+    });");
 
 $canChange = true;
 $assoc = Associations::isEnabled();

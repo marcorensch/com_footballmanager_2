@@ -18,11 +18,11 @@ use Joomla\Utilities\ArrayHelper;
 
 
 /**
- * Methods supporting a list of foo records.
+ * Methods supporting a list of season phases records.
  *
  * @since  __BUMP_VERSION__
  */
-class TeamsModel extends ListModel
+class SeasonphasesModel extends ListModel
 {
 	/**
 	 * Constructor.
@@ -39,7 +39,6 @@ class TeamsModel extends ListModel
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'catid', 'a.catid',
 				'title', 'a.title',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
@@ -49,7 +48,6 @@ class TeamsModel extends ListModel
 				'modified_by', 'a.modified_by',
 				'created_at', 'a.created_at',
 				'modified_at', 'a.modified_at',
-				'location_name', 'a.location_id'
 			);
 
 			$assoc = Associations::isEnabled();
@@ -80,15 +78,12 @@ class TeamsModel extends ListModel
 			$db->quoteName(
 				[
 					'a.id', 'a.title', 'a.alias',
-					'a.shortname', 'a.shortcode', 'a.introtext', 'a.description',
-					'a.year_established', 'a.logo', 'a.image', 'a.color', 'a.my_team', 'a.location_id',
-					'a.street', 'a.zip', 'a.city', 'a.website', 'a.email', 'a.phone',
 					'a.state', 'a.published', 'a.created_at', 'a.created_by', 'a.modified_at', 'a.modified_by',
-					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid',
+					'a.version', 'a.params', 'a.ordering'
 				]
 			)
 		);
-		$query->from($db->quoteName('#__footballmanager_teams', 'a'));
+		$query->from($db->quoteName('#__footballmanager_season_phases', 'a'));
 
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))
@@ -96,42 +91,6 @@ class TeamsModel extends ListModel
 				'LEFT',
 				$db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
 			);
-
-		// Join over the category.
-		$query->select($db->quoteName('c.title', 'category_title'))->join(
-			'LEFT',
-			$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
-		);
-
-		// Join over the location
-		$query->select($db->quoteName('loc.title', 'location_name'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__footballmanager_locations', 'loc') . ' ON ' . $db->quoteName('loc.id') . ' = ' . $db->quoteName('a.location_id')
-			);
-		// Join over the language
-		$query->select($db->quoteName('l.title', 'language_title'))
-			->select($db->quoteName('l.image', 'language_image'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__languages', 'l') . ' ON ' . $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language')
-			);
-
-		// Join over the Associations.
-		if (Associations::isEnabled())
-		{
-			$subQuery = $db->getQuery(true)
-				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
-				->from($db->quoteName('#__associations', 'asso1'))
-				->join('INNER', $db->quoteName('#__associations', 'asso2') . ' ON ' . $db->quoteName('asso1.key') . ' = ' . $db->quoteName('asso2.key'))
-				->where(
-					[
-						$db->quoteName('asso1.id') . ' = ' . $db->quoteName('a.id'),
-						$db->quoteName('asso1.context') . ' = ' . $db->quote('com_footballmanager.team')
-					]
-				);
-			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
-		}
 
 		// Join over the author user
 		$query->select($db->quoteName('u.name', 'author_name'))
@@ -146,25 +105,12 @@ class TeamsModel extends ListModel
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
 
-		// Filter by location
-		$location = $this->getState('filter.location');
-		if ($location || $location === "0")
-		{
-			$query->where($db->quoteName('a.location_id') . ' = ' . $db->quote($location));
-		}
-		// Filter the language
-		if ($language = $this->getState('filter.language'))
-		{
-			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
-		}
-
 		// Filter by access level.
 		if ($access = $this->getState('filter.access'))
 		{
 			$query->where($db->quoteName('a.access') . ' = ' . (int) $access);
 		}
 
-		// Filter by published state
 		// Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
@@ -181,18 +127,6 @@ class TeamsModel extends ListModel
 			$query->where('(' . $db->quoteName('a.published') . ' IN (0, 1))');
 		}
 
-		// Filter by a single or group of categories.
-		$categoryId = $this->getState('filter.category_id');
-		if (is_numeric($categoryId))
-		{
-			$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-		}
-		elseif (is_array($categoryId))
-		{
-			$categoryId = ArrayHelper::toInteger($categoryId);
-			$categoryId = implode(',', $categoryId);
-			$query->where($db->quoteName('a.catid') . ' IN (' . $categoryId . ')');
-		}
 		// Filter by search name
 		$search = $this->getState('filter.search');
 		if (!empty($search))
@@ -212,10 +146,6 @@ class TeamsModel extends ListModel
 		$orderCol  = $this->state->get('list.ordering', 'a.created_at');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
-		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
-		{
-			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
-		}
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
@@ -263,7 +193,7 @@ class TeamsModel extends ListModel
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('*');
-		$query->from($db->quoteName('#__footballmanager_teams'));
+		$query->from($db->quoteName('#__footballmanager_season_phases'));
 		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
 		$db->setQuery($query);
 		return $db->loadAssocList();

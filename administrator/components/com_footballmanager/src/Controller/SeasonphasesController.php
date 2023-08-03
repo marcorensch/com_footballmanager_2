@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Controller;
 
 \defined('_JEXEC') or die;
 
+use JetBrains\PhpStorm\NoReturn;
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
@@ -22,7 +23,7 @@ use NXD\Component\Footballmanager\Administrator\Helper\ExportHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class LocationsController extends AdminController
+class SeasonphasesController extends AdminController
 {
     /**
      * Constructor.
@@ -52,7 +53,7 @@ class LocationsController extends AdminController
      *
      * @since   __BUMP_VERSION__
      */
-    public function getModel($name = 'location', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    public function getModel($name = 'seasonphase', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {
         return parent::getModel($name, $prefix, $config);
     }
@@ -60,9 +61,16 @@ class LocationsController extends AdminController
 	public function export()
 	{
 		$ids = $this->input->get('cid', [], 'array');
-		$model = $this->getModel('locations');
+		$model = $this->getModel('seasonphases');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::exportToCsv($data, 'locations');
+		ExportHelper::exportToCsv($data, 'seasonphases');
 	}
+
+	#[NoReturn] public function import(): void
+	{
+		$this->setRedirect('index.php?option=com_footballmanager&view=import&type=seasonphases');
+	}
+
+
 }

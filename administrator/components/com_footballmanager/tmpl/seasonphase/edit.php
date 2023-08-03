@@ -40,7 +40,7 @@ $current_user = Factory::getApplication()->getIdentity();
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="season-form" class="form-validate form-vertical">
+      method="post" name="adminForm" id="seasonphase-form" class="form-validate form-vertical">
 
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 

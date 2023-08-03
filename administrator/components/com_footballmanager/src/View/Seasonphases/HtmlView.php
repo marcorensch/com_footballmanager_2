@@ -7,12 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Footballmanager\Administrator\View\Teams;
+namespace NXD\Component\Footballmanager\Administrator\View\Seasonphases;
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\Helpers\Sidebar;
+use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -100,12 +102,12 @@ class HtmlView extends BaseHtmlView
 
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance();
-		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_TEAMS'), 'fas fa-users');
+		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_SEASON_PHASES'), 'fas fa-angle-double-right');
 
 		// Show Buttons only if the user is allowed to do so
 		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_footballmanager', 'core.create')) > 0)
 		{
-			$toolbar->addNew('team.add');
+			$toolbar->addNew('seasonphase.add');
 		}
 		if ($canDo->get('core.edit.state'))
 		{
@@ -117,25 +119,25 @@ class HtmlView extends BaseHtmlView
 				->listCheck(true);
 
 			$childBar = $dropdown->getChildToolbar();
-			$childBar->publish('teams.publish')->listCheck(true);
-			$childBar->unpublish('teams.unpublish')->listCheck(true);
-			$childBar->archive('teams.archive')->listCheck(true);
+			$childBar->publish('seasonphases.publish')->listCheck(true);
+			$childBar->unpublish('seasonphases.unpublish')->listCheck(true);
+			$childBar->archive('seasonphases.archive')->listCheck(true);
 
 
 			if ($user->authorise('core.admin'))
 			{
-				$childBar->checkin('teams.checkin')->listCheck(true);
+				$childBar->checkin('seasonphases.checkin')->listCheck(true);
 			}
 
 			if ($this->state->get('filter.published') != -2)
 			{
-				$childBar->trash('teams.trash')->listCheck(true);
+				$childBar->trash('seasonphases.trash')->listCheck(true);
 			}
 		}
 
 		if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
 		{
-			$toolbar->delete('teams.delete')
+			$toolbar->delete('seasonphases.delete')
 				->text('JTOOLBAR_EMPTY_TRASH')
 				->message('JGLOBAL_CONFIRM_DELETE')
 				->listCheck(true);
@@ -144,17 +146,8 @@ class HtmlView extends BaseHtmlView
 		// Add import / export buttons
 		if ($user->authorise('core.edit'))
 		{
-			$toolbar->basicButton('import')
-				->icon('fa fa-file-import')
-				->text('COM_FOOTBALLMANAGER_IMPORT')
-				->listCheck(false)
-				->task('teams.import');
-
-			$toolbar->basicButton('export')
-				->icon('fa fa-file-export')
-				->text('COM_FOOTBALLMANAGER_EXPORT')
-				->listCheck(false)
-				->task('teams.export');
+			ToolbarHelper::custom('seasonphases.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
+			ToolbarHelper::custom('seasonphases.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))

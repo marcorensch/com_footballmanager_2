@@ -25,7 +25,7 @@ use Joomla\String\StringHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class SeasonModel extends AdminModel
+class SeasonphaseModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -33,9 +33,9 @@ class SeasonModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.season';
+	public $typeAlias = 'com_footballmanager.seasonphase';
 
-	protected $associationsContext = 'com_footballmanager.season';
+	protected $associationsContext = 'com_footballmanager.seasonphase';
 	private $itemId = 0;
 
 	/**
@@ -43,6 +43,7 @@ class SeasonModel extends AdminModel
 	 *
 	 * @var array
 	 */
+
 	/**
 	 * Method to get the row form.
 	 *
@@ -57,7 +58,7 @@ class SeasonModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'season', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'seasonphase', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{
@@ -80,18 +81,18 @@ class SeasonModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.season.data', []);
+		$data = $app->getUserState($this->option . 'com_footballmanager.edit.seasonphase.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
-			if ($this->getState('season.id') == 0)
+			if ($this->getState('seasonphase.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.seasons.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.seasonphases.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.season', $data);
+		$this->preprocessData('com_footballmanager.seasonphase', $data);
 
 		return $data;
 	}
@@ -107,7 +108,7 @@ class SeasonModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_seasons', 'com_footballmanager.season', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_season_phases', 'com_footballmanager.seasonphase', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{

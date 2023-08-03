@@ -14,8 +14,6 @@ namespace NXD\Component\Footballmanager\Administrator\Model;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Factory;
-use Joomla\Utilities\ArrayHelper;
-
 
 /**
  * Methods supporting a list of foo records.
@@ -39,7 +37,6 @@ class SeasonsModel extends ListModel
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'catid', 'a.catid',
 				'title', 'a.title',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
@@ -147,10 +144,6 @@ class SeasonsModel extends ListModel
 		$orderCol  = $this->state->get('list.ordering', 'a.created_at');
 		$orderDirn = $this->state->get('list.direction', 'desc');
 
-		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
-		{
-			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
-		}
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
@@ -193,12 +186,13 @@ class SeasonsModel extends ListModel
 		return $items;
 	}
 
-	public function exportItems()
+	public function exportItems($ids)
 	{
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('*');
 		$query->from($db->quoteName('#__footballmanager_seasons'));
+		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
 		$db->setQuery($query);
 		return $db->loadAssocList();
 	}
