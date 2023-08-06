@@ -7,7 +7,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_UPLOAD_LABEL"
                 description="COM_FOOTBALLMANAGER_FIELD_UPLOAD_DESC"
                 accept=".csv , .xls , .xlsx"
-                size="40"
+                size="20"
         />
         <field
                 name="forced_import"

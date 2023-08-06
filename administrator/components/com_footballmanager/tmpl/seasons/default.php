@@ -11,37 +11,12 @@ defined('_JEXEC') or die;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
-use Joomla\CMS\Factory;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
-$wa->addInlineScript("
-    document.addEventListener('DOMContentLoaded', function() {
-    
-        // EXPORT / DOWNLOAD
-        // Get the download button element
-        const downloadButton = document.getElementById('toolbar-download');
-        // Attach a click event listener to the download button
-        downloadButton.addEventListener('click', function(e) {
-            // Get all elements with the name attribute equal to task
-            const taskField = document.querySelectorAll('[name=\"task\"]');
-            // Update the value of the first taskField element to an empty string
-            taskField[0].value = '';
-        });
-    
-        // IMPORT / UPLOAD
-        // Get the modal container element
-        const modalContainer = document.querySelector('#import-modal .modal-dialog');
-    
-        // Add 'modal-dialog-centered' class to the modal container
-        modalContainer.classList.add('modal-dialog-centered');
-      });
-  
-  ");
 
 $canChange = true;
 $assoc     = Associations::isEnabled();
@@ -197,26 +172,9 @@ if ($saveOrder && !empty($this->items))
     </form>
 
 <?php
-
-
-$modalParams = array(
-	'title'       => Text::_('COM_FOOTBALLMANAGER_IMPORT') . ' ' . Text::_('COM_FOOTBALLMANAGER_SEASONS'),
-	'closeButton' => true,
-	'height'      => '500px',
-	'width'       => '300px',
-	'backdrop'    => 'static',
-	'keyboard'    => true,
-	'modalWidth'  => 30,
-	'bodyHeight'  => 30,
-	'footer'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . Text::_('JCANCEL') . '</button>' . '<button onclick="document.getElementById(\'uploadForm\').submit()" class="btn btn-success">' . Text::_('COM_FOOTBALLMANAGER_UPLOAD_START') . '</button>',
+$data = array(
+	'form' => $this->importform,
+	'task' => 'seasons.import',
 );
-$modalBody   = '<form action="' . Route::_('index.php?option=com_footballmanager&task=seasons.import') . '" method="post" enctype="multipart/form-data" name="uploadForm" id="uploadForm" class="p-4">' .
-	JHtml::_('form.token') .
-    '<div>' .
-	$this->importform->renderField('forced_import') .
-	$this->importform->renderField('linked_elements') .
-	$this->importform->renderField('upload_file') .
-	'</div>' .
-	'</form>';
 
-echo HTMLHelper::_('bootstrap.renderModal', 'import-modal', $modalParams, $modalBody);
+echo LayoutHelper::render('admin.importmodal', $data);
