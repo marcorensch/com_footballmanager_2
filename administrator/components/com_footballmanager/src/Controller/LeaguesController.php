@@ -63,6 +63,6 @@ class LeaguesController extends AdminController
 		$model = $this->getModel('leagues');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::exportToCsv($data, 'leagues');
+		ExportHelper::export($data, 'leagues');
 	}
 }

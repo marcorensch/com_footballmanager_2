@@ -14,6 +14,18 @@
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
+
+        <field
+                name="export_format"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_EXPORT_FORMAT_LABEL"
+                default="csv"
+        >
+            <option value="csv">CSV</option>
+            <option value="xls">XLS</option>
+            <option value="xlsx">XLSX</option>
+        </field>
+
     </fieldset>
     <fieldset name="locations"
               label="COM_FOOTBALLMANAGER_FIELD_CONFIG_INDIVIDUAL_LOCATIONS_DISPLAY"

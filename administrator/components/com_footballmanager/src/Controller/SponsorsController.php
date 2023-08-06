@@ -63,6 +63,6 @@ class SponsorsController extends AdminController
 		$model = $this->getModel('sponsors');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::exportToCsv($data, 'sponsors');
+		ExportHelper::export($data, 'sponsors');
 	}
 }

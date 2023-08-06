@@ -59,6 +59,8 @@ class HtmlView extends BaseHtmlView
 			throw new GenericDataException(implode("\n", $errors), 500);
 		}
 
+		$this->importform = $this->get('Importform');
+
 		// Preprocess the list of items to find ordering divisions.
 		foreach ($this->items as &$item)
 		{
@@ -147,7 +149,7 @@ class HtmlView extends BaseHtmlView
 		// Add import / export buttons
 		if ($user->authorise('core.edit'))
 		{
-			ToolbarHelper::custom('seasons.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
+			ToolbarHelper::modal('import-modal', 'fas fa-upload', 'COM_FOOTBALLMANAGER_IMPORT');
 			ToolbarHelper::custom('seasons.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 

@@ -63,6 +63,6 @@ class LocationsController extends AdminController
 		$model = $this->getModel('locations');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::exportToCsv($data, 'locations');
+		ExportHelper::export($data, 'locations');
 	}
 }

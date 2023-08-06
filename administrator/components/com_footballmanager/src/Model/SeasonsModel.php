@@ -196,4 +196,16 @@ class SeasonsModel extends ListModel
 		$db->setQuery($query);
 		return $db->loadAssocList();
 	}
+
+	public function getImportform($data = array(), $loadData = true)
+	{
+		$form = $this->loadForm('com_footballmanager.import', 'import', array('control' => 'jform', 'load_data' => $loadData));
+
+		if (empty($form))
+		{
+			return false;
+		}
+
+		return $form;
+	}
 }

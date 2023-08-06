@@ -64,7 +64,7 @@ class SeasonphasesController extends AdminController
 		$model = $this->getModel('seasonphases');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::exportToCsv($data, 'seasonphases');
+		ExportHelper::export($data, 'seasonphases');
 	}
 
 	#[NoReturn] public function import(): void

@@ -64,7 +64,7 @@ class TeamsController extends AdminController
 		$model = $this->getModel('teams');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::exportToCsv($data, 'teams');
+		ExportHelper::export($data, 'teams');
 	}
 
 	#[NoReturn] public function import(): void
