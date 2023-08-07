@@ -183,4 +183,43 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_teams`
     CONSTRAINT `fk_teams_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 );
 
+CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
+(
+    `id`          int(11)          NOT NULL AUTO_INCREMENT,
+    `firstname`   varchar(255)     NOT NULL,
+    `lastname`    varchar(255)     NOT NULL,
+    `alias`       varchar(255)     NOT NULL,
+    `params`      text,
+    `state`       tinyint(3)       NOT NULL DEFAULT 0,
+    `published`   tinyint(1)       NOT NULL DEFAULT 0,
+    `created_at`  datetime                  DEFAULT NULL,
+    `created_by`  int(11)                   DEFAULT NULL,
+    `modified_at` datetime                  DEFAULT NOW(),
+    `modified_by` int(11)                   DEFAULT NULL,
+    `version`     int(11)                   DEFAULT 0,
+    `hits`        int(11)                   DEFAULT 0,
+    `access`      int(10) unsigned NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_coaches_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches_teams`
+(
+    `id`       int(11)      NOT NULL AUTO_INCREMENT,
+    `team_id`  int(11)      NOT NULL,
+    `coach_id` int(11)      NOT NULL,
+    `photo`    varchar(255) NOT NULL,
+    `position` int(11)      NOT NULL,
+    `since`    datetime DEFAULT NULL,
+    `until`    datetime DEFAULT NULL,
+
+    PRIMARY KEY (`id`),
+    KEY `idx_team` (`team_id`),
+    KEY `idx_coach` (`coach_id`),
+    CONSTRAINT `fk_coaches_teams_team_id` FOREIGN KEY (`team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_coaches_teams_coach_id` FOREIGN KEY (`coach_id`) REFERENCES `#__footballmanager_coaches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 /* Auto Generate: GENERATED ALWAYS AS (lower(replace(name, ' ', '-'))) STORED, */
