@@ -5,3 +5,5 @@ DROP TABLE IF EXISTS `#__footballmanager_seasons`;
 DROP TABLE IF EXISTS `#__footballmanager_season_phases`;
 DROP TABLE IF EXISTS `#__footballmanager_teams`;
 DROP TABLE IF EXISTS `#__footballmanager_players`;
+DROP TABLE IF EXISTS `#__footballmanager_coaches`;
+DROP TABLE IF EXISTS `#__footballmanager_coaches_teams`;
