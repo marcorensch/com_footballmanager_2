@@ -24,7 +24,7 @@ use Joomla\CMS\Language\LanguageHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class TeamModel extends AdminModel
+class CoachModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -32,9 +32,9 @@ class TeamModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.team';
+	public $typeAlias = 'com_footballmanager.coach';
 
-	protected $associationsContext = 'com_footballmanager.team';
+	protected $associationsContext = 'com_footballmanager.coach';
 	private $itemId = 0;
 
 	protected $batch_copymove = 'category_id';
@@ -87,18 +87,18 @@ class TeamModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.team.data', []);
+		$data = $app->getUserState($this->option . 'com_footballmanager.edit.coach.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
-			if ($this->getState('team.id') == 0)
+			if ($this->getState('coach.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.teams.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.coaches.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.team', $data);
+		$this->preprocessData('com_footballmanager.coach', $data);
 
 		return $data;
 	}
@@ -114,7 +114,7 @@ class TeamModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_teams', 'com_footballmanager.team', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_coaches', 'com_footballmanager.coach', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -174,20 +174,6 @@ class TeamModel extends AdminModel
 		if (!isset($data['id']) || (int) $data['id'] === 0)
 		{
 			$data['created_by'] = $user->id;
-		}
-
-		// sponsors
-		$data['sponsors'] = json_encode($data['sponsors']);
-
-		// handle location associations
-		if($data['location_id'] === 0 || $data['location_id'] === '')
-		{
-			$data['location_id'] = null;
-		}
-
-		// cleanup phonenumbers
-		if($data['phone']){
-			$data['phone'] = preg_replace('/\s/', '', $data['phone']);
 		}
 
 		// Alter the title for save as copy
