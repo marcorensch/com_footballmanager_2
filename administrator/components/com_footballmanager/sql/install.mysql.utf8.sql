@@ -189,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
     `firstname`   varchar(255)     NOT NULL,
     `lastname`    varchar(255)     NOT NULL,
     `alias`       varchar(255)     NOT NULL,
+    `about`       text                      DEFAULT NULL,
     `params`      text,
     `state`       tinyint(3)       NOT NULL DEFAULT 0,
     `published`   tinyint(1)       NOT NULL DEFAULT 0,
