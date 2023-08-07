@@ -52,6 +52,7 @@ class HtmlView extends BaseHtmlView
 		$this->filterForm       = $this->get('FilterForm');
 		$this->activeFilters    = $this->get('ActiveFilters');
 		$this->state            = $this->get('State');
+		$this->importform       = $this->get('Importform');
 
 		if (count($errors = $this->get('Errors')))
 		{
@@ -146,7 +147,7 @@ class HtmlView extends BaseHtmlView
 		// Add import / export buttons
 		if ($user->authorise('core.edit'))
 		{
-			ToolbarHelper::custom('leagues.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
+			ToolbarHelper::modal('import-modal', 'fas fa-upload', 'COM_FOOTBALLMANAGER_IMPORT');
 			ToolbarHelper::custom('leagues.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 

@@ -106,6 +106,13 @@ $current_user = Factory::getApplication()->getIdentity();
 
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_SPONSORS')); ?>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <?php echo $this->getForm()->renderField('sponsors'); ?>
+            </div>
+        </div>
+	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_CONST_PUBLISHING')); ?>
         <div class="row">
             <div class="col-sm-12 col-md-4">

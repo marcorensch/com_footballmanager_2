@@ -172,6 +172,7 @@ if ($saveOrder && !empty($this->items))
     </form>
 
 <?php
+// Load the Import Modal Layout
 $data = array(
 	'form' => $this->importform,
 	'task' => 'seasons.import',

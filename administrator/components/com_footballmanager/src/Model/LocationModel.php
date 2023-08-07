@@ -171,7 +171,6 @@ class LocationModel extends AdminModel
 		$user  = $app->getIdentity();
 
 		// sponsors
-
 		$data['sponsors'] = json_encode($data['sponsors']);
 
 		// new element tasks

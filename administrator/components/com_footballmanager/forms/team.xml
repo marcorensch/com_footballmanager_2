@@ -208,6 +208,17 @@
                 header="COM_FOOTBALLMANAGER_FIELD_LOCATION_HEADER_SELECT"
         />
 
+        <field
+                name="sponsors"
+                type="subform"
+                label="COM_FOOTBALLMANAGER_SPONSORS"
+                min="0"
+                max="10"
+                layout="joomla.form.field.subform.repeatable-table"
+                multiple="true"
+                formsource="administrator/components/com_footballmanager/forms/subform_sponsor.xml"
+        />
+
         <!-- Contact Fields -->
         <field
                 name="website"
@@ -236,7 +247,7 @@
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
-                extension="com_footballmanager.sponsors"
+                extension="com_footballmanager.teams"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
                 default=""

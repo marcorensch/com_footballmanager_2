@@ -47,11 +47,12 @@ class HtmlView extends BaseHtmlView
 
 	public function display($tpl = null): void
 	{
-		$this->items            = $this->get('Items');
-		$this->pagination       = $this->get('Pagination');
-		$this->filterForm       = $this->get('FilterForm');
-		$this->activeFilters    = $this->get('ActiveFilters');
-		$this->state            = $this->get('State');
+		$this->items         = $this->get('Items');
+		$this->pagination    = $this->get('Pagination');
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
+		$this->state         = $this->get('State');
+		$this->importform    = $this->get('Importform');
 
 		if (count($errors = $this->get('Errors')))
 		{
@@ -146,7 +147,7 @@ class HtmlView extends BaseHtmlView
 		// Add import / export buttons
 		if ($user->authorise('core.edit'))
 		{
-			ToolbarHelper::custom('locations.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
+			ToolbarHelper::modal('import-modal', 'fas fa-upload', 'COM_FOOTBALLMANAGER_IMPORT');
 			ToolbarHelper::custom('locations.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 

@@ -11,11 +11,16 @@ namespace NXD\Component\Footballmanager\Administrator\Controller;
 
 \defined('_JEXEC') or die;
 
+use JetBrains\PhpStorm\NoReturn;
 use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\CMS\Router\Route;
 use Joomla\Input\Input;
 use NXD\Component\Footballmanager\Administrator\Helper\ExportHelper;
+use NXD\Component\Footballmanager\Administrator\Helper\ImportHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * Foos list controller class.
@@ -64,5 +69,49 @@ class LocationsController extends AdminController
 		$data  = $model->exportItems($ids);
 
 		ExportHelper::export($data, 'locations');
+	}
+
+	#[NoReturn] public function import(): void
+	{
+		// Get the uploaded file data from the Input class
+		$app = Factory::getApplication();
+		// Get the uploaded file data from the input
+		$input = Factory::getApplication()->input;
+		// Get the uploaded file data
+		$files = $input->files->get('jform', array(), 'array');
+		// Get the data from the form
+		$data = $input->get('jform', array(), 'array');
+		$forced = $data['forced_import'];
+		$linked = $data['linked_elements'];
+
+
+		// Check if the file was uploaded successfully (error code 0 means success)
+		if ($files['upload_file']) {
+			$file = $files['upload_file'];
+			// Get the temporary file path
+//			$tmpFilePath = $files['upload_file']['tmp_name'];
+
+			// Get the original file name
+			$fileName = $files['upload_file']['name'];
+
+			// Do something with the file, e.g., move it to a desired location
+//			$destinationPath = 'path/to/your/desired/location/' . $fileName;
+//			move_uploaded_file($tmpFilePath, $destinationPath);
+
+			// ... Process the uploaded file further as needed ...
+			ImportHelper::import($file);
+
+			// Redirect or return a response after processing
+			$app->enqueueMessage(Text::sprintf('COM_FOOTBALLMANAGER_TEXT_UPLOAD_SUCCESS', $fileName ), 'message');
+			$app->enqueueMessage(Text::sprintf('COM_FOOTBALLMANAGER_TEXT_IMPORT_SUCCESS', $fileName ), 'message');
+		} else {
+			// Handle the upload error
+			// @TODO
+			// Redirect or return a response to show the error to the user
+			$app->enqueueMessage(Text::_('COM_FOOTBALLMANAGER_TEXT_UPLOAD_ERROR'), 'error');
+		}
+
+		$app->enqueueMessage('Importing seasons is not supported yet', 'warning');
+		$this->setRedirect(Route::_('index.php?option=com_footballmanager&view=locations', false));
 	}
 }

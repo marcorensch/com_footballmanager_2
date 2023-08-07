@@ -188,6 +188,18 @@ class SeasonphasesModel extends ListModel
 		return $items;
 	}
 
+	public function getImportform($data = array(), $loadData = true)
+	{
+		$form = $this->loadForm('com_footballmanager.import', 'import', array('control' => 'jform', 'load_data' => $loadData));
+
+		if (empty($form))
+		{
+			return false;
+		}
+
+		return $form;
+	}
+
 	public function exportItems($ids)
 	{
 		$db = $this->getDatabase();

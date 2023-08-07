@@ -148,6 +148,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_teams`
     `shortcode`        varchar(10)      NOT NULL,
     `introtext`        text                      DEFAULT NULL,
     `description`      text                      DEFAULT NULL,
+    `sponsors`         text                      DEFAULT NULL,
     `year_established` datetime                  DEFAULT NULL,
     `logo`             varchar(255)              DEFAULT NULL,
     `image`            varchar(255)              DEFAULT NULL,

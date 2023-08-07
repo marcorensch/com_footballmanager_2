@@ -176,6 +176,9 @@ class TeamModel extends AdminModel
 			$data['created_by'] = $user->id;
 		}
 
+		// sponsors
+		$data['sponsors'] = json_encode($data['sponsors']);
+
 		// handle location associations
 		if($data['location_id'] === 0 || $data['location_id'] === '')
 		{

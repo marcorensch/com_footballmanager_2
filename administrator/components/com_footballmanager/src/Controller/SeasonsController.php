@@ -20,6 +20,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\Input\Input;
 use NXD\Component\Footballmanager\Administrator\Helper\ExportHelper;
 use NXD\Component\Footballmanager\Administrator\Helper\ImportHelper;
+use Joomla\CMS\Language\Text;
 
 /**
  * Foos list controller class.
@@ -101,7 +102,8 @@ class SeasonsController extends AdminController
 			ImportHelper::import($file);
 
 			// Redirect or return a response after processing
-			$app->enqueueMessage($fileName . ' uploaded successfully', 'message');
+			$app->enqueueMessage(Text::sprintf('COM_FOOTBALLMANAGER_TEXT_UPLOAD_SUCCESS', $fileName ), 'message');
+			$app->enqueueMessage(Text::sprintf('COM_FOOTBALLMANAGER_TEXT_IMPORT_SUCCESS', $fileName ), 'message');
 		} else {
 			// Handle the upload error
 			// @TODO

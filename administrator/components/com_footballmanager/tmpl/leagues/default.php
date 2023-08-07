@@ -172,3 +172,13 @@ if ($saveOrder && !empty($this->items))
         </div>
     </div>
 </form>
+
+<?php
+// Load the Import Modal Layout
+$data = array(
+	'form' => $this->importform,
+	'task' => 'leagues.import',
+);
+
+echo LayoutHelper::render('admin.importmodal', $data);
+
