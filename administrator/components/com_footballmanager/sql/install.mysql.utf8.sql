@@ -190,6 +190,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
     `lastname`    varchar(255)     NOT NULL,
     `alias`       varchar(255)     NOT NULL,
     `about`       text                      DEFAULT NULL,
+    `image`       varchar(255)              DEFAULT NULL,
     `params`      text,
     `state`       tinyint(3)       NOT NULL DEFAULT 0,
     `published`   tinyint(1)       NOT NULL DEFAULT 0,
@@ -198,10 +199,14 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
     `modified_at` datetime                  DEFAULT NOW(),
     `modified_by` int(11)                   DEFAULT NULL,
     `version`     int(11)                   DEFAULT 0,
+    `catid`       int(11)          NOT NULL DEFAULT 0,
     `hits`        int(11)                   DEFAULT 0,
     `access`      int(10) unsigned NOT NULL DEFAULT 0,
+    `language`    char(7)          NOT NULL DEFAULT '',
+    `ordering`    int(11)                   DEFAULT 0,
 
     PRIMARY KEY (`id`),
+    KEY `idx_category` (`catid`),
     CONSTRAINT `fk_coaches_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );

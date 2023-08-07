@@ -43,17 +43,21 @@ $current_user = Factory::getApplication()->getIdentity();
       method="post" name="adminForm" id="coach-form" class="form-validate form-vertical">
 
     <div class="row">
-        <div class="col-sm-12 col-md-2">
+        <div class="col-sm-12 col-md-4">
 			<?php echo $this->getForm()->renderField('firstname'); ?>
-			<?php echo $this->getForm()->renderField('lastname'); ?>
-			<?php echo $this->getForm()->renderField('alias'); ?>
+        </div>
+        <div class="col-sm-12 col-md-4">
+		    <?php echo $this->getForm()->renderField('lastname'); ?>
+        </div>
+        <div class="col-sm-12 col-md-4">
+		    <?php echo $this->getForm()->renderField('alias'); ?>
         </div>
     </div>
 
     <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
 
-	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_LEAGUE_TITLE')); ?>
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_TAB_TEAMS_LABEL')); ?>
         <div class="row">
             <div class="col-sm-12 col-md-2">
 
@@ -68,6 +72,7 @@ $current_user = Factory::getApplication()->getIdentity();
 		            <?php echo $this->getForm()->renderField('created_by'); ?>
 		            <?php echo $this->getForm()->renderField('access'); ?>
 		            <?php echo $this->getForm()->renderField('published'); ?>
+		            <?php echo $this->getForm()->renderField('catid'); ?>
                 </div>
             </div>
 	    <?php echo HTMLHelper::_('uitab.endTab'); ?>

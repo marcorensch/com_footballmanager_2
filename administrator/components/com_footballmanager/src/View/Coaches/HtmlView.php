@@ -101,12 +101,12 @@ class HtmlView extends BaseHtmlView
 
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance();
-		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_COACHES'), 'fas fa-users');
+		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_COACHES'), 'fas fa-chalkboard-teacher');
 
 		// Show Buttons only if the user is allowed to do so
 		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_footballmanager', 'core.create')) > 0)
 		{
-			$toolbar->addNew('team.add');
+			$toolbar->addNew('coach.add');
 		}
 		if ($canDo->get('core.edit.state'))
 		{
@@ -118,25 +118,25 @@ class HtmlView extends BaseHtmlView
 				->listCheck(true);
 
 			$childBar = $dropdown->getChildToolbar();
-			$childBar->publish('teams.publish')->listCheck(true);
-			$childBar->unpublish('teams.unpublish')->listCheck(true);
-			$childBar->archive('teams.archive')->listCheck(true);
+			$childBar->publish('coaches.publish')->listCheck(true);
+			$childBar->unpublish('coaches.unpublish')->listCheck(true);
+			$childBar->archive('coaches.archive')->listCheck(true);
 
 
 			if ($user->authorise('core.admin'))
 			{
-				$childBar->checkin('teams.checkin')->listCheck(true);
+				$childBar->checkin('coaches.checkin')->listCheck(true);
 			}
 
 			if ($this->state->get('filter.published') != -2)
 			{
-				$childBar->trash('teams.trash')->listCheck(true);
+				$childBar->trash('coaches.trash')->listCheck(true);
 			}
 		}
 
 		if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
 		{
-			$toolbar->delete('teams.delete')
+			$toolbar->delete('coaches.delete')
 				->text('JTOOLBAR_EMPTY_TRASH')
 				->message('JGLOBAL_CONFIRM_DELETE')
 				->listCheck(true);
@@ -146,7 +146,7 @@ class HtmlView extends BaseHtmlView
 		if ($user->authorise('core.edit'))
 		{
 			ToolbarHelper::modal('import-modal', 'fas fa-upload', 'COM_FOOTBALLMANAGER_IMPORT');
-			ToolbarHelper::custom('teams.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
+			ToolbarHelper::custom('coaches.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))

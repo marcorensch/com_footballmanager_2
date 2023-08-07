@@ -91,7 +91,7 @@ class HtmlView extends BaseHtmlView
 
 	    $toolbar = Toolbar::getInstance();
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_COACH_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_COACH_EDIT_TITLE'), 'fas fa-user');
+	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_COACH_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_COACH_EDIT_TITLE'), 'fas fa-chalkboard-teacher');
 
         $toolbar->apply('coach.apply');
 

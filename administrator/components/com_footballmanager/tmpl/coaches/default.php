@@ -72,7 +72,7 @@ if ($saveOrder && !empty($this->items))
                             </th>
 
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
-								<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_name', 'a.lastname', $listDirn, $listOrder); ?>
                             </th>
 
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
@@ -129,12 +129,12 @@ if ($saveOrder && !empty($this->items))
                                 </td>
                                 <th scope="row" class="has-context">
                                     <div style="display:none">
-										<?php echo $this->escape($item->title); ?>
+										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
                                     </div>
                                     <a class="hasTooltip"
-                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=league.edit&id=' . (int) $item->id); ?>"
-                                       title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
-										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?>
+                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=coach.edit&id=' . (int) $item->id); ?>"
+                                       title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->lastname)); ?>">
+										<?php echo $editIcon; ?><?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
                                     </a>
                                 </th>
                                 <td class="small d-none d-md-table-cell">
@@ -177,7 +177,7 @@ if ($saveOrder && !empty($this->items))
 // Load the Import Modal Layout
 $data = array(
 	'form' => $this->importform,
-	'task' => 'leagues.import',
+	'task' => 'coaches.import',
 );
 
 echo LayoutHelper::render('admin.importmodal', $data);

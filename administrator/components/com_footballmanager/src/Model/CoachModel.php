@@ -64,7 +64,7 @@ class CoachModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'team', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'coach', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{

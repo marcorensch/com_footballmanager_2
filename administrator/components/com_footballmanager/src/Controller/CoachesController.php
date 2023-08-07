@@ -111,7 +111,7 @@ class CoachesController extends AdminController
 			$app->enqueueMessage('File upload error', 'error');
 		}
 
-		$app->enqueueMessage('Importing seasons is not supported yet', 'warning');
+		$app->enqueueMessage('Importing coaches is not supported yet', 'warning');
 		$this->setRedirect(Route::_('index.php?option=com_footballmanager&view=coaches', false));
 	}
 

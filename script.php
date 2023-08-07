@@ -58,6 +58,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$this->installUncategorisedCat('com_footballmanager.locations');
 		$this->installUncategorisedCat('com_footballmanager.sponsors');
 		$this->installUncategorisedCat('com_footballmanager.teams');
+		$this->installUncategorisedCat('com_footballmanager.coaches');
 
 
 		$this->addDashboardMenu('footballmanager', 'footballmanager');

@@ -25,10 +25,9 @@ class CategoriesModel extends ListModel
 
 	public function getSections()
 	{
-//		$this->sections[] = $this->createSection('Team', 'team', 'users');
 //		$this->sections[] = $this->createSection('Player', 'player', 'user');
 //		$this->sections[] = $this->createSection('Referee', 'referee', 'user');
-//		$this->sections[] = $this->createSection('Coach', 'coach' , 'user');
+		$this->sections[] = $this->createSection('Coaches', 'coaches' , 'chalkboard-teacher');
 		$this->sections[] = $this->createSection('Locations', 'locations', 'map-marker-alt');
 		$this->sections[] = $this->createSection('Sponsors', 'sponsors', 'handshake');
 		$this->sections[] = $this->createSection('Teams', 'teams', 'users');
