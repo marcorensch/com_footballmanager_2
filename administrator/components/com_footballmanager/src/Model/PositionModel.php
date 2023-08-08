@@ -18,13 +18,14 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Language\LanguageHelper;
+use Joomla\String\StringHelper;
 
 /**
  * Item Model for a location.
  *
  * @since  __BUMP_VERSION__
  */
-class CoachModel extends AdminModel
+class PositionModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -32,9 +33,9 @@ class CoachModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.coach';
+	public $typeAlias = 'com_footballmanager.position';
 
-	protected $associationsContext = 'com_footballmanager.coach';
+	protected $associationsContext = 'com_footballmanager.position';
 	private $itemId = 0;
 
 	protected $batch_copymove = 'category_id';
@@ -64,7 +65,7 @@ class CoachModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'coach', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'position', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{
@@ -87,18 +88,18 @@ class CoachModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.coach.data', []);
+		$data = $app->getUserState($this->option . 'com_footballmanager.edit.league.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
-			if ($this->getState('coach.id') == 0)
+			if ($this->getState('position.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.coaches.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.positions.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.coach', $data);
+		$this->preprocessData('com_footballmanager.position', $data);
 
 		return $data;
 	}
@@ -114,7 +115,7 @@ class CoachModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_coaches', 'com_footballmanager.coach', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_positions', 'com_footballmanager.position', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -163,6 +164,23 @@ class CoachModel extends AdminModel
 		parent::preprocessForm($form, $data, $group);
 	}
 
+	protected function generateNewTitleWithoutCat($alias, $title)
+	{
+		// Alter the title & alias
+		$table      = $this->getTable();
+		$aliasField = $table->getColumnAlias('alias');
+		$titleField = $table->getColumnAlias('title');
+
+		while ($table->load([$aliasField => $alias])) {
+			if ($title === $table->$titleField) {
+				$title = StringHelper::increment($title);
+			}
+
+			$alias = StringHelper::increment($alias, 'dash');
+		}
+
+		return [$title, $alias];
+	}
 	public function save($data)
 	{
 
@@ -185,7 +203,7 @@ class CoachModel extends AdminModel
 			{
 				$origTable->load($input->getInt('a_id'));
 
-				if ($origTable->lastname === $data['lastname'])
+				if ($origTable->title === $data['title'])
 				{
 					/**
 					 * If title of article is not changed, set alias to original article alias so that Joomla! will generate
@@ -203,10 +221,10 @@ class CoachModel extends AdminModel
 				$origTable->load($input->getInt('id'));
 			}
 
-			if ($data['lastname'] == $origTable->lastname)
+			if ($data['title'] == $origTable->title)
 			{
-				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['lastname']);
-				$data['lastname'] = $title;
+				list($title, $alias) = $this->generateNewTitleWithoutCat($data['alias'], $data['title']);
+				$data['title'] = $title;
 				$data['alias'] = $alias;
 			}
 			elseif ($data['alias'] == $origTable->alias)
@@ -220,21 +238,21 @@ class CoachModel extends AdminModel
 		{
 			if ($app->get('unicodeslugs') == 1)
 			{
-				$data['alias'] = OutputFilter::stringUrlUnicodeSlug($data['lastname']);
+				$data['alias'] = OutputFilter::stringUrlUnicodeSlug($data['title']);
 			}
 			else
 			{
-				$data['alias'] = OutputFilter::stringURLSafe($data['lastname']);
+				$data['alias'] = OutputFilter::stringURLSafe($data['title']);
 			}
 
 			$table = $this->getTable();
 
-			if ($table->load(['alias' => $data['alias'], 'catid' => $data['catid']]))
+			if ($table->load(['alias' => $data['alias']]))
 			{
 				$msg = Text::_('COM_FOOTBALLMANAGER_SAVE_WARNING');
 			}
 
-			list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['lastname']);
+			list($title, $alias) = $this->generateNewTitleWithoutCat($data['alias'], $data['title']);
 			$data['alias'] = $alias;
 
 			if (isset($msg))

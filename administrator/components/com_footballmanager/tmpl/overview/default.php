@@ -55,8 +55,6 @@ a.nxd-position-cover::before{
 }
 '
 );
-
-
 ?>
 
 <div class="">
@@ -94,9 +92,23 @@ a.nxd-position-cover::before{
                     </div>
                     <div class="col-lg-3">
                         <div class="nxd-overview-item text-center p-4">
+                            <i class="fas fa-hat-cowboy fa-4x"></i>
+                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_POSITIONS');?></div>
+                            <a href="index.php?option=com_footballmanager&view=positions" class="nxd-position-cover"></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="nxd-overview-item text-center p-4">
                             <i class="fas fa-users fa-4x"></i>
                             <div><?php echo Text::_('COM_FOOTBALLMANAGER_TEAMS');?></div>
                             <a href="index.php?option=com_footballmanager&view=teams" class="nxd-position-cover"></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="nxd-overview-item text-center p-4">
+                            <i class="fas fa-chalkboard-teacher fa-4x"></i>
+                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_COACHES');?></div>
+                            <a href="index.php?option=com_footballmanager&view=coaches" class="nxd-position-cover"></a>
                         </div>
                     </div>
                     <div class="col-lg-3">
@@ -106,13 +118,7 @@ a.nxd-position-cover::before{
                             <a href="index.php?option=com_footballmanager&view=players" class="nxd-position-cover"></a>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-user-friends fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_COACHES');?></div>
-                            <a href="index.php?option=com_footballmanager&view=coaches" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
+
                     <div class="col-lg-3">
                         <div class="nxd-overview-item text-center p-4">
                             <i class="fas fa-id-card-alt fa-4x"></i>
@@ -138,7 +144,7 @@ a.nxd-position-cover::before{
             </div>
             <div class="col-lg-3">
                 <h3>FootballManager 2.0</h3>
-                <div class="version">Version 2.0.0</div>
+                <div class="version"><span class="badge bg-info p-2">Version <?php echo $this->version;?></span></div>
             </div>
         </div>
 

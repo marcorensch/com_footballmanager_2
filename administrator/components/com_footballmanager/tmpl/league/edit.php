@@ -40,22 +40,12 @@ $current_user = Factory::getApplication()->getIdentity();
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="league-form" class="form-validate form-vertical">
+      method="post" name="adminForm" id="position-form" class="form-validate form-vertical">
 
 	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
     <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
-
-	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_LEAGUE_TITLE')); ?>
-        <div class="row">
-            <div class="col-sm-12 col-md-2">
-			    <?php echo $this->getForm()->renderField('pts_loss'); ?>
-			    <?php echo $this->getForm()->renderField('pts_draw'); ?>
-			    <?php echo $this->getForm()->renderField('pts_win'); ?>
-            </div>
-        </div>
-	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_CONST_PUBLISHING')); ?>
             <div class="row">

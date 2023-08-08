@@ -15,29 +15,23 @@
         />
 
         <field
-                name="language"
-                type="contentlanguage"
-                label="JFIELD_LANGUAGE_LABEL"
-        >
-            <option value="*">JALL</option>
-        </field>
-        <field
-                name="firstname"
+                name="title"
                 type="text"
                 validate=""
                 class=""
-                label="COM_FOOTBALLMANAGER_FIELD_FIRSTNAME_LABEL"
+                label="COM_FOOTBALLMANAGER_FIELD_NAME_LABEL"
                 size="40"
                 required="true"
         />
+
         <field
-                name="lastname"
+                name="shortname"
                 type="text"
-                validate=""
-                class=""
-                label="COM_FOOTBALLMANAGER_FIELD_LASTNAME_LABEL"
+                label="COM_FOOTBALLMANAGER_FIELD_SHORTNAME_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_SHORTNAME_DESC"
+                hint="COM_FOOTBALLMANAGER_FIELD_SHORTNAME_PLACEHOLDER"
                 size="40"
-                required="true"
+                limit="10"
         />
 
         <field
@@ -47,6 +41,26 @@
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
+
+        <field
+            name="learnmore_link"
+            type="url"
+            label="COM_FOOTBALLMANAGER_FIELD_LEARNMORE_LABEL"
+            description="COM_FOOTBALLMANAGER_FIELD_LEARNMORE_DESC"
+            hint="COM_FOOTBALLMANAGER_URI_PLACEHOLDER"
+            size="40"
+            />
+
+        <field
+                name="description"
+                type="editor"
+                label="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_POSITION_DESCRIPTION_DESC"
+                filter="safehtml"
+                buttons="true"
+                height="600"
+        />
+
         <field
                 name="published"
                 type="list"
@@ -89,46 +103,16 @@
         />
 
         <field
+                name="ordering"
+                type="ordering"
+                label="JFIELD_ORDERING_LABEL"
+                content_type="com_footballmanager.location"
+        />
+        <field
                 name="access"
                 type="accesslevel"
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
-        />
-        <!-- Location Fields -->
-
-        <field
-                name="photo"
-                type="media"
-                label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
-                directory="images"
-        />
-
-        <field
-                name="about"
-                type="editor"
-                label="COM_FOOTBALLMANAGER_FIELD_ABOUT_LABEL"
-                filter="safehtml"
-                buttons="true"
-                height="572"
-        />
-
-        <field
-                name="catid"
-                type="categoryedit"
-                label="JCATEGORY"
-                extension="com_footballmanager.coaches"
-                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
-                default=""
-        />
-
-        <field
-                name="coach_teams"
-                type="subform"
-                min="1"
-                layout="joomla.form.field.subform.repeatable-table"
-                multiple="true"
-                formsource="administrator/components/com_footballmanager/forms/subform_coach_teams.xml"
         />
 
         <field name="params" type="textarea" label="params" description="params" />

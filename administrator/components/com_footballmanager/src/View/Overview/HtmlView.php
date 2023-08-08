@@ -14,10 +14,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-use NXD\Component\Footballmanager\Administrator\Model\LocationModel;
-use NXD\Component\Footballmanager\Administrator\Model\SponsorModel;
+use NXD\Component\Footballmanager\Administrator\Model\OverviewModel;
 
 /**
  * Overview of FootballManager 2.0
@@ -36,11 +34,15 @@ class HtmlView extends BaseHtmlView
 	 * @since 1.0.0
 	 *
 	 */
-    public function display($tpl = null)
-    {
-        $this->addToolbar();
-        return parent::display($tpl);
-    }
+	public function display($tpl = null)
+	{
+		/** @var OverviewModel $model */
+		$model         = $this->getModel();
+		$this->version = $model->getComponentVersion();
+		$this->addToolbar();
+
+		return parent::display($tpl);
+	}
 
 	/**
 	 * Add the page title and toolbar.
@@ -50,11 +52,11 @@ class HtmlView extends BaseHtmlView
 	 * @throws \Exception
 	 * @since   __BUMP_VERSION__
 	 */
-    protected function addToolbar()
-    {
-        Factory::getApplication()->input->set('hidemainmenu', false);
-	    ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_OVERVIEW_TITLE'), 'fas fa-football-ball');
-	    ToolbarHelper::preferences('com_footballmanager');
+	protected function addToolbar()
+	{
+		Factory::getApplication()->input->set('hidemainmenu', false);
+		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_OVERVIEW_TITLE'), 'fas fa-football-ball');
+		ToolbarHelper::preferences('com_footballmanager');
 
-    }
+	}
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Repeatable Subform -->
+<form
+        addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
+>
+    <field
+            name="image"
+            type="media"
+            label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
+            directory="images"
+            destination="com_footballmanager"
+    />
+    <field
+            name="team_id"
+            type="teams"
+            label="COM_FOOTBALLMANAGER_TEAM_TITLE"
+            onfocus="this.oldvalue = this.value;"
+            onchange="console.log(this.oldvalue, this.value);"
+    />
+    <field
+            name="position_id"
+            type="positions"
+            label="COM_FOOTBALLMANAGER_POSITION_TITLE"
+            onfocus="this.oldvalue = this.value;"
+            onchange="console.log(this.oldvalue, this.value);"
+    />
+    <field
+            name="since"
+            type="calendar"
+            label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL"
+            format="%Y-%m-%d"
+            filter="user_utc"
+    />
+    <field
+            name="until"
+            type="calendar"
+            label="COM_FOOTBALLMANAGER_FIELD_UNTIL_LABEL"
+            format="%Y-%m-%d"
+            filter="user_utc"
+    />
+</form>

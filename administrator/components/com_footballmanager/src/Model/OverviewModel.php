@@ -13,6 +13,7 @@ namespace NXD\Component\Footballmanager\Administrator\Model;
 
 
 use Joomla\CMS\MVC\Model\AdminModel;
+use NXD\Component\Footballmanager\Administrator\Helper\FootballmanagerHelper;
 
 class OverviewModel extends AdminModel
 {
@@ -29,6 +30,10 @@ class OverviewModel extends AdminModel
 		}
 
 		return $form;
+	}
+
+	public function getComponentVersion(){
+		return FootballmanagerHelper::getComponentVersion();
 	}
 
 }

@@ -40,29 +40,29 @@ $current_user = Factory::getApplication()->getIdentity();
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="coach-form" class="form-validate form-vertical">
+      method="post" name="adminForm" id="league-form" class="form-validate form-vertical">
 
-    <div class="row">
-        <div class="col-sm-12 col-md-4">
-			<?php echo $this->getForm()->renderField('firstname'); ?>
-        </div>
-        <div class="col-sm-12 col-md-4">
-		    <?php echo $this->getForm()->renderField('lastname'); ?>
-        </div>
-        <div class="col-sm-12 col-md-4">
-		    <?php echo $this->getForm()->renderField('alias'); ?>
-        </div>
-    </div>
+	<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
     <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
 
-	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_TAB_TEAMS_LABEL')); ?>
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', Text::_('COM_FOOTBALLMANAGER_TAB_DETAILS_TITLE')); ?>
         <div class="row">
-            <div class="col">
-	            <?php echo $this->getForm()->renderField('coach_teams'); ?>
+            <div class="col-sm-12 col-md-3">
+			    <?php echo $this->getForm()->renderField('shortname'); ?>
+            </div>
+            <div class="col-sm-12 col-md-9">
+			    <?php echo $this->getForm()->renderField('learnmore_link'); ?>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12">
+	            <?php echo $this->getForm()->renderField('description'); ?>
+            </div>
+        </div>
+
+
 	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_CONST_PUBLISHING')); ?>
@@ -72,7 +72,6 @@ $current_user = Factory::getApplication()->getIdentity();
 		            <?php echo $this->getForm()->renderField('created_by'); ?>
 		            <?php echo $this->getForm()->renderField('access'); ?>
 		            <?php echo $this->getForm()->renderField('published'); ?>
-		            <?php echo $this->getForm()->renderField('catid'); ?>
                 </div>
             </div>
 	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
