@@ -200,12 +200,8 @@
         />
         <field
                 name="location_id"
-                type="sql"
+                type="locations"
                 label="COM_FOOTBALLMANAGER_FIELD_LOCATION_LABEL"
-                query="SELECT id, title FROM #__footballmanager_locations WHERE published = 1"
-                key_field="id"
-                value_field="title"
-                header="COM_FOOTBALLMANAGER_FIELD_LOCATION_HEADER_SELECT"
         />
 
         <field

@@ -105,7 +105,7 @@ $current_user = Factory::getApplication()->getIdentity();
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-		<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
+		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
 		<?php if (!$isModal && $assoc) : ?>
 			<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'associations', Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS')); ?>

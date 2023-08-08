@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\View\Categories;
 
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 defined('_JEXEC') or die;
@@ -29,7 +30,7 @@ class HtmlView extends BaseHtmlView
 		// We don't need toolbar in the modal window
 		if ($this->getLayout() !== 'modal')
 		{
-			$this->sidebar = \JHtmlSidebar::render();
+			$this->sidebar = Sidebar::render();
 		}
 
 		parent::display($tpl);

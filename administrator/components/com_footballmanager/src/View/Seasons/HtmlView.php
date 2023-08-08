@@ -11,10 +11,8 @@ namespace NXD\Component\Footballmanager\Administrator\View\Seasons;
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\Helpers\Sidebar;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -77,7 +75,7 @@ class HtmlView extends BaseHtmlView
 		if ($this->getLayout() !== 'modal')
 		{
 			$this->addToolbar();
-			$this->sidebar = \JHtmlSidebar::render();
+			$this->sidebar = Sidebar::render();
 		}
 		else
 		{

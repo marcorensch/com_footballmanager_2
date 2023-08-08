@@ -77,7 +77,7 @@ $current_user = Factory::getApplication()->getIdentity();
 	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 
-        <?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
+        <?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
 
             <?php if (!$isModal && $assoc) : ?>

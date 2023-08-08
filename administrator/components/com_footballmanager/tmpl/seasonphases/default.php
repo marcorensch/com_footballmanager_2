@@ -40,7 +40,6 @@ if ($saveOrder && !empty($this->items))
 
 ?>
 
-<?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&view=seasonphases'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
@@ -134,7 +133,7 @@ if ($saveOrder && !empty($this->items))
                                     <a class="hasTooltip"
                                        href="<?php echo Route::_('index.php?option=com_footballmanager&task=seasonphase.edit&id=' . (int) $item->id); ?>"
                                        title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
-										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?>
+										<?php echo $this->escape($item->title); ?>
                                     </a>
                                 </th>
                                 <td class="small d-none d-md-table-cell">

@@ -10,9 +10,6 @@
 
 defined('_JEXEC') or die;
 
-
-require_once JPATH_ADMINISTRATOR . '/components/com_footballmanager/lib/vendor/autoload.php';
-
 use Joomla\CMS\Categories\CategoryFactoryInterface;
 use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
 use Joomla\CMS\Extension\ComponentInterface;

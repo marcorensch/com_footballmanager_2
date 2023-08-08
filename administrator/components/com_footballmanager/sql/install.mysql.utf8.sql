@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_teams`
     `image`            varchar(255)              DEFAULT NULL,
     `color`            varchar(255)              DEFAULT NULL,
     `my_team`          tinyint(1)                DEFAULT 0,
-    `location_id`      int(11)                   DEFAULT 0,
+    `location_id`      int(11)                   DEFAULT NULL,
     `street`           varchar(255)              DEFAULT NULL,
     `city`             varchar(255)              DEFAULT NULL,
     `zip`              varchar(20)               DEFAULT NULL,

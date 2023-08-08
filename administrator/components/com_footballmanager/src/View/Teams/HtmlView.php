@@ -73,7 +73,7 @@ class HtmlView extends BaseHtmlView
 		if ($this->getLayout() !== 'modal')
 		{
 			$this->addToolbar();
-			$this->sidebar = \JHtmlSidebar::render();
+			$this->sidebar = Sidebar::render();
 		}
 		else
 		{

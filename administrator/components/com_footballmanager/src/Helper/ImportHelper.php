@@ -13,7 +13,6 @@ namespace NXD\Component\Footballmanager\Administrator\Helper;
 
 use JetBrains\PhpStorm\NoReturn;
 use Joomla\CMS\Component\ComponentHelper;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ImportHelper extends ComponentHelper
 {
@@ -32,12 +31,6 @@ class ImportHelper extends ComponentHelper
 		{
 			case 'text/csv':
 //				self::importCSV($file);
-				break;
-			case 'application/vnd.ms-excel':
-//				self::importXLSX($file);
-				break;
-			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-//				self::importXLSX($file);
 				break;
 			default:
 				return false;
