@@ -45,16 +45,16 @@ document.addEventListener("DOMContentLoaded", function() {
     $teamsTab = document.querySelector("joomla-tab-element#teams");
     $teamsTab.addEventListener("subform-row-add", function() {
         hideHiddenColumns();
+        updateOrderingValue();
     });
     $teamsTab.addEventListener("joomla:updated", function() {
-        console.log("joomla updated");
+        // console.log("joomla updated");
     });
     
     // Select the element you want to watch
     $subFormRepeatableContainer = document.querySelector(".subform-repeatable-container");
     
     $subFormRepeatableContainer.addEventListener("dragend", function() {
-        console.log("dragend");
         updateOrderingValues();
     });
  
@@ -66,7 +66,6 @@ function updateOrderingValues(){
         for (let i = 0; i < $subFormRows.length; i++){
             let $row = $subFormRows[i];
             let $orderingInput = $row.querySelector("input.ordering");
-            console.log($orderingInput);
             $orderingInput.value = i+1;
         }
 };
@@ -77,7 +76,6 @@ function hideHiddenColumns(){
         $parentTd = $input.closest("td");
         $parentTd.style.display = "none";
         $positionOfTd = Array.from($parentTd.parentElement.children).indexOf($parentTd);
-        console.log($positionOfTd);
         // Hide tablehead column
         $tableHead = $teamsTable.querySelector("thead tr");
         $tableHead.children[$positionOfTd].style.display = "none";

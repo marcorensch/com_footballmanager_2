@@ -258,18 +258,19 @@ class CoachModel extends AdminModel
 			}
 		}
 
+		// Get ID's of currently stored coaches teams data from db
+		$coachTeamIds = $this->getTeamLinkIds($data['id']);
+
 		// Save the coach teams data
 		if($data['coach_teams'])
 		{
 			$teamLinks = $data['coach_teams'];
 			$db = $this->getDatabase();
-//			$query = $db->getQuery(true);
-//			$query->delete('#__footballmanager_coaches_teams');
-//			$query->where('coach_id = ' . (int) $data['id']);
-//			$db->setQuery($query);
-//			$db->execute();
+
 			foreach($teamLinks as $teamLinkData)
 			{
+				// remove from array if exists (leftovers will be deleted)
+				unset($coachTeamIds[array_search($teamLinkData['id'], $coachTeamIds)]);
 				$query = $db->getQuery(true);
 				// Set null on fields that are not set
 
@@ -299,18 +300,42 @@ class CoachModel extends AdminModel
 					$db->setQuery($query);
 
 					$result = $db->execute();
-					error_log(print_r($result, true));
 				}else{
-					$query = $db->getQuery(true);
-					$query->insert('#__footballmanager_coaches_teams');
-					$query->columns('coach_id, team_id, photo');
-					$query->values((int) $data['id'] . ', ' . (int) $teamLinkData['team_id'] . ', ""');
-					$db->setQuery($query);
-					$db->execute();
+					$teamLinkDataObj = (object) $teamLinkData;
+					$teamLinkDataObj->coach_id = $data['id'];
+					$result        = $this->getDatabase()->insertObject('#__footballmanager_coaches_teams', $teamLinkDataObj);
 				}
+			}
+
+			// Delete leftover coach teams data
+			foreach($coachTeamIds as $coachTeamId){
+				$query = $db->getQuery(true);
+				$conditions = array(
+					$db->quoteName('id') . ' = ' . $db->quote($coachTeamId)
+				);
+				$query->delete($db->quoteName('#__footballmanager_coaches_teams'))->where($conditions);
+				$db->setQuery($query);
+				$db->execute();
 			}
 		}
 
 		return parent::save($data);
+	}
+
+	protected function getTeamLinkIds($coachId): array
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->select('id');
+		$query->from('#__footballmanager_coaches_teams');
+		$query->where('coach_id = ' . $coachId);
+		$db->setQuery($query);
+		$teamLinks = $db->loadObjectList();
+		$teamLinkIds = array();
+		foreach($teamLinks as $teamLink){
+			$teamLinkIds[] = $teamLink->id;
+		}
+		return $teamLinkIds;
+
 	}
 }
