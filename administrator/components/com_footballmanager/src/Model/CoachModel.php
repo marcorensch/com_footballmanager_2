@@ -258,6 +258,12 @@ class CoachModel extends AdminModel
 			}
 		}
 
+		$this->handleCoachTeams($data);
+
+		return parent::save($data);
+	}
+
+	protected function handleCoachTeams($data){
 		// Get ID's of currently stored coaches teams data from db
 		$coachTeamIds = $this->getTeamLinkIds($data['id']);
 
@@ -318,8 +324,6 @@ class CoachModel extends AdminModel
 				$db->execute();
 			}
 		}
-
-		return parent::save($data);
 	}
 
 	protected function getTeamLinkIds($coachId): array

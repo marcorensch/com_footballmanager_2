@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
     $teamsTab = document.querySelector("joomla-tab-element#teams");
     $teamsTab.addEventListener("subform-row-add", function() {
         hideHiddenColumns();
-        updateOrderingValue();
+        updateOrderingValues();
     });
     $teamsTab.addEventListener("joomla:updated", function() {
         // console.log("joomla updated");
