@@ -123,7 +123,23 @@ class CoachModel extends AdminModel
 			}
 		}
 
+		// Load the "linked teams" data
+		if($item->id > 0) $item->coach_teams = $this->getTeamLinks($item->id);
+
 		return $item;
+	}
+
+	protected function getTeamLinks($id)
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from('#__footballmanager_coaches_teams');
+		$query->where('coach_id = ' . (int) $id);
+		$query->order('ordering ASC');
+		$db->setQuery($query);
+		$teams = $db->loadAssocList();
+		return $teams;
 	}
 
 	protected function preprocessForm($form, $data, $group = 'content'): void
@@ -165,7 +181,6 @@ class CoachModel extends AdminModel
 
 	public function save($data)
 	{
-
 		$app   = Factory::getApplication();
 		$input = $app->getInput();
 		$user  = $app->getIdentity();
@@ -240,6 +255,59 @@ class CoachModel extends AdminModel
 			if (isset($msg))
 			{
 				$app->enqueueMessage($msg, 'warning');
+			}
+		}
+
+		// Save the coach teams data
+		if($data['coach_teams'])
+		{
+			$teamLinks = $data['coach_teams'];
+			$db = $this->getDatabase();
+//			$query = $db->getQuery(true);
+//			$query->delete('#__footballmanager_coaches_teams');
+//			$query->where('coach_id = ' . (int) $data['id']);
+//			$db->setQuery($query);
+//			$db->execute();
+			foreach($teamLinks as $teamLinkData)
+			{
+				$query = $db->getQuery(true);
+				// Set null on fields that are not set
+
+				if($teamLinkData['id'] > 0){
+					// Fields to update.
+					$fields = array(
+						$db->quoteName('photo') . ' = ' . $db->quote($teamLinkData['photo']),
+						$db->quoteName('team_id') . ' = ' . $db->quote($teamLinkData['team_id']),
+						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
+					);
+
+					foreach(array('since', 'until', 'position_id') as $key){
+						if(!$teamLinkData[$key]){
+							$fields[] = $db->quoteName($key) . ' = NULL';
+						}else{
+							$fields[] = $db->quoteName($key) . ' = ' . $db->quote($teamLinkData[$key]);
+						}
+					}
+
+					// Conditions for which records should be updated.
+					$conditions = array(
+						$db->quoteName('id') . ' = ' . $db->quote($teamLinkData['id'])
+					);
+
+					$query->update($db->quoteName('#__footballmanager_coaches_teams'))->set($fields)->where($conditions);
+
+					$db->setQuery($query);
+
+					$result = $db->execute();
+					error_log(print_r($result, true));
+				}else{
+					$query = $db->getQuery(true);
+					$query->insert('#__footballmanager_coaches_teams');
+					$query->columns('coach_id, team_id, photo');
+					$query->values((int) $data['id'] . ', ' . (int) $teamLinkData['team_id'] . ', ""');
+					$db->setQuery($query);
+					$db->execute();
+				}
 			}
 		}
 

@@ -30,7 +30,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	private $minimumJoomlaVersion = '4.0';
+	private $minimumJoomlaVersion = '3.10';
 
 	/**
 	 * Minimum PHP version to check
@@ -55,10 +55,14 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_INSTALL');
 
 		// Install Uncategorised categories for each type of content that supports categories.
-		$this->installUncategorisedCat('com_footballmanager.locations');
-		$this->installUncategorisedCat('com_footballmanager.sponsors');
-		$this->installUncategorisedCat('com_footballmanager.teams');
-		$this->installUncategorisedCat('com_footballmanager.coaches');
+		$this->installCategoryForView('com_footballmanager.locations');
+		$this->installCategoryForView('com_footballmanager.sponsors');
+		$this->installCategoryForView('com_footballmanager.teams');
+		$this->installCategoryForView('com_footballmanager.coaches');
+		$this->installCategoryForView('com_footballmanager.positions');
+		$this->installCategoryForView('com_footballmanager.positions', 'Player');
+		$this->installCategoryForView('com_footballmanager.positions', 'Coach');
+		$this->installCategoryForView('com_footballmanager.positions', 'Official');
 
 
 		$this->addDashboardMenu('footballmanager', 'footballmanager');
@@ -66,16 +70,16 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		return true;
 	}
 
-	private function installUncategorisedCat($view): void
+	private function installCategoryForView($view, $title = "Uncategorised"): void
 	{
-		$alias   = ApplicationHelper::stringURLSafe('Uncategorised');
+		$alias   = ApplicationHelper::stringURLSafe($title);
 
 		// Initialize a new category.
 		$category = Table::getInstance('Category');
 
 		$data = [
 			'extension' => $view,
-			'title' => 'Uncategorised',
+			'title' => $title,
 			'alias' => $alias,
 			'path' => $alias,
 			'description' => '',
@@ -168,7 +172,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 				Log::add(
 					Text::sprintf('JLIB_INSTALLER_MINIMUM_PHP', $this->minimumPHPVersion),
 					Log::WARNING,
-					'jerror'
+					'warning'
 				);
 
 				return false;
@@ -179,7 +183,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 				Log::add(
 					Text::sprintf('JLIB_INSTALLER_MINIMUM_JOOMLA', $this->minimumJoomlaVersion),
 					Log::WARNING,
-					'jerror'
+					'error'
 				);
 
 				return false;

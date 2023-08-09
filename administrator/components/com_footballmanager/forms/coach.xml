@@ -128,6 +128,7 @@
                 min="1"
                 layout="joomla.form.field.subform.repeatable-table"
                 multiple="true"
+                class="coach_teams"
                 formsource="administrator/components/com_footballmanager/forms/subform_coach_teams.xml"
         />
 

@@ -28,7 +28,9 @@ class PositionsField extends ListField{
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	protected $type = 'Teams';
+	protected $type = 'Positions';
+	protected $context;
+	protected $categoryIds;
 
 	/**
 	 * Method to get the field options.
@@ -40,9 +42,29 @@ class PositionsField extends ListField{
 	protected function getOptions()
 	{
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$this->context = $this->element['context'];
+		if($this->context){
+			// Get the category id for filtering the positions
+			$catQuery = $db->getQuery(true);
+			$catQuery->select('id')
+				->from('#__categories')
+				->where($db->quoteName('extension') . ' = ' . $db->quote('com_footballmanager.positions'))
+				->where($db->quoteName('alias') . ' = ' . $db->quote('uncategorised'))
+				->orWhere($db->quoteName('alias') . ' = ' . $db->quote($this->context));
+			$db->setQuery($catQuery);
+			$result = $db->loadAssocList();
+			$this->categoryIds = [];
+			foreach($result as $cat){
+				$this->categoryIds[] = $cat['id'];
+			}
+		}
+		// Get the positions from database where the category is the same as the context or the category is uncategorised
 		$query = $db->getQuery(true);
 		$query->select('id, title');
 		$query->from('#__footballmanager_positions');
+		if($this->categoryIds){
+			$query->where('catid IN (' . implode(',', $this->categoryIds) .')');
+		}
 		$query->order('title ASC');
 		$db->setQuery($query);
 		$teams = $db->loadObjectList();

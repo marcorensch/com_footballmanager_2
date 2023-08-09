@@ -28,7 +28,6 @@ class SponsorsField extends ListField{
 	 * @since  1.0.0
 	 */
 	protected $type = 'Sponsors';
-	protected $value = 2;
 
 	/**
 	 * Method to get the field options.

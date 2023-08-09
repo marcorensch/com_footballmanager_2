@@ -49,10 +49,13 @@ $current_user = Factory::getApplication()->getIdentity();
 
 	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', Text::_('COM_FOOTBALLMANAGER_TAB_DETAILS_TITLE')); ?>
         <div class="row">
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-4">
 			    <?php echo $this->getForm()->renderField('shortname'); ?>
             </div>
-            <div class="col-sm-12 col-md-9">
+            <div class="col-sm-12 col-md-4">
+		        <?php echo $this->getForm()->renderField('catid'); ?>
+            </div>
+            <div class="col-sm-12 col-md-4">
 			    <?php echo $this->getForm()->renderField('learnmore_link'); ?>
             </div>
         </div>

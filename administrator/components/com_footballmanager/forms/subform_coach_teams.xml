@@ -3,8 +3,27 @@
 <form
         addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
 >
+
     <field
-            name="image"
+            name="id"
+            type="hidden"
+            label="JGLOBAL_FIELD_ID_LABEL"
+            default="0"
+            class="readonly hidden"
+            hidden="true"
+            readonly="true"
+    />
+
+    <field
+        name="ordering"
+        type="hidden"
+        class="ordering"
+        label="JGRID_HEADING_ORDERING"
+        default="0"
+    />
+
+    <field
+            name="photo"
             type="media"
             label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
             directory="images"
@@ -20,10 +39,12 @@
     <field
             name="position_id"
             type="positions"
+            context="coach"
             label="COM_FOOTBALLMANAGER_POSITION_TITLE"
             onfocus="this.oldvalue = this.value;"
             onchange="console.log(this.oldvalue, this.value);"
     />
+
     <field
             name="since"
             type="calendar"
