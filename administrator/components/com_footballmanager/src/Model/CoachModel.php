@@ -258,12 +258,13 @@ class CoachModel extends AdminModel
 			}
 		}
 
-		$this->handleCoachTeams($data);
+		$this->handleCoachTeamsOnSave($data);
 
 		return parent::save($data);
 	}
 
-	protected function handleCoachTeams($data){
+	protected function handleCoachTeamsOnSave($data): void
+	{
 		// Get ID's of currently stored coaches teams data from db
 		$coachTeamIds = $this->getTeamLinkIds($data['id']);
 
@@ -276,19 +277,30 @@ class CoachModel extends AdminModel
 			foreach($teamLinks as $teamLinkData)
 			{
 				// remove from array if exists (leftovers will be deleted)
-				unset($coachTeamIds[array_search($teamLinkData['id'], $coachTeamIds)]);
+				if($teamLinkData['id'] > 0 && in_array($teamLinkData['id'], $coachTeamIds)){
+					unset($coachTeamIds[array_search($teamLinkData['id'], $coachTeamIds)]);
+				}
+
+				// Cleanup empty fields
+				if(!$teamLinkData['team_id']) $teamLinkData['team_id'] = null;
+				if(!$teamLinkData['position_id']) $teamLinkData['position_id'] = null;
+				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
+				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
+
+				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['photo'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
+					continue;
+				}
+
 				$query = $db->getQuery(true);
-				// Set null on fields that are not set
 
 				if($teamLinkData['id'] > 0){
 					// Fields to update.
 					$fields = array(
 						$db->quoteName('photo') . ' = ' . $db->quote($teamLinkData['photo']),
-						$db->quoteName('team_id') . ' = ' . $db->quote($teamLinkData['team_id']),
 						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
 					);
 
-					foreach(array('since', 'until', 'position_id') as $key){
+					foreach(array('since', 'until', 'position_id', 'team_id') as $key){
 						if(!$teamLinkData[$key]){
 							$fields[] = $db->quoteName($key) . ' = NULL';
 						}else{

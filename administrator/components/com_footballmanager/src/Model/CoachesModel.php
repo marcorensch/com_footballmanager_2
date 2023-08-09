@@ -137,12 +137,6 @@ class CoachesModel extends ListModel
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
 
-		// Filter by location
-		$location = $this->getState('filter.location');
-		if ($location || $location === "0")
-		{
-			$query->where($db->quoteName('a.location_id') . ' = ' . $db->quote($location));
-		}
 		// Filter the language
 		if ($language = $this->getState('filter.language'))
 		{
@@ -245,8 +239,41 @@ class CoachesModel extends ListModel
 	public function getItems()
 	{
 		$items = parent::getItems();
+		// Add Team Details
+		foreach ($items as &$item)
+		{
+			$item->linked_teams = $this->getLinkedTeams($item->id);
+		}
 
 		return $items;
+	}
+
+	protected function getLinkedTeams($coachId){
+		$teams = array();
+
+		// Get Team ID's
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->select('ct.team_id');
+		$query->from($db->quoteName('#__footballmanager_coaches_teams', 'ct'));
+		$query->where($db->quoteName('ct.coach_id') . ' = ' . $db->quote($coachId));
+		$db->setQuery($query);
+		$teamIds = $db->loadColumn();
+
+		// Get Team Names
+		foreach ($teamIds as $teamId){
+			if(!$teamId) continue;
+			$query = $db->getQuery(true);
+			$query->select('t.id, t.title');
+			$query->from($db->quoteName('#__footballmanager_teams', 't'));
+			$query->where($db->quoteName('t.id') . ' = ' . $db->quote($teamId));
+			$query->where($db->quoteName('t.published') . ' = 1');
+			$db->setQuery($query);
+			$teams[] = $db->loadObject();
+		}
+
+		return $teams;
+
 	}
 
 	public function exportItems($ids)

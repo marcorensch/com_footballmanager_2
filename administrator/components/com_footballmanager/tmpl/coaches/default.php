@@ -34,13 +34,13 @@ $saveOrder = $listOrder === 'a.ordering';
 
 if ($saveOrder && !empty($this->items))
 {
-    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=leagues.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=coaches.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
 }
 
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=leagues'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=coaches'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
@@ -50,7 +50,7 @@ if ($saveOrder && !empty($this->items))
 						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
 				<?php else : ?>
-                    <table class="table leagueList" id="leaguesList">
+                    <table class="table coacheList" id="coachesList">
                         <caption class="visually-hidden">
 		                    <?php echo Text::_('COM_FOOTBALLMANAGER_TABLE_CAPTION'); ?>,
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -71,7 +71,11 @@ if ($saveOrder && !empty($this->items))
                             </th>
 
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
-		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_name', 'a.lastname', $listDirn, $listOrder); ?>
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_NAME', 'a.lastname', $listDirn, $listOrder); ?>
+                            </th>
+
+                            <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+		                        <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_TEAMS'); ?>
                             </th>
 
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
@@ -99,7 +103,7 @@ if ($saveOrder && !empty($this->items))
 						foreach ($this->items as $i => $item) :
 							$ordering  = ($listOrder == 'ordering');
                             ?>
-                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="leagueItems">
+                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="coachItems">
                                 <td class="text-center">
 		                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                 </td>
@@ -123,7 +127,7 @@ if ($saveOrder && !empty($this->items))
 
                                 <td class="text-center">
 		                            <?php
-		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'leagues.', $canChange , 'cb');
+		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'coaches.', $canChange , 'cb');
 		                            ?>
                                 </td>
                                 <th scope="row" class="has-context">
@@ -136,6 +140,11 @@ if ($saveOrder && !empty($this->items))
 										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
                                     </a>
                                 </th>
+                                <td class="small">
+                                    <?php foreach($item->linked_teams as $linkedTeam):?>
+                                        <div><span><?php echo $linkedTeam->title;?> </span></div>
+                                    <?php endforeach;?>
+                                </td>
                                 <td class="small d-none d-md-table-cell">
 	                                <?php if((int)$item->created_by > 0) : ?>
                                         <a

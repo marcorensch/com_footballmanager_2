@@ -49,14 +49,14 @@
             name="since"
             type="calendar"
             label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL"
-            format="%Y-%m-%d"
+            translateformat="true"
             filter="user_utc"
     />
     <field
             name="until"
             type="calendar"
             label="COM_FOOTBALLMANAGER_FIELD_UNTIL_LABEL"
-            format="%Y-%m-%d"
+            translateformat="true"
             filter="user_utc"
     />
 </form>
