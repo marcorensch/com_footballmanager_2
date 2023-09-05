@@ -35,6 +35,7 @@
         <folder>src</folder>
         <folder>language</folder>
         <folder>tmpl</folder>
+        <folder>layouts</folder>
     </files>
 
     <media folder="media/com_footballmanager" destination="com_footballmanager">
@@ -100,6 +101,13 @@
                 <params>
                     <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=coach&amp;layout=edit</menu-quicktask>
+                </params>
+            </menu>
+            <menu link="option=com_footballmanager&amp;view=players">
+                COM_FOOTBALLMANAGER_PLAYERS
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=player&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=sponsors">
