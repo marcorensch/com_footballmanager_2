@@ -78,13 +78,16 @@ $current_user = Factory::getApplication()->getIdentity();
       method="post" name="adminForm" id="player-form" class="form-validate form-vertical">
 
     <div class="row">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-3">
 			<?php echo $this->getForm()->renderField('firstname'); ?>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-3">
 			<?php echo $this->getForm()->renderField('lastname'); ?>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-3">
+		    <?php echo $this->getForm()->renderField('nickname'); ?>
+        </div>
+        <div class="col-md-6 col-lg-3">
 			<?php echo $this->getForm()->renderField('alias'); ?>
         </div>
     </div>
@@ -94,11 +97,10 @@ $current_user = Factory::getApplication()->getIdentity();
 
 	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'base', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-8 col-xl-9">
 			    <?php echo $this->getForm()->renderField('about'); ?>
             </div>
-            <div class="col-lg-3">
-	            <?php echo $this->getForm()->renderField('nickname'); ?>
+            <div class=" col-lg-4 col-xl-3">
 	            <?php echo $this->getForm()->renderField('image'); ?>
 	            <?php echo $this->getForm()->renderField('birthday'); ?>
 	            <?php echo $this->getForm()->renderField('weight'); ?>
