@@ -303,7 +303,7 @@ class CoachModel extends AdminModel
 				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
 				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
 
-				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['photo'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
+				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['image'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
 					continue;
 				}
 
@@ -312,7 +312,7 @@ class CoachModel extends AdminModel
 				if($teamLinkData['id'] > 0){
 					// Fields to update.
 					$fields = array(
-						$db->quoteName('photo') . ' = ' . $db->quote($teamLinkData['photo']),
+						$db->quoteName('image') . ' = ' . $db->quote($teamLinkData['image']),
 						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
 					);
 

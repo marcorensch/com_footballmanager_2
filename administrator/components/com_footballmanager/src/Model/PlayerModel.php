@@ -18,6 +18,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Language\LanguageHelper;
+use Joomla\Input\Json;
 
 /**
  * Item Model for a location.
@@ -303,7 +304,7 @@ class PlayerModel extends AdminModel
 				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
 				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
 
-				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['player_number'] && !$teamLinkData['photo'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
+				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['player_number'] && !$teamLinkData['image'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
 					continue;
 				}
 
@@ -311,13 +312,13 @@ class PlayerModel extends AdminModel
 
 				if($teamLinkData['id'] > 0){
 					// Fields to update.
+					// Below fields needs a special handling
 					$fields = array(
-						$db->quoteName('photo') . ' = ' . $db->quote($teamLinkData['photo']),
+						$db->quoteName('position_id') . ' = ' . $db->quote(json_encode($teamLinkData['position_id'])),
 						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
-						$db->quoteName('player_number') . ' = ' . $db->quote($teamLinkData['player_number']),
 					);
 
-					foreach(array('since', 'until', 'position_id', 'team_id') as $key){
+					foreach(array('image','player_number','since', 'until', 'team_id') as $key){
 						if(!$teamLinkData[$key]){
 							$fields[] = $db->quoteName($key) . ' = NULL';
 						}else{

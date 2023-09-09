@@ -94,10 +94,10 @@
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
         />
-        <!-- Location Fields -->
+        <!-- Player Fields -->
 
         <field
-                name="photo"
+                name="image"
                 type="media"
                 label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
                 directory="images"
@@ -110,6 +110,33 @@
                 filter="safehtml"
                 buttons="true"
                 height="572"
+        />
+        <field
+                name="birthday"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_BIRTHDAY_LABEL"
+                translateformat="true"
+                showtime="false"
+        />
+
+        <field
+                name="nickname"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_NICKNAME_LABEL"
+        />
+
+        <field
+                name="height"
+                type="text"
+                hint="0.00"
+                label="COM_FOOTBALLMANAGER_FIELD_HEIGHT_LABEL"
+        />
+
+        <field
+                name="weight"
+                type="text"
+                hint="0.00"
+                label="COM_FOOTBALLMANAGER_FIELD_WEIGHT_LABEL"
         />
 
         <field
