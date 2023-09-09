@@ -258,13 +258,30 @@ class CoachModel extends AdminModel
 			}
 		}
 
-		$this->handleCoachTeamsOnSave($data);
+		$status = parent::save($data);
 
-		return parent::save($data);
+		if($status)
+		{
+			$this->handleCoachTeamsOnSave($data);
+		}
+
+		return $status;
+
 	}
 
 	protected function handleCoachTeamsOnSave($data): void
 	{
+		// Check if we have an ID if not we have added a new coach get the id by alias
+		if(!$data['id']){
+			$db = $this->getDatabase();
+			$query = $db->getQuery(true);
+			$query->select('id');
+			$query->from('#__footballmanager_coaches');
+			$query->where('alias = ' . $db->quote($data['alias']));
+			$db->setQuery($query);
+			$data['id'] = $db->loadResult();
+		}
+		error_log(print_r($data['id'], true));
 		// Get ID's of currently stored coaches teams data from db
 		$coachTeamIds = $this->getTeamLinkIds($data['id']);
 

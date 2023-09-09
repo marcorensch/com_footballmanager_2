@@ -257,6 +257,7 @@ class CoachesModel extends ListModel
 		$query->select('ct.team_id');
 		$query->from($db->quoteName('#__footballmanager_coaches_teams', 'ct'));
 		$query->where($db->quoteName('ct.coach_id') . ' = ' . $db->quote($coachId));
+		$query->order($db->quoteName('ct.ordering') . ' ASC');
 		$db->setQuery($query);
 		$teamIds = $db->loadColumn();
 

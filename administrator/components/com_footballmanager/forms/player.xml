@@ -123,7 +123,7 @@
         />
 
         <field
-                name="coach_teams"
+                name="player_teams"
                 type="subform"
                 min="1"
                 layout="joomla.form.field.subform.repeatable-table"
