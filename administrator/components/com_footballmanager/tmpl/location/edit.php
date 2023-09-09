@@ -82,9 +82,9 @@ $current_user = Factory::getApplication()->getIdentity();
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'sponsors', Text::_('COM_FOOTBALLMANAGER_SPONSORS')); ?>
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'sponsors', Text::_('COM_FOOTBALLMANAGER_TAB_SPONSORS_LABEL')); ?>
         <div class="row">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-lg-6">
 				<?php echo $this->getForm()->renderField('sponsors'); ?>
             </div>
         </div>

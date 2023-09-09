@@ -140,6 +140,17 @@
         />
 
         <field
+                name="sponsors"
+                type="subform"
+                label="COM_FOOTBALLMANAGER_SPONSORS"
+                min="0"
+                max="10"
+                layout="joomla.form.field.subform.repeatable"
+                multiple="true"
+                formsource="administrator/components/com_footballmanager/forms/subform_sponsor.xml"
+        />
+
+        <field
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
@@ -153,7 +164,8 @@
                 name="player_teams"
                 type="subform"
                 min="1"
-                layout="joomla.form.field.subform.repeatable-table"
+                layout="joomla.form.field.subform.repeatable"
+                groupByFieldset="true"
                 multiple="true"
                 class="player_teams"
                 formsource="administrator/components/com_footballmanager/forms/subform_player_teams.xml"

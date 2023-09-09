@@ -270,6 +270,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players`
     `nickname`    varchar(255)              DEFAULT NULL,
     `image`       varchar(255)              DEFAULT NULL,
     `params`      text                      DEFAULT NULL,
+    `sponsors`    text                      DEFAULT NULL,
     `state`       tinyint(3)       NOT NULL DEFAULT 0,
     `published`   tinyint(1)       NOT NULL DEFAULT 0,
     `created_at`  datetime                  DEFAULT NULL,

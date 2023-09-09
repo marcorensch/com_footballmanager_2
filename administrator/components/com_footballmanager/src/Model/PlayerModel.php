@@ -192,6 +192,9 @@ class PlayerModel extends AdminModel
 			$data['created_by'] = $user->id;
 		}
 
+		// sponsors
+		$data['sponsors'] = json_encode($data['sponsors']);
+
 		// Alter the title for save as copy
 		if ($input->get('task') == 'save2copy')
 		{

@@ -16,6 +16,17 @@
         </field>
 
         <field
+                name="measuring_system"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_MEASURING_SYSTEM_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_MEASURING_SYSTEM_DESC"
+                default="metric"
+        >
+            <option value="metric">COM_FOOTBALLMANAGER_METRIC</option>
+            <option value="imperial">COM_FOOTBALLMANAGER_IMPERIAL</option>
+        </field>
+
+        <field
                 name="export_format"
                 type="list"
                 label="COM_FOOTBALLMANAGER_FIELD_PARAMS_EXPORT_FORMAT_LABEL"

@@ -4,68 +4,77 @@
         addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
 >
 
-    <field
-            name="id"
-            type="hidden"
-            label="JGLOBAL_FIELD_ID_LABEL"
-            default="0"
-            class="readonly hidden"
-            hidden="true"
-            readonly="true"
-    />
+    <fieldset name="image" class="col-lg-6 col-xl-4">
+        <field
+                name="id"
+                type="hidden"
+                label="JGLOBAL_FIELD_ID_LABEL"
+                default="0"
+                class="readonly hidden"
+                hidden="true"
+                readonly="true"
+        />
 
-    <field
-        name="ordering"
-        type="hidden"
-        class="ordering"
-        label="JGRID_HEADING_ORDERING"
-        default="0"
-    />
+        <field
+                name="ordering"
+                type="hidden"
+                class="ordering"
+                label="JGRID_HEADING_ORDERING"
+                default="0"
+        />
 
-    <field
-            name="photo"
-            type="media"
-            label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
-            directory="images"
-            destination="com_footballmanager"
-    />
-    <field
-            name="player_number"
-            type="text"
-            required="true"
-            filter="integer"
-            label="COM_FOOTBALLMANAGER_FIELD_PLAYER_NUMBER_LABEL"
-    />
-    <field
-            name="team_id"
-            type="teams"
-            label="COM_FOOTBALLMANAGER_TEAM_TITLE"
-            onfocus="this.oldvalue = this.value;"
-            onchange="console.log(this.oldvalue, this.value);"
-    />
-    <field
-            name="position_id"
-            type="positions"
-            context="player"
-            multiple="true"
-            layout="joomla.form.field.list-fancy-select"
-            label="COM_FOOTBALLMANAGER_POSITION_TITLE"
-            onfocus="this.oldvalue = this.value;"
-            onchange="console.log(this.oldvalue, this.value);"
-    />
+        <field
+                name="photo"
+                type="media"
+                label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
+                directory="images"
+                destination="com_footballmanager"
+        />
+    </fieldset>
+    <fieldset name="details" class="col-lg-6 col-xl-4">
 
-    <field
-            name="since"
-            type="calendar"
-            label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL"
-            translateformat="true"
-            filter="user_utc"
-    />
-    <field
-            name="until"
-            type="calendar"
-            label="COM_FOOTBALLMANAGER_FIELD_UNTIL_LABEL"
-            translateformat="true"
-            filter="user_utc"
-    />
+        <field
+                name="player_number"
+                type="text"
+                required="true"
+                filter="integer"
+                label="COM_FOOTBALLMANAGER_FIELD_PLAYER_NUMBER_LABEL"
+        />
+        <field
+                name="team_id"
+                type="teams"
+                label="COM_FOOTBALLMANAGER_TEAM_TITLE"
+                onfocus="this.oldvalue = this.value;"
+                onchange="console.log(this.oldvalue, this.value);"
+        />
+
+        <field
+                name="position_id"
+                type="positions"
+                context="player"
+                multiple="true"
+                layout="joomla.form.field.list-fancy-select"
+                label="COM_FOOTBALLMANAGER_POSITION_TITLE"
+                onfocus="this.oldvalue = this.value;"
+                onchange="console.log(this.oldvalue, this.value);"
+        />
+    </fieldset>
+    <fieldset name="dates" class="col-lg-6 col-xl-4">
+
+        <field
+                name="since"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL"
+                translateformat="true"
+                filter="user_utc"
+        />
+        <field
+                name="until"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_UNTIL_LABEL"
+                translateformat="true"
+                filter="user_utc"
+        />
+    </fieldset>
+
 </form>

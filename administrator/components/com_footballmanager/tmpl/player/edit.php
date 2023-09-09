@@ -34,17 +34,13 @@ $wa->useScript('keepalive')
 	->useScript('form.validate');
 
 $wa->addInlineScript('
-let $teamsTable = null;
 let $teamAddButtons = null;
 let $teamsTab = null;
 let $subFormRepeatableContainer = null;
 
 document.addEventListener("DOMContentLoaded", function() {
-    $teamsTable = document.querySelector("table#subfieldList_jform_player_teams");
-    hideHiddenColumns();
     $teamsTab = document.querySelector("joomla-tab-element#teams");
     $teamsTab.addEventListener("subform-row-add", function() {
-        hideHiddenColumns();
         updateOrderingValues();
     });
     $teamsTab.addEventListener("joomla:updated", function() {
@@ -52,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     // Select the element you want to watch
-    $subFormRepeatableContainer = document.querySelector(".subform-repeatable-container");
+    $subFormRepeatableContainer = document.querySelector(".subform-layout");
     
     $subFormRepeatableContainer.addEventListener("dragend", function() {
         updateOrderingValues();
@@ -69,24 +65,6 @@ function updateOrderingValues(){
             $orderingInput.value = i+1;
         }
 };
-
-function hideHiddenColumns(){
-    $hiddenInputsArray = findHiddenInputs();
-    for ($input of $hiddenInputsArray){
-        $parentTd = $input.closest("td");
-        $parentTd.style.display = "none";
-        $positionOfTd = Array.from($parentTd.parentElement.children).indexOf($parentTd);
-        // Hide tablehead column
-        $tableHead = $teamsTable.querySelector("thead tr");
-        $tableHead.children[$positionOfTd].style.display = "none";
-    }
-};
-
-function findHiddenInputs() {
-    let $hiddenInputs = $teamsTable.querySelectorAll("input[type=hidden]");
-    let $hiddenInputsArray = Array.from($hiddenInputs);
-    return $hiddenInputsArray;
-}
 
 ');
 
@@ -136,6 +114,17 @@ $current_user = Factory::getApplication()->getIdentity();
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
+
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'sponsors', Text::_('COM_FOOTBALLMANAGER_TAB_SPONSORS_LABEL')); ?>
+        <div class="row">
+            <div class="col-lg-6">
+			    <?php echo $this->getForm()->renderField('sponsors'); ?>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block text-center">
+                <i class="fas fa-handshake fa-lg" style="font-size: 20rem; opacity: .3"></i>
+            </div>
+        </div>
+	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_CONST_PUBLISHING')); ?>
         <div class="row">
