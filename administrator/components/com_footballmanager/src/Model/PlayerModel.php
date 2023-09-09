@@ -64,7 +64,7 @@ class PlayerModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'coach', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'player', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{
@@ -124,7 +124,7 @@ class PlayerModel extends AdminModel
 		}
 
 		// Load the "linked teams" data
-		if($item->id > 0) $item->coach_teams = $this->getTeamLinks($item->id);
+		if($item->id > 0) $item->player_teams = $this->getTeamLinks($item->id);
 
 		return $item;
 	}
@@ -258,36 +258,52 @@ class PlayerModel extends AdminModel
 			}
 		}
 
-		$this->handlePlayerTeamsOnSave($data);
+		$status = parent::save($data);
+		if($status){
+			$this->handlePlayerTeamsOnSave($data);
+		}
 
-		return parent::save($data);
+		return $status;
 	}
 
 	protected function handlePlayerTeamsOnSave($data): void
 	{
-		// Get ID's of currently stored coaches teams data from db
-		$coachTeamIds = $this->getTeamLinkIds($data['id']);
+		error_log('handlePlayerTeamsOnSave');
+		// Check if we have an ID if not we have added a new coach get the id by alias
+		if(!$data['id']){
+			$db = $this->getDatabase();
+			$query = $db->getQuery(true);
+			$query->select('id');
+			$query->from('#__footballmanager_players');
+			$query->where('alias = ' . $db->quote($data['alias']));
+			$db->setQuery($query);
+			$data['id'] = $db->loadResult();
+		}
 
-		// Save the coach teams data
-		if($data['coach_teams'])
+		// Get ID's of currently stored coaches teams data from db
+		$playerTeamIds = $this->getTeamLinkIds($data['id']);
+
+		// Save the player teams data
+		if($data['player_teams'])
 		{
-			$teamLinks = $data['coach_teams'];
+			$teamLinks = $data['player_teams'];
 			$db = $this->getDatabase();
 
 			foreach($teamLinks as $teamLinkData)
 			{
 				// remove from array if exists (leftovers will be deleted)
-				if($teamLinkData['id'] > 0 && in_array($teamLinkData['id'], $coachTeamIds)){
-					unset($coachTeamIds[array_search($teamLinkData['id'], $coachTeamIds)]);
+				if($teamLinkData['id'] > 0 && in_array($teamLinkData['id'], $playerTeamIds)){
+					unset($playerTeamIds[array_search($teamLinkData['id'], $playerTeamIds)]);
 				}
 
 				// Cleanup empty fields
 				if(!$teamLinkData['team_id']) $teamLinkData['team_id'] = null;
+				if(!$teamLinkData['player_number']) $teamLinkData['player_number'] = null;
 				if(!$teamLinkData['position_id']) $teamLinkData['position_id'] = null;
 				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
 				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
 
-				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['photo'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
+				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['player_number'] && !$teamLinkData['photo'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
 					continue;
 				}
 
@@ -298,6 +314,7 @@ class PlayerModel extends AdminModel
 					$fields = array(
 						$db->quoteName('photo') . ' = ' . $db->quote($teamLinkData['photo']),
 						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
+						$db->quoteName('player_number') . ' = ' . $db->quote($teamLinkData['player_number']),
 					);
 
 					foreach(array('since', 'until', 'position_id', 'team_id') as $key){
@@ -320,13 +337,13 @@ class PlayerModel extends AdminModel
 					$result = $db->execute();
 				}else{
 					$teamLinkDataObj = (object) $teamLinkData;
-					$teamLinkDataObj->coach_id = $data['id'];
+					$teamLinkDataObj->player_id = $data['id'];
 					$result        = $this->getDatabase()->insertObject('#__footballmanager_players_teams', $teamLinkDataObj);
 				}
 			}
 
-			// Delete leftover coach teams data
-			foreach($coachTeamIds as $coachTeamId){
+			// Delete leftover player teams data
+			foreach($playerTeamIds as $coachTeamId){
 				$query = $db->getQuery(true);
 				$conditions = array(
 					$db->quoteName('id') . ' = ' . $db->quote($coachTeamId)
@@ -338,13 +355,13 @@ class PlayerModel extends AdminModel
 		}
 	}
 
-	protected function getTeamLinkIds($coachId): array
+	protected function getTeamLinkIds($playerId): array
 	{
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('id');
 		$query->from('#__footballmanager_players_teams');
-		$query->where('player_id = ' . $coachId);
+		$query->where('player_id = ' . $playerId);
 		$db->setQuery($query);
 		$teamLinks = $db->loadObjectList();
 		$teamLinkIds = array();

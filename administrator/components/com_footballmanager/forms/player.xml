@@ -128,8 +128,8 @@
                 min="1"
                 layout="joomla.form.field.subform.repeatable-table"
                 multiple="true"
-                class="coach_teams"
-                formsource="administrator/components/com_footballmanager/forms/subform_coach_teams.xml"
+                class="player_teams"
+                formsource="administrator/components/com_footballmanager/forms/subform_player_teams.xml"
         />
 
         <field name="params" type="textarea" label="params" description="params" />

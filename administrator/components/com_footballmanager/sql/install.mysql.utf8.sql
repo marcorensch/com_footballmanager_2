@@ -287,14 +287,15 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players`
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_players_teams`
 (
-    `id`          int(11)      NOT NULL AUTO_INCREMENT,
-    `team_id`     int(11)               DEFAULT NULL,
-    `player_id`    int(11)      NOT NULL,
-    `position_id` int(11)               DEFAULT NULL,
-    `photo`       varchar(255) NOT NULL,
-    `since`       datetime              DEFAULT NULL,
-    `until`       datetime              DEFAULT NULL,
-    `ordering`    int(11)      NOT NULL DEFAULT 0,
+    `id`            int(11)      NOT NULL AUTO_INCREMENT,
+    `team_id`       int(11)               DEFAULT NULL,
+    `player_id`     int(11)      NOT NULL,
+    `player_number` int(11)      NOT NULL,
+    `position_id`   int(11)               DEFAULT NULL,
+    `photo`         varchar(255) NOT NULL,
+    `since`         datetime              DEFAULT NULL,
+    `until`         datetime              DEFAULT NULL,
+    `ordering`      int(11)      NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`id`),
     KEY `idx_team` (`team_id`),

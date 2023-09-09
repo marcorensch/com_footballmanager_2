@@ -6,7 +6,6 @@
       </value>
     </option>
     <option name="FORMATTER_TAGS_ACCEPT_REGEXP" value="true" />
-    <option name="ENABLE_SECOND_REFORMAT" value="true" />
     <PHPCodeStyleSettings>
       <option name="ALIGN_KEY_VALUE_PAIRS" value="true" />
       <option name="ALIGN_PHPDOC_PARAM_NAMES" value="true" />

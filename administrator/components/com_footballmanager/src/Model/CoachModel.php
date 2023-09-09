@@ -281,7 +281,6 @@ class CoachModel extends AdminModel
 			$db->setQuery($query);
 			$data['id'] = $db->loadResult();
 		}
-		error_log(print_r($data['id'], true));
 		// Get ID's of currently stored coaches teams data from db
 		$coachTeamIds = $this->getTeamLinkIds($data['id']);
 

@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
-use NXD\Component\Footballmanager\Administrator\View\Location\HtmlView;
+use NXD\Component\Footballmanager\Administrator\View\Player\HtmlView;
 
 /** @var HtmlView $this */
 
@@ -40,7 +40,7 @@ let $teamsTab = null;
 let $subFormRepeatableContainer = null;
 
 document.addEventListener("DOMContentLoaded", function() {
-    $teamsTable = document.querySelector("table#subfieldList_jform_coach_teams");
+    $teamsTable = document.querySelector("table#subfieldList_jform_player_teams");
     hideHiddenColumns();
     $teamsTab = document.querySelector("joomla-tab-element#teams");
     $teamsTab.addEventListener("subform-row-add", function() {
@@ -117,7 +117,7 @@ $current_user = Factory::getApplication()->getIdentity();
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'teams', Text::_('COM_FOOTBALLMANAGER_TAB_TEAMS_LABEL')); ?>
         <div class="row">
             <div class="col">
-				<?php echo $this->getForm()->renderField('coach_teams'); ?>
+				<?php echo $this->getForm()->renderField('player_teams'); ?>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>

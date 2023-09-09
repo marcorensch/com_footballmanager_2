@@ -34,13 +34,13 @@ $saveOrder = $listOrder === 'a.ordering';
 
 if ($saveOrder && !empty($this->items))
 {
-    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=coaches.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=players.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
 }
 
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=coaches'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_footballmanager&view=players'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
@@ -50,7 +50,7 @@ if ($saveOrder && !empty($this->items))
 						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
 				<?php else : ?>
-                    <table class="table coacheList" id="coachesList">
+                    <table class="table playereList" id="playeresList">
                         <caption class="visually-hidden">
 		                    <?php echo Text::_('COM_FOOTBALLMANAGER_TABLE_CAPTION'); ?>,
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -103,7 +103,7 @@ if ($saveOrder && !empty($this->items))
 						foreach ($this->items as $i => $item) :
 							$ordering  = ($listOrder == 'ordering');
                             ?>
-                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="coachItems">
+                            <tr class="row<?php echo $i % 2; ?>" data-draggable-group="playerItems">
                                 <td class="text-center">
 		                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                 </td>
@@ -127,7 +127,7 @@ if ($saveOrder && !empty($this->items))
 
                                 <td class="text-center">
 		                            <?php
-		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'coaches.', $canChange , 'cb');
+		                            echo HTMLHelper::_('jgrid.published', $item->published, $i, 'players.', $canChange , 'cb');
 		                            ?>
                                 </td>
                                 <th scope="row" class="has-context">
@@ -135,7 +135,7 @@ if ($saveOrder && !empty($this->items))
 										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
                                     </div>
                                     <a class="hasTooltip"
-                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=coach.edit&id=' . (int) $item->id); ?>"
+                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=player.edit&id=' . (int) $item->id); ?>"
                                        title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->lastname)); ?>">
 										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
                                     </a>
@@ -185,7 +185,7 @@ if ($saveOrder && !empty($this->items))
 // Load the Import Modal Layout
 $data = array(
 	'form' => $this->importform,
-	'task' => 'coaches.import',
+	'task' => 'players.import',
 );
 
 echo LayoutHelper::render('admin.importmodal', $data);
