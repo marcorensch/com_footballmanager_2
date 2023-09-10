@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset
+            addruleprefix="NXD\Component\Footballmanager\Administrator\Rule"
+            addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
+    >
+        <field
+                name="id"
+                type="number"
+                label="JGLOBAL_FIELD_ID_LABEL"
+                default="0"
+                class="readonly hidden"
+                hidden="true"
+                readonly="true"
+        />
+
+        <field
+                name="language"
+                type="contentlanguage"
+                label="JFIELD_LANGUAGE_LABEL"
+        >
+            <option value="*">JALL</option>
+        </field>
+        <field
+                name="home_team_id"
+                type="teams"
+                label="COM_FOOTBALLMANAGER_FIELD_HOME_TEAM_LABEL"
+                required="true"
+        />
+        <field
+                name="away_team_id"
+                type="teams"
+                label="COM_FOOTBALLMANAGER_FIELD_AWAY_TEAM_LABEL"
+                required="true"
+        />
+
+        <field
+                name="league_id"
+                type="leagues"
+                label="COM_FOOTBALLMANAGER_FIELD_LEAGUE_LABEL"
+                required="true"
+        />
+
+        <field
+                name="season_id"
+                type="seasons"
+                label="COM_FOOTBALLMANAGER_FIELD_SEASON_LABEL"
+                required="true"
+        />
+        <field
+                name="phase_id"
+                type="phases"
+                label="COM_FOOTBALLMANAGER_FIELD_SEASON_PHASE_LABEL"
+                required="true"
+        />
+
+        <field
+                name="kickoff"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_KICKOFF_LABEL"
+                translateformat="true"
+                showtime="true"
+                required="true"
+                filter="user_utc"
+        />
+
+        <field
+                name="home_score"
+                type="number"
+                label="COM_FOOTBALLMANAGER_FIELD_HOME_SCORE_LABEL"
+                required="true"
+                default="0"
+        />
+
+        <field
+                name="away_score"
+                type="number"
+                label="COM_FOOTBALLMANAGER_FIELD_AWAY_SCORE_LABEL"
+                required="true"
+                default="0"
+        />
+
+        <field
+                name="home_touchdowns"
+                type="number"
+                label="COM_FOOTBALLMANAGER_FIELD_HOME_TOUCHDOWNS_LABEL"
+                required="false"
+                default="0"
+        />
+
+        <field
+                name="away_touchdowns"
+                type="number"
+                label="COM_FOOTBALLMANAGER_FIELD_AWAY_TOUCHDOWNS_LABEL"
+                required="false"
+                default="0"
+        />
+
+        <field
+                name="tickets_link"
+                type="url"
+                label="COM_FOOTBALLMANAGER_FIELD_TICKETS_LINK_LABEL"
+                required="false"
+                default=""
+                hint="COM_FOOTBALLMANAGER_FIELD_TICKETS_LINK_HINT"
+        />
+
+        <field
+                name="game_finished"
+                type="radio"
+                label="COM_FOOTBALLMANAGER_FIELD_GAME_FINISHED_LABEL"
+                layout="joomla.form.field.radio.switcher"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field
+                name="game_postponed"
+                type="radio"
+                label="COM_FOOTBALLMANAGER_FIELD_GAME_POSTPONED_LABEL"
+                layout="joomla.form.field.radio.switcher"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field
+                name="new_game_id"
+                type="games"
+                label="COM_FOOTBALLMANAGER_FIELD_NEW_GAME_LABEL"
+                required="false"
+                showon="game_postponed:1"
+        />
+
+        <field
+                name="game_canceled"
+                type="radio"
+                label="COM_FOOTBALLMANAGER_FIELD_GAME_CANCELED_LABEL"
+                layout="joomla.form.field.radio.switcher"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field
+                name="matchday"
+                type="number"
+                label="COM_FOOTBALLMANAGER_FIELD_MATCHDAYNUM_LABEL"
+                required="false"
+                default=""
+        />
+
+
+        <field
+                name="alias"
+                type="text"
+                label="JFIELD_ALIAS_LABEL"
+                size="45"
+                hint="COM_FOOTBALLMANAGER_AUTOGENERATE_GAME_TITLE"
+        />
+        <field
+                name="published"
+                type="list"
+                label="JSTATUS"
+                default="1"
+                id="published"
+                class="custom-select-color-state"
+                size="1"
+        >
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+            <option value="2">JARCHIVED</option>
+            <option value="-2">JTRASHED</option>
+        </field>
+        <field
+                name="created_by"
+                type="user"
+                label="COM_FOOTBALLMANAGER_CREATED_BY_LABEL"
+                readonly="true"
+                class="readonly"
+        />
+        <field
+                name="created_at"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_CREATED_AT_LABEL"
+                translateformat="true"
+                showtime="true"
+                size="22"
+                filter="user_utc"
+                readonly="true"
+                default="now"
+        />
+
+        <field
+                name="modified_by"
+                type="user"
+                label="COM_FOOTBALLMANAGER_MODIFIED_BY_LABEL"
+                readonly="true"
+                class="readonly"
+        />
+
+        <field
+                name="access"
+                type="accesslevel"
+                label="JFIELD_ACCESS_LABEL"
+                size="1"
+        />
+
+        <field
+                name="description"
+                type="editor"
+                label="COM_FOOTBALLMANAGER_FIELD_DESCRIPTION_LABEL"
+                filter="safehtml"
+                buttons="true"
+                height="572"
+        />
+
+        <field
+                name="head_referee_id"
+                type="referees"
+                label="COM_FOOTBALLMANAGER_FIELD_HEAD_REFEREE_LABEL"
+                required="false"
+                description="COM_FOOTBALLMANAGER_FIELD_HEAD_REFEREE_DESC"
+        />
+
+        <field
+                name="referees"
+                type="referees"
+                label="COM_FOOTBALLMANAGER_FIELD_REFEREES_LABEL"
+                required="false"
+                multiple="true"
+                layout="joomla.form.field.list-fancy-select"
+        />
+
+
+        <field
+                name="sponsors"
+                type="subform"
+                label="COM_FOOTBALLMANAGER_SPONSORS"
+                min="0"
+                max="10"
+                layout="joomla.form.field.subform.repeatable"
+                multiple="true"
+                formsource="administrator/components/com_footballmanager/forms/subform_sponsor.xml"
+        />
+
+        <field
+                name="catid"
+                type="categoryedit"
+                label="JCATEGORY"
+                extension="com_footballmanager.coaches"
+                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+                required="true"
+                default=""
+        />
+
+        <field
+                name="player_teams"
+                type="subform"
+                min="1"
+                layout="joomla.form.field.subform.repeatable"
+                groupByFieldset="true"
+                multiple="true"
+                class="player_teams"
+                formsource="administrator/components/com_footballmanager/forms/subform_player_teams.xml"
+        />
+
+        <field name="params" type="textarea" label="params" description="params"/>
+
+    </fieldset>
+</form>

@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
-use NXD\Component\Footballmanager\Administrator\View\Player\HtmlView;
+use NXD\Component\Footballmanager\Administrator\View\Game\HtmlView;
 
 /** @var HtmlView $this */
 

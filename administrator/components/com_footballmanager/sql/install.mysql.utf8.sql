@@ -211,6 +211,34 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
     CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS `#__footballmanager_referees`
+(
+    `id`          int(11)          NOT NULL AUTO_INCREMENT,
+    `firstname`   varchar(255)     NOT NULL,
+    `lastname`    varchar(255)     NOT NULL,
+    `alias`       varchar(255)     NOT NULL,
+    `about`       text                      DEFAULT NULL,
+    `image`       varchar(255)              DEFAULT NULL,
+    `params`      text                      DEFAULT NULL,
+    `state`       tinyint(3)       NOT NULL DEFAULT 0,
+    `published`   tinyint(1)       NOT NULL DEFAULT 0,
+    `created_at`  datetime                  DEFAULT NULL,
+    `created_by`  int(11)                   DEFAULT NULL,
+    `modified_at` datetime                  DEFAULT NOW(),
+    `modified_by` int(11)                   DEFAULT NULL,
+    `version`     int(11)                   DEFAULT 0,
+    `catid`       int(11)          NOT NULL DEFAULT 0,
+    `hits`        int(11)                   DEFAULT 0,
+    `access`      int(10) unsigned NOT NULL DEFAULT 0,
+    `language`    char(7)          NOT NULL DEFAULT '',
+    `ordering`    int(11)                   DEFAULT 0,
+
+    PRIMARY KEY (`id`),
+    KEY `idx_category` (`catid`),
+    CONSTRAINT `fk_referees_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_referees_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches_teams`
 (
     `id`          int(11)      NOT NULL AUTO_INCREMENT,
@@ -309,4 +337,70 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players_teams`
     CONSTRAINT `fk_players_teams_team_id` FOREIGN KEY (`team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_players_teams_coach_id` FOREIGN KEY (`player_id`) REFERENCES `#__footballmanager_players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_players_teams_position_id` FOREIGN KEY (`position_id`) REFERENCES `#__footballmanager_positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `#__footballmanager_games`
+(
+    `id`                        int(11)          NOT NULL AUTO_INCREMENT,
+    `alias`                     varchar(400)     NOT NULL,
+    `season_id`                 int(11)                   DEFAULT NULL,
+    `phase_id`                  int(11)                   DEFAULT NULL,
+    `league_id`                 int(11)                   DEFAULT NULL,
+    `home_team_id`              int(11)                   DEFAULT NULL,
+    `away_team_id`              int(11)                   DEFAULT NULL,
+    `location_id`               int(11)                   DEFAULT NULL,
+    `home_score`                int(11)                   DEFAULT 0,
+    `away_score`                int(11)                   DEFAULT 0,
+    `home_touchdowns`           int(11)                   DEFAULT 0,
+    `away_touchdowns`           int(11)                   DEFAULT 0,
+    `matchday`                  int(11)                   DEFAULT NULL,
+    `tickets_link`              varchar(400)              DEFAULT NULL,
+    `kickoff`                   datetime                  DEFAULT NULL,
+    `game_finished`             tinyint(1)                DEFAULT 0,
+    `game_postponed`            tinyint(1)                DEFAULT 0,
+    `game_canceled`             tinyint(1)                DEFAULT 0,
+    `notes`                     text                      DEFAULT NULL,
+    `description`               text                      DEFAULT NULL,
+    `head_referee_id`           int(11)                   DEFAULT NULL,
+    `referees`                  text                      DEFAULT NULL,
+    `home_roster_offense`       text                      DEFAULT NULL,
+    `home_roster_defense`       text                      DEFAULT NULL,
+    `home_roster_special_teams` text                      DEFAULT NULL,
+    `away_roster_offense`       text                      DEFAULT NULL,
+    `away_roster_defense`       text                      DEFAULT NULL,
+    `away_roster_special_teams` text                      DEFAULT NULL,
+    `related_articles`          text                      DEFAULT NULL,
+    `game_banner`               varchar(255)              DEFAULT NULL,
+    `game_flyer`                varchar(255)              DEFAULT NULL,
+    `supporting_games`          text                      DEFAULT NULL,
+    `params`                    text                      DEFAULT NULL,
+    `state`                     tinyint(3)       NOT NULL DEFAULT 0,
+    `published`                 tinyint(1)       NOT NULL DEFAULT 0,
+    `created_at`                datetime                  DEFAULT NULL,
+    `created_by`                int(11)                   DEFAULT NULL,
+    `modified_at`               datetime                  DEFAULT NOW(),
+    `modified_by`               int(11)                   DEFAULT NULL,
+    `version`                   int(11)                   DEFAULT 0,
+    `hits`                      int(11)                   DEFAULT 0,
+    `access`                    int(10) unsigned NOT NULL DEFAULT 0,
+    `language`                  char(7)          NOT NULL DEFAULT '',
+    `ordering`                  int(11)          NOT NULL DEFAULT 0,
+    `catid`                     int(11)          NOT NULL DEFAULT 0,
+    `sponsors`                  TEXT                      DEFAULT NULL,
+
+    PRIMARY KEY (`id`),
+    KEY `idx_season` (`season_id`),
+    KEY `idx_phase` (`phase_id`),
+    KEY `idx_league` (`league_id`),
+    KEY `idx_home_team` (`home_team_id`),
+    KEY `idx_away_team` (`away_team_id`),
+    KEY `idx_location` (`location_id`),
+    CONSTRAINT `fk_games_season_id` FOREIGN KEY (`season_id`) REFERENCES `#__footballmanager_seasons` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_games_phase_id` FOREIGN KEY (`phase_id`) REFERENCES `#__footballmanager_season_phases` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_games_league_id` FOREIGN KEY (`league_id`) REFERENCES `#__footballmanager_leagues` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_games_home_team_id` FOREIGN KEY (`home_team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_games_away_team_id` FOREIGN KEY (`away_team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_games_location_id` FOREIGN KEY (`location_id`) REFERENCES `#__footballmanager_locations` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_games_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_games_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );

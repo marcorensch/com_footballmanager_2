@@ -16,15 +16,20 @@
         </field>
 
         <field
-                name="measuring_system"
-                type="list"
-                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_MEASURING_SYSTEM_LABEL"
-                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_MEASURING_SYSTEM_DESC"
-                default="metric"
-        >
-            <option value="metric">COM_FOOTBALLMANAGER_METRIC</option>
-            <option value="imperial">COM_FOOTBALLMANAGER_IMPERIAL</option>
-        </field>
+                name="weight_unit"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_WEIGHT_UNIT_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_WEIGHT_UNIT_DESC"
+                default="kg"
+        />
+
+        <field
+                name="height_unit"
+                type="text"
+                label="COM_FOOTBALLMANAGER_FIELD_PARAMS_HEIGHT_UNIT_LABEL"
+                description="COM_FOOTBALLMANAGER_FIELD_PARAMS_HEIGHT_UNIT_DESC"
+                default="m"
+        />
 
         <field
                 name="export_format"

@@ -3,7 +3,7 @@
 <form
         addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
 >
-
+    <fieldset name="image" class="col-lg-6 col-xl-4">
     <field
             name="id"
             type="hidden"
@@ -29,6 +29,8 @@
             directory="images"
             destination="com_footballmanager"
     />
+    </fieldset>
+    <fieldset name="details" class="col-lg-6 col-xl-4">
     <field
             name="team_id"
             type="teams"
@@ -45,6 +47,9 @@
             onchange="console.log(this.oldvalue, this.value);"
     />
 
+    </fieldset>
+    <fieldset name="dates" class="col-lg-6 col-xl-4">
+
     <field
             name="since"
             type="calendar"
@@ -59,4 +64,5 @@
             translateformat="true"
             filter="user_utc"
     />
+    </fieldset>
 </form>

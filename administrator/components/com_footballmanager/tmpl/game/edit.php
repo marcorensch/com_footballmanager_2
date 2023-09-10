@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
-use NXD\Component\Footballmanager\Administrator\View\Coach\HtmlView;
+use NXD\Component\Footballmanager\Administrator\View\Game\HtmlView;
 
 /** @var HtmlView $this */
 
@@ -33,40 +33,7 @@ $wa = $this->document->getWebAssetManager();
 $wa->useScript('keepalive')
 	->useScript('form.validate');
 
-$wa->addInlineScript('
-let $teamAddButtons = null;
-let $teamsTab = null;
-let $subFormRepeatableContainer = null;
-
-document.addEventListener("DOMContentLoaded", function() {
-    $teamsTab = document.querySelector("joomla-tab-element#teams");
-    $teamsTab.addEventListener("subform-row-add", function() {
-        updateOrderingValues();
-    });
-    $teamsTab.addEventListener("joomla:updated", function() {
-        // console.log("joomla updated");
-    });
-    
-    // Select the element you want to watch
-    $subFormRepeatableContainer = document.querySelector(".subform-layout");
-    
-    $subFormRepeatableContainer.addEventListener("dragend", function() {
-        updateOrderingValues();
-    });
- 
-});
-
-function updateOrderingValues(){
-    let $subFormRows = $subFormRepeatableContainer.querySelectorAll(".subform-repeatable-group");
-        console.log($subFormRows);
-        for (let i = 0; i < $subFormRows.length; i++){
-            let $row = $subFormRows[i];
-            let $orderingInput = $row.querySelector("input.ordering");
-            $orderingInput.value = i+1;
-        }
-};
-
-');
+$wa->addInlineScript('//footballmanager game edit');
 
 $layout = 'edit';
 $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
@@ -75,16 +42,16 @@ $current_user = Factory::getApplication()->getIdentity();
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="coach-form" class="form-validate form-vertical">
+      method="post" name="adminForm" id="player-form" class="form-validate form-vertical">
 
     <div class="row">
-        <div class="col-sm-12 col-md-4">
-			<?php echo $this->getForm()->renderField('firstname'); ?>
+        <div class="col-md-6 col-lg-4">
+			<?php echo $this->getForm()->renderField('home_team_id'); ?>
         </div>
-        <div class="col-sm-12 col-md-4">
-			<?php echo $this->getForm()->renderField('lastname'); ?>
+        <div class="col-md-6 col-lg-4">
+			<?php echo $this->getForm()->renderField('away_team_id'); ?>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-4">
 			<?php echo $this->getForm()->renderField('alias'); ?>
         </div>
     </div>
@@ -92,13 +59,63 @@ $current_user = Factory::getApplication()->getIdentity();
     <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
 
-		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'teams', Text::_('COM_FOOTBALLMANAGER_TAB_TEAMS_LABEL')); ?>
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'base', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
+        <div class="row">
+            <div class="col-lg-8 col-xl-9">
+			    <?php echo $this->getForm()->renderField('description'); ?>
+            </div>
+            <div class=" col-lg-4 col-xl-3">
+
+	            <?php echo $this->getForm()->renderField('season_id'); ?>
+	            <?php echo $this->getForm()->renderField('league_id'); ?>
+	            <?php echo $this->getForm()->renderField('phase_id'); ?>
+	            <?php echo $this->getForm()->renderField('kickoff'); ?>
+	            <?php echo $this->getForm()->renderField('matchday'); ?>
+	            <?php echo $this->getForm()->renderField('tickets_link'); ?>
+
+	            <?php echo $this->getForm()->renderField('home_score'); ?>
+	            <?php echo $this->getForm()->renderField('away_score'); ?>
+	            <?php echo $this->getForm()->renderField('home_touchdowns'); ?>
+	            <?php echo $this->getForm()->renderField('away_touchdowns'); ?>
+	            <?php echo $this->getForm()->renderField('game_finished'); ?>
+	            <?php echo $this->getForm()->renderField('game_postponed'); ?>
+	            <?php echo $this->getForm()->renderField('new_game_id'); ?>
+	            <?php echo $this->getForm()->renderField('game_canceled'); ?>
+
+
+
+            </div>
+        </div>
+	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'rosters', Text::_('COM_FOOTBALLMANAGER_TAB_ROSTERS_LABEL')); ?>
         <div class="row">
             <div class="col">
-				<?php echo $this->getForm()->renderField('coach_teams'); ?>
+
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
+
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'referees', Text::_('COM_FOOTBALLMANAGER_TAB_REFEREES_LABEL')); ?>
+        <div class="row">
+            <div class="col">
+	            <?php echo $this->getForm()->renderField('head_referee_id'); ?>
+	            <?php echo $this->getForm()->renderField('referees'); ?>
+
+            </div>
+        </div>
+	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'sponsors', Text::_('COM_FOOTBALLMANAGER_TAB_SPONSORS_LABEL')); ?>
+        <div class="row">
+            <div class="col-lg-6">
+			    <?php echo $this->getForm()->renderField('sponsors'); ?>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block text-center">
+                <i class="fas fa-handshake fa-lg" style="font-size: 20rem; opacity: .3"></i>
+            </div>
+        </div>
+	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_CONST_PUBLISHING')); ?>
         <div class="row">

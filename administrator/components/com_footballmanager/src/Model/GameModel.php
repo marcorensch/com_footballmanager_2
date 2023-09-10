@@ -25,7 +25,7 @@ use Joomla\Input\Json;
  *
  * @since  __BUMP_VERSION__
  */
-class PlayerModel extends AdminModel
+class GameModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -33,9 +33,9 @@ class PlayerModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.player';
+	public $typeAlias = 'com_footballmanager.game';
 
-	protected $associationsContext = 'com_footballmanager.player';
+	protected $associationsContext = 'com_footballmanager.game';
 	private $itemId = 0;
 
 	protected $batch_copymove = 'category_id';
@@ -65,7 +65,7 @@ class PlayerModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'player', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'game', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{
@@ -88,18 +88,18 @@ class PlayerModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.player.data', []);
+		$data = $app->getUserState($this->option . 'com_footballmanager.edit.game.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
-			if ($this->getState('player.id') == 0)
+			if ($this->getState('game.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.players.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.games.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.player', $data);
+		$this->preprocessData('com_footballmanager.game', $data);
 
 		return $data;
 	}
@@ -115,7 +115,7 @@ class PlayerModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_players', 'com_footballmanager.player', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_games', 'com_footballmanager.game', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -124,25 +124,8 @@ class PlayerModel extends AdminModel
 			}
 		}
 
-		// Load the "linked teams" data
-		if($item->id > 0) $item->player_teams = $this->getTeamLinks($item->id);
-
 		return $item;
 	}
-
-	protected function getTeamLinks($id)
-	{
-		$db = $this->getDatabase();
-		$query = $db->getQuery(true);
-		$query->select('*');
-		$query->from('#__footballmanager_players_teams');
-		$query->where('player_id = ' . (int) $id);
-		$query->order('ordering ASC');
-		$db->setQuery($query);
-		$teams = $db->loadAssocList();
-		return $teams;
-	}
-
 	protected function preprocessForm($form, $data, $group = 'content'): void
 	{
 		if (Associations::isEnabled())
@@ -204,7 +187,7 @@ class PlayerModel extends AdminModel
 			{
 				$origTable->load($input->getInt('a_id'));
 
-				if ($origTable->lastname === $data['lastname'])
+				if ($origTable->home_team_id === $data['home_team_id'] && $origTable->away_team_id === $data['away_team_id'] && $origTable->kickoff === $data['kickoff'])
 				{
 					/**
 					 * If title of article is not changed, set alias to original article alias so that Joomla! will generate
@@ -222,10 +205,11 @@ class PlayerModel extends AdminModel
 				$origTable->load($input->getInt('id'));
 			}
 
-			if ($data['lastname'] == $origTable->lastname)
+			if ($origTable->home_team_id === $data['home_team_id'] && $origTable->away_team_id === $data['away_team_id'] && $origTable->kickoff === $data['kickoff'])
 			{
-				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['lastname']);
-				$data['lastname'] = $title;
+				$tempTitle = $data['home_team_id'] . ' - ' . $data['away_team_id'] . ' ' . $data['kickoff'];
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $tempTitle);
+				$data['title'] = $title;
 				$data['alias'] = $alias;
 			}
 			elseif ($data['alias'] == $origTable->alias)
@@ -239,11 +223,11 @@ class PlayerModel extends AdminModel
 		{
 			if ($app->get('unicodeslugs') == 1)
 			{
-				$data['alias'] = OutputFilter::stringUrlUnicodeSlug($data['lastname']);
+				$data['alias'] = OutputFilter::stringUrlUnicodeSlug($data['home_team_id'] . ' - ' . $data['away_team_id'] . ' ' . $data['kickoff']);
 			}
 			else
 			{
-				$data['alias'] = OutputFilter::stringURLSafe($data['lastname']);
+				$data['alias'] = OutputFilter::stringURLSafe($data['home_team_id'] . ' - ' . $data['away_team_id'] . ' ' . $data['kickoff']);
 			}
 
 			$table = $this->getTable();
@@ -253,7 +237,7 @@ class PlayerModel extends AdminModel
 				$msg = Text::_('COM_FOOTBALLMANAGER_SAVE_WARNING');
 			}
 
-			list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['lastname']);
+			list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['home_team_id'] . ' - ' . $data['away_team_id'] . ' ' . $data['kickoff']);
 			$data['alias'] = $alias;
 
 			if (isset($msg))
@@ -264,115 +248,100 @@ class PlayerModel extends AdminModel
 
 		$status = parent::save($data);
 		if($status){
-			$this->handlePlayerTeamsOnSave($data);
+			$this->handleScoreData($data);
 		}
 
 		return $status;
 	}
 
-	protected function handlePlayerTeamsOnSave($data): void
+	protected function handleScoreData($data): void
 	{
-		error_log('handlePlayerTeamsOnSave');
-		// Check if we have an ID if not we have added a new player get the id by alias
+		error_log('handleScoreData');
+		// Check if we have an ID if not we have added a new coach get the id by alias
 		if(!$data['id']){
 			$db = $this->getDatabase();
 			$query = $db->getQuery(true);
 			$query->select('id');
-			$query->from('#__footballmanager_players');
+			$query->from('#__footballmanager_games');
 			$query->where('alias = ' . $db->quote($data['alias']));
 			$db->setQuery($query);
 			$data['id'] = $db->loadResult();
 		}
 
-		// Get ID's of currently stored player teams data from db
-		$playerTeamIds = $this->getTeamLinkIds($data['id']);
+		error_log('handleScoreDataForID: ' . $data['id']);
 
-		// Save the player teams data
-		if($data['player_teams'])
-		{
-			$teamLinks = $data['player_teams'];
-			$db = $this->getDatabase();
-
-			foreach($teamLinks as $teamLinkData)
-			{
-				// remove from array if exists (leftovers will be deleted)
-				if($teamLinkData['id'] > 0 && in_array($teamLinkData['id'], $playerTeamIds)){
-					unset($playerTeamIds[array_search($teamLinkData['id'], $playerTeamIds)]);
-				}
-
-				// Cleanup empty fields
-				if(!$teamLinkData['team_id']) $teamLinkData['team_id'] = null;
-				if(!$teamLinkData['player_number']) $teamLinkData['player_number'] = null;
-				if(!$teamLinkData['position_id']) $teamLinkData['position_id'] = null;
-				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
-				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
-
-				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['player_number'] && !$teamLinkData['image'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
-					continue;
-				}
-
-				$query = $db->getQuery(true);
-
-				if($teamLinkData['id'] > 0){
-					// Fields to update.
-					// Below fields needs a special handling
-					$fields = array(
-						$db->quoteName('position_id') . ' = ' . $db->quote(json_encode($teamLinkData['position_id'])),
-						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
-					);
-
-					foreach(array('image','player_number','since', 'until', 'team_id') as $key){
-						if(!$teamLinkData[$key]){
-							$fields[] = $db->quoteName($key) . ' = NULL';
-						}else{
-							$fields[] = $db->quoteName($key) . ' = ' . $db->quote($teamLinkData[$key]);
-						}
-					}
-
-					// Conditions for which records should be updated.
-					$conditions = array(
-						$db->quoteName('id') . ' = ' . $db->quote($teamLinkData['id'])
-					);
-
-					$query->update($db->quoteName('#__footballmanager_players_teams'))->set($fields)->where($conditions);
-
-					$db->setQuery($query);
-
-					$result = $db->execute();
-				}else{
-					$teamLinkDataObj = (object) $teamLinkData;
-					$teamLinkDataObj->player_id = $data['id'];
-					$result        = $this->getDatabase()->insertObject('#__footballmanager_players_teams', $teamLinkDataObj);
-				}
-			}
-
-			// Delete leftover player teams data
-			foreach($playerTeamIds as $playerTeamId){
-				$query = $db->getQuery(true);
-				$conditions = array(
-					$db->quoteName('id') . ' = ' . $db->quote($playerTeamId)
-				);
-				$query->delete($db->quoteName('#__footballmanager_players_teams'))->where($conditions);
-				$db->setQuery($query);
-				$db->execute();
-			}
-		}
-	}
-
-	protected function getTeamLinkIds($playerId): array
-	{
-		$db = $this->getDatabase();
-		$query = $db->getQuery(true);
-		$query->select('id');
-		$query->from('#__footballmanager_players_teams');
-		$query->where('player_id = ' . $playerId);
-		$db->setQuery($query);
-		$teamLinks = $db->loadObjectList();
-		$teamLinkIds = array();
-		foreach($teamLinks as $teamLink){
-			$teamLinkIds[] = $teamLink->id;
-		}
-		return $teamLinkIds;
-
+//		// Get ID's of currently stored coaches teams data from db
+//		$playerTeamIds = $this->getTeamLinkIds($data['id']);
+//
+//		// Save the player teams data
+//		if($data['player_teams'])
+//		{
+//			$teamLinks = $data['player_teams'];
+//			$db = $this->getDatabase();
+//
+//			foreach($teamLinks as $teamLinkData)
+//			{
+//				// remove from array if exists (leftovers will be deleted)
+//				if($teamLinkData['id'] > 0 && in_array($teamLinkData['id'], $playerTeamIds)){
+//					unset($playerTeamIds[array_search($teamLinkData['id'], $playerTeamIds)]);
+//				}
+//
+//				// Cleanup empty fields
+//				if(!$teamLinkData['team_id']) $teamLinkData['team_id'] = null;
+//				if(!$teamLinkData['player_number']) $teamLinkData['player_number'] = null;
+//				if(!$teamLinkData['position_id']) $teamLinkData['position_id'] = null;
+//				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
+//				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
+//
+//				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['player_number'] && !$teamLinkData['image'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
+//					continue;
+//				}
+//
+//				$query = $db->getQuery(true);
+//
+//				if($teamLinkData['id'] > 0){
+//					// Fields to update.
+//					// Below fields needs a special handling
+//					$fields = array(
+//						$db->quoteName('position_id') . ' = ' . $db->quote(json_encode($teamLinkData['position_id'])),
+//						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
+//					);
+//
+//					foreach(array('image','player_number','since', 'until', 'team_id') as $key){
+//						if(!$teamLinkData[$key]){
+//							$fields[] = $db->quoteName($key) . ' = NULL';
+//						}else{
+//							$fields[] = $db->quoteName($key) . ' = ' . $db->quote($teamLinkData[$key]);
+//						}
+//					}
+//
+//					// Conditions for which records should be updated.
+//					$conditions = array(
+//						$db->quoteName('id') . ' = ' . $db->quote($teamLinkData['id'])
+//					);
+//
+//					$query->update($db->quoteName('#__footballmanager_players_teams'))->set($fields)->where($conditions);
+//
+//					$db->setQuery($query);
+//
+//					$result = $db->execute();
+//				}else{
+//					$teamLinkDataObj = (object) $teamLinkData;
+//					$teamLinkDataObj->player_id = $data['id'];
+//					$result        = $this->getDatabase()->insertObject('#__footballmanager_players_teams', $teamLinkDataObj);
+//				}
+//			}
+//
+//			// Delete leftover player teams data
+//			foreach($playerTeamIds as $coachTeamId){
+//				$query = $db->getQuery(true);
+//				$conditions = array(
+//					$db->quoteName('id') . ' = ' . $db->quote($coachTeamId)
+//				);
+//				$query->delete($db->quoteName('#__footballmanager_players_teams'))->where($conditions);
+//				$db->setQuery($query);
+//				$db->execute();
+//			}
+//		}
 	}
 }
