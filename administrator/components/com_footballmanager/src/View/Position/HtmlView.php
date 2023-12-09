@@ -25,19 +25,19 @@ use NXD\Component\Footballmanager\Administrator\Model\PositionModel;
  */
 class HtmlView extends BaseHtmlView
 {
-    /**
-     * The \JForm object
-     *
-     * @var  \JForm
-     */
-    protected $form;
+	/**
+	 * The \JForm object
+	 *
+	 * @var  \JForm
+	 */
+	protected $form;
 
-    /**
-     * The active content
-     *
-     * @var  object
-     */
-    protected $item;
+	/**
+	 * The active content
+	 *
+	 * @var  object
+	 */
+	protected $item;
 
 	/**
 	 * Display the view.
@@ -49,31 +49,32 @@ class HtmlView extends BaseHtmlView
 	 * @since 1.0.0
 	 *
 	 */
-    public function display($tpl = null)
-    {
-	    /** @var PositionModel $model */
-	    $model      = $this->getModel();
-	    $this->item = $model->getItem();
+	public function display($tpl = null)
+	{
+		/** @var PositionModel $model */
+		$model      = $this->getModel();
+		$this->item = $model->getItem();
 
 		// If we are forcing a language in modal (used for associations).
-	    if($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd')){
+		if ($this->getLayout() === 'modal' && $forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd'))
+		{
 			// Set the language field to the forcedLanguage and disable changing it.
-		    $this->form->setValue('language', null, $forcedLanguage);
-		    $this->form->setFieldAttribute('language', 'readonly', 'true');
+			$this->form->setValue('language', null, $forcedLanguage);
+			$this->form->setFieldAttribute('language', 'readonly', 'true');
 //		    $this->form->setFieldAttribute('language', 'disabled', 'true');
 
 			// Also, disable the "Associations" tab.
-		    $this->form->setFieldAttribute('associations', 'readonly', 'true');
-		    $this->form->setFieldAttribute('associations', 'disabled', 'true');
+			$this->form->setFieldAttribute('associations', 'readonly', 'true');
+			$this->form->setFieldAttribute('associations', 'disabled', 'true');
 
-		    // Only allow to select categories with ALL language or with the forced language.
-		    $this->form->setFieldAttribute('catid', 'language', '*,' . $forcedLanguage);
-	    }
+			// Only allow to select categories with ALL language or with the forced language.
+			$this->form->setFieldAttribute('catid', 'language', '*,' . $forcedLanguage);
+		}
 
-        $this->addToolbar();
+		$this->addToolbar();
 
-        return parent::display($tpl);
-    }
+		return parent::display($tpl);
+	}
 
 	/**
 	 * Add the page title and toolbar.
@@ -83,30 +84,30 @@ class HtmlView extends BaseHtmlView
 	 * @throws \Exception
 	 * @since   __BUMP_VERSION__
 	 */
-    protected function addToolbar()
-    {
-        Factory::getApplication()->input->set('hidemainmenu', true);
+	protected function addToolbar()
+	{
+		Factory::getApplication()->input->set('hidemainmenu', true);
 
-	    $isNew = !$this->item->id;
+		$isNew = !$this->item->id;
+		ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_POSITION_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_POSITION_EDIT_TITLE'), 'fas fa-hat-cowboy');
 
-	    $toolbar = Toolbar::getInstance();
+		$toolbar = Toolbar::getInstance();
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_POSITION_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_POSITION_EDIT_TITLE'), 'fas fa-hat-cowboy');
 
-        $toolbar->apply('position.apply');
+		$toolbar->apply('position.apply');
 
-	    $saveGroup = $toolbar->dropdownButton('save-group');
+		$saveGroup = $toolbar->dropdownButton('save-group');
 
-	    $saveGroup->configure(
-		    function (Toolbar $childBar) {
-			    $childBar->save('position.save');
-			    $childBar->save2new('position.save2new');
-			    $childBar->save2copy('position.save2copy');
-		    }
-	    );
+		$saveGroup->configure(
+			function (Toolbar $childBar) {
+				$childBar->save('position.save');
+				$childBar->save2new('position.save2new');
+				$childBar->save2copy('position.save2copy');
+			}
+		);
 
 //		ToolbarHelper::save('location.save');
 //		ToolbarHelper::save2new('location.save2new');
-        $toolbar->cancel('position.cancel', 'JTOOLBAR_CLOSE');
-    }
+		$toolbar->cancel('position.cancel', 'JTOOLBAR_CLOSE');
+	}
 }

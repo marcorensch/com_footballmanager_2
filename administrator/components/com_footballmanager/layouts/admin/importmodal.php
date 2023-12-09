@@ -21,7 +21,7 @@ $app = Factory::getApplication();
 $doc = $app->getDocument();
 $wa = $doc->getWebAssetManager();
 
-$wa->addInlineScript("
+$wa->addInlineScript(<<<JS
     document.addEventListener('DOMContentLoaded', function() {
     
         // EXPORT / DOWNLOAD
@@ -64,7 +64,7 @@ $wa->addInlineScript("
         });
         
       });
-  ");
+JS);
 
 $wa->addInlineStyle("
     .modal-dialog.jviewport-width50 {

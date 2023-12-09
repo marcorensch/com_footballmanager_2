@@ -151,8 +151,7 @@
     <changelogurl>https://updates.nx-designs.ch/com_footballmanager/changelog.xml</changelogurl>
     <updateservers>
         <server type="extension" name="Company Partners Updates">
-            https://updates.nx-designs.ch/nxd_footballmanager/update.xml
+            https://updates.nx-designs.ch/extensions/com_footballmanager.xml
         </server>
     </updateservers>
-    <dlid prefix="dlid=" suffix=""/>
 </extension>

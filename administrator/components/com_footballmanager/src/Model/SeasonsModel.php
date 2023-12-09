@@ -42,10 +42,8 @@ class SeasonsModel extends ListModel
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
 				'language', 'a.language',
-				'created_by', 'a.created_by',
-				'modified_by', 'a.modified_by',
+				'author_name', 'u.name',
 				'created_at', 'a.created_at',
-				'modified_at', 'a.modified_at',
 			);
 
 			$assoc = Associations::isEnabled();
