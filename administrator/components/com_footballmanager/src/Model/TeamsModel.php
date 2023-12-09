@@ -44,12 +44,9 @@ class TeamsModel extends ListModel
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
-				'language', 'a.language',
-				'created_by', 'a.created_by',
-				'modified_by', 'a.modified_by',
+				'name', 'u.name',
 				'created_at', 'a.created_at',
-				'modified_at', 'a.modified_at',
-				'location_name', 'a.location_id'
+				'location_name', 'loc.title'
 			);
 
 			$assoc = Associations::isEnabled();

@@ -72,15 +72,15 @@ if ($saveOrder && !empty($this->items))
                                 </th>
 
                                 <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_TEAM', 'a.title', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="min-width:100px" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_HOME_GROUND', 'a.location_name', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_HOME_GROUND', 'loc.titlex', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'a.created_by_username', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'u.name', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="min-width: 10%" class="text-center d-none d-md-table-cell">
