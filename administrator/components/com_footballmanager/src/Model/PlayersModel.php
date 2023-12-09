@@ -40,15 +40,13 @@ class PlayersModel extends ListModel
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'catid', 'a.catid',
-				'title', 'a.title',
+				'firstname', 'a.firstname',
+				'lastname', 'a.lastname',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
-				'language', 'a.language',
-				'created_by', 'a.created_by',
-				'modified_by', 'a.modified_by',
+				'author_name', 'a.author_name',
 				'created_at', 'a.created_at',
-				'modified_at', 'a.modified_at'
 			);
 
 			$assoc = Associations::isEnabled();

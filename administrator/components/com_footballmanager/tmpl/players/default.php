@@ -71,7 +71,11 @@ if ($saveOrder && !empty($this->items))
                             </th>
 
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
-		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_NAME', 'a.lastname', $listDirn, $listOrder); ?>
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_LASTNAME', 'a.lastname', $listDirn, $listOrder); ?>
+                            </th>
+
+                            <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_FIRSTNAME', 'a.firstname', $listDirn, $listOrder); ?>
                             </th>
 
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
@@ -79,7 +83,7 @@ if ($saveOrder && !empty($this->items))
                             </th>
 
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-		                        <?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'a.created_by_username', $listDirn, $listOrder); ?>
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'author_name', $listDirn, $listOrder); ?>
                             </th>
 
                             <th scope="col" style="min-width: 10%" class="text-center d-none d-md-table-cell">
@@ -131,13 +135,17 @@ if ($saveOrder && !empty($this->items))
 		                            ?>
                                 </td>
                                 <th scope="row" class="has-context">
-                                    <div style="display:none">
-										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
-                                    </div>
                                     <a class="hasTooltip"
                                        href="<?php echo Route::_('index.php?option=com_footballmanager&task=player.edit&id=' . (int) $item->id); ?>"
                                        title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->lastname)); ?>">
-										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
+										<?php echo $this->escape($item->lastname);?>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a class="hasTooltip"
+                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=player.edit&id=' . (int) $item->id); ?>"
+                                       title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->lastname)); ?>">
+		                                <?php echo $this->escape($item->firstname); ?>
                                     </a>
                                 </th>
                                 <td class="small">
