@@ -157,7 +157,7 @@ class PlayersModel extends ListModel
 			else
 			{
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
-				$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $search . ')');
+				$query->where('(a.firstname LIKE ' . $search .' OR a.lastname LIKE ' . $search.')');
 			}
 		}
 

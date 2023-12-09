@@ -117,6 +117,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_BIRTHDAY_LABEL"
                 translateformat="true"
                 showtime="false"
+                filter="user_utc"
         />
 
         <field
