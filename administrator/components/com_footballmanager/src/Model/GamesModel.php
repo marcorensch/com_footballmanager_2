@@ -115,6 +115,19 @@ class GamesModel extends ListModel
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
 
+		// Join over team names
+		$query->select($db->quoteName('home_team.name', 'home_team_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_teams', 'home_team') . ' ON ' . $db->quoteName('home_team.id') . ' = ' . $db->quoteName('a.home_team_id')
+			);
+
+		$query->select($db->quoteName('away_team.name', 'away_team_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_teams', 'away_team') . ' ON ' . $db->quoteName('away_team.id') . ' = ' . $db->quoteName('a.away_team_id')
+			);
+
 		// Filter by access level.
 		if ($access = $this->getState('filter.access'))
 		{
