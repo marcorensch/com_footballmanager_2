@@ -179,7 +179,7 @@ class TeamModel extends AdminModel
 		// sponsors
 		$data['sponsors'] = json_encode($data['sponsors']);
 
-		// handle location associations
+		// handle location not set
 		if($data['location_id'] === 0 || $data['location_id'] === '')
 		{
 			$data['location_id'] = null;

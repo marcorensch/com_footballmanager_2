@@ -147,7 +147,14 @@ class TeamsModel extends ListModel
 		$location = $this->getState('filter.location');
 		if ($location || $location === "0")
 		{
-			$query->where($db->quoteName('a.location_id') . ' = ' . $db->quote($location));
+			if($location === "0")
+			{
+				$query->where($db->quoteName('a.location_id') . ' IS NULL');
+			}
+			else
+			{
+				$query->where($db->quoteName('a.location_id') . ' = ' . $db->quote($location));
+			}
 		}
 		// Filter the language
 		if ($language = $this->getState('filter.language'))

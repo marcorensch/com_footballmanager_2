@@ -201,7 +201,7 @@
         <field
                 name="location_id"
                 type="locations"
-                label="COM_FOOTBALLMANAGER_FIELD_LOCATION_LABEL"
+                label="COM_FOOTBALLMANAGER_FIELD_HOME_GROUND_LABEL"
         />
 
         <field
