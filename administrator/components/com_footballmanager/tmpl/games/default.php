@@ -87,23 +87,23 @@ if ($saveOrder && !empty($this->items))
                                 </th>
 
                                 <th scope="col" style="min-width:1%">
-									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_SEASON'); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_SEASON', 'season_name', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="min-width:1%">
-									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_SEASON_PHASE'); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_SEASON_PHASE', 'season_phase_name', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="min-width:1%">
-									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_LEAGUE'); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_LEAGUE', 'league_name', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="min-width:1%">
-									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_LOCATION'); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_LOCATION', 'l.title', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="min-width:1%">
-		                            <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_CATEGORY'); ?>
+		                            <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CATEGORY', 'c.title', $listDirn, $listOrder); ?>
                                 </th>
 
                                 <th scope="col" style="min-width:1%">

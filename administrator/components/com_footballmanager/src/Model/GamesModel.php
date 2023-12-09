@@ -39,15 +39,18 @@ class GamesModel extends ListModel
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'catid', 'a.catid',
 				'home_team', 'ht.title',
 				'away_team', 'at.title',
-				'location', 'a.location_id',
+				'location', 'l.title',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
 				'created_by', 'a.created_by',
 				'kickoff', 'a.kickoff',
+				'category_title', 'c.title',
+				'season_name', 's.title',
+				'season_phase_name', 'sp.title',
+				'league_name', 'lg.title',
 			);
 
 			$assoc = Associations::isEnabled();

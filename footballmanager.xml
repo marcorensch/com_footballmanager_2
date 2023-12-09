@@ -66,6 +66,14 @@
                     </menu-quicktask>
                 </params>
             </menu>
+            <menu link="option=com_footballmanager&amp;view=seasonphases">
+                COM_FOOTBALLMANAGER_SEASON_PHASES
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=seasonphases&amp;layout=edit
+                    </menu-quicktask>
+                </params>
+            </menu>
             <menu link="option=com_footballmanager&amp;view=leagues">
                 COM_FOOTBALLMANAGER_LEAGUES
                 <params>

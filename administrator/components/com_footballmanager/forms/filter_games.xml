@@ -74,8 +74,18 @@
             <option value="a.access DESC">JGRID_HEADING_ACCESS_DESC</option>
             <option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
             <option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
-            <option value="a.location_name ASC">COM_FOOTBALLMANAGER_LOCATION_ASC</option>
-            <option value="a.location_name DESC">COM_FOOTBALLMANAGER_LOCATION_DESC</option>
+            <option value="a.kickoff ASC">COM_FOOTBALLMANAGER_KICKOFF_ASC</option>
+            <option value="a.kickoff DESC">COM_FOOTBALLMANAGER_KICKOFF_DESC</option>
+            <option value="l.title ASC">COM_FOOTBALLMANAGER_LOCATION_ASC</option>
+            <option value="l.title DESC">COM_FOOTBALLMANAGER_LOCATION_DESC</option>
+            <option value="c.title ASC">COM_FOOTBALLMANAGER_CATEGORY_ASC</option>
+            <option value="c.title DESC">COM_FOOTBALLMANAGER_CATEGORY_DESC</option>
+            <option value="season_name ASC">COM_FOOTBALLMANAGER_SEASON_ASC</option>
+            <option value="season_name DESC">COM_FOOTBALLMANAGER_SEASON_DESC</option>
+            <option value="season_phase_name ASC">COM_FOOTBALLMANAGER_SEASON_PHASE_ASC</option>
+            <option value="season_phase_name DESC">COM_FOOTBALLMANAGER_SEASON_PHASE_DESC</option>
+            <option value="league_name ASC">COM_FOOTBALLMANAGER_LEAGUE_ASC</option>
+            <option value="league_name DESC">COM_FOOTBALLMANAGER_LEAGUE_DESC</option>
         </field>
         <field
             name="limit"
