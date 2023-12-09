@@ -41,7 +41,6 @@ class SeasonsModel extends ListModel
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
-				'language', 'a.language',
 				'author_name', 'u.name',
 				'created_at', 'a.created_at',
 			);
