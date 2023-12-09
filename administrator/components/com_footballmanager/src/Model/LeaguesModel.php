@@ -42,9 +42,7 @@ class LeaguesModel extends ListModel
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
-				'language', 'a.language',
-				'publish_up', 'a.publish_up',
-				'publish_down', 'a.publish_down'
+				'author_name', 'u.name',
 			);
 
 			$assoc = Associations::isEnabled();

@@ -9,18 +9,6 @@
                 description="COM_FOOTBALLMANAGER_SEARCH_LEAGUES_DESC"
                 hint="JSEARCH_FILTER"
         />
-
-        <field
-                name="featured"
-                type="list"
-                onchange="this.form.submit();"
-                default=""
-        >
-            <option value="">JOPTION_SELECT_FEATURED</option>
-            <option value="0">JUNFEATURED</option>
-            <option value="1">JFEATURED</option>
-        </field>
-
         <field
                 name="published"
                 type="status"
@@ -53,10 +41,10 @@
             <option value="a.created_at DESC">COM_FOOTBALLMANAGER_CREATED_DESC</option>
             <option value="a.published ASC">JSTATUS_ASC</option>
             <option value="a.published DESC">JSTATUS_DESC</option>
-            <option value="a.title ASC">JGLOBAL_NAME_ASC</option>
-            <option value="a.title DESC">JGLOBAL_NAME_DESC</option>
-            <option value="a.author_name ASC">COM_FOOTBALLMANAGER_AUTHOR_ASC</option>
-            <option value="a.author_name DESC">COM_FOOTBALLMANAGER_AUTHOR_DESC</option>
+            <option value="a.title ASC">COM_FOOTBALLMANAGER_ORDERING_LEAGUE_ASC</option>
+            <option value="a.title DESC">COM_FOOTBALLMANAGER_ORDERING_LEAGUE_DESC</option>
+            <option value="u.name ASC">COM_FOOTBALLMANAGER_AUTHOR_ASC</option>
+            <option value="u.name DESC">COM_FOOTBALLMANAGER_AUTHOR_DESC</option>
             <option value="a.access ASC">JGRID_HEADING_ACCESS_ASC</option>
             <option value="a.access DESC">JGRID_HEADING_ACCESS_DESC</option>
             <option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
