@@ -6,7 +6,7 @@
                 type="text"
                 inputmode="search"
                 label="COM_FOOTBALLMANAGER_SEARCH_LABEL"
-                description="COM_FOOTBALLMANAGER_SEARCH_LEAGUES_DESC"
+                description="COM_FOOTBALLMANAGER_SEARCH_PLAYERS_DESC"
                 hint="JSEARCH_FILTER"
         />
 
@@ -42,10 +42,12 @@
             <option value="a.created_at DESC">COM_FOOTBALLMANAGER_CREATED_DESC</option>
             <option value="a.published ASC">JSTATUS_ASC</option>
             <option value="a.published DESC">JSTATUS_DESC</option>
-<!--            <option value="a.title ASC">JGLOBAL_NAME_ASC</option>-->
-<!--            <option value="a.title DESC">JGLOBAL_NAME_DESC</option>-->
-            <option value="a.author_name ASC">COM_FOOTBALLMANAGER_AUTHOR_ASC</option>
-            <option value="a.author_name DESC">COM_FOOTBALLMANAGER_AUTHOR_DESC</option>
+            <option value="a.lastname ASC">COM_FOOTBALLMANAGER_ORDERING_LASTNAME_ASC</option>
+            <option value="a.lastname DESC">COM_FOOTBALLMANAGER_ORDERING_LASTNAME_DESC</option>
+            <option value="a.firstname ASC">COM_FOOTBALLMANAGER_ORDERING_FIRSTNAME_ASC</option>
+            <option value="a.firstname DESC">COM_FOOTBALLMANAGER_ORDERING_FIRSTNAME_DESC</option>
+            <option value="author_name ASC">COM_FOOTBALLMANAGER_AUTHOR_ASC</option>
+            <option value="author_name DESC">COM_FOOTBALLMANAGER_AUTHOR_DESC</option>
             <option value="a.access ASC">JGRID_HEADING_ACCESS_ASC</option>
             <option value="a.access DESC">JGRID_HEADING_ACCESS_DESC</option>
             <option value="a.id ASC">JGRID_HEADING_ID_ASC</option>

@@ -6,7 +6,7 @@
                 type="text"
                 inputmode="search"
                 label="COM_FOOTBALLMANAGER_SEARCH_LABEL"
-                description="COM_FOOTBALLMANAGER_SEARCH_LEAGUES_DESC"
+                description="COM_FOOTBALLMANAGER_SEARCH_COACHES_DESC"
                 hint="JSEARCH_FILTER"
         />
 

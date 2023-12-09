@@ -6,7 +6,6 @@
                 type="text"
                 inputmode="search"
                 label="COM_FOOTBALLMANAGER_SEARCH_LABEL"
-                description="COM_FOOTBALLMANAGER_SEARCH_LEAGUES_DESC"
                 hint="JSEARCH_FILTER"
         />
         <field
