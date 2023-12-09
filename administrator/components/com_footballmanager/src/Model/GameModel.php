@@ -178,6 +178,18 @@ class GameModel extends AdminModel
 		// sponsors
 		$data['sponsors'] = json_encode($data['sponsors']);
 
+		// handle matchday not set
+		if($data['matchday'] === 0 || $data['matchday'] === '')
+		{
+			$data['matchday'] = null;
+		}
+
+		// handle new game id not set
+		if($data['new_game_id'] === 0 || $data['new_game_id'] === '')
+		{
+			$data['new_game_id'] = null;
+		}
+
 		// Alter the title for save as copy
 		if ($input->get('task') == 'save2copy')
 		{

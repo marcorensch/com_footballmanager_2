@@ -55,6 +55,13 @@
         />
 
         <field
+                name="location_id"
+                type="locations"
+                label="COM_FOOTBALLMANAGER_FIELD_LOCATION_LABEL"
+                required="true"
+        />
+
+        <field
                 name="kickoff"
                 type="calendar"
                 label="COM_FOOTBALLMANAGER_FIELD_KICKOFF_LABEL"
@@ -70,6 +77,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_HOME_SCORE_LABEL"
                 required="true"
                 default="0"
+                min="0"
         />
 
         <field
@@ -78,6 +86,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_AWAY_SCORE_LABEL"
                 required="true"
                 default="0"
+                min="0"
         />
 
         <field
@@ -86,6 +95,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_HOME_TOUCHDOWNS_LABEL"
                 required="false"
                 default="0"
+                min="0"
         />
 
         <field
@@ -94,6 +104,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_AWAY_TOUCHDOWNS_LABEL"
                 required="false"
                 default="0"
+                min="0"
         />
 
         <field

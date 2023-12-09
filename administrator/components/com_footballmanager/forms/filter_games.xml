@@ -36,15 +36,6 @@
             <option value="">JOPTION_SELECT_ACCESS</option>
         </field>
         <field
-                name="language"
-                type="contentLanguage"
-                label="JOPTION_SELECT_LANGUAGE"
-                onchange="this.form.submit();"
-                >
-            <option value="">JOPTION_SELECT_LANGUAGE</option>
-            <option value="*">JALL</option>
-        </field>
-        <field
                 name="location"
                 type="sql"
                 label="COM_FOOTBALLMANAGER_HOME_GROUND"
@@ -72,16 +63,14 @@
             <option value="a.created_at DESC">COM_FOOTBALLMANAGER_CREATED_DESC</option>
             <option value="a.published ASC">JSTATUS_ASC</option>
             <option value="a.published DESC">JSTATUS_DESC</option>
-<!--            <option value="a.title ASC">JGLOBAL_NAME_ASC</option>-->
-<!--            <option value="a.title DESC">JGLOBAL_NAME_DESC</option>-->
+            <option value="ht.title ASC">COM_FOOTBALLMANAGER_HOMETEAM_ASC</option>
+            <option value="ht.title DESC">COM_FOOTBALLMANAGER_HOMETEAM_DESC</option>
+            <option value="at.title ASC">COM_FOOTBALLMANAGER_AWAYTEAM_ASC</option>
+            <option value="at.title DESC">COM_FOOTBALLMANAGER_AWAYTEAM_DESC</option>
             <option value="a.author_name ASC">COM_FOOTBALLMANAGER_AUTHOR_ASC</option>
             <option value="a.author_name DESC">COM_FOOTBALLMANAGER_AUTHOR_DESC</option>
             <option value="a.access ASC">JGRID_HEADING_ACCESS_ASC</option>
             <option value="a.access DESC">JGRID_HEADING_ACCESS_DESC</option>
-<!--            <option value="association ASC" requires="associations">JASSOCIATIONS_ASC</option>-->
-<!--            <option value="association DESC" requires="associations">JASSOCIATIONS_DESC</option>-->
-            <option value="a.language_title ASC" requires="multilanguage">JGRID_HEADING_LANGUAGE_ASC</option>
-            <option value="a.language_title DESC" requires="multilanguage">JGRID_HEADING_LANGUAGE_DESC</option>
             <option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
             <option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
             <option value="a.location_name ASC">COM_FOOTBALLMANAGER_LOCATION_ASC</option>

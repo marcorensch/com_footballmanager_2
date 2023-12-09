@@ -40,17 +40,14 @@ class GamesModel extends ListModel
 			$config['filter_fields'] = array(
 				'id', 'a.id',
 				'catid', 'a.catid',
-				'home_team', 'a.home_team_id',
-				'away_team', 'a.away_team_id',
+				'home_team', 'ht.title',
+				'away_team', 'at.title',
 				'location', 'a.location_id',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
-				'language', 'a.language',
 				'created_by', 'a.created_by',
-				'modified_by', 'a.modified_by',
-				'created_at', 'a.created_at',
-				'modified_at', 'a.modified_at'
+				'kickoff', 'a.kickoff',
 			);
 
 			$assoc = Associations::isEnabled();
@@ -81,7 +78,7 @@ class GamesModel extends ListModel
 			$db->quoteName(
 				[
 					'a.id', 'a.alias',
-					'a.home_team_id', 'a.away_team_id', 'a.location_id',
+					'a.home_team_id', 'a.away_team_id', 'a.location_id', 'a.kickoff',
 					'a.state', 'a.published', 'a.created_at', 'a.created_by', 'a.modified_at', 'a.modified_by',
 					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid',
 				]
@@ -116,17 +113,46 @@ class GamesModel extends ListModel
 			);
 
 		// Join over team names
-		$query->select($db->quoteName('home_team.name', 'home_team_name'))
+		$query->select($db->quoteName('ht.title', 'home_team_name'))
 			->join(
 				'LEFT',
-				$db->quoteName('#__footballmanager_teams', 'home_team') . ' ON ' . $db->quoteName('home_team.id') . ' = ' . $db->quoteName('a.home_team_id')
+				$db->quoteName('#__footballmanager_teams', 'ht') . ' ON ' . $db->quoteName('ht.id') . ' = ' . $db->quoteName('a.home_team_id')
 			);
 
-		$query->select($db->quoteName('away_team.name', 'away_team_name'))
+		$query->select($db->quoteName('at.title', 'away_team_name'))
 			->join(
 				'LEFT',
-				$db->quoteName('#__footballmanager_teams', 'away_team') . ' ON ' . $db->quoteName('away_team.id') . ' = ' . $db->quoteName('a.away_team_id')
+				$db->quoteName('#__footballmanager_teams', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.away_team_id')
 			);
+
+		// Join over location name
+		$query->select($db->quoteName('l.title', 'location_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_locations', 'l') . ' ON ' . $db->quoteName('l.id') . ' = ' . $db->quoteName('a.location_id')
+			);
+
+		// Join over Season name
+		$query->select($db->quoteName('s.title', 'season_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_seasons', 's') . ' ON ' . $db->quoteName('s.id') . ' = ' . $db->quoteName('a.season_id')
+			);
+
+		// Join over Season Phase name
+		$query->select($db->quoteName('sp.title', 'season_phase_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_season_phases', 'sp') . ' ON ' . $db->quoteName('sp.id') . ' = ' . $db->quoteName('a.phase_id')
+			);
+
+		// Join over League name
+		$query->select($db->quoteName('lg.title', 'league_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_leagues', 'lg') . ' ON ' . $db->quoteName('lg.id') . ' = ' . $db->quoteName('a.league_id')
+			);
+
 
 		// Filter by access level.
 		if ($access = $this->getState('filter.access'))
