@@ -71,43 +71,46 @@ if ($saveOrder && !empty($this->items))
 									<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder) ?>
                                 </th>
 
-                                <th scope="col" style="width:150px" class="d-none d-md-table-cell">
-                                    <!-- Edit Link Header -->
+                                <th scope="col" style="min-width:130px" class="d-none d-md-table-cell">
                                 </th>
 
-                                <th scope="col" style="min-width:1%" class="text-center d-none d-md-table-cell">
+                                <th scope="col" style="min-width:1%" class="">
 		                            <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_KICKOFF', 'a.kickoff', $listDirn, $listOrder); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:150px">
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_TEAM_HOME', 'ht.title', $listDirn, $listOrder); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:150px">
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_TEAM_AWAY', 'at.title', $listDirn, $listOrder); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:1%">
 									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_SEASON'); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:1%">
 									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_SEASON_PHASE'); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:1%">
 									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_LEAGUE'); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:1%">
 									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_LOCATION'); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:1%" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:1%">
+		                            <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_CATEGORY'); ?>
+                                </th>
+
+                                <th scope="col" style="min-width:1%">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'a.created_by_username', $listDirn, $listOrder); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:1%" class="d-none d-md-table-cell">
+                                <th scope="col" style="min-width:1%">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS', 'access_level', $listDirn, $listOrder) ?>
                                 </th>
 
@@ -166,8 +169,8 @@ if ($saveOrder && !empty($this->items))
                                         </a>
                                     </th>
 
-                                    <td class="small text-center d-none d-md-table-cell">
-		                                <?php echo HTMLHelper::_('date', $item->kickoff, Text::_('DATE_FORMAT_LC4')); ?>
+                                    <td>
+                                        <span class="kickoff-date"><?php echo HTMLHelper::_('date', $item->kickoff, Text::_('DATE_FORMAT_LC4')); ?></span><br>
                                     </td>
 
                                     <td>
@@ -190,6 +193,10 @@ if ($saveOrder && !empty($this->items))
 
                                     <td>
                                         <span class="text-nowrap"><?php echo $item->location_name; ?></span>
+                                    </td>
+
+                                    <td>
+                                        <span class="category text-nowrap"><?php echo $item->category_title; ?></span>
                                     </td>
 
                                     <td class="small d-none d-md-table-cell">

@@ -21,12 +21,13 @@
                 name="category_id"
                 type="category"
                 label="JOPTION_SELECT_CATEGORY"
-                multiple="true"
+                multiple="false"
                 onchange="this.form.submit();"
-                layout="joomla.form.field.list-fancy-select"
-                extension="com_footballmanager"
+                extension="com_footballmanager.games"
                 published="0,1,2"
-        />
+        >
+            <option value="">JOPTION_SELECT_CATEGORY</option>
+        </field>
         <field
                 name="access"
                 type="accesslevel"

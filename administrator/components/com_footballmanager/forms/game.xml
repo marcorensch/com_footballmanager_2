@@ -263,7 +263,7 @@
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
-                extension="com_footballmanager.coaches"
+                extension="com_footballmanager.games"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
                 default=""

@@ -31,6 +31,7 @@ class CategoriesModel extends ListModel
 		$this->sections[] = $this->createSection('Locations', 'locations', 'map-marker-alt');
 		$this->sections[] = $this->createSection('Sponsors', 'sponsors', 'handshake');
 		$this->sections[] = $this->createSection('Teams', 'teams', 'users');
+		$this->sections[] = $this->createSection('Games', 'games', 'football-ball');
 
 		return $this->sections;
 	}
