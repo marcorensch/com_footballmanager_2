@@ -112,7 +112,7 @@ class PlayersModel extends ListModel
 			);
 
 		// JetBrains AI Assistant (will result in multiple entries if a player is in multiple teams > will be concatenated later)
-		$query->select('t.title as team_title, t.id as team_id')
+		$query->select('t.title as team_title, t.id as team_id, pt.since as team_since, pt.until as team_until')
 			->join(
 				'LEFT',
 				$db->quoteName('#__footballmanager_players_teams', 'pt') . ' ON ' . $db->quoteName('a.id') . ' = ' . $db->quoteName('pt.player_id')
@@ -127,6 +127,14 @@ class PlayersModel extends ListModel
 		if (is_numeric($teamId))
 		{
 			$query->where($db->quoteName('team_id') . ' = ' . (int) $teamId);
+
+			// Switch for only active players by checking current date against team_since and team_until but only if pt.since and pt.until are not null
+			$onlyActive = $this->getState('filter.only_active');
+			if ($onlyActive)
+			{
+				$query->where('(' . $db->quoteName('pt.since') . ' IS NULL OR ' . $db->quoteName('pt.since') . ' <= NOW())');
+				$query->where('(' . $db->quoteName('pt.until') . ' IS NULL OR ' . $db->quoteName('pt.until') . ' >= NOW())');
+			}
 		}
 
 		// Filter by access level.
@@ -135,7 +143,6 @@ class PlayersModel extends ListModel
 			$query->where($db->quoteName('a.access') . ' = ' . (int) $access);
 		}
 
-		// Filter by published state
 		// Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
@@ -240,6 +247,8 @@ class PlayersModel extends ListModel
 				$teamObject = new \stdClass();
 				$teamObject->id = $item->team_id;
 				$teamObject->title = $item->team_title;
+				$teamObject->since = $item->team_since;
+				$teamObject->until = $item->team_until;
 			}else{
 				$teamObject = null;
 			}

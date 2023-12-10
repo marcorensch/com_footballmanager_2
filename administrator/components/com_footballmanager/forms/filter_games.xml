@@ -45,7 +45,7 @@
                 key_field="id"
                 value_field="title"
         >
-            <option value="">COM_FOOTBALLMANAGER_HOME_GROUND_SELECT</option>
+            <option value="">COM_FOOTBALLMANAGER_LOCATION_SELECT</option>
             <option value="0">COM_FOOTBALLMANAGER_NOT_SET</option>
         </field>
     </fields>

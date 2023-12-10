@@ -8,6 +8,7 @@
  */
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -36,6 +37,18 @@ if ($saveOrder && !empty($this->items))
 {
     $saveOrderingUrl = 'index.php?option=com_footballmanager&task=leagues.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
+}
+
+$params = ComponentHelper::getParams('com_footballmanager');
+if($params->get('show_filters_by_default', 0)){
+	$showFiltersScript= <<<JS
+    document.addEventListener("DOMContentLoaded", ()=>{
+        const filtersContainer = document.querySelector(".js-stools-container-filters");
+        //add active Class
+        filtersContainer.classList.add("js-stools-container-filters-visible");
+    })
+    JS;
+	$wa->addInlineScript($showFiltersScript);
 }
 
 ?>

@@ -16,6 +16,18 @@
         </field>
 
         <field
+            name="show_filters_by_default"
+            type="radio"
+            label="COM_FOOTBALLMANAGER_FIELD_PARAMS_SHOW_FILTERS_BY_DEFAULT_LABEL"
+            description="COM_FOOTBALLMANAGER_FIELD_PARAMS_SHOW_FILTERS_BY_DEFAULT_DESC"
+            default="0"
+            layout="joomla.form.field.radio.switcher"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field
                 name="weight_unit"
                 type="text"
                 label="COM_FOOTBALLMANAGER_FIELD_PARAMS_WEIGHT_UNIT_LABEL"

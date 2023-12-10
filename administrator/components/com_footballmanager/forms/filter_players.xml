@@ -13,6 +13,26 @@
         />
 
         <field
+                name="team_id"
+                type="teams"
+                label="COM_FOOTBALLMANAGER_TEAM"
+                onchange="this.form.submit();"
+        />
+        <field
+                name="only_active"
+                showon="team_id!:"
+                type="list"
+                default="0"
+                filter="integer"
+                label="COM_FOOTBALLMANAGER_FILTER_ONLY_ACTIVE_LABEL"
+                description="COM_FOOTBALLMANAGER_FILTER_ONLY_ACTIVE_DESC"
+                onchange="this.form.submit();"
+        >
+            <option value="0">COM_FOOTBALLMANAGER_FILTER_ALL_PLAYERS_LABEL</option>
+            <option value="1">COM_FOOTBALLMANAGER_FILTER_ONLY_ACTIVE_PLAYERS_LABEL</option>
+        </field>
+
+        <field
                 name="published"
                 type="status"
                 label="JOPTION_SELECT_PUBLISHED"
@@ -20,13 +40,7 @@
         >
             <option value="">JOPTION_SELECT_PUBLISHED</option>
         </field>
-        <field
-                name="team_id"
-                type="teams"
-                label="COM_FOOTBALLMANAGER_TEAM"
-                onchange="this.form.submit();"
-        >
-        </field>
+
         <field
                 name="access"
                 type="accesslevel"
