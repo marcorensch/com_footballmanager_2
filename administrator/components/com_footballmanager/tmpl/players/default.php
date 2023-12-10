@@ -37,7 +37,6 @@ if ($saveOrder && !empty($this->items))
     $saveOrderingUrl = 'index.php?option=com_footballmanager&task=players.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
 }
-
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&view=players'); ?>" method="post" name="adminForm" id="adminForm">
@@ -149,7 +148,7 @@ if ($saveOrder && !empty($this->items))
                                     </a>
                                 </th>
                                 <td class="small">
-                                    <?php foreach($item->linked_teams as $linkedTeam):?>
+                                    <?php foreach($item->teams as $linkedTeam):?>
                                         <div><span><?php echo $linkedTeam->title;?> </span></div>
                                     <?php endforeach;?>
                                 </td>

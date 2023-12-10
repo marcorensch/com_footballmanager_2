@@ -79,7 +79,7 @@ class PlayersModel extends ListModel
 					'a.id', 'a.alias',
 					'a.firstname', 'a.lastname', 'a.about', 'a.image',
 					'a.state', 'a.published', 'a.created_at', 'a.created_by', 'a.modified_at', 'a.modified_by',
-					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid',
+					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid'
 				]
 			)
 		);
@@ -110,6 +110,24 @@ class PlayersModel extends ListModel
 				'LEFT',
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
+
+		// JetBrains AI Assistant (will result in multiple entries if a player is in multiple teams > will be concatenated later)
+		$query->select('t.title as team_title, t.id as team_id')
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_players_teams', 'pt') . ' ON ' . $db->quoteName('a.id') . ' = ' . $db->quoteName('pt.player_id')
+			)
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('pt.team_id')
+			);
+
+		// Filter by Team ID
+		$teamId = $this->getState('filter.team_id');
+		if (is_numeric($teamId))
+		{
+			$query->where($db->quoteName('team_id') . ' = ' . (int) $teamId);
+		}
 
 		// Filter by access level.
 		if ($access = $this->getState('filter.access'))
@@ -207,41 +225,30 @@ class PlayersModel extends ListModel
 	public function getItems()
 	{
 		$items = parent::getItems();
+		$processedResults = array();
 		// Add Team Details
 		foreach ($items as &$item)
 		{
-			$item->linked_teams = $this->getLinkedTeams($item->id);
+			// Required to prevent multiple entries for the same player
+			if(!isset($processedResults[$item->id])){
+				$processedResults[$item->id] = $item;
+				$processedResults[$item->id]->teams = array();
+			}
+
+			// Add Team Details to Player
+			if($item->team_id && $item->team_title){
+				$teamObject = new \stdClass();
+				$teamObject->id = $item->team_id;
+				$teamObject->title = $item->team_title;
+			}else{
+				$teamObject = null;
+			}
+			if($teamObject) $processedResults[$item->id]->teams[] = $teamObject;
+			unset($item->team_id);
+			unset($item->team_title);
 		}
 
-		return $items;
-	}
-
-	protected function getLinkedTeams($playerId){
-		$teams = array();
-
-		// Get Team ID's
-		$db = $this->getDatabase();
-		$query = $db->getQuery(true);
-		$query->select('ct.team_id');
-		$query->from($db->quoteName('#__footballmanager_players_teams', 'ct'));
-		$query->where($db->quoteName('ct.player_id') . ' = ' . $db->quote($playerId));
-		$db->setQuery($query);
-		$teamIds = $db->loadColumn();
-
-		// Get Team Names
-		foreach ($teamIds as $teamId){
-			if(!$teamId) continue;
-			$query = $db->getQuery(true);
-			$query->select('t.id, t.title');
-			$query->from($db->quoteName('#__footballmanager_teams', 't'));
-			$query->where($db->quoteName('t.id') . ' = ' . $db->quote($teamId));
-			$query->where($db->quoteName('t.published') . ' = 1');
-			$db->setQuery($query);
-			$teams[] = $db->loadObject();
-		}
-
-		return $teams;
-
+		return $processedResults;
 	}
 
 	public function exportItems($ids)
