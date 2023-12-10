@@ -73,6 +73,8 @@
             <option value="a.created_at DESC">COM_FOOTBALLMANAGER_CREATED_DESC</option>
             <option value="a.published ASC">JSTATUS_ASC</option>
             <option value="a.published DESC">JSTATUS_DESC</option>
+            <option value="a.featured ASC">JFEATURED_ASC</option>
+            <option value="a.featured DESC">JFEATURED_DESC</option>
             <option value="a.title ASC">JGLOBAL_NAME_ASC</option>
             <option value="a.title DESC">JGLOBAL_NAME_DESC</option>
             <option value="a.author_name ASC">COM_FOOTBALLMANAGER_AUTHOR_ASC</option>

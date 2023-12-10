@@ -8,6 +8,7 @@
  */
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Button\FeaturedButton;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -80,6 +81,10 @@ if($params->get('show_filters_by_default', 0)){
                             </th>
 
                             <th scope="col" style="width: 1%; min-width: 85px" class="text-center">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'JFEATURED','a.featured', $listDirn, $listOrder) ?>
+                            </th>
+
+                            <th scope="col" style="width: 1%; min-width: 85px" class="text-center">
 		                        <?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS','a.published', $listDirn, $listOrder) ?>
                             </th>
 
@@ -142,6 +147,19 @@ if($params->get('show_filters_by_default', 0)){
                                         <input type="text" name="order[]" size="5"
                                                value="<?php echo $item->ordering; ?>" class="width-20 text-area-order hidden">
 		                            <?php endif; ?>
+                                </td>
+
+                                <td class="text-center d-none d-md-table-cell">
+		                            <?php
+		                            $options = [
+			                            'task_prefix' => 'sponsors.',
+			                            'disabled' => !$canChange,
+			                            'id' => 'featured-' . $item->id
+		                            ];
+
+		                            echo (new FeaturedButton())
+			                            ->render((int) $item->featured, $i, $options);
+		                            ?>
                                 </td>
 
                                 <td class="text-center">

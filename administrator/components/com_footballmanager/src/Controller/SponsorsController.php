@@ -12,6 +12,7 @@ namespace NXD\Component\Footballmanager\Administrator\Controller;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Input\Input;
@@ -64,5 +65,25 @@ class SponsorsController extends AdminController
 		$data  = $model->exportItems($ids);
 
 		ExportHelper::export($data, 'sponsors');
+	}
+
+	public function unfeatured()
+	{
+		$ids = $this->input->get('cid', [], 'array');
+		$model = $this->getModel('sponsors');
+		$model->unfeatured($ids);
+
+		$this->setMessage(Text::plural('COM_FOOTBALLMANAGER_N_ITEMS_UNFEATURED', count($ids)));
+		$this->setRedirect(\JRoute::_('index.php?option=com_footballmanager&view=sponsors', false));
+	}
+
+	public function featured()
+	{
+		$ids = $this->input->get('cid', [], 'array');
+		$model = $this->getModel('sponsors');
+		$model->featured($ids);
+
+		$this->setMessage(Text::plural('COM_FOOTBALLMANAGER_N_ITEMS_FEATURED', count($ids)));
+		$this->setRedirect(\JRoute::_('index.php?option=com_footballmanager&view=sponsors', false));
 	}
 }

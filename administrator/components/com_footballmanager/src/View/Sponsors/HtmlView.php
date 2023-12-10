@@ -121,6 +121,11 @@ class HtmlView extends BaseHtmlView
 			$childBar = $dropdown->getChildToolbar();
 			$childBar->publish('sponsors.publish')->listCheck(true);
 			$childBar->unpublish('sponsors.unpublish')->listCheck(true);
+			$childBar->standardButton('featured', 'JFEATURE', 'sponsors.featured')
+				->listCheck(true);
+
+			$childBar->standardButton('unfeatured', 'JUNFEATURE', 'sponsors.unfeatured')
+				->listCheck(true);
 			$childBar->archive('sponsors.archive')->listCheck(true);
 
 

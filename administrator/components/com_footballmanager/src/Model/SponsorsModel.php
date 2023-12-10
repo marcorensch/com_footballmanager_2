@@ -41,6 +41,7 @@ class SponsorsModel extends ListModel
 				'catid', 'a.catid',
 				'title', 'a.title',
 				'published', 'a.published',
+				'featured', 'a.featured',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
 				'language', 'a.language',
@@ -75,7 +76,7 @@ class SponsorsModel extends ListModel
 				[
 					'a.id', 'a.title', 'a.alias', 'a.access', 'a.created_at', 'a.created_by',
 					'a.published', 'a.publish_up', 'a.publish_down',
-					'a.language', 'a.ordering', 'a.state', 'a.catid',
+					'a.language', 'a.ordering', 'a.state', 'a.catid', 'a.featured'
 				]
             )
         );
@@ -173,6 +174,14 @@ class SponsorsModel extends ListModel
 			}
 		}
 
+		// Filter featured
+	    		$featured = $this->getState('filter.featured');
+		if (is_numeric($featured)) {
+			$query->where($db->quoteName('a.featured') . ' = ' . (int) $featured);
+		} elseif ($featured === '*') {
+			// all filter selected
+		}
+
 	    // Add the list ordering clause.
 	    $orderCol = $this->state->get('list.ordering', 'a.created_at');
 	    $orderDirn = $this->state->get('list.direction', 'desc');
@@ -231,5 +240,27 @@ class SponsorsModel extends ListModel
 		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
 		$db->setQuery($query);
 		return $db->loadAssocList();
+	}
+
+	public function unfeatured($ids)
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->update($db->quoteName('#__footballmanager_sponsors'));
+		$query->set($db->quoteName('featured') . ' = 0');
+		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
+		$db->setQuery($query);
+		$db->execute();
+	}
+
+	public function featured($ids)
+	{
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->update($db->quoteName('#__footballmanager_sponsors'));
+		$query->set($db->quoteName('featured') . ' = 1');
+		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
+		$db->setQuery($query);
+		$db->execute();
 	}
 }
