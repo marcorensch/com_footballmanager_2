@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<form>
+<form
+        addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
+>
     <fields name="filter">
         <field
                 name="search"
@@ -8,6 +10,13 @@
                 label="COM_FOOTBALLMANAGER_SEARCH_LABEL"
                 description="COM_FOOTBALLMANAGER_SEARCH_COACHES_DESC"
                 hint="JSEARCH_FILTER"
+        />
+
+        <field
+                name="team_id"
+                type="teams"
+                label="COM_FOOTBALLMANAGER_TEAM"
+                onchange="this.form.submit();"
         />
 
         <field

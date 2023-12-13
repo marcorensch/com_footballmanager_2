@@ -171,6 +171,7 @@ class PlayersModel extends ListModel
 			$categoryId = implode(',', $categoryId);
 			$query->where($db->quoteName('a.catid') . ' IN (' . $categoryId . ')');
 		}
+
 		// Filter by search name
 		$search = $this->getState('filter.search');
 		if (!empty($search))

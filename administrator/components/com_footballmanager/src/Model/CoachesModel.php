@@ -108,21 +108,32 @@ class CoachesModel extends ListModel
 				$db->quoteName('#__languages', 'l') . ' ON ' . $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language')
 			);
 
-		// Join over the Associations.
-		if (Associations::isEnabled())
-		{
-			$subQuery = $db->getQuery(true)
-				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
-				->from($db->quoteName('#__associations', 'asso1'))
-				->join('INNER', $db->quoteName('#__associations', 'asso2') . ' ON ' . $db->quoteName('asso1.key') . ' = ' . $db->quoteName('asso2.key'))
-				->where(
-					[
-						$db->quoteName('asso1.id') . ' = ' . $db->quoteName('a.id'),
-						$db->quoteName('asso1.context') . ' = ' . $db->quote('com_footballmanager.team')
-					]
-				);
-			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
-		}
+//		// Join over the Associations.
+//		if (Associations::isEnabled())
+//		{
+//			$subQuery = $db->getQuery(true)
+//				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
+//				->from($db->quoteName('#__associations', 'asso1'))
+//				->join('INNER', $db->quoteName('#__associations', 'asso2') . ' ON ' . $db->quoteName('asso1.key') . ' = ' . $db->quoteName('asso2.key'))
+//				->where(
+//					[
+//						$db->quoteName('asso1.id') . ' = ' . $db->quoteName('a.id'),
+//						$db->quoteName('asso1.context') . ' = ' . $db->quote('com_footballmanager.team')
+//					]
+//				);
+//			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
+//		}
+
+		// JetBrains AI Assistant (will result in multiple entries if a coach is in multiple teams > will be concatenated later)
+		$query->select('t.title as team_title, t.id as team_id, ct.since as team_since, ct.until as team_until')
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_coaches_teams', 'ct') . ' ON ' . $db->quoteName('a.id') . ' = ' . $db->quoteName('ct.coach_id')
+			)
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('ct.team_id')
+			);
 
 		// Join over the author user
 		$query->select($db->quoteName('u.name', 'author_name'))
@@ -137,10 +148,19 @@ class CoachesModel extends ListModel
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
 
-		// Filter the language
-		if ($language = $this->getState('filter.language'))
+		// Filter by Team ID
+		$teamId = $this->getState('filter.team_id');
+		if (is_numeric($teamId))
 		{
-			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
+			$query->where($db->quoteName('team_id') . ' = ' . (int) $teamId);
+
+			// Switch for only active players by checking current date against team_since and team_until but only if pt.since and pt.until are not null
+			$onlyActive = $this->getState('filter.only_active');
+			if ($onlyActive)
+			{
+				$query->where('(' . $db->quoteName('pt.since') . ' IS NULL OR ' . $db->quoteName('pt.since') . ' <= NOW())');
+				$query->where('(' . $db->quoteName('pt.until') . ' IS NULL OR ' . $db->quoteName('pt.until') . ' >= NOW())');
+			}
 		}
 
 		// Filter by access level.
@@ -178,6 +198,7 @@ class CoachesModel extends ListModel
 			$categoryId = implode(',', $categoryId);
 			$query->where($db->quoteName('a.catid') . ' IN (' . $categoryId . ')');
 		}
+
 		// Filter by search name
 		$search = $this->getState('filter.search');
 		if (!empty($search))
@@ -189,7 +210,7 @@ class CoachesModel extends ListModel
 			else
 			{
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
-				$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $search . ')');
+				$query->where('(a.firstname LIKE ' . $search .' OR a.lastname LIKE ' . $search.')');
 			}
 		}
 
@@ -239,13 +260,32 @@ class CoachesModel extends ListModel
 	public function getItems()
 	{
 		$items = parent::getItems();
+		$processedResults = array();
 		// Add Team Details
 		foreach ($items as &$item)
 		{
-			$item->linked_teams = $this->getLinkedTeams($item->id);
+			// Required to prevent multiple entries for the same coach
+			if(!isset($processedResults[$item->id])){
+				$processedResults[$item->id] = $item;
+				$processedResults[$item->id]->teams = array();
+			}
+
+			// Add Team Details to Player
+			if($item->team_id && $item->team_title){
+				$teamObject = new \stdClass();
+				$teamObject->id = $item->team_id;
+				$teamObject->title = $item->team_title;
+				$teamObject->since = $item->team_since;
+				$teamObject->until = $item->team_until;
+			}else{
+				$teamObject = null;
+			}
+			if($teamObject) $processedResults[$item->id]->teams[] = $teamObject;
+			unset($item->team_id);
+			unset($item->team_title);
 		}
 
-		return $items;
+		return $processedResults;
 	}
 
 	protected function getLinkedTeams($coachId){

@@ -40,6 +40,8 @@ if ($saveOrder && !empty($this->items))
 }
 
 $params = ComponentHelper::getParams('com_footballmanager');
+$dateFormat = Text::_("DATE_FORMAT_LC4"); // see https://docs.joomla.org/How_to_use_JDate
+
 if($params->get('show_filters_by_default', 0)){
 	$showFiltersScript= <<<JS
     document.addEventListener("DOMContentLoaded", ()=>{
@@ -84,11 +86,19 @@ if($params->get('show_filters_by_default', 0)){
                             </th>
 
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
-		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_NAME', 'a.lastname', $listDirn, $listOrder); ?>
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_LASTNAME', 'a.lastname', $listDirn, $listOrder); ?>
+                            </th>
+
+                            <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_FIRSTNAME', 'a.firstname', $listDirn, $listOrder); ?>
                             </th>
 
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
 		                        <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_TEAMS'); ?>
+                            </th>
+
+                            <th>
+
                             </th>
 
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
@@ -144,19 +154,43 @@ if($params->get('show_filters_by_default', 0)){
 		                            ?>
                                 </td>
                                 <th scope="row" class="has-context">
-                                    <div style="display:none">
-										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
-                                    </div>
                                     <a class="hasTooltip"
                                        href="<?php echo Route::_('index.php?option=com_footballmanager&task=coach.edit&id=' . (int) $item->id); ?>"
-                                       title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->lastname)); ?>">
-										<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
+                                       title="<?php echo Text::_('JACTION_EDIT'); ?>">
+										<?php echo $this->escape($item->lastname); ?>
+                                    </a>
+                                </th>
+                                <th scope="row" class="has-context">
+                                    <a class="hasTooltip"
+                                       href="<?php echo Route::_('index.php?option=com_footballmanager&task=coach.edit&id=' . (int) $item->id); ?>"
+                                       title="<?php echo Text::_('JACTION_EDIT'); ?>">
+			                            <?php echo $this->escape($item->firstname); ?>
                                     </a>
                                 </th>
                                 <td class="small">
-                                    <?php foreach($item->linked_teams as $linkedTeam):?>
-                                        <div><span><?php echo $linkedTeam->title;?> </span></div>
-                                    <?php endforeach;?>
+		                            <?php foreach ($item->teams as $linkedTeam): ?>
+                                        <div>
+                                            <span class="team-name"><?php echo $linkedTeam->title; ?></span>
+                                        </div>
+		                            <?php endforeach; ?>
+                                </td>
+                                <td class="small">
+		                            <?php foreach ($item->teams as $linkedTeam): ?>
+                                        <div class="text-nowrap">
+				                            <?php if ($linkedTeam->since): ?>
+                                                <span class="small text-muted since-date"><?php echo HTMLHelper::date($linkedTeam->since, $dateFormat) ?></span>
+                                                <span class="small text-muted date-divider">-</span>
+
+					                            <?php if ($linkedTeam->until): ?>
+                                                    <span class="small text-muted until-date"><?php echo HTMLHelper::date($linkedTeam->until, $dateFormat); ?></span>
+					                            <?php else: ?>
+                                                    <span class="small text-muted until-now"><?php echo Text::_("COM_FOOTBALLMANAGER_NOW") ?></span>
+					                            <?php endif; ?>
+
+				                            <?php endif; ?>
+
+                                        </div>
+		                            <?php endforeach; ?>
                                 </td>
                                 <td class="small d-none d-md-table-cell">
 	                                <?php if((int)$item->created_by > 0) : ?>
