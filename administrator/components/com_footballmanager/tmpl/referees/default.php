@@ -35,7 +35,7 @@ $saveOrder = $listOrder === 'a.ordering';
 
 if ($saveOrder && !empty($this->items))
 {
-    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=coaches.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
+    $saveOrderingUrl = 'index.php?option=com_footballmanager&task=referees.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 	HTMLHelper::_('draggablelist.draggable');
 }
 

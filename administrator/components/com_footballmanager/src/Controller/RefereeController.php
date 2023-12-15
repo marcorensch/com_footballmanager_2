@@ -14,11 +14,11 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\FormController;
 
 /**
- * Controller for a single coach.
+ * Controller for a single referee.
  *
  * @since  __BUMP_VERSION__
  */
-class CoachController extends FormController
+class RefereeController extends FormController
 {
 
 }
