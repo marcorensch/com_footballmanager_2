@@ -23,6 +23,7 @@ $wa->addInlineStyle('
     cursor:pointer;
     position:relative;
     transition: all .2s ease-in-out;
+    height: 100%; // Grid Match
 }
 .nxd-overview-item i{
 color: #1f3047;
@@ -53,8 +54,90 @@ color: #263c59;
 a.nxd-position-cover::before{
     display: none;
 }
+.nxd-position-relative{
+    position: relative;
+}
+.nxd-card-footer{
+margin-top:10px;
+}
 '
 );
+
+$widgets = array(
+    'com_footballmanager.seasons' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_SEASONS'),
+        'icon' => 'fas fa-trophy fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=seasons',
+        'category' => null,
+    ),
+    'com_footballmanager.seasonphases' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_SEASON_PHASES'),
+        'icon' => 'fas fa-angle-double-right fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=seasonphases',
+        'category' => null,
+    ),
+    'com_footballmanager.leagues' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_LEAGUES'),
+        'icon' => 'fas fa-layer-group fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=leagues',
+        'category' => null,
+    ),
+    'com_footballmanager.locations' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_LOCATIONS'),
+        'icon' => 'fas fa-map-marker-alt fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=locations',
+        'category' => 'com_footballmanager.locations',
+    ),
+    'com_footballmanager.positions' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_POSITIONS'),
+        'icon' => 'fas fa-hat-cowboy fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=positions',
+        'category' => 'com_footballmanager.positions',
+    ),
+    'com_footballmanager.teams' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_TEAMS'),
+        'icon' => 'fas fa-users fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=teams',
+        'category' => 'com_footballmanager.teams',
+    ),
+    'com_footballmanager.coaches' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_COACHES'),
+        'icon' => 'fas fa-chalkboard-teacher fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=coaches',
+        'category' => 'com_footballmanager.coaches',
+    ),
+    'com_footballmanager.players' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_PLAYERS'),
+        'icon' => 'fas fa-user fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=players',
+        'category' => 'com_footballmanager.players',
+    ),
+    'com_footballmanager.referees' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_REFEREES'),
+        'icon' => 'fas fa-id-card-alt fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=referees',
+        'category' => 'com_footballmanager.referees',
+    ),
+    'com_footballmanager.sponsors' => array(
+	    'title' => Text::_('COM_FOOTBALLMANAGER_SPONSORS'),
+	    'icon' => 'fas fa-handshake fa-4x',
+	    'link' => 'index.php?option=com_footballmanager&view=sponsors',
+	    'category' => 'com_footballmanager.sponsors',
+    ),
+    'com_footballmanager.categories' => array(
+        'title' => Text::_('JCATEGORIES'),
+        'icon' => 'fas fa-folder fa-4x',
+        'link' => 'index.php?option=com_footballmanager&view=categories',
+        'category' => null,
+    ),
+    'com_footballmanager.manual' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_MANUAL'),
+        'icon' => 'fas fa-life-ring fa-4x',
+        'link' => 'https://www.nx-designs.ch',
+        'category' => null,
+    ),
+)
+
 ?>
 
 <div class="">
@@ -62,84 +145,25 @@ a.nxd-position-cover::before{
         <div class="row g-8">
             <div class="col-lg-9">
                 <div class="row g-2">
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4 lg-6">
-                            <i class="fas fa-trophy fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_SEASONS');?></div>
-                            <a href="index.php?option=com_footballmanager&view=seasons" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
+                    <?php foreach ($widgets as $widget):?>
                     <div class="col-lg-3">
                         <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-angle-double-right fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_SEASON_PHASES');?></div>
-                            <a href="index.php?option=com_footballmanager&view=seasonphases" class="nxd-position-cover"></a>
+                            <div class="nxd-position-relative">
+                            <i class="<?php echo $widget['icon']?>"></i>
+                            <div><?php echo $widget['title']?></div>
+                            <a href="<?php echo $widget['link']?>" class="nxd-position-cover"></a>
+                            </div>
+                            <div class="nxd-card-footer">
+                                <?php if($widget['category']):?>
+                                <a href="index.php?option=com_categories&extension=<?php echo $widget['category']?>" class="btn btn-primary">
+                                    <?php echo Text::_('JCATEGORIES');?>
+                                </a>
+                                <?php endif;?>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-layer-group fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_LEAGUES');?></div>
-                            <a href="index.php?option=com_footballmanager&view=leagues" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-map-marker-alt fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_LOCATIONS');?></div>
-                            <a href="index.php?option=com_footballmanager&view=locations" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-hat-cowboy fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_POSITIONS');?></div>
-                            <a href="index.php?option=com_footballmanager&view=positions" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-users fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_TEAMS');?></div>
-                            <a href="index.php?option=com_footballmanager&view=teams" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-chalkboard-teacher fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_COACHES');?></div>
-                            <a href="index.php?option=com_footballmanager&view=coaches" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-user fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_PLAYERS');?></div>
-                            <a href="index.php?option=com_footballmanager&view=players" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
+                    <?php endforeach;?>
 
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-id-card-alt fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_REFEREES');?></div>
-                            <a href="index.php?option=com_footballmanager&view=referees" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-handshake fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_SPONSORS');?></div>
-                            <a href="index.php?option=com_footballmanager&view=sponsors" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="nxd-overview-item text-center p-4">
-                            <i class="fas fa-life-ring fa-4x"></i>
-                            <div><?php echo Text::_('COM_FOOTBALLMANAGER_MANUAL');?></div>
-                            <a href="https://www.nx-designs.ch" target="_blank" class="nxd-position-cover"></a>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="col-lg-3">

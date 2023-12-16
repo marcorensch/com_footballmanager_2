@@ -36,6 +36,32 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_locations`
     CONSTRAINT `fk_locations_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS `#__footballmanager_positions`
+(
+    `id`             int(11)          NOT NULL AUTO_INCREMENT,
+    `title`          varchar(255)     NOT NULL,
+    `shortname`      varchar(10)               DEFAULT NULL,
+    `alias`          varchar(255)     NOT NULL,
+    `learnmore_link` varchar(255)              DEFAULT NULL,
+    `description`    text                      DEFAULT NULL,
+    `params`         text                      DEFAULT NULL,
+    `state`          tinyint(3)       NOT NULL DEFAULT 0,
+    `published`      tinyint(1)       NOT NULL DEFAULT 0,
+    `created_at`     datetime                  DEFAULT NULL,
+    `created_by`     int(11)                   DEFAULT NULL,
+    `modified_at`    datetime                  DEFAULT NOW(),
+    `modified_by`    int(11)                   DEFAULT NULL,
+    `version`        int(11)                   DEFAULT 0,
+    `access`         int(10) unsigned NOT NULL DEFAULT 0,
+    `language`       char(7)          NOT NULL DEFAULT '',
+    `ordering`       int(11)                   DEFAULT 0,
+    `catid`          int(11)          NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_positions_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_positions_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS `#__footballmanager_sponsors`
 (
     `id`           int(11)          NOT NULL AUTO_INCREMENT,
@@ -117,7 +143,9 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_seasons`
     `access`      int(10) unsigned NOT NULL DEFAULT 0,
     `ordering`    int(11)                   DEFAULT 0,
 
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_seasons_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_seasons_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_season_phases`
@@ -137,7 +165,9 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_season_phases`
     `access`      int(10) unsigned NOT NULL DEFAULT 0,
     `ordering`    int(11)                   DEFAULT 0,
 
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_sp_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_sp_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_teams`
@@ -184,34 +214,6 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_teams`
     CONSTRAINT `fk_teams_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
-(
-    `id`          int(11)          NOT NULL AUTO_INCREMENT,
-    `firstname`   varchar(255)     NOT NULL,
-    `lastname`    varchar(255)     NOT NULL,
-    `alias`       varchar(255)     NOT NULL,
-    `about`       text                      DEFAULT NULL,
-    `image`       varchar(255)              DEFAULT NULL,
-    `params`      text                      DEFAULT NULL,
-    `state`       tinyint(3)       NOT NULL DEFAULT 0,
-    `published`   tinyint(1)       NOT NULL DEFAULT 0,
-    `created_at`  datetime                  DEFAULT NULL,
-    `created_by`  int(11)                   DEFAULT NULL,
-    `modified_at` datetime                  DEFAULT NOW(),
-    `modified_by` int(11)                   DEFAULT NULL,
-    `version`     int(11)                   DEFAULT 0,
-    `catid`       int(11)          NOT NULL DEFAULT 0,
-    `hits`        int(11)                   DEFAULT 0,
-    `access`      int(10) unsigned NOT NULL DEFAULT 0,
-    `language`    char(7)          NOT NULL DEFAULT '',
-    `ordering`    int(11)                   DEFAULT 0,
-
-    PRIMARY KEY (`id`),
-    KEY `idx_category` (`catid`),
-    CONSTRAINT `fk_coaches_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS `#__footballmanager_referees`
 (
     `id`          int(11)          NOT NULL AUTO_INCREMENT,
@@ -240,6 +242,34 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_referees`
     CONSTRAINT `fk_referees_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
+(
+    `id`          int(11)          NOT NULL AUTO_INCREMENT,
+    `firstname`   varchar(255)     NOT NULL,
+    `lastname`    varchar(255)     NOT NULL,
+    `alias`       varchar(255)     NOT NULL,
+    `about`       text                      DEFAULT NULL,
+    `image`       varchar(255)              DEFAULT NULL,
+    `params`      text                      DEFAULT NULL,
+    `state`       tinyint(3)       NOT NULL DEFAULT 0,
+    `published`   tinyint(1)       NOT NULL DEFAULT 0,
+    `created_at`  datetime                  DEFAULT NULL,
+    `created_by`  int(11)                   DEFAULT NULL,
+    `modified_at` datetime                  DEFAULT NOW(),
+    `modified_by` int(11)                   DEFAULT NULL,
+    `version`     int(11)                   DEFAULT 0,
+    `catid`       int(11)          NOT NULL DEFAULT 0,
+    `hits`        int(11)                   DEFAULT 0,
+    `access`      int(10) unsigned NOT NULL DEFAULT 0,
+    `language`    char(7)          NOT NULL DEFAULT '',
+    `ordering`    int(11)                   DEFAULT 0,
+
+    PRIMARY KEY (`id`),
+    KEY `idx_category` (`catid`),
+    CONSTRAINT `fk_coaches_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches_teams`
 (
     `id`          int(11)      NOT NULL AUTO_INCREMENT,
@@ -255,35 +285,9 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches_teams`
     KEY `idx_team` (`team_id`),
     KEY `idx_coach` (`coach_id`),
     KEY `idx_position` (`position_id`),
-    CONSTRAINT `fk_coaches_teams_team_id` FOREIGN KEY (`team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_coaches_teams_coach_id` FOREIGN KEY (`coach_id`) REFERENCES `#__footballmanager_coaches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_coaches_teams_position_id` FOREIGN KEY (`position_id`) REFERENCES `#__footballmanager_positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS `#__footballmanager_positions`
-(
-    `id`             int(11)          NOT NULL AUTO_INCREMENT,
-    `title`          varchar(255)     NOT NULL,
-    `shortname`      varchar(10)               DEFAULT NULL,
-    `alias`          varchar(255)     NOT NULL,
-    `learnmore_link` varchar(255)              DEFAULT NULL,
-    `description`    text                      DEFAULT NULL,
-    `params`         text                      DEFAULT NULL,
-    `state`          tinyint(3)       NOT NULL DEFAULT 0,
-    `published`      tinyint(1)       NOT NULL DEFAULT 0,
-    `created_at`     datetime                  DEFAULT NULL,
-    `created_by`     int(11)                   DEFAULT NULL,
-    `modified_at`    datetime                  DEFAULT NOW(),
-    `modified_by`    int(11)                   DEFAULT NULL,
-    `version`        int(11)                   DEFAULT 0,
-    `access`         int(10) unsigned NOT NULL DEFAULT 0,
-    `language`       char(7)          NOT NULL DEFAULT '',
-    `ordering`       int(11)                   DEFAULT 0,
-    `catid`          int(11)          NOT NULL DEFAULT 0,
-
-    PRIMARY KEY (`id`),
-    CONSTRAINT `fk_positions_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT `fk_positions_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT `fk_ct_team_id` FOREIGN KEY (`team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_ct_coach_id` FOREIGN KEY (`coach_id`) REFERENCES `#__footballmanager_coaches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_ct_position_id` FOREIGN KEY (`position_id`) REFERENCES `#__footballmanager_positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_players`
@@ -293,9 +297,9 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players`
     `lastname`    varchar(255)     NOT NULL,
     `alias`       varchar(255)     NOT NULL,
     `about`       text                      DEFAULT NULL,
-    `height`      FLOAT                     DEFAULT NULL,
-    'weight'      FLOAT                     DEFAULT NULL,
-    'birthday'    DATE                      DEFAULT NULL,
+    `height`      varchar(255)              DEFAULT NULL,
+    `weight`      varchar(255)              DEFAULT NULL,
+    `birthday`    DATE                      DEFAULT NULL,
     `nickname`    varchar(255)              DEFAULT NULL,
     `image`       varchar(255)              DEFAULT NULL,
     `params`      text                      DEFAULT NULL,
@@ -335,9 +339,9 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players_teams`
     KEY `idx_team` (`team_id`),
     KEY `idx_coach` (`player_id`),
     KEY `idx_position` (`position_id`),
-    CONSTRAINT `fk_players_teams_team_id` FOREIGN KEY (`team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_players_teams_coach_id` FOREIGN KEY (`player_id`) REFERENCES `#__footballmanager_players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_players_teams_position_id` FOREIGN KEY (`position_id`) REFERENCES `#__footballmanager_positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `fk_pt_team_id` FOREIGN KEY (`team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_pt_coach_id` FOREIGN KEY (`player_id`) REFERENCES `#__footballmanager_players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_pt_position_id` FOREIGN KEY (`position_id`) REFERENCES `#__footballmanager_positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_games`

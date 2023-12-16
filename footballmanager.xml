@@ -50,13 +50,18 @@
         <menu img="class:comment">
             COM_FOOTBALLMANAGER
             <params>
-                <dashboard>footballmanager</dashboard>
+                <dashboard link="option=com_footballmanager&amp;view=overview">footballmanager</dashboard>
             </params>
         </menu>
 
         <submenu>
-            <menu link="option=com_footballmanager&amp;view=overview">
+            <menu>
                 COM_FOOTBALLMANAGER_OVERVIEW
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_OVERVIEW</menu-quicktask-title>
+                    <menu-quicktask>option=com_footballmanager&amp;view=overview</menu-quicktask>
+                    <menu-quicktask-icon>icon-th-large</menu-quicktask-icon>
+                </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=seasons">
                 COM_FOOTBALLMANAGER_SEASONS

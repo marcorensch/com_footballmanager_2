@@ -3,6 +3,13 @@
   <component name="PublishConfigData" serverName="Joomla 4 Local" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
     <option name="confirmBeforeUploading" value="false" />
     <serverData>
+      <paths name="Deployment">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Joomla 4 Local">
         <serverdata>
           <mappings>

@@ -5,6 +5,9 @@
       <webServer id="22df4699-1f20-44a2-8ea8-0af662094fd7" name="Joomla 4 Local" url="http://localhost">
         <fileTransfer mountedRoot="$USER_HOME$/Sites/joomla4" accessType="MOUNT" port="0" />
       </webServer>
+      <webServer id="f4a2008e-f754-47ef-96e9-28c8cd2fb06b" name="Deployment" url="http://localhost">
+        <fileTransfer mountedRoot="$USER_HOME$/Deployment/Joomla/FootballManager 2" accessType="MOUNT" port="0" />
+      </webServer>
     </option>
   </component>
 </project>
