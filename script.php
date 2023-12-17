@@ -66,9 +66,6 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$this->installCategoryForView('com_footballmanager.positions', 'Coach');
 		$this->installCategoryForView('com_footballmanager.positions', 'Official');
 
-
-		$this->addDashboardMenu('footballmanager', 'footballmanager');
-
 		return true;
 	}
 
@@ -146,11 +143,6 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	{
 		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_UPDATE');
 
-		if(!$this->checkIfDashboardModuleExists('footballmanager'))
-		{
-			$this->addDashboardMenu('footballmanager', 'footballmanager');
-		}
-
 		return true;
 	}
 
@@ -191,7 +183,8 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 				return false;
 			}
 		}else{
-			$this->removeDashboardModules('footballmanager');
+			// Delete all categories
+			// Delete all associated fields
 		}
 
 		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_PREFLIGHT');
@@ -215,44 +208,5 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_POSTFLIGHT');
 
 		return true;
-	}
-
-	private function removeDashboardModules($dashboard)
-	{
-		$title = $this->getDefaultModuleTitle($dashboard);
-
-		try{
-		$db = Factory::getDbo();
-		$query = $db->getQuery(true);
-		$query->delete($db->quoteName('#__modules'))
-			->where($db->quoteName('title') . ' = ' . $db->quote($title));
-		$db->setQuery($query);
-		$db->execute();
-		}catch (\Exception $e){
-			Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
-		}
-	}
-
-	private function getDefaultModuleTitle($dashboard): string
-	{
-		// Try to get a translated module title, otherwise fall back to a fixed string.
-		$titleKey         = strtoupper('COM_' . $this->extension . '_DASHBOARD_' . $dashboard . '_TITLE');
-		$title            = Text::_($titleKey);
-		return ($title === $titleKey) ? ucfirst($dashboard) . ' Dashboard' : $title;
-	}
-
-	private function checkIfDashboardModuleExists($dashboard): bool
-	{
-		$title = $this->getDefaultModuleTitle($dashboard);
-
-		$db = Factory::getDbo();
-		$query = $db->getQuery(true);
-		$query->select($db->quoteName('id'))
-			->from($db->quoteName('#__modules'))
-			->where($db->quoteName('title') . ' = ' . $db->quote($title));
-		$db->setQuery($query);
-		$list = $db->loadObjectList();
-
-		return count($list) > 0;
 	}
 }

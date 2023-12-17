@@ -82,7 +82,7 @@ class LocationModel extends AdminModel
 	 * @throws \Exception
 	 * @since   __BUMP_VERSION__
 	 */
-	protected function loadFormData()
+	protected function loadFormData(): mixed
 	{
 		$app = Factory::getApplication();
 
@@ -94,11 +94,12 @@ class LocationModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('location.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.locations.filter.category_id')));
+				echo 'set Cat ID';
+				$data->set('catid', $app->getInput()->get('catid', $app->getUserState('com_footballmanager.locations.filter.category_id'), 'int'));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.location', $data);
+		$this->preprocessData($this->typeAlias, $data);
 
 		return $data;
 	}
@@ -107,60 +108,17 @@ class LocationModel extends AdminModel
 	{
 		$item = parent::getItem($pk);
 
-		// Load associated location items
-
-		if (Associations::isEnabled())
-		{
-			$item->associations = [];
-			if ($item->id !== null)
-			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_locations', 'com_footballmanager.location', $item->id, 'id', null);
-
-				foreach ($associations as $tag => $association)
-				{
-					$item->associations[$tag] = $association->id;
-				}
-			}
-		}
-
 		return $item;
 	}
 
 	protected function preprocessForm($form, $data, $group = 'content'): void
 	{
-		if (Associations::isEnabled())
-		{
-			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
-
-			if (count($languages) > 1)
-			{
-
-				$addform = new \SimpleXMLElement('<form />');
-				$fields  = $addform->addChild('fields');
-				$fields->addAttribute('name', 'associations');
-
-				$fieldset = $fields->addChild('fieldset');
-				$fieldset->addAttribute('name', 'item_associations');
-
-				foreach ($languages as $language)
-				{
-					$field = $fieldset->addChild('field');
-					$field->addAttribute('name', $language->lang_code);
-					$field->addAttribute('type', 'modal_location');
-					$field->addAttribute('language', $language->lang_code);
-					$field->addAttribute('label', $language->title);
-					$field->addAttribute('translate_label', 'false');
-					$field->addAttribute('select', 'true');
-					$field->addAttribute('new', 'true');
-					$field->addAttribute('edit', 'true');
-					$field->addAttribute('clear', 'true');
-				}
-
-				$form->load($addform, false);
-			}
-		}
-
 		parent::preprocessForm($form, $data, $group);
+	}
+
+	protected function prepareTable($table)
+	{
+		$table->generateAlias();
 	}
 
 	public function save($data)

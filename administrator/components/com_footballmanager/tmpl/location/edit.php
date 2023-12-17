@@ -57,7 +57,6 @@ $current_user = Factory::getApplication()->getIdentity();
                     <div class="col-sm-12 col-md-3">
 						<?php echo $this->getForm()->renderField('image'); ?>
 						<?php echo $this->getForm()->renderField('catid'); ?>
-						<?php echo $this->getForm()->renderField('id'); ?>
                     </div>
                 </div>
             </div>

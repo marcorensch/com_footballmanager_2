@@ -39,6 +39,14 @@ class LocationTable extends Table
         parent::__construct('#__footballmanager_locations', 'id', $db);
     }
 
+	public function generateAlias()
+	{
+		if(empty($this->alias)){
+			$this->alias = ApplicationHelper::stringURLSafe($this->title, $this->language);
+		}
+
+	}
+
     public function check()
     {
         try {

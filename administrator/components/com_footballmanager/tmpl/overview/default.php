@@ -100,6 +100,12 @@ $widgets = array(
         'link' => 'index.php?option=com_footballmanager&view=teams',
         'category' => 'com_footballmanager.teams',
     ),
+    'com_footballmanager.games' => array(
+	    'title' => Text::_('COM_FOOTBALLMANAGER_GAMES'),
+	    'icon' => 'fas fa-football-ball fa-4x',
+	    'link' => 'index.php?option=com_footballmanager&view=games',
+	    'category' => 'com_footballmanager.games',
+    ),
     'com_footballmanager.coaches' => array(
         'title' => Text::_('COM_FOOTBALLMANAGER_COACHES'),
         'icon' => 'fas fa-chalkboard-teacher fa-4x',

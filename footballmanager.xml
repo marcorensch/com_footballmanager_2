@@ -47,21 +47,18 @@
     <!-- Back-end files -->
     <administration>
         <!-- Menu entries -->
-        <menu img="class:comment">
+        <menu>
             COM_FOOTBALLMANAGER
             <params>
-                <dashboard link="option=com_footballmanager&amp;view=overview">footballmanager</dashboard>
+                <menu-quicktask-title>COM_FOOTBALLMANAGER_OVERVIEW</menu-quicktask-title>
+                <menu-quicktask>index.php?option=com_footballmanager&amp;view=overview</menu-quicktask>
+                <menu-quicktask-icon>fas fa-th-large</menu-quicktask-icon>
             </params>
         </menu>
 
         <submenu>
-            <menu>
+            <menu link="option=com_footballmanager&amp;view=overview">
                 COM_FOOTBALLMANAGER_OVERVIEW
-                <params>
-                    <menu-quicktask-title>COM_FOOTBALLMANAGER_OVERVIEW</menu-quicktask-title>
-                    <menu-quicktask>option=com_footballmanager&amp;view=overview</menu-quicktask>
-                    <menu-quicktask-icon>icon-th-large</menu-quicktask-icon>
-                </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=seasons">
                 COM_FOOTBALLMANAGER_SEASONS

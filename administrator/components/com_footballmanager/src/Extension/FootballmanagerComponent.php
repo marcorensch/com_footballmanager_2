@@ -12,6 +12,7 @@ namespace NXD\Component\Footballmanager\Administrator\Extension;
 
 defined('JPATH_PLATFORM') or die;
 
+use Exception;
 use Joomla\CMS\Association\AssociationServiceInterface;
 use Joomla\CMS\Association\AssociationServiceTrait;
 use Joomla\CMS\Categories\CategoryServiceInterface;
@@ -33,60 +34,94 @@ use Psr\Container\ContainerInterface;
  *
  * @since  1.0.0
  */
-class FootballmanagerComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface, FieldsServiceInterface, RouterServiceInterface
+class FootballmanagerComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, FieldsServiceInterface, RouterServiceInterface
 {
-    use CategoryServiceTrait;
-	use AssociationServiceTrait;
-    use HTMLRegistryAwareTrait;
+	use CategoryServiceTrait;
+	use HTMLRegistryAwareTrait;
 	use RouterServiceTrait;
 
-    /**
-     * Booting the extension. This is the function to set up the environment of the extension like
-     * registering new class loaders, etc.
-     *
-     * If required, some initial set up can be done from services of the container, eg.
-     * registering HTML services.
-     *
-     * @param ContainerInterface $container The container
-     *
-     * @return  void
-     *
-     * @since   1.0.0
-     */
+	/**
+	 * Booting the extension. This is the function to set up the environment of the extension like
+	 * registering new class loaders, etc.
+	 *
+	 * If required, some initial set up can be done from services of the container, eg.
+	 * registering HTML services.
+	 *
+	 * @param   ContainerInterface  $container  The container
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0.0
+	 */
 
-    public function boot(ContainerInterface $container){
-        $this->getRegistry()->register('footballmanageradministrator', new AdministratorService);
-    }
+	public function boot(ContainerInterface $container)
+	{
+		$this->getRegistry()->register('footballmanageradministrator', new AdministratorService);
+	}
 
-    protected function getTableNameForSection(string $section = null){
-        return ($section === 'category' ? 'categories' : 'footballmanager_locations');
-    }
+	protected function getTableNameForSection(string $section = null): string
+	{
+		$tableName = 'footballmanager_locations';
+		switch ($section)
+		{
+			case 'category':
+				$tableName = 'categories';
+				break;
+			case 'team':
+				$tableName = 'footballmanager_teams';
+				break;
+			case 'player':
+				$tableName = 'footballmanager_players';
+				break;
+			case 'season':
+				$tableName = 'footballmanager_seasons';
+				break;
+			case 'league':
+				$tableName = 'footballmanager_leagues';
+				break;
+			case 'coach':
+				$tableName = 'footballmanager_coaches';
+				break;
+			case 'referee':
+				$tableName = 'footballmanager_referees';
+				break;
+			case 'game':
+				$tableName = 'footballmanager_games';
+				break;
+			default:
+			case 'location':
+				$tableName = 'footballmanager_locations';
+				break;
+		}
 
-    protected function getStateColumnForSection(string $section = null)
-    {
-        return 'published';
-    }
+		return $tableName;
+	}
+
+	protected function getStateColumnForSection(string $section = null)
+	{
+		return 'published';
+	}
 
 	public function countItems(array $items, string $section)
 	{
-		try{
+		try
+		{
 			$config = (object) array(
-				'related_tbl' => $this->getTableNameForSection($section),
-				'state_col' => 'published',
-				'group_col' => 'catid',
+				'related_tbl'   => $this->getTableNameForSection($section),
+				'state_col'     => 'published',
+				'group_col'     => 'catid',
 				'relation_type' => 'category_or_group',
 			);
 			ContentHelper::countRelations($items, $config);
 		}
-		catch (Exception $e){
+		catch (Exception $e)
+		{
 			// do nothing
 		}
 	}
 
 	public function validateSection($section, $item = null)
 	{
-		error_log('validateSection: ' . $section);
-
 		if (Factory::getApplication()->isClient('site') && $section === 'form')
 		{
 			return 'footballmanager';
@@ -106,6 +141,15 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 
 		$contexts = array(
 			'com_footballmanager.location' => Text::_('COM_FOOTBALLMANAGER_LOCATION'),
+			'com_footballmanager.team' => Text::_('COM_FOOTBALLMANAGER_TEAM'),
+			'com_footballmanager.player' => Text::_('COM_FOOTBALLMANAGER_PLAYER'),
+			'com_footballmanager.season' => Text::_('COM_FOOTBALLMANAGER_SEASON'),
+			'com_footballmanager.league' => Text::_('COM_FOOTBALLMANAGER_LEAGUE'),
+			'com_footballmanager.coach' => Text::_('COM_FOOTBALLMANAGER_COACH'),
+			'com_footballmanager.referee' => Text::_('COM_FOOTBALLMANAGER_REFEREE'),
+			'com_footballmanager.game' => Text::_('COM_FOOTBALLMANAGER_GAME'),
+			'com_footballmanager.categories' => Text::_('JCATEGORY')
+
 //			'com_footballmanagerworld.categories' => JText::_('JCATEGORY')
 		);
 
