@@ -120,19 +120,9 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 		}
 	}
 
-	public function validateSection($section, $item = null)
+	public function validateSection($section, $item = null): ?string
 	{
-		if (Factory::getApplication()->isClient('site') && $section === 'form')
-		{
-			return 'footballmanager';
-		}
-
-		if ($section !== 'footballmanager' && $section !== 'form')
-		{
-			return null;
-		}
-
-		return $section;
+		return in_array($section, ['location', 'team', 'player', 'coach','referee','game'], true) ? $section : null;
 	}
 
 	public function getContexts(): array
@@ -143,12 +133,9 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 			'com_footballmanager.location' => Text::_('COM_FOOTBALLMANAGER_LOCATION'),
 			'com_footballmanager.team' => Text::_('COM_FOOTBALLMANAGER_TEAM'),
 			'com_footballmanager.player' => Text::_('COM_FOOTBALLMANAGER_PLAYER'),
-			'com_footballmanager.season' => Text::_('COM_FOOTBALLMANAGER_SEASON'),
-			'com_footballmanager.league' => Text::_('COM_FOOTBALLMANAGER_LEAGUE'),
 			'com_footballmanager.coach' => Text::_('COM_FOOTBALLMANAGER_COACH'),
 			'com_footballmanager.referee' => Text::_('COM_FOOTBALLMANAGER_REFEREE'),
 			'com_footballmanager.game' => Text::_('COM_FOOTBALLMANAGER_GAME'),
-			'com_footballmanager.categories' => Text::_('JCATEGORY')
 
 //			'com_footballmanagerworld.categories' => JText::_('JCATEGORY')
 		);
