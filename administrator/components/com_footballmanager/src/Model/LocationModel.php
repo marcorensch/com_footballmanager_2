@@ -87,7 +87,7 @@ class LocationModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.location.data', []);
+		$data = $app->getUserState('com_footballmanager.edit.location.data', []);
 
 		if (empty($data))
 		{
