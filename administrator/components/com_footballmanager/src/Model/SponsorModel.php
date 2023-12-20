@@ -87,7 +87,7 @@ class SponsorModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.sponsor.data', []);
+		$data = $app->getUserState( 'com_footballmanager.edit.sponsor.data', []);
 
 		if (empty($data))
 		{

@@ -87,7 +87,7 @@ class RefereeModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.referee.data', []);
+		$data = $app->getUserState('com_footballmanager.edit.referee.data', []);
 
 		if (empty($data))
 		{
