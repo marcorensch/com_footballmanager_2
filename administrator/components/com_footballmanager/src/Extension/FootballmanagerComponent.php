@@ -130,12 +130,12 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 		Factory::getApplication()->getLanguage()->load('com_footballmanager', JPATH_ADMINISTRATOR);
 
 		$contexts = array(
-			'com_footballmanager.location' => Text::_('COM_FOOTBALLMANAGER_LOCATION'),
-			'com_footballmanager.team' => Text::_('COM_FOOTBALLMANAGER_TEAM'),
-			'com_footballmanager.player' => Text::_('COM_FOOTBALLMANAGER_PLAYER'),
-			'com_footballmanager.coach' => Text::_('COM_FOOTBALLMANAGER_COACH'),
-			'com_footballmanager.referee' => Text::_('COM_FOOTBALLMANAGER_REFEREE'),
-			'com_footballmanager.game' => Text::_('COM_FOOTBALLMANAGER_GAME'),
+			'com_footballmanager.location' => Text::_('COM_FOOTBALLMANAGER_LOCATIONS'),
+			'com_footballmanager.team' => Text::_('COM_FOOTBALLMANAGER_TEAMS'),
+			'com_footballmanager.player' => Text::_('COM_FOOTBALLMANAGER_PLAYERS'),
+			'com_footballmanager.coach' => Text::_('COM_FOOTBALLMANAGER_COACHES'),
+			'com_footballmanager.referee' => Text::_('COM_FOOTBALLMANAGER_REFEREES'),
+			'com_footballmanager.game' => Text::_('COM_FOOTBALLMANAGER_GAMES'),
 
 //			'com_footballmanagerworld.categories' => JText::_('JCATEGORY')
 		);
