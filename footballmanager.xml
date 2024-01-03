@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <extension type="component" method="upgrade">
     <name>COM_FOOTBALLMANAGER</name>
-    <creationDate>July 2023</creationDate>
+    <creationDate>January 2024</creationDate>
     <author>NXD | nx-designs</author>
     <authorEmail>suport@nx-designs.ch</authorEmail>
     <authorUrl>https://www.nx-designs.ch</authorUrl>
@@ -50,9 +50,9 @@
         <menu>
             COM_FOOTBALLMANAGER
             <params>
-                <menu-quicktask-title>COM_FOOTBALLMANAGER_OVERVIEW</menu-quicktask-title>
+                <menu-quicktask-title>COM_FOOTBALLMANAGER_OVERVIEW_TITLE</menu-quicktask-title>
                 <menu-quicktask>index.php?option=com_footballmanager&amp;view=overview</menu-quicktask>
-                <menu-quicktask-icon>fas fa-th-large</menu-quicktask-icon>
+                <menu-quicktask-icon>fas fa-grip-horizontal</menu-quicktask-icon>
             </params>
         </menu>
 
@@ -106,11 +106,19 @@
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=game&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
+            <menu type="seperator">--</menu>
             <menu link="option=com_footballmanager&amp;view=positions">
                 COM_FOOTBALLMANAGER_POSITIONS
                 <params>
                     <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=position&amp;layout=edit</menu-quicktask>
+                </params>
+            </menu>
+            <menu link="option=com_footballmanager&amp;view=players">
+                COM_FOOTBALLMANAGER_PLAYERS
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=player&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=coaches">
@@ -120,11 +128,11 @@
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=coach&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
-            <menu link="option=com_footballmanager&amp;view=players">
-                COM_FOOTBALLMANAGER_PLAYERS
+            <menu link="option=com_footballmanager&amp;view=referees">
+                COM_FOOTBALLMANAGER_REFEREES
                 <params>
                     <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=player&amp;layout=edit</menu-quicktask>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=referee&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=sponsors">
@@ -135,6 +143,8 @@
                     </menu-quicktask>
                 </params>
             </menu>
+
+            <menu type="seperator">--</menu>
 
             <menu link="option=com_footballmanager&amp;view=customfields">
                 COM_FOOTBALLMANAGER_FIELD_GROUPS_FIELDS_LABEL
@@ -160,7 +170,7 @@
 
     <changelogurl>https://updates.nx-designs.ch/com_footballmanager/changelog.xml</changelogurl>
     <updateservers>
-        <server type="extension" name="Company Partners Updates">
+        <server type="extension" name="FootballManager Component">
             https://updates.nx-designs.ch/extensions/com_footballmanager.xml
         </server>
     </updateservers>
