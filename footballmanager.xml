@@ -92,6 +92,7 @@
                     </menu-quicktask>
                 </params>
             </menu>
+
             <menu link="option=com_footballmanager&amp;view=teams">
                 COM_FOOTBALLMANAGER_TEAMS
                 <params>
@@ -106,7 +107,7 @@
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=game&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
-            <menu type="seperator">--</menu>
+
             <menu link="option=com_footballmanager&amp;view=positions">
                 COM_FOOTBALLMANAGER_POSITIONS
                 <params>
@@ -144,7 +145,7 @@
                 </params>
             </menu>
 
-            <menu type="seperator">--</menu>
+            <menu type="separator">--</menu>
 
             <menu link="option=com_footballmanager&amp;view=customfields">
                 COM_FOOTBALLMANAGER_FIELD_GROUPS_FIELDS_LABEL
