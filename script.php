@@ -52,7 +52,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 */
 	public function install($parent): bool
 	{
-		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_INSTALL');
+//		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_INSTALL');
 
 		// Install Uncategorised categories for each type of content that supports categories.
 		$this->installCategoryForView('com_footballmanager.locations');
@@ -123,7 +123,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 */
 	public function uninstall($parent): bool
 	{
-		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_UNINSTALL');
+//		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_UNINSTALL');
 
 		return true;
 	}
@@ -141,7 +141,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 */
 	public function update($parent): bool
 	{
-		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_UPDATE');
+//		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_UPDATE');
 
 		return true;
 	}
@@ -187,7 +187,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 			// Delete all associated fields
 		}
 
-		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_PREFLIGHT');
+//		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_PREFLIGHT');
 
 		return true;
 	}
@@ -205,7 +205,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 */
 	public function postflight($type, $parent): bool
 	{
-		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_POSTFLIGHT');
+//		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_POSTFLIGHT');
 
 		return true;
 	}
