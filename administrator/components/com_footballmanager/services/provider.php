@@ -44,7 +44,6 @@ return new class implements ServiceProviderInterface {
 
     public function register(Container $container)
     {
-	    $container->set(AssociationExtensionInterface::class, new AssociationsHelper);
         $container->registerServiceProvider(new CategoryFactory('\\NXD\\Component\\Footballmanager'));
         $container->registerServiceProvider(new MVCFactory('\\NXD\\Component\\Footballmanager'));
         $container->registerServiceProvider(new ComponentDispatcherFactory('\\NXD\\Component\\Footballmanager'));
@@ -57,7 +56,6 @@ return new class implements ServiceProviderInterface {
                 $component->setRegistry($container->get(Registry::class));
                 $component->setMVCFactory($container->get(MVCFactoryInterface::class));
                 $component->setCategoryFactory($container->get(CategoryFactoryInterface::class));
-				$component->setAssociationExtension($container->get(AssociationExtensionInterface::class));
 	            $component->setRouterFactory($container->get(RouterFactoryInterface::class));
 
 	            return $component;

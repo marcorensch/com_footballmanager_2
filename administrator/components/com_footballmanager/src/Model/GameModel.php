@@ -88,18 +88,21 @@ class GameModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.game.data', []);
+		$data = $app->getUserState('com_footballmanager.edit.game.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
 			if ($this->getState('game.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.games.filter.category_id')));
+				$data->set('catid', $app->getInput()->get('catid', $app->getUserState('com_footballmanager.game.filter.category_id'), 'int'));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.game', $data);
+		echo '<pre>' . var_export($data, true) . '</pre>';
+
+
+		$this->preprocessData($this->typeAlias, $data);
 
 		return $data;
 	}

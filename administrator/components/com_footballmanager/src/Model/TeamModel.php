@@ -87,7 +87,7 @@ class TeamModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.team.data', []);
+		$data = $app->getUserState('com_footballmanager.edit.team.data', []);
 
 		if (empty($data))
 		{

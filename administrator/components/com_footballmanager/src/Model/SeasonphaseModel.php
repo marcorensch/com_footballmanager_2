@@ -81,7 +81,7 @@ class SeasonphaseModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState($this->option . 'com_footballmanager.edit.seasonphase.data', []);
+		$data = $app->getUserState('com_footballmanager.edit.seasonphase.data', []);
 
 		if (empty($data))
 		{

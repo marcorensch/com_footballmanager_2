@@ -11,11 +11,8 @@ namespace NXD\Component\Footballmanager\Administrator\Table;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Table\Table;
-use Joomla\CMS\Factory;
 use Joomla\Database\DatabaseDriver;
-use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 
 /**
@@ -23,7 +20,7 @@ use Joomla\Registry\Registry;
  *
  * @since  __BUMP_VERSION__
  */
-class LocationTable extends Table
+class RefereeTable extends Table
 {
     /**
      * Constructor
@@ -34,18 +31,10 @@ class LocationTable extends Table
      */
     public function __construct(DatabaseDriver $db)
     {
-        $this->typeAlias = 'com_footballmanager.location';
+        $this->typeAlias = 'com_footballmanager.referee';
 
-        parent::__construct('#__footballmanager_locations', 'id', $db);
+        parent::__construct('#__footballmanager_referees', 'id', $db);
     }
-
-	public function generateAlias()
-	{
-		if(empty($this->alias)){
-			$this->alias = ApplicationHelper::stringURLSafe($this->title, $this->language);
-		}
-
-	}
 
     public function check()
     {
@@ -56,20 +45,6 @@ class LocationTable extends Table
             return false;
         }
 
-        // Check the publishing down date is not earlier than publish up.
-        if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
-            $this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
-            return false;
-        }
-
-        // Set publish_up, publish_down to null if not set
-        if (!$this->publish_up) {
-            $this->publish_up = null;
-        }
-
-        if (!$this->publish_down) {
-            $this->publish_down = null;
-        }
         return true;
     }
 
