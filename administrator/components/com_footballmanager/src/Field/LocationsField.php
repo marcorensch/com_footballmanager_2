@@ -44,7 +44,7 @@ class LocationsField extends ListField{
 		$query = $db->getQuery(true);
 		$query->select('id, title');
 		$query->from($db->quoteName($this->table));
-		$query->order('title ASC');
+		$query->order('ordering ASC');
 		$db->setQuery($query);
 		$items = $db->loadObjectList();
 

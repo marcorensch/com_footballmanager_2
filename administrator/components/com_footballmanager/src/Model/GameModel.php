@@ -99,9 +99,6 @@ class GameModel extends AdminModel
 			}
 		}
 
-		echo '<pre>' . var_export($data, true) . '</pre>';
-
-
 		$this->preprocessData($this->typeAlias, $data);
 
 		return $data;

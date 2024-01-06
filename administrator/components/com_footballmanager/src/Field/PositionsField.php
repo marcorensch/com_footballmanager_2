@@ -65,7 +65,7 @@ class PositionsField extends ListField{
 		if($this->categoryIds){
 			$query->where('catid IN (' . implode(',', $this->categoryIds) .')');
 		}
-		$query->order('title ASC');
+		$query->order('ordering ASC');
 		$db->setQuery($query);
 		$teams = $db->loadObjectList();
 

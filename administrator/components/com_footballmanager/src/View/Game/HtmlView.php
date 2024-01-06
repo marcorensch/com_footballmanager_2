@@ -44,7 +44,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise an Error object.
+	 * @return  void
 	 * @throws \Exception
 	 * @since 1.0.0
 	 *
@@ -72,7 +72,7 @@ class HtmlView extends BaseHtmlView
 
         $this->addToolbar();
 
-        return parent::display($tpl);
+		parent::display($tpl);
     }
 
 	/**
@@ -105,8 +105,6 @@ class HtmlView extends BaseHtmlView
 		    }
 	    );
 
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
         $toolbar->cancel('game.cancel', 'JTOOLBAR_CLOSE');
     }
 }

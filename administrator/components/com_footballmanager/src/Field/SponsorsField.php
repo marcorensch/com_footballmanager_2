@@ -42,7 +42,7 @@ class SponsorsField extends ListField{
 		$query = $db->getQuery(true);
 		$query->select('id, title');
 		$query->from('#__footballmanager_sponsors');
-		$query->order('title ASC');
+		$query->order('ordering ASC');
 		$db->setQuery($query);
 		$sponsors = $db->loadObjectList();
 
