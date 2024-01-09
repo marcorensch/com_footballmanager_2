@@ -22,7 +22,7 @@ use Joomla\Utilities\ArrayHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class RefereesModel extends ListModel
+class OfficialsModel extends ListModel
 {
 	/**
 	 * Constructor.
@@ -47,6 +47,7 @@ class RefereesModel extends ListModel
 				'ordering', 'a.ordering',
 				'created_by', 'a.created_by',
 				'created_at', 'a.created_at',
+				'team_title', 't.title',
 			);
 
 			$assoc = Associations::isEnabled();
@@ -83,7 +84,7 @@ class RefereesModel extends ListModel
 				]
 			)
 		);
-		$query->from($db->quoteName('#__footballmanager_referees', 'a'));
+		$query->from($db->quoteName('#__footballmanager_officials', 'a'));
 
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))
@@ -106,6 +107,13 @@ class RefereesModel extends ListModel
 				$db->quoteName('#__languages', 'l') . ' ON ' . $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language')
 			);
 
+		// Join Over the team
+		$query->select($db->quoteName('t.title', 'team_title'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('a.linked_team_id')
+			);
+
 		// Join over the author user
 		$query->select($db->quoteName('u.name', 'author_name'))
 			->join(
@@ -123,15 +131,7 @@ class RefereesModel extends ListModel
 		$teamId = $this->getState('filter.team_id');
 		if (is_numeric($teamId))
 		{
-			$query->where($db->quoteName('team_id') . ' = ' . (int) $teamId);
-
-			// Switch for only active players by checking current date against team_since and team_until but only if pt.since and pt.until are not null
-			$onlyActive = $this->getState('filter.only_active');
-			if ($onlyActive)
-			{
-				$query->where('(' . $db->quoteName('pt.since') . ' IS NULL OR ' . $db->quoteName('pt.since') . ' <= NOW())');
-				$query->where('(' . $db->quoteName('pt.until') . ' IS NULL OR ' . $db->quoteName('pt.until') . ' >= NOW())');
-			}
+			$query->where($db->quoteName('linked_team_id') . ' = ' . (int) $teamId);
 		}
 
 		// Filter by access level.
@@ -239,7 +239,7 @@ class RefereesModel extends ListModel
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('*');
-		$query->from($db->quoteName('#__footballmanager_referees'));
+		$query->from($db->quoteName('#__footballmanager_officials'));
 		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
 		$db->setQuery($query);
 		return $db->loadAssocList();

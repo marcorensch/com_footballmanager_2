@@ -20,7 +20,7 @@ use Joomla\Registry\Registry;
  *
  * @since  __BUMP_VERSION__
  */
-class RefereeTable extends Table
+class OfficialTable extends Table
 {
     /**
      * Constructor
@@ -31,9 +31,9 @@ class RefereeTable extends Table
      */
     public function __construct(DatabaseDriver $db)
     {
-        $this->typeAlias = 'com_footballmanager.referee';
+        $this->typeAlias = 'com_footballmanager.official';
 
-        parent::__construct('#__footballmanager_referees', 'id', $db);
+        parent::__construct('#__footballmanager_officials', 'id', $db);
     }
 
     public function check()

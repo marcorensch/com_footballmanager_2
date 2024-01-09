@@ -118,11 +118,11 @@ $widgets = array(
         'link' => 'index.php?option=com_footballmanager&view=players',
         'category' => 'com_footballmanager.players',
     ),
-    'com_footballmanager.referees' => array(
-        'title' => Text::_('COM_FOOTBALLMANAGER_REFEREES'),
+    'com_footballmanager.officials' => array(
+        'title' => Text::_('COM_FOOTBALLMANAGER_OFFICIALS'),
         'icon' => 'fas fa-id-card-alt fa-4x',
-        'link' => 'index.php?option=com_footballmanager&view=referees',
-        'category' => 'com_footballmanager.referees',
+        'link' => 'index.php?option=com_footballmanager&view=officials',
+        'category' => 'com_footballmanager.officials',
     ),
     'com_footballmanager.sponsors' => array(
 	    'title' => Text::_('COM_FOOTBALLMANAGER_SPONSORS'),

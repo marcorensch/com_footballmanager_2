@@ -24,7 +24,7 @@ use Joomla\CMS\Language\LanguageHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class RefereeModel extends AdminModel
+class OfficialModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -32,9 +32,8 @@ class RefereeModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.referee';
+	public $typeAlias = 'com_footballmanager.official';
 
-	protected $associationsContext = 'com_footballmanager.referee';
 	private $itemId = 0;
 
 	protected $batch_copymove = 'category_id';
@@ -64,7 +63,7 @@ class RefereeModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'referee', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'official', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{
@@ -87,18 +86,18 @@ class RefereeModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState('com_footballmanager.edit.referee.data', []);
+		$data = $app->getUserState('com_footballmanager.edit.official.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
-			if ($this->getState('coach.id') == 0)
+			if ($this->getState('official.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.referees.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.officials.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.referee', $data);
+		$this->preprocessData('com_footballmanager.official', $data);
 
 		return $data;
 	}
@@ -114,7 +113,7 @@ class RefereeModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_referees', 'com_footballmanager.referee', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_officials', 'com_footballmanager.official', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -128,41 +127,12 @@ class RefereeModel extends AdminModel
 
 	protected function preprocessForm($form, $data, $group = 'content'): void
 	{
-		if (Associations::isEnabled())
-		{
-			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
-
-			if (count($languages) > 1)
-			{
-
-				$addform = new \SimpleXMLElement('<form />');
-				$fields  = $addform->addChild('fields');
-				$fields->addAttribute('name', 'associations');
-
-				$fieldset = $fields->addChild('fieldset');
-				$fieldset->addAttribute('name', 'item_associations');
-
-				foreach ($languages as $language)
-				{
-					$field = $fieldset->addChild('field');
-					$field->addAttribute('name', $language->lang_code);
-					$field->addAttribute('type', 'modal_location');
-					$field->addAttribute('language', $language->lang_code);
-					$field->addAttribute('label', $language->title);
-					$field->addAttribute('translate_label', 'false');
-					$field->addAttribute('select', 'true');
-					$field->addAttribute('new', 'true');
-					$field->addAttribute('edit', 'true');
-					$field->addAttribute('clear', 'true');
-				}
-
-				$form->load($addform, false);
-			}
-		}
-
 		parent::preprocessForm($form, $data, $group);
 	}
 
+	/**
+	 * @throws \Exception
+	 */
 	public function save($data)
 	{
 		$app   = Factory::getApplication();

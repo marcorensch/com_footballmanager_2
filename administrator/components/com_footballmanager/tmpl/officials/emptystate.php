@@ -12,7 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Layout\LayoutHelper;
 
 $displayData = [
-    'textPrefix' => 'COM_FOOTBALLMANAGER_REFEREES',
+    'textPrefix' => 'COM_FOOTBALLMANAGER_OFFICIALS',
     'formURL' => 'index.php?option=com_footballmanager',
     'helpURL' => 'https://manuals.nx-designs.com/',
     'icon' => 'icon-copy',
@@ -21,7 +21,7 @@ $displayData = [
 $user = Factory::getApplication()->getIdentity();
 
 if ($user->authorise('core.create', 'com_footballmanager') || count($user->getAuthorisedCategories('com_footballmanager', 'core.create')) > 0) {
-    $displayData['createURL'] = 'index.php?option=com_footballmanager&task=referee.add';
+    $displayData['createURL'] = 'index.php?option=com_footballmanager&task=official.add';
 }
 
 echo LayoutHelper::render('joomla.content.emptystate', $displayData);

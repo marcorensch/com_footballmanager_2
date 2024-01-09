@@ -21,14 +21,14 @@ use Joomla\Database\DatabaseInterface;
 
 defined('_JEXEC') or die;
 
-class RefereesField extends ListField{
+class OfficialsField extends ListField{
 	/**
 	 * The form field type.
 	 *
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	protected $type = 'Referees';
+	protected $type = 'Officials';
 
 	/**
 	 * Method to get the field options.

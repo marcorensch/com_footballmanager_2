@@ -33,41 +33,6 @@ $wa = $this->document->getWebAssetManager();
 $wa->useScript('keepalive')
 	->useScript('form.validate');
 
-$wa->addInlineScript('
-let $teamAddButtons = null;
-let $teamsTab = null;
-let $subFormRepeatableContainer = null;
-
-document.addEventListener("DOMContentLoaded", function() {
-    $teamsTab = document.querySelector("joomla-tab-element#teams");
-    $teamsTab.addEventListener("subform-row-add", function() {
-        updateOrderingValues();
-    });
-    $teamsTab.addEventListener("joomla:updated", function() {
-        // console.log("joomla updated");
-    });
-    
-    // Select the element you want to watch
-    $subFormRepeatableContainer = document.querySelector(".subform-layout");
-    
-    $subFormRepeatableContainer.addEventListener("dragend", function() {
-        updateOrderingValues();
-    });
- 
-});
-
-function updateOrderingValues(){
-    let $subFormRows = $subFormRepeatableContainer.querySelectorAll(".subform-repeatable-group");
-        console.log($subFormRows);
-        for (let i = 0; i < $subFormRows.length; i++){
-            let $row = $subFormRows[i];
-            let $orderingInput = $row.querySelector("input.ordering");
-            $orderingInput.value = i+1;
-        }
-};
-
-');
-
 $layout = 'edit';
 $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 
@@ -75,7 +40,7 @@ $current_user = Factory::getApplication()->getIdentity();
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="coach-form" class="form-validate form-vertical">
+      method="post" name="adminForm" id="official-form" class="form-validate form-vertical">
 
     <div class="row">
         <div class="col-sm-12 col-md-4">
@@ -92,10 +57,15 @@ $current_user = Factory::getApplication()->getIdentity();
     <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
 
-		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'teams', Text::_('COM_FOOTBALLMANAGER_TAB_TEAMS_LABEL')); ?>
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
         <div class="row">
-            <div class="col">
-				<?php echo $this->getForm()->renderField('coach_teams'); ?>
+            <div class="col-lg-8">
+	            <?php echo $this->getForm()->renderField('about'); ?>
+            </div>
+            <div class="col-lg-4">
+				<?php echo $this->getForm()->renderField('image'); ?>
+				<?php echo $this->getForm()->renderField('linked_team_id'); ?>
+				<?php echo $this->getForm()->renderField('catid'); ?>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
@@ -107,7 +77,6 @@ $current_user = Factory::getApplication()->getIdentity();
 				<?php echo $this->getForm()->renderField('created_by'); ?>
 				<?php echo $this->getForm()->renderField('access'); ?>
 				<?php echo $this->getForm()->renderField('published'); ?>
-				<?php echo $this->getForm()->renderField('catid'); ?>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>

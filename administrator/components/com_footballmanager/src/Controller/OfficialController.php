@@ -18,7 +18,7 @@ use Joomla\CMS\MVC\Controller\FormController;
  *
  * @since  __BUMP_VERSION__
  */
-class RefereeController extends FormController
+class OfficialController extends FormController
 {
 
 }

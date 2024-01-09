@@ -129,11 +129,11 @@
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=coach&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
-            <menu link="option=com_footballmanager&amp;view=referees">
-                COM_FOOTBALLMANAGER_REFEREES
+            <menu link="option=com_footballmanager&amp;view=officials">
+                COM_FOOTBALLMANAGER_OFFICIALS
                 <params>
                     <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=referee&amp;layout=edit</menu-quicktask>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=official&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
             <menu link="option=com_footballmanager&amp;view=sponsors">

@@ -59,7 +59,16 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$this->installCategoryForView('com_footballmanager.sponsors');
 		$this->installCategoryForView('com_footballmanager.teams');
 		$this->installCategoryForView('com_footballmanager.games');
-		$this->installCategoryForView('com_footballmanager.referees');
+		$this->installCategoryForView('com_footballmanager.officials');
+		$this->installCategoryForView('com_footballmanager.officials', 'Referee');
+		$this->installCategoryForView('com_footballmanager.officials', 'Assistant Referee');
+		$this->installCategoryForView('com_footballmanager.officials', 'Umpire');
+		$this->installCategoryForView('com_footballmanager.officials', 'Down Judge');
+		$this->installCategoryForView('com_footballmanager.officials', 'Line Judge');
+		$this->installCategoryForView('com_footballmanager.officials', 'Field Judge');
+		$this->installCategoryForView('com_footballmanager.officials', 'Side Judge');
+		$this->installCategoryForView('com_footballmanager.officials', 'Back Judge');
+
 		$this->installCategoryForView('com_footballmanager.coaches');
 		$this->installCategoryForView('com_footballmanager.positions');
 		$this->installCategoryForView('com_footballmanager.positions', 'Player');

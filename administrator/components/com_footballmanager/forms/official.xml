@@ -47,6 +47,33 @@
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
+
+        <field
+                name="image"
+                type="media"
+                label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
+                directory="images"
+        />
+
+        <field
+                name="about"
+                type="editor"
+                label="COM_FOOTBALLMANAGER_FIELD_ABOUT_LABEL"
+                filter="safehtml"
+                buttons="true"
+                height="572"
+        />
+
+        <field name="linked_team_id"
+               type="teams"
+               label="COM_FOOTBALLMANAGER_FIELD_LINKED_TEAM_LABEL"
+               addfieldprefix="Joomla\Component\Footballmanager\Administrator\Field"
+               required="false"
+               multiple="false"
+               filter="integer"
+               default=""
+        />
+
         <field
                 name="published"
                 type="list"
@@ -94,43 +121,16 @@
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
         />
-        <!-- Location Fields -->
 
-        <field
-                name="photo"
-                type="media"
-                label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
-                directory="images"
-        />
-
-        <field
-                name="about"
-                type="editor"
-                label="COM_FOOTBALLMANAGER_FIELD_ABOUT_LABEL"
-                filter="safehtml"
-                buttons="true"
-                height="572"
-        />
 
         <field
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
-                extension="com_footballmanager.referees"
+                extension="com_footballmanager.officials"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
                 default=""
-        />
-
-        <field
-                name="coach_teams"
-                type="subform"
-                min="1"
-                layout="joomla.form.field.subform.repeatable"
-                groupByFieldset="true"
-                multiple="true"
-                class="coach_teams"
-                formsource="administrator/components/com_footballmanager/forms/subform_referee_teams.xml"
         />
 
         <field name="params" type="textarea" label="params" description="params" />

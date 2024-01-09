@@ -27,7 +27,7 @@ use Joomla\CMS\Language\Text;
  *
  * @since  __BUMP_VERSION__
  */
-class RefereesController extends AdminController
+class OfficialsController extends AdminController
 {
     /**
      * Constructor.
@@ -57,7 +57,7 @@ class RefereesController extends AdminController
      *
      * @since   __BUMP_VERSION__
      */
-    public function getModel($name = 'referee', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    public function getModel($name = 'official', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {
         return parent::getModel($name, $prefix, $config);
     }
@@ -68,7 +68,7 @@ class RefereesController extends AdminController
 		$model = $this->getModel('coaches');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::export($data, 'referees');
+		ExportHelper::export($data, 'officials');
 	}
 
 	#[NoReturn] public function import(): void
@@ -112,7 +112,7 @@ class RefereesController extends AdminController
 		}
 
 		$app->enqueueMessage('Importing referees is not supported yet', 'warning');
-		$this->setRedirect(Route::_('index.php?option=com_footballmanager&view=referees', false));
+		$this->setRedirect(Route::_('index.php?option=com_footballmanager&view=officials', false));
 	}
 
 

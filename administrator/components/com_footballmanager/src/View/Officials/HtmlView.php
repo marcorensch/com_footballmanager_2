@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Footballmanager\Administrator\View\Referees;
+namespace NXD\Component\Footballmanager\Administrator\View\Officials;
 
 defined('_JEXEC') or die;
 
@@ -75,21 +75,6 @@ class HtmlView extends BaseHtmlView
 			$this->addToolbar();
 			$this->sidebar = Sidebar::render();
 		}
-		else
-		{
-			// In article associations modal we need to remove language filter if forcing a language.
-			// We also need to change the category filter to show categories with All or the forced language.
-			if ($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'cmd'))
-			{
-				// If the language is forced we can't allow to select the language, so transform the language selector filter into an hidden field.
-				$languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
-				$this->filterForm->setField($languageXml, 'filter', true);
-				// Also, unset the active language filter so the search tools is not open by default with this filter.
-				unset($this->activeFilters['language']);
-				// One last changes needed is to change the category filter to just show categories with All language or with the forced language.
-				$this->filterForm->setFieldAttribute('category_id', 'language', '*,' . $forcedLanguage, 'filter');
-			}
-		}
 		parent::display($tpl);
 	}
 
@@ -101,12 +86,12 @@ class HtmlView extends BaseHtmlView
 
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance();
-		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_REFEREES'), 'fas fa-id-badge');
+		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_OFFICIALS'), 'fas fa-id-badge');
 
 		// Show Buttons only if the user is allowed to do so
 		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_footballmanager', 'core.create')) > 0)
 		{
-			$toolbar->addNew('referee.add');
+			$toolbar->addNew('official.add');
 		}
 		if ($canDo->get('core.edit.state'))
 		{
@@ -118,25 +103,25 @@ class HtmlView extends BaseHtmlView
 				->listCheck(true);
 
 			$childBar = $dropdown->getChildToolbar();
-			$childBar->publish('referees.publish')->listCheck(true);
-			$childBar->unpublish('referees.unpublish')->listCheck(true);
-			$childBar->archive('referees.archive')->listCheck(true);
+			$childBar->publish('officials.publish')->listCheck(true);
+			$childBar->unpublish('officials.unpublish')->listCheck(true);
+			$childBar->archive('officials.archive')->listCheck(true);
 
 
 			if ($user->authorise('core.admin'))
 			{
-				$childBar->checkin('referees.checkin')->listCheck(true);
+				$childBar->checkin('officials.checkin')->listCheck(true);
 			}
 
 			if ($this->state->get('filter.published') != -2)
 			{
-				$childBar->trash('referees.trash')->listCheck(true);
+				$childBar->trash('officials.trash')->listCheck(true);
 			}
 		}
 
 		if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
 		{
-			$toolbar->delete('referees.delete')
+			$toolbar->delete('officials.delete')
 				->text('JTOOLBAR_EMPTY_TRASH')
 				->message('JGLOBAL_CONFIRM_DELETE')
 				->listCheck(true);
@@ -146,7 +131,7 @@ class HtmlView extends BaseHtmlView
 		if ($user->authorise('core.edit'))
 		{
 			ToolbarHelper::modal('import-modal', 'fas fa-upload', 'COM_FOOTBALLMANAGER_IMPORT');
-			ToolbarHelper::custom('referees.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
+			ToolbarHelper::custom('officials.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))

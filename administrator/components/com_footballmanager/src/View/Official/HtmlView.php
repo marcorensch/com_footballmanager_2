@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace NXD\Component\Footballmanager\Administrator\View\Referee;
+namespace NXD\Component\Footballmanager\Administrator\View\Official;
 
 defined('_JEXEC') or die;
 
@@ -92,22 +92,19 @@ class HtmlView extends BaseHtmlView
 
 	    $toolbar = Toolbar::getInstance();
 
-	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_REFEREE_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_REFEREE_EDIT_TITLE'), 'fas fa-id-badge');
+	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_OFFICIAL_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_OFFICIAL_EDIT_TITLE'), 'fas fa-id-badge');
 
-        $toolbar->apply('referee.apply');
+        $toolbar->apply('official.apply');
 
 	    $saveGroup = $toolbar->dropdownButton('save-group');
 
 	    $saveGroup->configure(
 		    function (Toolbar $childBar) {
-			    $childBar->save('referee.save');
-			    $childBar->save2new('referee.save2new');
-			    $childBar->save2copy('referee.save2copy');
+			    $childBar->save('official.save');
+			    $childBar->save2new('official.save2new');
+			    $childBar->save2copy('official.save2copy');
 		    }
 	    );
-
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
-        $toolbar->cancel('referee.cancel', 'JTOOLBAR_CLOSE');
+        $toolbar->cancel('official.cancel', 'JTOOLBAR_CLOSE');
     }
 }
