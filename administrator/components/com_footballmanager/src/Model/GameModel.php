@@ -128,38 +128,6 @@ class GameModel extends AdminModel
 	}
 	protected function preprocessForm($form, $data, $group = 'content'): void
 	{
-		if (Associations::isEnabled())
-		{
-			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
-
-			if (count($languages) > 1)
-			{
-
-				$addform = new \SimpleXMLElement('<form />');
-				$fields  = $addform->addChild('fields');
-				$fields->addAttribute('name', 'associations');
-
-				$fieldset = $fields->addChild('fieldset');
-				$fieldset->addAttribute('name', 'item_associations');
-
-				foreach ($languages as $language)
-				{
-					$field = $fieldset->addChild('field');
-					$field->addAttribute('name', $language->lang_code);
-					$field->addAttribute('type', 'modal_location');
-					$field->addAttribute('language', $language->lang_code);
-					$field->addAttribute('label', $language->title);
-					$field->addAttribute('translate_label', 'false');
-					$field->addAttribute('select', 'true');
-					$field->addAttribute('new', 'true');
-					$field->addAttribute('edit', 'true');
-					$field->addAttribute('clear', 'true');
-				}
-
-				$form->load($addform, false);
-			}
-		}
-
 		parent::preprocessForm($form, $data, $group);
 	}
 
