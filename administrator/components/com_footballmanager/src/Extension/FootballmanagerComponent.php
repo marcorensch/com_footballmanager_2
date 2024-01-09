@@ -76,17 +76,23 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 			case 'season':
 				$tableName = 'footballmanager_seasons';
 				break;
+			case 'season_phases':
+				$tableName = 'footballmanager_season_phases';
+				break;
 			case 'league':
 				$tableName = 'footballmanager_leagues';
 				break;
 			case 'coach':
 				$tableName = 'footballmanager_coaches';
 				break;
-			case 'referee':
-				$tableName = 'footballmanager_referees';
+			case 'official':
+				$tableName = 'footballmanager_officials';
 				break;
 			case 'game':
 				$tableName = 'footballmanager_games';
+				break;
+			case 'position':
+				$tableName = 'footballmanager_positions';
 				break;
 			default:
 			case 'location':
@@ -122,7 +128,7 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 
 	public function validateSection($section, $item = null): ?string
 	{
-		return in_array($section, ['location', 'team', 'player', 'coach','referee','game'], true) ? $section : null;
+		return in_array($section, ['location', 'team', 'player', 'coach','official','game','season','season_phase','league'], true) ? $section : null;
 	}
 
 	public function getContexts(): array
@@ -136,8 +142,6 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 			'com_footballmanager.coach' => Text::_('COM_FOOTBALLMANAGER_COACHES'),
 			'com_footballmanager.referee' => Text::_('COM_FOOTBALLMANAGER_REFEREES'),
 			'com_footballmanager.game' => Text::_('COM_FOOTBALLMANAGER_GAMES'),
-
-//			'com_footballmanagerworld.categories' => JText::_('JCATEGORY')
 		);
 
 		return $contexts;

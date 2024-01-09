@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" foo="bar" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <form
         addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
 >

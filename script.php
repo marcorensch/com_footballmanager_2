@@ -24,6 +24,7 @@ use Joomla\Database\DatabaseInterface;
  */
 class Com_FootballmanagerInstallerScript extends InstallerScript
 {
+
 	/**
 	 * Minimum Joomla version to check
 	 *
@@ -39,6 +40,10 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 * @since  __BUMP_VERSION__
 	 */
 	private $minimumPHPVersion = JOOMLA_MINIMUM_PHP;
+
+	private $playerPositionsCategoryId = 0;
+	private $coachPositionsCategoryId = 0;
+	private $officialPositionsCategoryId = 0;
 
 	/**
 	 * Method to install the extension
@@ -60,31 +65,32 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$this->installCategoryForView('com_footballmanager.teams');
 		$this->installCategoryForView('com_footballmanager.games');
 		$this->installCategoryForView('com_footballmanager.officials');
-		$this->installCategoryForView('com_footballmanager.officials', 'Referee');
-		$this->installCategoryForView('com_footballmanager.officials', 'Assistant Referee');
-		$this->installCategoryForView('com_footballmanager.officials', 'Umpire');
-		$this->installCategoryForView('com_footballmanager.officials', 'Down Judge');
-		$this->installCategoryForView('com_footballmanager.officials', 'Line Judge');
-		$this->installCategoryForView('com_footballmanager.officials', 'Field Judge');
-		$this->installCategoryForView('com_footballmanager.officials', 'Side Judge');
-		$this->installCategoryForView('com_footballmanager.officials', 'Back Judge');
-
+//		$this->installCategoryForView('com_footballmanager.officials', 'Referee');
+//		$this->installCategoryForView('com_footballmanager.officials', 'Assistant Referee');
+//		$this->installCategoryForView('com_footballmanager.officials', 'Umpire');
+//		$this->installCategoryForView('com_footballmanager.officials', 'Down Judge');
+//		$this->installCategoryForView('com_footballmanager.officials', 'Line Judge');
+//		$this->installCategoryForView('com_footballmanager.officials', 'Field Judge');
+//		$this->installCategoryForView('com_footballmanager.officials', 'Side Judge');
+//		$this->installCategoryForView('com_footballmanager.officials', 'Back Judge');
 		$this->installCategoryForView('com_footballmanager.coaches');
 		$this->installCategoryForView('com_footballmanager.positions');
-		$this->installCategoryForView('com_footballmanager.positions', 'Player');
-		$this->installCategoryForView('com_footballmanager.positions', 'Coach');
-		$this->installCategoryForView('com_footballmanager.positions', 'Official');
+		$this->playerPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Player');
+		$this->coachPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Coach');
+		$this->officialPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Official');
 
 		return true;
 	}
 
-	private function installCategoryForView($view, $title = "Uncategorised"): void
+	private function installCategoryForView($view, $title = "Uncategorised"): int|bool|null
 	{
 		$alias   = ApplicationHelper::stringURLSafe($title);
 
-		// Initialize a new category.
-		$category = Table::getInstance('Category');
+		// Boot CategoryComponentHelper
+		$category = Factory::getApplication()->bootComponent('com_categories')->getMVCFactory()->createTable('Category');
 
+		// Initialize a new category.
+//		$category = Table::getInstance('Category');
 		$data = [
 			'extension' => $view,
 			'title' => $title,
@@ -108,17 +114,19 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 
 		// Bind the location data to the table
 		if (!$category->bind($data)) {
-			return;
+			return false;
 		}
 
 		// Check to make sure our location data is valid.
 		if (!$category->check()) {
-			return;
+			return false;
 		}
 
-		// Store the location category.
+		// Store the category.
 		if (!$category->store(true)) {
 		}
+
+		return $category->id;
 	}
 
 	/**
@@ -216,6 +224,111 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	{
 //		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_POSTFLIGHT');
 
+		// Install Positions in Postflight
+		if($type === 'install'){
+			// Install Basic set of positions for Players
+			if($this->playerPositionsCategoryId)
+			{
+				$this->installPosition('Player', 'Quarterback', 'QB');
+				$this->installPosition('Player', 'Running Back', 'RB');
+				$this->installPosition('Player', 'Wide Receiver', 'WR');
+				$this->installPosition('Player', 'Tight End', 'TE');
+				$this->installPosition('Player', 'Center', 'C');
+				$this->installPosition('Player', 'Guard', 'G');
+				$this->installPosition('Player', 'Tackle', 'T');
+				$this->installPosition('Player', 'Defensive End', 'DE');
+				$this->installPosition('Player', 'Defensive Tackle', 'DT');
+				$this->installPosition('Player', 'Linebacker', 'LB');
+				$this->installPosition('Player', 'Cornerback', 'CB');
+				$this->installPosition('Player', 'Safety', 'S');
+				$this->installPosition('Player', 'Kicker', 'K');
+				$this->installPosition('Player', 'Punter', 'P');
+				$this->installPosition('Player', 'Kick Returner', 'KR');
+				$this->installPosition('Player', 'Punt Returner', 'PR');
+				$this->installPosition('Player', 'Long Snapper', 'LS');
+				$this->installPosition('Player', 'Holder', 'H');
+				$this->installPosition('Player', 'Upback', 'UB');
+				$this->installPosition('Player', 'Gunner', 'G');
+				$this->installPosition('Player', 'Jammer', 'J');
+			}
+
+			// Install Basic set of positions for Coaches
+			if($this->coachPositionsCategoryId)
+			{
+				$this->installPosition('Coach', 'Head Coach', 'HC');
+				$this->installPosition('Coach', 'Offensive Coordinator', 'OC');
+				$this->installPosition('Coach', 'Defensive Coordinator', 'DC');
+				$this->installPosition('Coach', 'Special Teams Coordinator', 'STC');
+				$this->installPosition('Coach', 'Quarterbacks Coach', 'QB');
+				$this->installPosition('Coach', 'Running Backs Coach', 'RB');
+				$this->installPosition('Coach', 'Wide Receivers Coach', 'WR');
+				$this->installPosition('Coach', 'Tight Ends Coach', 'TE');
+				$this->installPosition('Coach', 'Offensive Line Coach', 'OL');
+				$this->installPosition('Coach', 'Defensive Line Coach', 'DL');
+				$this->installPosition('Coach', 'Linebackers Coach', 'LB');
+				$this->installPosition('Coach', 'Defensive Backs Coach', 'DB');
+				$this->installPosition('Coach', 'Special Teams Coach', 'ST');
+				$this->installPosition('Coach', 'Assistant Coach', 'AC');
+			}
+
+			// Install Basic set of positions for Officials
+			if($this->officialPositionsCategoryId)
+			{
+				$this->installPosition('Official', 'Referee', 'R');
+				$this->installPosition('Official', 'Assistant Referee', 'AR');
+				$this->installPosition('Official', 'Umpire', 'U');
+				$this->installPosition('Official', 'Down Judge', 'DJ');
+				$this->installPosition('Official', 'Line Judge', 'LJ');
+				$this->installPosition('Official', 'Field Judge', 'FJ');
+				$this->installPosition('Official', 'Side Judge', 'SJ');
+				$this->installPosition('Official', 'Back Judge', 'BJ');
+			}
+
+		}
+
 		return true;
+	}
+
+	private function installPosition(string $type, string $title, string $abbreviation): void
+	{
+		$alias   = ApplicationHelper::stringURLSafe($title);
+		$now = Factory::getDate()->toSql();
+
+		error_log("Installing Position: " . $title . " (" . $abbreviation . ")" . $now);
+
+		$categoryId = false;
+		if($type === 'Player'){
+			$categoryId = $this->playerPositionsCategoryId;
+		}elseif($type === 'Coach'){
+			$categoryId = $this->coachPositionsCategoryId;
+		}elseif ($type === 'Official'){
+			$categoryId = $this->officialPositionsCategoryId;
+		}
+
+		if(!$categoryId){
+			return;
+		}
+
+		$data = [
+			'title' => $title,
+			'shortname' => $abbreviation,
+			'alias' => $alias,
+			'published' => 1,
+			'created_at' => $now,
+			'created_by' => (int) Factory::getApplication()->getIdentity()->id,
+			'modified_by' => (int) Factory::getApplication()->getIdentity()->id,
+			'catid' => $categoryId,
+		];
+
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$query = $db->getQuery(true);
+		// Insert columns.
+		$columns = array_keys($data);
+		$values = array_values($data);
+		$query->insert($db->quoteName('#__footballmanager_positions'))
+			->columns($db->quoteName($columns))
+			->values(implode(',', $db->quote($values)));
+		$db->setQuery($query);
+		$db->execute();
 	}
 }

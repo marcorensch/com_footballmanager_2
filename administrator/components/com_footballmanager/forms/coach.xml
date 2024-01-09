@@ -97,7 +97,7 @@
         <!-- Location Fields -->
 
         <field
-                name="photo"
+                name="image"
                 type="media"
                 label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
                 directory="images"

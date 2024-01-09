@@ -92,6 +92,17 @@ $current_user = Factory::getApplication()->getIdentity();
     <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'general']); ?>
 
+	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'general', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
+        <div class="row">
+            <div class="col-lg-8">
+			    <?php echo $this->getForm()->renderField('about'); ?>
+            </div>
+            <div class="col-lg-4">
+	            <?php echo $this->getForm()->renderField('image'); ?>
+            </div>
+        </div>
+	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'teams', Text::_('COM_FOOTBALLMANAGER_TAB_TEAMS_LABEL')); ?>
         <div class="row">
             <div class="col">
