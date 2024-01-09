@@ -17,7 +17,10 @@
                 type="teams"
                 label="COM_FOOTBALLMANAGER_TEAM"
                 onchange="this.form.submit();"
-        />
+        >
+            <option value="">COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM</option>
+            <option value="0">COM_FOOTBALLMANAGER_FIELD_NO_TEAM</option>
+        </field>
 
         <field
                 name="published"

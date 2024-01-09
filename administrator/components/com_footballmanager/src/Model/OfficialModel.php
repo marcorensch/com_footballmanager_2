@@ -212,9 +212,7 @@ class OfficialModel extends AdminModel
 			}
 		}
 
-		$status = parent::save($data);
-
-		return $status;
+		return parent::save($data);
 
 	}
 

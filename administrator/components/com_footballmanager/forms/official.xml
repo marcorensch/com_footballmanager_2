@@ -68,11 +68,10 @@
                type="teams"
                label="COM_FOOTBALLMANAGER_FIELD_LINKED_TEAM_LABEL"
                addfieldprefix="Joomla\Component\Footballmanager\Administrator\Field"
-               required="false"
-               multiple="false"
-               filter="integer"
-               default=""
-        />
+               default="0"
+        >
+            <option value="0">COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM</option>
+        </field>
 
         <field
                 name="published"

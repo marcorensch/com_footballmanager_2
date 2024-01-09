@@ -48,7 +48,6 @@ class TeamsField extends ListField{
 		$teams = $db->loadObjectList();
 
 		$options = [];
-		$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM'));
 		foreach ($teams as $team)
 		{
 			$options[] = HTMLHelper::_('select.option', $team->id, $team->title);

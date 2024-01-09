@@ -19,13 +19,16 @@ use Joomla\CMS\Session\Session;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
-$wa->addInlineScript("
-    jQuery(document).ready(function(){
-        jQuery('#toolbar-download').on('click', function(e){
-            const taskField = document.querySelectorAll('[name=\"task\"]');
-            taskField[0].value = '';
-        });
-    });");
+$wa->addInlineScript(<<<JS
+document.addEventListener("DOMContentLoaded", ()=>{
+    const downloadBtn = document.querySelector("#toolbar-download");
+    const taskField = document.querySelectorAll('[name=\"task\"]');
+    downloadBtn.addEventListener("click", ()=>{
+        taskField[0].value = 'positions.download';
+    });
+});
+JS
+);
 
 $canChange = true;
 $assoc = Associations::isEnabled();
@@ -85,6 +88,10 @@ if($params->get('show_filters_by_default', 0)){
 
                             <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
+                            </th>
+
+                            <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+								<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CATEGORY', 'category_title', $listDirn, $listOrder); ?>
                             </th>
 
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
@@ -149,6 +156,9 @@ if($params->get('show_filters_by_default', 0)){
 										<?php echo $this->escape($item->title); ?>
                                     </a>
                                 </th>
+                                <td>
+                                    <?php echo $item->category_title; ?>
+                                </td>
                                 <td class="small d-none d-md-table-cell">
 	                                <?php if((int)$item->created_by > 0) : ?>
                                         <a

@@ -44,7 +44,8 @@ class PositionsModel extends ListModel
 				'ordering', 'a.ordering',
 				'language', 'a.language',
 				'publish_up', 'a.publish_up',
-				'publish_down', 'a.publish_down'
+				'publish_down', 'a.publish_down',
+				'catid', 'a.catid', 'category_title',
 			);
 
 			$assoc = Associations::isEnabled();
@@ -99,6 +100,13 @@ class PositionsModel extends ListModel
 			    $db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 		    );
 
+		// Join Over the position category
+	    		$query->select($db->quoteName('c.title', 'category_title'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
+			);
+
 		// Filter by access level.
         if ($access = $this->getState('filter.access')) {
 			$query->where($db->quoteName('a.access') . ' = ' . (int) $access);
@@ -116,6 +124,11 @@ class PositionsModel extends ListModel
 		    $query->where('(' . $db->quoteName('a.published') . ' IN (0, 1))');
 	    }
 
+		// Filter by category.
+	    $categoryId = $this->getState('filter.category_id');
+		if (is_numeric($categoryId)) {
+			$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+		}
 
 		// Filter by search name
 	    $search = $this->getState('filter.search');
@@ -129,8 +142,8 @@ class PositionsModel extends ListModel
 		}
 
 	    // Add the list ordering clause.
-	    $orderCol = $this->state->get('list.ordering', 'a.created_at');
-	    $orderDirn = $this->state->get('list.direction', 'desc');
+	    $orderCol = $this->state->get('list.ordering', 'a.id');
+	    $orderDirn = $this->state->get('list.direction', 'asc');
 
 	    if ($orderCol == 'a.ordering')
 	    {

@@ -314,6 +314,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 			'shortname' => $abbreviation,
 			'alias' => $alias,
 			'published' => 1,
+			'access' => 1,
 			'created_at' => $now,
 			'created_by' => (int) Factory::getApplication()->getIdentity()->id,
 			'modified_by' => (int) Factory::getApplication()->getIdentity()->id,

@@ -48,7 +48,7 @@ class OfficialTable extends Table
         return true;
     }
 
-    public function store($updateNulls = true)
+    public function store($updateNulls = true): bool
     {
 	    // Transform the params field
 	    if (is_array($this->params)) {
