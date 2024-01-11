@@ -389,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_games`
     `notes`                     text                      DEFAULT NULL,
     `description`               text                      DEFAULT NULL,
     `head_referee_id`           int(11)                   DEFAULT NULL,
-    `referees`                  text                      DEFAULT NULL,
+    `officials`                 text                      DEFAULT NULL,
     `home_roster_offense`       text                      DEFAULT NULL,
     `home_roster_defense`       text                      DEFAULT NULL,
     `home_roster_special_teams` text                      DEFAULT NULL,

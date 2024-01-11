@@ -42,7 +42,7 @@ class OfficialsField extends ListField{
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		$query->select('id, firstname, lastname');
-		$query->from('#__footballmanager_referees');
+		$query->from('#__footballmanager_officials');
 		$query->order('ordering ASC');
 		$db->setQuery($query);
 		$teams = $db->loadObjectList();

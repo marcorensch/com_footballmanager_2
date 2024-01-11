@@ -33,8 +33,28 @@ $wa = $this->document->getWebAssetManager();
 $wa->useScript('keepalive')
 	->useScript('form.validate');
 
-$wa->addInlineScript('//footballmanager game edit');
-$wa->addInlineStyle('.switcher label { cursor: pointer; min-width: 2rem; } .nxd-fieldset .control-group .control-label {width:100%;} .nxd-fieldset .controls { min-width: unset;}');
+$wa->addInlineScript(<<<JS
+
+document.addEventListener("DOMContentLoaded", () => {
+    const officialsRow = document.getElementById('officials-row');
+    const customOfficialsRow = document.getElementById('custom-officials-row');
+    // add class to all children of officials-row
+    officialsRow.querySelectorAll('.control-group').forEach((el) => {
+        el.classList.add('col-lg-4');
+    });
+    
+    // add class to all children of custom-officials-row
+    customOfficialsRow.querySelectorAll('.subform-wrapper').forEach((el) => {
+        el.classList.add('row');
+    });
+    customOfficialsRow.querySelectorAll('.controls .control-group').forEach((el) => {
+        el.classList.add('col-lg-4');
+    });
+    
+});
+JS
+);
+//$wa->addInlineStyle('.switcher label { cursor: pointer; min-width: 2rem; } .nxd-fieldset .control-group .control-label {width:100%;} .nxd-fieldset .controls { min-width: unset;}');
 
 $layout = 'edit';
 $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
@@ -58,10 +78,10 @@ $current_user = Factory::getApplication()->getIdentity();
     </div>
 
     <div class="main-card">
-		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'base']); ?>
+		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'officials']); ?>
 
 
-	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'base', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'base', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
         <div class="row">
             <div class="col-lg-4">
 
@@ -70,13 +90,13 @@ $current_user = Factory::getApplication()->getIdentity();
                     <div>
                         <div class="row">
                             <div class="col-12">
-							    <?php echo $this->getForm()->renderField('season_id'); ?>
+								<?php echo $this->getForm()->renderField('season_id'); ?>
                             </div>
                             <div class="col-12">
-							    <?php echo $this->getForm()->renderField('phase_id'); ?>
+								<?php echo $this->getForm()->renderField('phase_id'); ?>
                             </div>
                             <div class="col-12">
-							    <?php echo $this->getForm()->renderField('league_id'); ?>
+								<?php echo $this->getForm()->renderField('league_id'); ?>
                             </div>
                         </div>
                     </div>
@@ -88,10 +108,10 @@ $current_user = Factory::getApplication()->getIdentity();
                     <div>
                         <div class="row">
                             <div class="col-lg-6">
-					            <?php echo $this->getForm()->renderField('home_score'); ?>
+								<?php echo $this->getForm()->renderField('home_score'); ?>
                             </div>
                             <div class="col-lg-6">
-					            <?php echo $this->getForm()->renderField('away_score'); ?>
+								<?php echo $this->getForm()->renderField('away_score'); ?>
                             </div>
                         </div>
                     </div>
@@ -102,10 +122,10 @@ $current_user = Factory::getApplication()->getIdentity();
                     <div>
                         <div class="row">
                             <div class="col-lg-6">
-					            <?php echo $this->getForm()->renderField('home_touchdowns'); ?>
+								<?php echo $this->getForm()->renderField('home_touchdowns'); ?>
                             </div>
                             <div class="col-lg-6">
-					            <?php echo $this->getForm()->renderField('away_touchdowns'); ?>
+								<?php echo $this->getForm()->renderField('away_touchdowns'); ?>
                             </div>
                         </div>
                     </div>
@@ -119,10 +139,10 @@ $current_user = Factory::getApplication()->getIdentity();
                     <div>
                         <div class="row">
                             <div class="col-12">
-		                        <?php echo $this->getForm()->renderField('kickoff'); ?>
-		                        <?php echo $this->getForm()->renderField('location_id'); ?>
-		                        <?php echo $this->getForm()->renderField('matchday'); ?>
-		                        <?php echo $this->getForm()->renderField('tickets_link'); ?>
+								<?php echo $this->getForm()->renderField('kickoff'); ?>
+								<?php echo $this->getForm()->renderField('location_id'); ?>
+								<?php echo $this->getForm()->renderField('matchday'); ?>
+								<?php echo $this->getForm()->renderField('tickets_link'); ?>
                             </div>
                         </div>
                         <div class="row">
@@ -130,12 +150,12 @@ $current_user = Factory::getApplication()->getIdentity();
                             <div class="col-md-4"><?php echo $this->getForm()->renderField('game_postponed'); ?></div>
                             <div class="col-md-4"><?php echo $this->getForm()->renderField('game_canceled'); ?></div>
                         </div>
-					    <?php echo $this->getForm()->renderField('new_game_id'); ?>
+						<?php echo $this->getForm()->renderField('new_game_id'); ?>
                     </div>
                 </fieldset>
             </div>
         </div>
-	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'description', Text::_('COM_FOOTBALLMANAGER_TAB_DESCRIPTION_LABEL')); ?>
@@ -157,13 +177,12 @@ $current_user = Factory::getApplication()->getIdentity();
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'referees', Text::_('COM_FOOTBALLMANAGER_TAB_REFEREES_LABEL')); ?>
-        <div class="row">
-            <div class="col">
-				<?php echo $this->getForm()->renderField('head_referee_id'); ?>
-				<?php echo $this->getForm()->renderField('referees'); ?>
-
-            </div>
+		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'officials', Text::_('COM_FOOTBALLMANAGER_TAB_OFFICIALS_LABEL')); ?>
+        <div id="officials-row" class="row">
+			<?php echo $this->getForm()->renderField('head_referee_id'); ?>
+        </div>
+        <div id="custom-officials-row">
+			<?php echo $this->getForm()->renderField('officials'); ?>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 

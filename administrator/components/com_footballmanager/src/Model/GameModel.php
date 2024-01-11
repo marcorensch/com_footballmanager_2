@@ -18,7 +18,9 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Language\LanguageHelper;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Input\Json;
+use SimpleXMLElement;
 
 /**
  * Item Model for a location.
@@ -83,7 +85,7 @@ class GameModel extends AdminModel
 	 * @throws \Exception
 	 * @since   __BUMP_VERSION__
 	 */
-	protected function loadFormData()
+	protected function loadFormData(): mixed
 	{
 		$app = Factory::getApplication();
 
@@ -108,27 +110,7 @@ class GameModel extends AdminModel
 	{
 		$item = parent::getItem($pk);
 
-		// Load associated location items
-
-		if (Associations::isEnabled())
-		{
-			$item->associations = [];
-			if ($item->id !== null)
-			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_games', 'com_footballmanager.game', $item->id, 'id', null);
-
-				foreach ($associations as $tag => $association)
-				{
-					$item->associations[$tag] = $association->id;
-				}
-			}
-		}
-
 		return $item;
-	}
-	protected function preprocessForm($form, $data, $group = 'content'): void
-	{
-		parent::preprocessForm($form, $data, $group);
 	}
 
 	public function save($data)
@@ -143,8 +125,12 @@ class GameModel extends AdminModel
 			$data['created_by'] = $user->id;
 		}
 
-		// sponsors
+		error_log('save');
+		error_log(print_r($data, true));
+
+		// handle sponsors
 		$data['sponsors'] = json_encode($data['sponsors']);
+		$data['officials'] = json_encode($data['officials']);
 
 		// handle matchday not set
 		if($data['matchday'] === 0 || $data['matchday'] === '')
@@ -227,6 +213,7 @@ class GameModel extends AdminModel
 		}
 
 		$status = parent::save($data);
+
 		if($status){
 			$this->handleScoreData($data);
 		}

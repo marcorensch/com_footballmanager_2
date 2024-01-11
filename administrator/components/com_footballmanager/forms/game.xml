@@ -232,19 +232,16 @@
 
         <field
                 name="head_referee_id"
-                type="referees"
+                type="officials"
                 label="COM_FOOTBALLMANAGER_FIELD_HEAD_REFEREE_LABEL"
                 required="false"
                 description="COM_FOOTBALLMANAGER_FIELD_HEAD_REFEREE_DESC"
         />
 
         <field
-                name="referees"
-                type="referees"
-                label="COM_FOOTBALLMANAGER_FIELD_REFEREES_LABEL"
-                required="false"
-                multiple="true"
-                layout="joomla.form.field.list-fancy-select"
+                name="officials"
+                type="OfficialsPositions"
+                label="COM_FOOTBALLMANAGER_FIELD_OFFICIALS_LABEL"
         />
 
 
