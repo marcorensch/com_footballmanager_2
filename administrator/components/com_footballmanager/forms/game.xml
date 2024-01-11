@@ -242,6 +242,8 @@
                 name="officials"
                 type="OfficialsPositions"
                 label="COM_FOOTBALLMANAGER_FIELD_OFFICIALS_LABEL"
+                min="1"
+                max="1"
         />
 
 

@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     // add class to all children of custom-officials-row
-    customOfficialsRow.querySelectorAll('.subform-wrapper').forEach((el) => {
+    customOfficialsRow.querySelectorAll('#custom-officials-row .subform-wrapper').forEach((el) => {
         el.classList.add('row');
     });
     customOfficialsRow.querySelectorAll('.controls .control-group').forEach((el) => {
