@@ -59,6 +59,14 @@ class PlayersModel extends ListModel
 		parent::__construct($config);
 	}
 
+	protected function filteredByTeamListQuery(){
+
+	}
+
+	protected function defaultListQuery(){
+
+	}
+
 	/**
 	 * Build an SQL query to load the list data.
 	 *
@@ -68,11 +76,13 @@ class PlayersModel extends ListModel
 	 */
 	protected function getListQuery()
 	{
+
 		// Create a new query object.
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
+
 		$query->select(
 			$db->quoteName(
 				[
@@ -111,31 +121,51 @@ class PlayersModel extends ListModel
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
 
-		// JetBrains AI Assistant (will result in multiple entries if a player is in multiple teams > will be concatenated later)
-		$query->select('t.title as team_title, t.id as team_id, pt.since as team_since, pt.until as team_until')
-			->join(
-				'LEFT',
-				$db->quoteName('#__footballmanager_players_teams', 'pt') . ' ON ' . $db->quoteName('a.id') . ' = ' . $db->quoteName('pt.player_id')
-			)
+		// Filter by Team ID
+		$filterTeamId = $this->getState('filter.team_id');
+
+
+
+		// Subquery all teams for a player and use them as array in the player object as "teams"
+		$subQuery = $db->getQuery(true);
+		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", pt.since, "until", pt.until, "ordering", pt.ordering)) as teams')
+			->from($db->quoteName('#__footballmanager_players_teams', 'pt'))
 			->join(
 				'LEFT',
 				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('pt.team_id')
-			);
+			)
+			->where($db->quoteName('pt.player_id') . ' = ' . $db->quoteName('a.id'));
 
-		// Filter by Team ID
-		$teamId = $this->getState('filter.team_id');
-		if (is_numeric($teamId))
-		{
-			$query->where($db->quoteName('team_id') . ' = ' . (int) $teamId);
+		$query->select('(' . $subQuery . ') as teams');
 
-			// Switch for only active players by checking current date against team_since and team_until but only if pt.since and pt.until are not null
-			$onlyActive = $this->getState('filter.only_active');
-			if ($onlyActive)
-			{
-				$query->where('(' . $db->quoteName('pt.since') . ' IS NULL OR ' . $db->quoteName('pt.since') . ' <= NOW())');
-				$query->where('(' . $db->quoteName('pt.until') . ' IS NULL OR ' . $db->quoteName('pt.until') . ' >= NOW())');
-			}
+		if (is_numeric($filterTeamId)) {
+			// Select teamIds using a nested query
+			$subQueryFilterTeam = $db->getQuery(true);
+			$subQueryFilterTeam->select('GROUP_CONCAT(DISTINCT ' . $db->quoteName('ptf.team_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",") AS teamIds')
+				->from($db->quoteName('#__footballmanager_players_teams', 'ptf'))
+				->where($db->quoteName('ptf.player_id') . ' = ' . $db->quoteName('a.id'));
+
+			// Modify the main query to include the nested query in the WHERE clause
+			$query->where($db->quote($filterTeamId) . ' IN (' . $subQueryFilterTeam . ')');
+
+
+
+
+
+
+
+
+//			$subQuery->where($db->quoteName('pt.team_id') . ' = ' . $db->quote($filterTeamId));
+//
+//			// Switch for only active players by checking current date against team_since and team_until but only if pt.since and pt.until are not null
+//			$onlyActive = $this->getState('filter.only_active');
+//			if ($onlyActive)
+//			{
+//				$subQuery->where('(' . $db->quoteName('pt.since') . ' IS NULL OR ' . $db->quoteName('pt.since') . ' <= NOW())');
+//				$subQuery->where('(' . $db->quoteName('pt.until') . ' IS NULL OR ' . $db->quoteName('pt.until') . ' >= NOW())');
+//			}
 		}
+
 
 		// Filter by access level.
 		if ($access = $this->getState('filter.access'))
@@ -233,32 +263,18 @@ class PlayersModel extends ListModel
 	public function getItems()
 	{
 		$items = parent::getItems();
-		$processedResults = array();
-		// Add Team Details
+		echo '<pre>' . var_export($items, true) . '</pre>';
+		// JSON Decode Teams
 		foreach ($items as &$item)
 		{
-			// Required to prevent multiple entries for the same player
-			if(!isset($processedResults[$item->id])){
-				$processedResults[$item->id] = $item;
-				$processedResults[$item->id]->teams = array();
-			}
-
-			// Add Team Details to Player
-			if($item->team_id && $item->team_title){
-				$teamObject = new \stdClass();
-				$teamObject->id = $item->team_id;
-				$teamObject->title = $item->team_title;
-				$teamObject->since = $item->team_since;
-				$teamObject->until = $item->team_until;
-			}else{
-				$teamObject = null;
-			}
-			if($teamObject) $processedResults[$item->id]->teams[] = $teamObject;
-			unset($item->team_id);
-			unset($item->team_title);
+			$item->teams = $item->teams !== NULL ? json_decode($item->teams) : [];
+			// order teams by ordering
+			usort($item->teams, function($a, $b) {
+				return $a->ordering <=> $b->ordering;
+			});
 		}
+		return $items;
 
-		return $processedResults;
 	}
 
 	public function exportItems($ids)

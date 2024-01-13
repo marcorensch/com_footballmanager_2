@@ -164,7 +164,7 @@
         <field
                 name="player_teams"
                 type="subform"
-                min="1"
+                min="0"
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"

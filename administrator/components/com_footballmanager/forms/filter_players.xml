@@ -17,7 +17,10 @@
                 type="teams"
                 label="COM_FOOTBALLMANAGER_TEAM"
                 onchange="this.form.submit();"
-        />
+                default=""
+        >
+            <option value="">COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM</option>
+        </field>
         <field
                 name="only_active"
                 showon="team_id!:"
@@ -46,17 +49,17 @@
                 type="accesslevel"
                 label="JOPTION_SELECT_ACCESS"
                 onchange="this.form.submit();"
-                >
+        >
             <option value="">JOPTION_SELECT_ACCESS</option>
         </field>
     </fields>
     <fields name="list">
         <field
-            name="fullordering"
-            type="list"
-            label="JGLOBAL_SORT_BY"
-            default="a.created_at DESC"
-            onchange="this.form.submit();"
+                name="fullordering"
+                type="list"
+                label="JGLOBAL_SORT_BY"
+                default="a.created_at DESC"
+                onchange="this.form.submit();"
         >
             <option value="">JGLOBAL_SORT_BY</option>
             <option value="a.ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
@@ -77,11 +80,11 @@
             <option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
         </field>
         <field
-            name="limit"
-            type="limitbox"
-            label="JGLOBAL_LIST_LIMIT"
-            default="25"
-            onchange="this.form.submit();"
+                name="limit"
+                type="limitbox"
+                label="JGLOBAL_LIST_LIMIT"
+                default="25"
+                onchange="this.form.submit();"
         />
     </fields>
 </form>

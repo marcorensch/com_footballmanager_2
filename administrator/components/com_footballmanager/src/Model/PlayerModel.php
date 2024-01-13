@@ -277,7 +277,6 @@ class PlayerModel extends AdminModel
 
 	protected function handlePlayerTeamsOnSave($data): void
 	{
-		error_log('handlePlayerTeamsOnSave');
 		// Check if we have an ID if not we have added a new player get the id by alias
 		if(!$data['id']){
 			$db = $this->getDatabase();
@@ -361,6 +360,16 @@ class PlayerModel extends AdminModel
 				$db->setQuery($query);
 				$db->execute();
 			}
+		} else {
+			// Delete all player teams relations in database
+			$db = $this->getDatabase();
+			$query = $db->getQuery(true);
+			$conditions = array(
+				$db->quoteName('player_id') . ' = ' . $db->quote($data['id'])
+			);
+			$query->delete($db->quoteName('#__footballmanager_players_teams'))->where($conditions);
+			$db->setQuery($query);
+			$db->execute();
 		}
 	}
 
