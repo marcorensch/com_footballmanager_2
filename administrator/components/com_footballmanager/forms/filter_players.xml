@@ -21,6 +21,7 @@
         >
             <option value="">COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM</option>
         </field>
+
         <field
                 name="only_active"
                 showon="team_id!:"

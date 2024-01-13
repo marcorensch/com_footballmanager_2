@@ -59,11 +59,13 @@ class PlayersModel extends ListModel
 		parent::__construct($config);
 	}
 
-	protected function filteredByTeamListQuery(){
+	protected function filteredByTeamListQuery()
+	{
 
 	}
 
-	protected function defaultListQuery(){
+	protected function defaultListQuery()
+	{
 
 	}
 
@@ -125,7 +127,6 @@ class PlayersModel extends ListModel
 		$filterTeamId = $this->getState('filter.team_id');
 
 
-
 		// Subquery all teams for a player and use them as array in the player object as "teams"
 		$subQuery = $db->getQuery(true);
 		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", pt.since, "until", pt.until, "ordering", pt.ordering)) as teams')
@@ -138,32 +139,24 @@ class PlayersModel extends ListModel
 
 		$query->select('(' . $subQuery . ') as teams');
 
-		if (is_numeric($filterTeamId)) {
+		if (is_numeric($filterTeamId))
+		{
 			// Select teamIds using a nested query
 			$subQueryFilterTeam = $db->getQuery(true);
 			$subQueryFilterTeam->select('GROUP_CONCAT(DISTINCT ' . $db->quoteName('ptf.team_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",") AS teamIds')
 				->from($db->quoteName('#__footballmanager_players_teams', 'ptf'))
 				->where($db->quoteName('ptf.player_id') . ' = ' . $db->quoteName('a.id'));
 
+			// filter for active Only
+			$onlyActive = $this->getState('filter.only_active');
+			if ($onlyActive)
+			{
+				$subQueryFilterTeam->where('(' . $db->quoteName('ptf.since') . ' IS NULL OR ' . $db->quoteName('ptf.since') . ' <= NOW())');
+				$subQueryFilterTeam->where('(' . $db->quoteName('ptf.until') . ' IS NULL OR ' . $db->quoteName('ptf.until') . ' >= NOW())');
+			}
+
 			// Modify the main query to include the nested query in the WHERE clause
 			$query->where($db->quote($filterTeamId) . ' IN (' . $subQueryFilterTeam . ')');
-
-
-
-
-
-
-
-
-//			$subQuery->where($db->quoteName('pt.team_id') . ' = ' . $db->quote($filterTeamId));
-//
-//			// Switch for only active players by checking current date against team_since and team_until but only if pt.since and pt.until are not null
-//			$onlyActive = $this->getState('filter.only_active');
-//			if ($onlyActive)
-//			{
-//				$subQuery->where('(' . $db->quoteName('pt.since') . ' IS NULL OR ' . $db->quoteName('pt.since') . ' <= NOW())');
-//				$subQuery->where('(' . $db->quoteName('pt.until') . ' IS NULL OR ' . $db->quoteName('pt.until') . ' >= NOW())');
-//			}
 		}
 
 
@@ -213,7 +206,7 @@ class PlayersModel extends ListModel
 			else
 			{
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
-				$query->where('(a.firstname LIKE ' . $search .' OR a.lastname LIKE ' . $search.')');
+				$query->where('(a.firstname LIKE ' . $search . ' OR a.lastname LIKE ' . $search . ')');
 			}
 		}
 
@@ -267,24 +260,26 @@ class PlayersModel extends ListModel
 		// JSON Decode Teams
 		foreach ($items as &$item)
 		{
-			$item->teams = $item->teams !== NULL ? json_decode($item->teams) : [];
+			$item->teams = $item->teams !== null ? json_decode($item->teams) : [];
 			// order teams by ordering
-			usort($item->teams, function($a, $b) {
+			usort($item->teams, function ($a, $b) {
 				return $a->ordering <=> $b->ordering;
 			});
 		}
+
 		return $items;
 
 	}
 
 	public function exportItems($ids)
 	{
-		$db = $this->getDatabase();
+		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 		$query->select('*');
 		$query->from($db->quoteName('#__footballmanager_players'));
 		$query->where($db->quoteName('id') . ' IN (' . implode(',', $ids) . ')');
 		$db->setQuery($query);
+
 		return $db->loadAssocList();
 	}
 
