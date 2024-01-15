@@ -94,11 +94,15 @@ if($params->get('show_filters_by_default', 0)){
                                 </th>
 
                                 <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
-									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_TEAMS'); ?>
+									<?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_TEAM'); ?>
                                 </th>
 
-                                <th>
+                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+		                            <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_POSITION'); ?>
+                                </th>
 
+                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+		                            <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_DURATION'); ?>
                                 </th>
                                 <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'author_name', $listDirn, $listOrder); ?>
@@ -178,6 +182,13 @@ if($params->get('show_filters_by_default', 0)){
 										<?php endforeach; ?>
                                     </td>
                                     <td class="small">
+		                                <?php foreach ($item->teams as $linkedTeam): ?>
+                                            <div>
+                                                <span class="team-name"><?php echo $linkedTeam->position; ?></span>
+                                            </div>
+		                                <?php endforeach; ?>
+                                    </td>
+                                    <td class="small">
 	                                    <?php foreach ($item->teams as $linkedTeam): ?>
                                             <div class="text-nowrap">
 			                                    <?php if ($linkedTeam->since): ?>
@@ -189,6 +200,10 @@ if($params->get('show_filters_by_default', 0)){
 				                                    <?php else: ?>
                                                         <span class="small text-muted until-now"><?php echo Text::_("COM_FOOTBALLMANAGER_NOW") ?></span>
 				                                    <?php endif; ?>
+
+                                                <?php else: ?>
+
+                                                <span class="small">&nbsp;</span>
 
 			                                    <?php endif; ?>
 

@@ -129,11 +129,15 @@ class PlayersModel extends ListModel
 
 		// Subquery all teams for a player and use them as array in the player object as "teams"
 		$subQuery = $db->getQuery(true);
-		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", pt.since, "until", pt.until, "ordering", pt.ordering)) as teams')
+		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", pt.since, "until", pt.until, "ordering", pt.ordering, "position", pos.title)) as teams')
 			->from($db->quoteName('#__footballmanager_players_teams', 'pt'))
 			->join(
 				'LEFT',
 				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('pt.team_id')
+			)
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_positions', 'pos') . ' ON ' . $db->quoteName('pos.id') . ' = ' . $db->quoteName('pt.position_id')
 			)
 			->where($db->quoteName('pt.player_id') . ' = ' . $db->quoteName('a.id'));
 
@@ -256,15 +260,12 @@ class PlayersModel extends ListModel
 	public function getItems()
 	{
 		$items = parent::getItems();
-		echo '<pre>' . var_export($items, true) . '</pre>';
 		// JSON Decode Teams
 		foreach ($items as &$item)
 		{
 			$item->teams = $item->teams !== null ? json_decode($item->teams) : [];
 			// order teams by ordering
-			usort($item->teams, function ($a, $b) {
-				return $a->ordering <=> $b->ordering;
-			});
+			usort($item->teams, fn($a, $b) => $a->ordering <=> $b->ordering);
 		}
 
 		return $items;
