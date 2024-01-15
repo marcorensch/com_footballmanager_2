@@ -42,7 +42,7 @@ class OfficialsPositionsField extends SubformField {
 
 		// Add the fields to the form.
 		foreach ($positions as $position){
-			$xml = new SimpleXMLElement('<field name="custom_official_'.$position->id.'" type="officials" label="'.$position->title.'" />');
+			$xml = new SimpleXMLElement('<field name="custom_official_'.$position->id.'" type="officials" layout="joomla.form.field.list-fancy-select" label="'.$position->title.'" />');
 			// Add the field to the form
 			$form->setField($xml, $group = null, $replace = true, $fieldset = 'default');
 		}

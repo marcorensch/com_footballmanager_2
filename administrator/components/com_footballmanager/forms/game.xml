@@ -233,6 +233,7 @@
         <field
                 name="head_referee_id"
                 type="officials"
+                layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_HEAD_REFEREE_LABEL"
                 required="false"
                 description="COM_FOOTBALLMANAGER_FIELD_HEAD_REFEREE_DESC"
