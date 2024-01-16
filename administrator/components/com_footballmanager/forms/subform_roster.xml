@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Repeatable Subform -->
+<form
+        addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
+        class="subform-roster"
+>
+    <fieldset name="playerselect" class="col-lg-4">
+        <field
+                name="player"
+                type="DynamicPlayers"
+                label="Player"
+                class="roster-player-select"
+                layout="joomla.form.field.list-fancy-select"
+        />
+    </fieldset>
+   <fieldset name="playerposition" class="col-lg-4">
+       <field
+               name="position"
+               type="Positions"
+               label="Position"
+               context="player"
+               layout="joomla.form.field.list-fancy-select"
+       />
+   </fieldset>
+    <fieldset name="playernumber" class="col-lg-4">
+        <field
+                name="number"
+                type="text"
+                label="Number"
+        />
+    </fieldset>
+
+</form>

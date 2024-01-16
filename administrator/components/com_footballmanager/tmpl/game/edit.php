@@ -51,10 +51,44 @@ document.addEventListener("DOMContentLoaded", () => {
         el.classList.add('col-lg-4');
     });
     
+    const tabSet = document.querySelector('joomla-tab-element#rosters div.row joomla-tab#myTab div');
+    tabSet.classList.add('justify-content-center');
+    
+    // Roster Selection
+    // Event Listener on Change for each player select element that is a roster selection
+    let rosterSelects = document.querySelectorAll('joomla-field-fancy-select.roster-player-select select');
+    console.log(rosterSelects);
+    
+    // Add Event Listener (change) on each select element
+    for (let rosterSelect of rosterSelects ) {
+      rosterSelect.addEventListener('change', handleRosterSelectChange);
+    }
+    
+    // Update list of players when a new player got added (on subform-row-add in joomla-field-fancy-select.roster-player-select)
+    document.addEventListener('subform-row-add', (event) => {
+        if (event.detail.row.querySelector('joomla-field-fancy-select.roster-player-select')) {
+            rosterSelects = document.querySelectorAll('joomla-field-fancy-select.roster-player-select select');
+            console.log(rosterSelects);
+        }
+    });
+    
+    function handleRosterSelectChange(event){
+        console.log('handleRosterSelectChange');
+        console.log(event);
+    }
+    
 });
 JS
 );
-//$wa->addInlineStyle('.switcher label { cursor: pointer; min-width: 2rem; } .nxd-fieldset .control-group .control-label {width:100%;} .nxd-fieldset .controls { min-width: unset;}');
+$wa->addInlineStyle(<<<CSS
+#rosters joomla-tab-element {
+    padding-left:0; padding-right:0; padding-top:10px;
+    }
+label#jform_home_roster_offense-lbl, label#jform_home_roster_defense-lbl, label#jform_home_roster_special-lbl, label#jform_away_roster_offense-lbl, label#jform_away_roster_defense-lbl, label#jform_away_roster_special-lbl {
+    display: none;
+    }
+CSS
+);
 
 $layout = 'edit';
 $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
@@ -78,7 +112,7 @@ $current_user = Factory::getApplication()->getIdentity();
     </div>
 
     <div class="main-card">
-		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'officials']); ?>
+		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'rosters']); ?>
 
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'base', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
@@ -171,9 +205,62 @@ $current_user = Factory::getApplication()->getIdentity();
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'rosters', Text::_('COM_FOOTBALLMANAGER_TAB_ROSTERS_LABEL')); ?>
         <div class="row">
-            <div class="col">
+			<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'roster-home', 'class' => 'justify-content-center']); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-home', Text::_('COM_FOOTBALLMANAGER_TAB_HOME_LABEL')); ?>
 
-            </div>
+                <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'roster-home-offense', 'orientation' => 'vertical']); ?>
+                    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-home-offense', Text::_('COM_FOOTBALLMANAGER_TAB_OFFENSE_LABEL')); ?>
+                    <div class="row">
+                        <div class="col-lg-12 ps-5">
+                            <?php echo $this->getForm()->renderField('home_roster_offense'); ?>
+                        </div>
+                    </div>
+                    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+                    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-home-defense', Text::_('COM_FOOTBALLMANAGER_TAB_DEFENSE_LABEL')); ?>
+                    <div class="row">
+                        <div class="col-lg-12 ps-5">
+                            <?php echo $this->getForm()->renderField('home_roster_defense'); ?>
+                        </div>
+                    </div>
+                    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+                    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-home-special', Text::_('COM_FOOTBALLMANAGER_TAB_SPECIAL_LABEL')); ?>
+                    <div class="row">
+                        <div class="col-lg-12 ps-5">
+                            <?php echo $this->getForm()->renderField('home_roster_special'); ?>
+                        </div>
+                    </div>
+                    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+                <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
+
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-away', Text::_('COM_FOOTBALLMANAGER_TAB_AWAY_LABEL')); ?>
+
+                <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'roster-away-offense', 'orientation' => 'vertical']); ?>
+                    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-away-offense', Text::_('COM_FOOTBALLMANAGER_TAB_OFFENSE_LABEL')); ?>
+                    <div class="row">
+                        <div class="col-lg-12 ps-5">
+                            <?php echo $this->getForm()->renderField('away_roster_offense'); ?>
+                        </div>
+                    </div>
+                    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+                    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-away-defense', Text::_('COM_FOOTBALLMANAGER_TAB_DEFENSE_LABEL')); ?>
+                    <div class="row">
+                        <div class="col-lg-12 ps-5">
+                            <?php echo $this->getForm()->renderField('away_roster_defense'); ?>
+                        </div>
+                    </div>
+                    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+                    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-away-special', Text::_('COM_FOOTBALLMANAGER_TAB_SPECIAL_LABEL')); ?>
+                    <div class="row">
+                        <div class="col-lg-12 ps-5">
+                            <?php echo $this->getForm()->renderField('away_roster_special'); ?>
+                        </div>
+                    </div>
+                    <?php echo HTMLHelper::_('uitab.endTab'); ?>
+			    <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
+
+			<?php echo HTMLHelper::_('uitab.endTab'); ?>
+			<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 

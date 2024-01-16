@@ -269,16 +269,80 @@
                 default=""
         />
 
+
+        <!-- Rosters -->
         <field
-                name="player_teams"
+                name="home_roster_offense"
+                label=""
                 type="subform"
-                min="1"
+                min="0"
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"
-                class="player_teams"
-                formsource="administrator/components/com_footballmanager/forms/subform_player_teams.xml"
+                class="home_roster_offense"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
         />
+
+        <field
+                name="home_roster_defense"
+                label=""
+                type="subform"
+                min="0"
+                layout="joomla.form.field.subform.repeatable"
+                groupByFieldset="true"
+                multiple="true"
+                class="home_roster_defense"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+        />
+
+        <field
+                name="home_roster_special"
+                label=""
+                type="subform"
+                min="0"
+                layout="joomla.form.field.subform.repeatable"
+                groupByFieldset="true"
+                multiple="true"
+                class="home_roster_special"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+        />
+
+        <field
+                name="away_roster_offense"
+                label=""
+                type="subform"
+                min="0"
+                layout="joomla.form.field.subform.repeatable"
+                groupByFieldset="true"
+                multiple="true"
+                class="away_roster_offense"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+        />
+
+        <field
+                name="away_roster_defense"
+                label=""
+                type="subform"
+                min="0"
+                layout="joomla.form.field.subform.repeatable"
+                groupByFieldset="true"
+                multiple="true"
+                class="away_roster_defense"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+        />
+
+        <field
+                name="away_roster_special"
+                label=""
+                type="subform"
+                min="0"
+                layout="joomla.form.field.subform.repeatable"
+                groupByFieldset="true"
+                multiple="true"
+                class="away_roster_special"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+        />
+
 
         <field name="params" type="textarea" label="params" description="params"/>
 

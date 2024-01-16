@@ -131,6 +131,12 @@ class GameModel extends AdminModel
 		// handle sponsors
 		$data['sponsors'] = json_encode($data['sponsors']);
 		$data['officials'] = json_encode($data['officials']);
+		$data['home_roster_offense'] = json_encode($data['home_roster_offense']);
+		$data['home_roster_defense'] = json_encode($data['home_roster_defense']);
+		$data['home_roster_special_teams'] = json_encode($data['home_roster_special_teams']);
+		$data['away_roster_offense'] = json_encode($data['away_roster_offense']);
+		$data['away_roster_defense'] = json_encode($data['away_roster_defense']);
+		$data['away_roster_special_teams'] = json_encode($data['away_roster_special_teams']);
 
 		// handle matchday not set
 		if($data['matchday'] === 0 || $data['matchday'] === '')
