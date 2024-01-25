@@ -2,14 +2,15 @@
 <!-- Repeatable Subform -->
 <form
         addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
-        class="subform-roster"
+        class="subform-roster-away"
 >
     <fieldset name="playerselect" class="col-lg-4">
         <field
                 name="player"
                 type="DynamicPlayers"
                 label="Player"
-                class="roster-player-select"
+                class="roster-player-select away"
+                reference="away"
                 layout="joomla.form.field.list-fancy-select"
         />
     </fieldset>

@@ -116,4 +116,27 @@ class PlayersController extends AdminController
 	}
 
 
+	/**
+	 * @description AJAX Method to get all players from a team
+	 *
+	 * @since version
+	 */
+	public function getTeamPlayers(){
+		$homeTeamId = $this->input->get('homeTeamId', 0, 'INT');
+		$awayTeamId = $this->input->get('awayTeamId', 0, 'INT');
+		$playersModel = $this->getModel('players');
+		$players = new \stdClass();
+		$players->home = $playersModel->getPlayersForTeam($homeTeamId);
+		$players->away = $playersModel->getPlayersForTeam($awayTeamId);
+		$this->ajaxResponse($players);
+	}
+
+	protected function ajaxResponse($players){
+		$response = new \stdClass();
+		$response->success = true;
+		$response->data = $players;
+		echo json_encode($response);
+	}
+
+
 }

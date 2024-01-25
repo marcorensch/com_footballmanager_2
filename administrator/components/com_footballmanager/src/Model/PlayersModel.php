@@ -295,4 +295,25 @@ class PlayersModel extends ListModel
 
 		return $form;
 	}
+
+	public function getPlayersForTeam($teamId){
+		if(!$teamId){
+			return [];
+		}
+
+		$db    = $this->getDatabase();
+		$query = $db->getQuery(true);
+		$query->select('p.id, p.firstname, p.lastname, p.published, pt.player_number, pt.position_id AS position_id');
+		$query->from('#__footballmanager_players_teams AS pt');
+		$query->join(
+			'LEFT',
+			$db->quoteName('#__footballmanager_players', 'p') . ' ON ' . $db->quoteName('p.id') . ' = ' . $db->quoteName('pt.player_id')
+		);
+		$query->where('pt.team_id = ' . $db->quote($teamId));
+		$query->where('pt.until IS NULL');
+		$query->where('p.published = 1');
+		$query->order('pt.ordering ASC');
+		$db->setQuery($query);
+		return $db->loadObjectList();
+	}
 }

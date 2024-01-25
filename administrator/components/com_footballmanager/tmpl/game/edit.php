@@ -34,22 +34,26 @@ $wa->useScript('keepalive')
 	->useScript('form.validate');
 
 $wa->addInlineScript(<<<JS
-
-document.addEventListener("DOMContentLoaded", () => {
-    const officialsRow = document.getElementById('officials-row');
-    const customOfficialsRow = document.getElementById('custom-officials-row');
-    // add class to all children of officials-row
-    officialsRow.querySelectorAll('.control-group').forEach((el) => {
-        el.classList.add('col-lg-4');
-    });
+document.addEventListener("DOMContentLoaded", async () => {
     
-    // add class to all children of custom-officials-row
-    customOfficialsRow.querySelectorAll('#custom-officials-row .subform-wrapper').forEach((el) => {
-        el.classList.add('row');
-    });
-    customOfficialsRow.querySelectorAll('.controls .control-group').forEach((el) => {
-        el.classList.add('col-lg-4');
-    });
+    let players = {};
+    
+    async function getPlayersForTeams(){
+        const homeTeamId = document.querySelector('[name="jform[home_team_id]"]').value;
+        const awayTeamId = document.querySelector('[name="jform[away_team_id]"]').value;
+        let request = await jQuery.ajax({
+            url: "index.php?option=com_footballmanager&controller=players&task=getTeamPlayers&format=json", 
+            type: "POST",
+            data: {homeTeamId, awayTeamId}, 
+            success: function(result){ 
+                if(result.status === 200) {
+                    return result.data;
+                }
+                return false;
+            }
+        });
+        return request.data;
+    }
     
     const tabSet = document.querySelector('joomla-tab-element#rosters div.row joomla-tab#myTab div');
     tabSet.classList.add('justify-content-center');
@@ -64,11 +68,29 @@ document.addEventListener("DOMContentLoaded", () => {
       rosterSelect.addEventListener('change', handleRosterSelectChange);
     }
     
-    // Update list of players when a new player got added (on subform-row-add in joomla-field-fancy-select.roster-player-select)
     document.addEventListener('subform-row-add', (event) => {
+        
+        // Set list of players when a new player (row) got added (on subform-row-add in joomla-field-fancy-select.roster-player-select)
         if (event.detail.row.querySelector('joomla-field-fancy-select.roster-player-select')) {
+            // Update list of roster select inputs
             rosterSelects = document.querySelectorAll('joomla-field-fancy-select.roster-player-select select');
-            console.log(rosterSelects);
+            
+            // Get the context (home or away) by the parent element of class 'team-roster-container'
+            const context = event.detail.row.closest('.team-roster-container').dataset.team;
+            // Set the players as options for the select element
+            if(players[context]){
+                const playersSelect = event.detail.row.querySelector('joomla-field-fancy-select.roster-player-select');
+                const options = players[context].map((player) => {
+                    const option = {}; //{ value: 'One', label: 'Label One', disabled: true },
+                        option.label = player.player_number + ' | ' + player.firstname + ' ' + player.lastname;
+                        option.value = player.id;
+                        option.disabled = false;
+                        return option;
+                });
+                
+                playersSelect.choicesInstance.setChoices(options, 'value', 'label', false );
+                
+            }
         }
     });
     
@@ -76,6 +98,28 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log('handleRosterSelectChange');
         console.log(event);
     }
+    
+    players = await getPlayersForTeams();
+    
+});
+
+// Official Selection
+document.addEventListener("DOMContentLoaded", () => {
+    
+    const officialsRow = document.getElementById('officials-row');
+    const customOfficialsRow = document.getElementById('custom-officials-row');
+    // add class to all children of officials-row
+    officialsRow.querySelectorAll('.control-group').forEach((el) => {
+        el.classList.add('col-lg-4');
+    });
+    
+    // add class to all children of custom-officials-row
+    customOfficialsRow.querySelectorAll('#custom-officials-row .subform-wrapper').forEach((el) => {
+        el.classList.add('row');
+    });
+    customOfficialsRow.querySelectorAll('.controls .control-group').forEach((el) => {
+        el.classList.add('col-lg-4');
+    });
     
 });
 JS
@@ -207,7 +251,7 @@ $current_user = Factory::getApplication()->getIdentity();
         <div class="row">
 			<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'roster-home', 'class' => 'justify-content-center']); ?>
 			<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-home', Text::_('COM_FOOTBALLMANAGER_TAB_HOME_LABEL')); ?>
-
+            <div class="team-roster-container" data-team="home">
                 <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'roster-home-offense', 'orientation' => 'vertical']); ?>
                     <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-home-offense', Text::_('COM_FOOTBALLMANAGER_TAB_OFFENSE_LABEL')); ?>
                     <div class="row">
@@ -231,10 +275,10 @@ $current_user = Factory::getApplication()->getIdentity();
                     </div>
                     <?php echo HTMLHelper::_('uitab.endTab'); ?>
                 <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
-
+            </div>
 			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 			<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-away', Text::_('COM_FOOTBALLMANAGER_TAB_AWAY_LABEL')); ?>
-
+            <div class="team-roster-container" data-team="away">
                 <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'roster-away-offense', 'orientation' => 'vertical']); ?>
                     <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'roster-away-offense', Text::_('COM_FOOTBALLMANAGER_TAB_OFFENSE_LABEL')); ?>
                     <div class="row">
@@ -258,7 +302,7 @@ $current_user = Factory::getApplication()->getIdentity();
                     </div>
                     <?php echo HTMLHelper::_('uitab.endTab'); ?>
 			    <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
-
+            </div>
 			<?php echo HTMLHelper::_('uitab.endTab'); ?>
 			<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
         </div>

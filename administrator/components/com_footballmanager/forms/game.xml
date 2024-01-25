@@ -280,7 +280,7 @@
                 groupByFieldset="true"
                 multiple="true"
                 class="home_roster_offense"
-                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster_home.xml"
         />
 
         <field
@@ -292,7 +292,7 @@
                 groupByFieldset="true"
                 multiple="true"
                 class="home_roster_defense"
-                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster_home.xml"
         />
 
         <field
@@ -304,7 +304,7 @@
                 groupByFieldset="true"
                 multiple="true"
                 class="home_roster_special"
-                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster_home.xml"
         />
 
         <field
@@ -316,7 +316,7 @@
                 groupByFieldset="true"
                 multiple="true"
                 class="away_roster_offense"
-                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster_away.xml"
         />
 
         <field
@@ -328,7 +328,7 @@
                 groupByFieldset="true"
                 multiple="true"
                 class="away_roster_defense"
-                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster_away.xml"
         />
 
         <field
@@ -340,7 +340,7 @@
                 groupByFieldset="true"
                 multiple="true"
                 class="away_roster_special"
-                formsource="administrator/components/com_footballmanager/forms/subform_roster.xml"
+                formsource="administrator/components/com_footballmanager/forms/subform_roster_away.xml"
         />
 
 
