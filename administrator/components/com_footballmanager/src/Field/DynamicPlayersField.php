@@ -63,6 +63,12 @@ class DynamicPlayersField extends ListField
 //			$options[] = HTMLHelper::_('select.option', $player->id, $optionString);
 //		}
 
+		// Add hidden option with the current value if it is not empty so we can use it in the javascript.
+		if (!empty($this->value))
+		{
+			$option = HTMLHelper::_('select.option', $this->value, '-- Loading --');
+			array_unshift($options, $option);
+		}
 
 		// Merge any additional options in the XML definition.
 		$options = array_merge(parent::getOptions(), $options);

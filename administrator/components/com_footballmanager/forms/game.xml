@@ -279,7 +279,7 @@
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"
-                class="home_roster_offense"
+                class="home_roster_offense roster-subform"
                 formsource="administrator/components/com_footballmanager/forms/subform_roster_home.xml"
         />
 
@@ -291,7 +291,7 @@
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"
-                class="home_roster_defense"
+                class="home_roster_defense roster-subform"
                 formsource="administrator/components/com_footballmanager/forms/subform_roster_home.xml"
         />
 
@@ -303,7 +303,7 @@
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"
-                class="home_roster_special"
+                class="home_roster_special roster-subform"
                 formsource="administrator/components/com_footballmanager/forms/subform_roster_home.xml"
         />
 
@@ -315,7 +315,7 @@
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"
-                class="away_roster_offense"
+                class="away_roster_offense roster-subform"
                 formsource="administrator/components/com_footballmanager/forms/subform_roster_away.xml"
         />
 
@@ -327,7 +327,7 @@
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"
-                class="away_roster_defense"
+                class="away_roster_defense roster-subform"
                 formsource="administrator/components/com_footballmanager/forms/subform_roster_away.xml"
         />
 
@@ -339,7 +339,7 @@
                 layout="joomla.form.field.subform.repeatable"
                 groupByFieldset="true"
                 multiple="true"
-                class="away_roster_special"
+                class="away_roster_special roster-subform"
                 formsource="administrator/components/com_footballmanager/forms/subform_roster_away.xml"
         />
 

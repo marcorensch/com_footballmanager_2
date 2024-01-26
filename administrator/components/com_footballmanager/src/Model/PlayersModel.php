@@ -303,7 +303,7 @@ class PlayersModel extends ListModel
 
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
-		$query->select('p.id, p.firstname, p.lastname, p.published, pt.player_number, pt.position_id AS position_id');
+		$query->select('pt.id AS players_teams_id, p.id AS player_id, p.firstname, p.lastname, p.published, pt.player_number, pt.position_id AS position_id');
 		$query->from('#__footballmanager_players_teams AS pt');
 		$query->join(
 			'LEFT',
