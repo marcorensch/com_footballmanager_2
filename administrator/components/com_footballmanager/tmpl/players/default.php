@@ -178,6 +178,9 @@ if($params->get('show_filters_by_default', 0)){
 										<?php foreach ($item->teams as $linkedTeam): ?>
                                             <div>
                                                 <span class="team-name"><?php echo $linkedTeam->title; ?></span>
+                                                <?php if($linkedTeam->league) :?>
+                                                    <span class="team-league">(<?php echo $linkedTeam->league; ?>)</span>
+                                                <?php endif; ?>
                                             </div>
 										<?php endforeach; ?>
                                     </td>

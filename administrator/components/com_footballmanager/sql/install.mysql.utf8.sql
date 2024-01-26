@@ -352,6 +352,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players_teams`
     `player_id`     int(11) NOT NULL,
     `player_number` int(11) NOT NULL,
     `position_id`   int(11)          DEFAULT NULL,
+    `league_id`     int(11)          DEFAULT NULL,
     `image`         varchar(255)     DEFAULT NULL,
     `since`         datetime         DEFAULT NULL,
     `until`         datetime         DEFAULT NULL,
@@ -361,9 +362,11 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players_teams`
     KEY `idx_team` (`team_id`),
     KEY `idx_coach` (`player_id`),
     KEY `idx_position` (`position_id`),
+    KEY `idx_league` (`league_id`),
     CONSTRAINT `fk_pt_team_id` FOREIGN KEY (`team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_pt_coach_id` FOREIGN KEY (`player_id`) REFERENCES `#__footballmanager_players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_pt_position_id` FOREIGN KEY (`position_id`) REFERENCES `#__footballmanager_positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `fk_pt_position_id` FOREIGN KEY (`position_id`) REFERENCES `#__footballmanager_positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_pt_league_id` FOREIGN KEY (`league_id`) REFERENCES `#__footballmanager_leagues` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_games`

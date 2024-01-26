@@ -45,13 +45,16 @@ class LeaguesField extends ListField{
 		$query->from('#__footballmanager_leagues');
 		$query->order('ordering ASC');
 		$db->setQuery($query);
-		$teams = $db->loadObjectList();
+		$leagues = $db->loadObjectList();
 
 		$options = [];
-		$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_LEAGUE'));
-		foreach ($teams as $team)
+		if($this->getAttribute('show_select') != 'false')
 		{
-			$options[] = HTMLHelper::_('select.option', $team->id, $team->title);
+			$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_LEAGUE'));
+		}
+		foreach ($leagues as $league)
+		{
+			$options[] = HTMLHelper::_('select.option', $league->id, $league->title);
 		}
 
 

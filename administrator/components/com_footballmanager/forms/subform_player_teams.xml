@@ -60,7 +60,7 @@
                 onchange="console.log(this.oldvalue, this.value);"
         />
     </fieldset>
-    <fieldset name="dates" class="col-lg-6 col-xl-4">
+    <fieldset name="additional" class="col-lg-6 col-xl-4">
 
         <field
                 name="since"
@@ -76,6 +76,17 @@
                 translateformat="true"
                 filter="user_utc"
         />
+        <field
+            name="league_id"
+            type="Leagues"
+            label="COM_FOOTBALLMANAGER_FIELD_SELECT_LEAGUE_LABEL"
+            default="0"
+            show_select="false"
+            class="btn-group btn-group-yesno"
+        >
+            <option value="0">COM_FOOTBALLMANAGER_OPTION_INACTIVE</option>
+        </field>
+
     </fieldset>
 
 </form>

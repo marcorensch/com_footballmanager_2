@@ -37,6 +37,17 @@
         </field>
 
         <field
+                name="league_id"
+                type="Leagues"
+                label="COM_FOOTBALLMANAGER_LEAGUE"
+                onchange="this.form.submit();"
+                default=""
+                show_select="false"
+        >
+            <option value="">COM_FOOTBALLMANAGER_FIELD_FILTER_DEFAULT_SELECT_LEAGUE</option>
+        </field>
+
+        <field
                 name="published"
                 type="status"
                 label="JOPTION_SELECT_PUBLISHED"

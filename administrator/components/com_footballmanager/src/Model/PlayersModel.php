@@ -126,10 +126,13 @@ class PlayersModel extends ListModel
 		// Filter by Team ID
 		$filterTeamId = $this->getState('filter.team_id');
 
+		// Filter by League ID
+		$filterLeagueId = $this->getState('filter.league_id');
+
 
 		// Subquery all teams for a player and use them as array in the player object as "teams"
 		$subQuery = $db->getQuery(true);
-		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", pt.since, "until", pt.until, "ordering", pt.ordering, "position", pos.title)) as teams')
+		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", pt.since, "until", pt.until, "ordering", pt.ordering, "position", pos.title, "league" , l.title)) as teams')
 			->from($db->quoteName('#__footballmanager_players_teams', 'pt'))
 			->join(
 				'LEFT',
@@ -138,6 +141,10 @@ class PlayersModel extends ListModel
 			->join(
 				'LEFT',
 				$db->quoteName('#__footballmanager_positions', 'pos') . ' ON ' . $db->quoteName('pos.id') . ' = ' . $db->quoteName('pt.position_id')
+			)
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_leagues', 'l') . ' ON ' . $db->quoteName('l.id') . ' = ' . $db->quoteName('pt.league_id')
 			)
 			->where($db->quoteName('pt.player_id') . ' = ' . $db->quoteName('a.id'));
 
@@ -161,6 +168,18 @@ class PlayersModel extends ListModel
 
 			// Modify the main query to include the nested query in the WHERE clause
 			$query->where($db->quote($filterTeamId) . ' IN (' . $subQueryFilterTeam . ')');
+		}
+
+		if (is_numeric($filterLeagueId))
+		{
+			// Select teamIds using a nested query
+			$subQueryFilterLeague = $db->getQuery(true);
+			$subQueryFilterLeague->select('GROUP_CONCAT(DISTINCT ' . $db->quoteName('ptf.league_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",") AS leagueIds')
+				->from($db->quoteName('#__footballmanager_players_teams', 'ptf'))
+				->where($db->quoteName('ptf.player_id') . ' = ' . $db->quoteName('a.id'));
+
+			// Modify the main query to include the nested query in the WHERE clause
+			$query->where($db->quote($filterLeagueId) . ' IN (' . $subQueryFilterLeague . ')');
 		}
 
 

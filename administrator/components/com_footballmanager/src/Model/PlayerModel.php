@@ -310,8 +310,16 @@ class PlayerModel extends AdminModel
 				if(!$teamLinkData['position_id']) $teamLinkData['position_id'] = null;
 				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
 				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
+				if(!$teamLinkData['league_id']) $teamLinkData['league_id'] = null;
 
-				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['player_number'] && !$teamLinkData['image'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
+				if(!$teamLinkData['id'] &&
+					!$teamLinkData['team_id'] &&
+					!$teamLinkData['player_number'] &&
+					!$teamLinkData['image'] &&
+					!$teamLinkData['since'] &&
+					!$teamLinkData['until'] &&
+					!$teamLinkData['position_id'] &&
+					!$teamLinkData['league_id']){
 					continue;
 				}
 
@@ -325,7 +333,7 @@ class PlayerModel extends AdminModel
 						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
 					);
 
-					foreach(array('image','player_number','since', 'until', 'team_id') as $key){
+					foreach(array('image','player_number','since', 'until', 'team_id', 'league_id') as $key){
 						if(!$teamLinkData[$key]){
 							$fields[] = $db->quoteName($key) . ' = NULL';
 						}else{
