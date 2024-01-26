@@ -28,6 +28,28 @@
       }
     },
     {
+      "name": "com_footballmanager.admin-game-roster-js",
+      "type": "script",
+      "uri": "com_footballmanager/admin-game-roster.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_footballmanager.admin-game-officials-js",
+      "type": "script",
+      "uri": "com_footballmanager/admin-game-officials.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
       "name": "com_footballmanager.uikitjs",
       "type": "script",
       "uri": "com_footballmanager/uikit.min.js",
@@ -57,6 +79,11 @@
       "name": "com_footballmanager.sponsorList",
       "type": "style",
       "uri": "com_footballmanager/sponsor-list.css"
+    },
+    {
+      "name": "com_footballmanager.admin-game-officials-css",
+      "type": "style",
+      "uri": "com_footballmanager/admin-game-officials.css"
     }
   ]
 }

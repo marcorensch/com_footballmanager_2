@@ -1,0 +1,13 @@
+#rosters joomla-tab-element {
+    padding-left:0;
+    padding-right:0;
+    padding-top:10px;
+}
+label#jform_home_roster_offense-lbl,
+label#jform_home_roster_defense-lbl,
+label#jform_home_roster_special-lbl,
+label#jform_away_roster_offense-lbl,
+label#jform_away_roster_defense-lbl,
+label#jform_away_roster_special-lbl {
+    display: none;
+}
