@@ -126,6 +126,9 @@ class PlayersModel extends ListModel
 		// Filter by Team ID
 		$filterTeamId = $this->getState('filter.team_id');
 
+		// Filter by active only
+		$onlyActive = $this->getState('filter.only_active');
+
 		// Filter by League ID
 		$filterLeagueId = $this->getState('filter.league_id');
 
@@ -150,36 +153,42 @@ class PlayersModel extends ListModel
 
 		$query->select('(' . $subQuery . ') as teams');
 
-		if (is_numeric($filterTeamId))
-		{
-			// Select teamIds using a nested query
+		if (is_numeric($filterTeamId)){
 			$subQueryFilterTeam = $db->getQuery(true);
-			$subQueryFilterTeam->select('GROUP_CONCAT(DISTINCT ' . $db->quoteName('ptf.team_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",") AS teamIds')
+			$subQueryFilterTeam->select('GROUP_CONCAT(' . $db->quoteName('ptf.team_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",")')
 				->from($db->quoteName('#__footballmanager_players_teams', 'ptf'))
 				->where($db->quoteName('ptf.player_id') . ' = ' . $db->quoteName('a.id'));
 
 			// filter for active Only
-			$onlyActive = $this->getState('filter.only_active');
-			if ($onlyActive)
+			if ($onlyActive === '1')
 			{
 				$subQueryFilterTeam->where('(' . $db->quoteName('ptf.since') . ' IS NULL OR ' . $db->quoteName('ptf.since') . ' <= NOW())');
 				$subQueryFilterTeam->where('(' . $db->quoteName('ptf.until') . ' IS NULL OR ' . $db->quoteName('ptf.until') . ' >= NOW())');
 			}
 
 			// Modify the main query to include the nested query in the WHERE clause
-			$query->where($db->quote($filterTeamId) . ' IN (' . $subQueryFilterTeam . ')');
+			$query->where('FIND_IN_SET (' . $db->quote($filterTeamId) . ', (' . $subQueryFilterTeam . '))');
 		}
 
+		// Filter by League ID
 		if (is_numeric($filterLeagueId))
 		{
 			// Select teamIds using a nested query
 			$subQueryFilterLeague = $db->getQuery(true);
-			$subQueryFilterLeague->select('GROUP_CONCAT(DISTINCT ' . $db->quoteName('ptf.league_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",") AS leagueIds')
+			$subQueryFilterLeague->select('GROUP_CONCAT(' . $db->quoteName('ptf.league_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",") AS leagueIds')
 				->from($db->quoteName('#__footballmanager_players_teams', 'ptf'))
 				->where($db->quoteName('ptf.player_id') . ' = ' . $db->quoteName('a.id'));
 
+			// Adding Custom Filter if only active && teamId is set to show only active players for the selected team AND the selected league
+			if (is_numeric($filterTeamId) && $onlyActive === '1')
+			{
+				$subQueryFilterLeague->where('(' . $db->quoteName('ptf.since') . ' IS NULL OR ' . $db->quoteName('ptf.since') . ' <= NOW())');
+				$subQueryFilterLeague->where('(' . $db->quoteName('ptf.until') . ' IS NULL OR ' . $db->quoteName('ptf.until') . ' >= NOW())');
+			}
+
+
 			// Modify the main query to include the nested query in the WHERE clause
-			$query->where($db->quote($filterLeagueId) . ' IN (' . $subQueryFilterLeague . ')');
+			$query->where('FIND_IN_SET (' . $db->quote($filterLeagueId) . ', (' . $subQueryFilterLeague . '))');
 		}
 
 
