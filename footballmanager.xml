@@ -136,6 +136,13 @@
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=official&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
+            <menu link="option=com_footballmanager&amp;view=cheerleaders">
+                COM_FOOTBALLMANAGER_CHEERLEADERS
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=cheerleader&amp;layout=edit</menu-quicktask>
+                </params>
+            </menu>
             <menu link="option=com_footballmanager&amp;view=sponsors">
                 COM_FOOTBALLMANAGER_SPONSORS
                 <params>

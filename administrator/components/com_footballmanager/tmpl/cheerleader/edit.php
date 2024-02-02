@@ -40,7 +40,7 @@ $current_user = Factory::getApplication()->getIdentity();
 
 ?>
 <form action="<?php echo Route::_('index.php?option=com_footballmanager&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
-      method="post" name="adminForm" id="official-form" class="form-validate form-vertical">
+      method="post" name="adminForm" id="cheerleader-form" class="form-validate form-vertical">
 
     <div class="row">
         <div class="col-sm-12 col-md-4">
@@ -64,6 +64,9 @@ $current_user = Factory::getApplication()->getIdentity();
             </div>
             <div class="col-lg-4">
 				<?php echo $this->getForm()->renderField('image'); ?>
+				<?php echo $this->getForm()->renderField('birthday'); ?>
+				<?php echo $this->getForm()->renderField('height'); ?>
+				<?php echo $this->getForm()->renderField('weight'); ?>
 				<?php echo $this->getForm()->renderField('linked_team_id'); ?>
 				<?php echo $this->getForm()->renderField('position_id'); ?>
 				<?php echo $this->getForm()->renderField('catid'); ?>

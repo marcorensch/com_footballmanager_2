@@ -24,7 +24,7 @@ use Joomla\CMS\Language\LanguageHelper;
  *
  * @since  __BUMP_VERSION__
  */
-class OfficialModel extends AdminModel
+class CheerleaderModel extends AdminModel
 {
 	/**
 	 * The type alias for this content type.
@@ -32,7 +32,7 @@ class OfficialModel extends AdminModel
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	public $typeAlias = 'com_footballmanager.official';
+	public $typeAlias = 'com_footballmanager.cheerleader';
 
 	private $itemId = 0;
 
@@ -63,7 +63,7 @@ class OfficialModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm($this->typeAlias, 'official', ['control' => 'jform', 'load_data' => $loadData]);
+		$form = $this->loadForm($this->typeAlias, 'cheerleader', ['control' => 'jform', 'load_data' => $loadData]);
 
 		if (empty($form))
 		{
@@ -86,18 +86,18 @@ class OfficialModel extends AdminModel
 		$app = Factory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState('com_footballmanager.edit.official.data', []);
+		$data = $app->getUserState('com_footballmanager.edit.cheerleader.data', []);
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
-			if ($this->getState('official.id') == 0)
+			if ($this->getState('cheerleader.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.officials.filter.category_id')));
+				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.cheerleaders.filter.category_id')));
 			}
 		}
 
-		$this->preprocessData('com_footballmanager.official', $data);
+		$this->preprocessData('com_footballmanager.cheerleader', $data);
 
 		return $data;
 	}
@@ -113,7 +113,7 @@ class OfficialModel extends AdminModel
 			$item->associations = [];
 			if ($item->id !== null)
 			{
-				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_officials', 'com_footballmanager.official', $item->id, 'id', null);
+				$associations = Associations::getAssociations('com_footballmanager', '#__footballmanager_cheerleaders', 'com_footballmanager.cheerleader', $item->id, 'id', null);
 
 				foreach ($associations as $tag => $association)
 				{
@@ -217,10 +217,6 @@ class OfficialModel extends AdminModel
 			{
 				$app->enqueueMessage($msg, 'warning');
 			}
-		}
-
-		if(!$data['alias']){
-			$data['alias'] = OutputFilter::stringURLSafe($data['lastname']);
 		}
 
 		return parent::save($data);

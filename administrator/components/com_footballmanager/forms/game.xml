@@ -23,13 +23,13 @@
         </field>
         <field
                 name="home_team_id"
-                type="teams"
+                type="Teams"
                 label="COM_FOOTBALLMANAGER_FIELD_HOME_TEAM_LABEL"
                 required="true"
         />
         <field
                 name="away_team_id"
-                type="teams"
+                type="Teams"
                 label="COM_FOOTBALLMANAGER_FIELD_AWAY_TEAM_LABEL"
                 required="true"
         />

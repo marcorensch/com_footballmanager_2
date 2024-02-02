@@ -42,7 +42,7 @@
         />
         <field
                 name="team_id"
-                type="teams"
+                type="Teams"
                 label="COM_FOOTBALLMANAGER_TEAM_TITLE"
                 onfocus="this.oldvalue = this.value;"
                 onchange="console.log(this.oldvalue, this.value);"
