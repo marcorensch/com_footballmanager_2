@@ -18,6 +18,16 @@
             <option value="">JOPTION_SELECT_PUBLISHED</option>
         </field>
         <field
+                name="context"
+                type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_CONTEXT_LABEL"
+                onchange="this.form.submit();"
+        >
+            <option value="">COM_FOOTBALLMANAGER_OPTION_SELECT_CONTEXT</option>
+            <option value="footballmanager.team.football">COM_FOOTBALLMANAGER_FIELD_CONTEXT_FOOTBALL</option>
+            <option value="footballmanager.team.cheerleader">COM_FOOTBALLMANAGER_FIELD_CONTEXT_CHEERLEADER</option>
+        </field>
+        <field
                 name="category_id"
                 type="category"
                 label="JOPTION_SELECT_CATEGORY"

@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Helper;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Installer\Installer;
+use Tobscure\JsonApi\Document;
 
 \defined('_JEXEC') or die;
 

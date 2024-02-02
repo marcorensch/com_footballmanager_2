@@ -56,8 +56,10 @@ $current_user = Factory::getApplication()->getIdentity();
                 <fieldset id="basic-info" class="options-form">
                     <legend><?php echo Text::_('COM_FOOTBALLMANAGER_BASIC'); ?></legend>
                     <div>
+	                    <?php echo $this->getForm()->renderField('context'); ?>
 	                    <?php echo $this->getForm()->renderField('year_established'); ?>
 	                    <?php echo $this->getForm()->renderField('my_team'); ?>
+	                    <?php echo $this->getForm()->renderField('related_team_id'); ?>
 	                    <?php echo $this->getForm()->renderField('shortname'); ?>
 	                    <?php echo $this->getForm()->renderField('shortcode'); ?>
 

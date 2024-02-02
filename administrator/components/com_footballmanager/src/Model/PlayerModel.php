@@ -19,6 +19,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Language\LanguageHelper;
 use Joomla\Input\Json;
+use NXD\Component\Footballmanager\Administrator\Helper\FootballmanagerHelper;
 
 /**
  * Item Model for a location.

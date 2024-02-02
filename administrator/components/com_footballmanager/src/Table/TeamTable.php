@@ -39,7 +39,7 @@ class TeamTable extends Table
         parent::__construct('#__footballmanager_teams', 'id', $db);
     }
 
-    public function check()
+    public function check(): bool
     {
         try {
             parent::check();
@@ -51,7 +51,7 @@ class TeamTable extends Table
         return true;
     }
 
-    public function store($updateNulls = true)
+    public function store($updateNulls = true): bool
     {
 	    // Transform the params field
 	    if (is_array($this->params)) {
@@ -61,6 +61,8 @@ class TeamTable extends Table
 			$this->params = '';
 	    }
 
-	    return parent::store($updateNulls);
+	    error_log(">>>>>>>>>>>>>>>>>>>>>>>>>>>STORE IN TeamTable called >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>< ");
+
+	    return parent::store(true);
     }
 }

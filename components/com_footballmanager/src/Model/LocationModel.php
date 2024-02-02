@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Administrator
+ * @package     Joomla.Site
  * @subpackage  com_footballmanager
  *
  * @copyright   Copyright (c) 2023 NXD | nx-designs

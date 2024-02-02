@@ -30,6 +30,8 @@ class TeamsField extends ListField{
 	 */
 	protected $type = 'Teams';
 
+	protected $context = null;
+
 	/**
 	 * Method to get the field options.
 	 *
@@ -39,10 +41,18 @@ class TeamsField extends ListField{
 	 */
 	protected function getOptions()
 	{
+
+		// Get the context from the field params
+		$this->context = $this->element['context'] ?? null;
+
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		$query->select('id, title');
 		$query->from('#__footballmanager_teams');
+		if($this->context)
+		{
+			$query->where('context = ' . $db->quote($this->context));
+		}
 		$query->order('title ASC');
 		$db->setQuery($query);
 		$teams = $db->loadObjectList();

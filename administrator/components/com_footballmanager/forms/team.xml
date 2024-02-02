@@ -37,8 +37,19 @@
                 class=""
                 label="COM_FOOTBALLMANAGER_FIELD_SHORTNAME_LABEL"
                 size="40"
-                required="true"
+                showon="context:footballmanager.team.football"
         />
+        <field
+                name="related_team_id"
+                type="Teams"
+                layout="joomla.form.field.list-fancy-select"
+                default=""
+                context="footballmanager.team.football"
+                label="COM_FOOTBALLMANAGER_FIELD_RELATED_TEAM_LABEL"
+                showon="context:footballmanager.team.cheerleader"
+        >
+            <option value="">COM_FOOTBALLMANAGER_OPTION_SELECT_TEAM</option>
+        </field>
         <field
                 name="shortcode"
                 type="text"
@@ -47,7 +58,7 @@
                 label="COM_FOOTBALLMANAGER_FIELD_SHORTCODE_LABEL"
                 size="10"
                 maxlength="10"
-                required="true"
+                showon="context:footballmanager.team.football"
         />
 
         <field
@@ -191,65 +202,70 @@
             <option value="1">JYES</option>
         </field>
 
-        <field
-                name="color"
-                type="color"
-                label="COM_FOOTBALLMANAGER_FIELD_COLOR_LABEL"
-                default="rgba(0,0,0, 1)"
-                format="rgba"
+        <field name="color"
+               type="color"
+               label="COM_FOOTBALLMANAGER_FIELD_COLOR_LABEL"
+               default="rgba(0,0,0, 1)"
+               format="rgba"
+               showon="context:footballmanager.team.football"
         />
-        <field
-                name="location_id"
-                type="locations"
-                label="COM_FOOTBALLMANAGER_FIELD_HOME_GROUND_LABEL"
+        <field name="location_id"
+               type="locations"
+               layout="joomla.form.field.list-fancy-select"
+               label="COM_FOOTBALLMANAGER_FIELD_HOME_GROUND_LABEL"
         />
 
-        <field
-                name="sponsors"
-                type="subform"
-                label="COM_FOOTBALLMANAGER_SPONSORS"
-                min="0"
-                max="10"
-                layout="joomla.form.field.subform.repeatable-table"
-                multiple="true"
-                formsource="administrator/components/com_footballmanager/forms/subform_sponsor.xml"
+        <field name="context"
+               type="list"
+                label="COM_FOOTBALLMANAGER_FIELD_CONTEXT_LABEL"
+                default="footballmanager.team.football"
+                description="COM_FOOTBALLMANAGER_FIELD_CONTEXT_DESC"
+        >
+            <option value="footballmanager.team.football">COM_FOOTBALLMANAGER_FIELD_CONTEXT_FOOTBALL</option>
+            <option value="footballmanager.team.cheerleader">COM_FOOTBALLMANAGER_FIELD_CONTEXT_CHEERLEADER</option>
+        </field>
+
+        <field name="sponsors"
+               type="subform"
+               label="COM_FOOTBALLMANAGER_SPONSORS"
+               min="0"
+               max="10"
+               layout="joomla.form.field.subform.repeatable-table"
+               multiple="true"
+               formsource="administrator/components/com_footballmanager/forms/subform_sponsor.xml"
         />
 
         <!-- Contact Fields -->
-        <field
-                name="website"
-                type="url"
-                label="COM_FOOTBALLMANAGER_FIELD_WEB_LABEL"
-                hint="https://www.example.com"
-                validate="url"
+        <field name="website"
+               type="url"
+               label="COM_FOOTBALLMANAGER_FIELD_WEB_LABEL"
+               hint="https://www.example.com"
+               validate="url"
         />
-        <field
-                name="email"
-                type="email"
-                label="COM_FOOTBALLMANAGER_FIELD_EMAIL_LABEL"
-                hint="COM_FOOTBALLMANAGER_FIELD_EMAIL_HINT"
-                validate="email"
+        <field name="email"
+               type="email"
+               label="COM_FOOTBALLMANAGER_FIELD_EMAIL_LABEL"
+               hint="COM_FOOTBALLMANAGER_FIELD_EMAIL_HINT"
+               validate="email"
         />
-        <field
-                name="phone"
-                type="text"
-                label="COM_FOOTBALLMANAGER_FIELD_PHONE_LABEL"
-                pattern="^[\+?\d|\s]*$"
-                hint="COM_FOOTBALLMANAGER_FIELD_PHONE_HINT"
-                message="COM_FOOTBALLMANAGER_FIELD_PHONE_MESSAGE"
+        <field name="phone"
+               type="text"
+               label="COM_FOOTBALLMANAGER_FIELD_PHONE_LABEL"
+               pattern="^[\+?\d|\s]*$"
+               hint="COM_FOOTBALLMANAGER_FIELD_PHONE_HINT"
+               message="COM_FOOTBALLMANAGER_FIELD_PHONE_MESSAGE"
         />
 
-        <field
-                name="catid"
-                type="categoryedit"
-                label="JCATEGORY"
-                extension="com_footballmanager.teams"
-                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
-                default=""
+        <field name="catid"
+               type="categoryedit"
+               label="JCATEGORY"
+               extension="com_footballmanager.teams"
+               addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+               required="true"
+               default=""
         />
 
-        <field name="params" type="textarea" label="params" description="params" />
+        <field name="params" type="textarea" label="params" description="params"/>
 
     </fieldset>
 </form>

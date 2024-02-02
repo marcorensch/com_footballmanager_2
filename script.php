@@ -31,7 +31,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 * @var    string
 	 * @since  __BUMP_VERSION__
 	 */
-	private $minimumJoomlaVersion = '3.10';
+	private $minimumJoomlaVersion = '4.2';
 
 	/**
 	 * Minimum PHP version to check
@@ -44,6 +44,8 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	private $playerPositionsCategoryId = 0;
 	private $coachPositionsCategoryId = 0;
 	private $officialPositionsCategoryId = 0;
+
+	private $cheerleaderPositionsCategoryId = 0;
 
 	/**
 	 * Method to install the extension
@@ -65,16 +67,9 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$this->installCategoryForView('com_footballmanager.teams');
 		$this->installCategoryForView('com_footballmanager.games');
 		$this->installCategoryForView('com_footballmanager.officials');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Referee');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Assistant Referee');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Umpire');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Down Judge');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Line Judge');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Field Judge');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Side Judge');
-//		$this->installCategoryForView('com_footballmanager.officials', 'Back Judge');
 		$this->installCategoryForView('com_footballmanager.coaches');
 		$this->installCategoryForView('com_footballmanager.positions');
+		$this->cheerleaderPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Cheerleader');
 		$this->playerPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Player');
 		$this->coachPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Coach');
 		$this->officialPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Official');
@@ -284,12 +279,20 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 				$this->installPosition('Official', 'Back Judge', 'BJ');
 			}
 
+			// Install Basic set of positions for Cheerleaders
+			if($this->cheerleaderPositionsCategoryId)
+			{
+				$this->installPosition('Cheerleader', 'Base');
+				$this->installPosition('Cheerleader', 'Flyer');
+				$this->installPosition('Cheerleader', 'Backspot');
+			}
+
 		}
 
 		return true;
 	}
 
-	private function installPosition(string $type, string $title, string $abbreviation): void
+	private function installPosition(string $type, string $title, string $abbreviation = ''): void
 	{
 		$alias   = ApplicationHelper::stringURLSafe($title);
 		$now = Factory::getDate()->toSql();
@@ -299,6 +302,8 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$categoryId = false;
 		if($type === 'Player'){
 			$categoryId = $this->playerPositionsCategoryId;
+		}elseif($type === 'Cheerleader'){
+			$categoryId = $this->cheerleaderPositionsCategoryId;
 		}elseif($type === 'Coach'){
 			$categoryId = $this->coachPositionsCategoryId;
 		}elseif ($type === 'Official'){

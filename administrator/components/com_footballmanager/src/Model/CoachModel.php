@@ -351,6 +351,16 @@ class CoachModel extends AdminModel
 				$db->setQuery($query);
 				$db->execute();
 			}
+		}else {
+			// Delete all coaches teams relations in database
+			$db = $this->getDatabase();
+			$query = $db->getQuery(true);
+			$conditions = array(
+				$db->quoteName('coach_id') . ' = ' . $db->quote($data['id'])
+			);
+			$query->delete($db->quoteName('#__footballmanager_coaches_teams'))->where($conditions);
+			$db->setQuery($query);
+			$db->execute();
 		}
 	}
 

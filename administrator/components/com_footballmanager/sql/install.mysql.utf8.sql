@@ -205,11 +205,12 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_teams`
     `ordering`         int(11)                   DEFAULT 0,
     `catid`            int(11)          NOT NULL DEFAULT 0,
     `language`         char(7)          NOT NULL DEFAULT '',
+    `context`          varchar(100)              DEFAULT NULL,
+    `related_team_id`  int(11)                   DEFAULT 0,
 
     PRIMARY KEY (`id`),
     KEY `idx_category` (`catid`),
     CONSTRAINT `unique_columns` UNIQUE (`alias`),
-    CONSTRAINT `fk_teams_location_id` FOREIGN KEY (`location_id`) REFERENCES `#__footballmanager_locations` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_teams_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_teams_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );

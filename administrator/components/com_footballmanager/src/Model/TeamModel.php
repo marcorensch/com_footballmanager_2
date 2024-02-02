@@ -163,7 +163,7 @@ class TeamModel extends AdminModel
 		parent::preprocessForm($form, $data, $group);
 	}
 
-	public function save($data)
+	public function save($data): bool
 	{
 
 		$app   = Factory::getApplication();
@@ -180,10 +180,18 @@ class TeamModel extends AdminModel
 		$data['sponsors'] = json_encode($data['sponsors']);
 
 		// handle location not set
-		if($data['location_id'] === 0 || $data['location_id'] === '')
+		if(!$data['location_id'])
 		{
-			$data['location_id'] = null;
+			$data['location_id'] = 0;
 		}
+
+		// handle related team not set
+		if(!$data['related_team_id'])
+		{
+			$data['related_team_id'] = 0;
+		}
+
+
 
 		// cleanup phonenumbers
 		if($data['phone']){
@@ -256,6 +264,8 @@ class TeamModel extends AdminModel
 				$app->enqueueMessage($msg, 'warning');
 			}
 		}
+
+		error_log(">> ERROR LOG im Model " . var_export($data['related_team_id'], true));
 
 		return parent::save($data);
 	}

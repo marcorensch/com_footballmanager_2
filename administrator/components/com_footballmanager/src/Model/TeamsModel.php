@@ -46,7 +46,8 @@ class TeamsModel extends ListModel
 				'ordering', 'a.ordering',
 				'name', 'u.name',
 				'created_at', 'a.created_at',
-				'location_name', 'loc.title'
+				'location_name', 'loc.title',
+				'context', 'a.context',
 			);
 
 			$assoc = Associations::isEnabled();
@@ -81,7 +82,7 @@ class TeamsModel extends ListModel
 					'a.year_established', 'a.logo', 'a.image', 'a.color', 'a.my_team', 'a.location_id',
 					'a.street', 'a.zip', 'a.city', 'a.website', 'a.email', 'a.phone',
 					'a.state', 'a.published', 'a.created_at', 'a.created_by', 'a.modified_at', 'a.modified_by',
-					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid',
+					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid','a.context'
 				]
 			)
 		);
@@ -142,6 +143,13 @@ class TeamsModel extends ListModel
 				'LEFT',
 				$db->quoteName('#__users', 'mod') . ' ON ' . $db->quoteName('mod.id') . ' = ' . $db->quoteName('a.modified_by')
 			);
+
+		// Filter by context
+		$context = $this->getState('filter.context');
+		if ($context)
+		{
+			$query->where($db->quoteName('a.context') . ' = ' . $db->quote($context));
+		}
 
 		// Filter by location
 		$location = $this->getState('filter.location');
