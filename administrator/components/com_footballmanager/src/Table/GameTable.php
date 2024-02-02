@@ -38,6 +38,10 @@ class GameTable extends Table
 
     public function check()
     {
+
+	    if (!$this->matchday)  $this->matchday = NULL;
+	    if (!$this->new_game_id)  $this->new_game_id = NULL;
+
         try {
             parent::check();
         } catch (\Exception $e) {

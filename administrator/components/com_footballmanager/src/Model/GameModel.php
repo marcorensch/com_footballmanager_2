@@ -125,9 +125,6 @@ class GameModel extends AdminModel
 			$data['created_by'] = $user->id;
 		}
 
-		error_log('save');
-		error_log(print_r($data, true));
-
 		// handle sponsors
 		$data['sponsors'] = json_encode($data['sponsors']);
 		$data['officials'] = json_encode($data['officials']);
@@ -137,18 +134,6 @@ class GameModel extends AdminModel
 		$data['away_roster_offense'] = json_encode($data['away_roster_offense']);
 		$data['away_roster_defense'] = json_encode($data['away_roster_defense']);
 		$data['away_roster_special_teams'] = json_encode($data['away_roster_special_teams']);
-
-		// handle matchday not set
-		if($data['matchday'] === 0 || $data['matchday'] === '')
-		{
-			$data['matchday'] = null;
-		}
-
-		// handle new game id not set
-		if($data['new_game_id'] === 0 || $data['new_game_id'] === '')
-		{
-			$data['new_game_id'] = null;
-		}
 
 		// Alter the title for save as copy
 		if ($input->get('task') == 'save2copy')

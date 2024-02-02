@@ -41,7 +41,11 @@ class TeamTable extends Table
 
     public function check(): bool
     {
-        try {
+
+	    if (!$this->location_id)  $this->location_id = NULL;
+	    if (!$this->related_team_id)  $this->related_team_id = NULL;
+
+	    try {
             parent::check();
         } catch (\Exception $e) {
             $this->setError($e->getMessage());
@@ -61,8 +65,6 @@ class TeamTable extends Table
 			$this->params = '';
 	    }
 
-	    error_log(">>>>>>>>>>>>>>>>>>>>>>>>>>>STORE IN TeamTable called >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>< ");
-
-	    return parent::store(true);
+	    return parent::store($updateNulls);
     }
 }
