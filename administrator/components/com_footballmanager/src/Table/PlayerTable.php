@@ -38,6 +38,11 @@ class PlayerTable extends Table
 
     public function check()
     {
+
+	    if (!$this->height)  $this->height = NULL;
+	    if (!$this->weight)  $this->weight = NULL;
+	    if (!$this->birthday)  $this->birthday = NULL;
+
         try {
             parent::check();
         } catch (\Exception $e) {

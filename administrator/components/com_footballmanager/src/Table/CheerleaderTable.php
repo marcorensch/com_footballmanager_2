@@ -38,6 +38,14 @@ class CheerleaderTable extends Table
 
     public function check()
     {
+
+	    // Handle Empty Fields
+	    if (!$this->height)  $this->height = NULL;
+	    if (!$this->weight)  $this->weight = NULL;
+	    if (!$this->birthday)  $this->birthday = NULL;
+	    if (!$this->linked_team_id)  $this->linked_team_id = NULL;
+	    if (!$this->position_id)  $this->position_id = NULL;
+
         try {
             parent::check();
         } catch (\Exception $e) {

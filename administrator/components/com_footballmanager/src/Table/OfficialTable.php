@@ -38,6 +38,10 @@ class OfficialTable extends Table
 
     public function check()
     {
+
+	    if (!$this->linked_team_id)  $this->linked_team_id = NULL;
+	    if (!$this->position_id)  $this->position_id = NULL;
+
         try {
             parent::check();
         } catch (\Exception $e) {

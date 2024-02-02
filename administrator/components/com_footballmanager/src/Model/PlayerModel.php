@@ -193,11 +193,6 @@ class PlayerModel extends AdminModel
 			$data['created_by'] = $user->id;
 		}
 
-		// Handle Empty Fields
-		if(!$data['height']) $data['height'] = null;
-		if(!$data['weight']) $data['weight'] = null;
-		if(!$data['birthday']) $data['birthday'] = null;
-
 		// sponsors
 		$data['sponsors'] = json_encode($data['sponsors']);
 
@@ -269,6 +264,7 @@ class PlayerModel extends AdminModel
 		}
 
 		$status = parent::save($data);
+
 		if($status){
 			$this->handlePlayerTeamsOnSave($data);
 		}

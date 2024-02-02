@@ -145,13 +145,6 @@ class OfficialModel extends AdminModel
 			$data['created_by'] = $user->id;
 		}
 
-		if(!$data['linked_team_id']){
-			$data['linked_team_id'] = 0;
-		}
-		if(!$data['position_id']){
-			$data['position_id'] = 0;
-		}
-
 		// Alter the title for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
