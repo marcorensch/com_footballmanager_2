@@ -24,12 +24,14 @@
         <field
                 name="home_team_id"
                 type="Teams"
+                layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_HOME_TEAM_LABEL"
                 required="true"
         />
         <field
                 name="away_team_id"
                 type="Teams"
+                layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_AWAY_TEAM_LABEL"
                 required="true"
         />
@@ -37,6 +39,7 @@
         <field
                 name="league_id"
                 type="leagues"
+                layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_LEAGUE_LABEL"
                 required="true"
         />
@@ -44,12 +47,14 @@
         <field
                 name="season_id"
                 type="seasons"
+                layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_SEASON_LABEL"
                 required="true"
         />
         <field
                 name="phase_id"
                 type="phases"
+                layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_SEASON_PHASE_LABEL"
                 required="true"
         />
@@ -57,6 +62,7 @@
         <field
                 name="location_id"
                 type="locations"
+                layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_LOCATION_LABEL"
                 required="true"
         />
