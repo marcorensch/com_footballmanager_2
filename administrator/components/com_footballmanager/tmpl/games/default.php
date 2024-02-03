@@ -183,7 +183,7 @@ if($params->get('show_filters_by_default', 0)){
                                     </th>
 
                                     <td>
-                                        <span class="kickoff-date"><?php echo HTMLHelper::_('date', $item->kickoff, Text::_('DATE_FORMAT_LC4')); ?></span><br>
+                                        <span class="kickoff-date"><?php echo HTMLHelper::_('date', $item->kickoff, Text::_('DATE_FORMAT_LC5')); ?></span><br>
                                     </td>
 
                                     <td>
