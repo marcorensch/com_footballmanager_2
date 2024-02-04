@@ -31,6 +31,7 @@ class TeamsField extends ListField{
 	protected $type = 'Teams';
 
 	protected $context = null;
+	protected $show_select = false;
 
 	/**
 	 * Method to get the field options.
@@ -44,6 +45,7 @@ class TeamsField extends ListField{
 
 		// Get the context from the field params
 		$this->context = $this->element['context'] ?? null;
+		$this->show_select = $this->getAttribute('show_select', false) === 'true';
 
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
@@ -58,6 +60,10 @@ class TeamsField extends ListField{
 		$teams = $db->loadObjectList();
 
 		$options = [];
+		if($this->show_select)
+		{
+			$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM'));
+		}
 		foreach ($teams as $team)
 		{
 			$options[] = HTMLHelper::_('select.option', $team->id, $team->title);

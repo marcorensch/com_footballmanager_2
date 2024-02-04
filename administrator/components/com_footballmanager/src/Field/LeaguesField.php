@@ -39,6 +39,7 @@ class LeaguesField extends ListField{
 	 */
 	protected function getOptions()
 	{
+		$show_select = $this->getAttribute('show_select', 'true') === 'true';
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		$query->select('id, title');
@@ -48,7 +49,7 @@ class LeaguesField extends ListField{
 		$leagues = $db->loadObjectList();
 
 		$options = [];
-		if($this->getAttribute('show_select') != 'false')
+		if($show_select)
 		{
 			$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_LEAGUE'));
 		}

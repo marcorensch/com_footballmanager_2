@@ -24,6 +24,7 @@
         <field
                 name="home_team_id"
                 type="Teams"
+                context="footballmanager.team.football"
                 layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_HOME_TEAM_LABEL"
                 required="true"
@@ -31,6 +32,7 @@
         <field
                 name="away_team_id"
                 type="Teams"
+                context="footballmanager.team.football"
                 layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_AWAY_TEAM_LABEL"
                 required="true"
@@ -38,7 +40,7 @@
 
         <field
                 name="league_id"
-                type="leagues"
+                type="Leagues"
                 layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_LEAGUE_LABEL"
                 required="true"
@@ -46,7 +48,7 @@
 
         <field
                 name="season_id"
-                type="seasons"
+                type="Seasons"
                 layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_FIELD_SEASON_LABEL"
                 required="true"

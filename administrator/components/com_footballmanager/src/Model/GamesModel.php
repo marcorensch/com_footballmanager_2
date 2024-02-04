@@ -39,9 +39,9 @@ class GamesModel extends ListModel
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'home_team', 'ht.title',
-				'away_team', 'at.title',
-				'location', 'l.title',
+				'home_team_id', 'ht.title',
+				'away_team_id', 'at.title',
+				'location_id', 'l.title',
 				'published', 'a.published',
 				'access', 'a.access', 'access_level',
 				'ordering', 'a.ordering',
@@ -156,6 +156,24 @@ class GamesModel extends ListModel
 				$db->quoteName('#__footballmanager_leagues', 'lg') . ' ON ' . $db->quoteName('lg.id') . ' = ' . $db->quoteName('a.league_id')
 			);
 
+
+		// Filter by Home Team
+		if ($homeTeamId = $this->getState('filter.home_team_id'))
+		{
+			$query->where($db->quoteName('a.home_team_id') . ' = ' . (int) $homeTeamId);
+		}
+
+		// Filter by Away Team
+		if ($awayTeamId = $this->getState('filter.away_team_id'))
+		{
+			$query->where($db->quoteName('a.away_team_id') . ' = ' . (int) $awayTeamId);
+		}
+
+		// Filter by Location
+		if ($locationId = $this->getState('filter.location_id'))
+		{
+			$query->where($db->quoteName('a.location_id') . ' = ' . (int) $locationId);
+		}
 
 		// Filter by access level.
 		if ($access = $this->getState('filter.access'))

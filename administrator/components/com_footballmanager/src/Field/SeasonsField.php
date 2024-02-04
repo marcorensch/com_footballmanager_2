@@ -30,6 +30,8 @@ class SeasonsField extends ListField{
 	 */
 	protected $type = 'Seasons';
 
+	protected $show_select = false;
+
 	/**
 	 * Method to get the field options.
 	 *
@@ -39,6 +41,8 @@ class SeasonsField extends ListField{
 	 */
 	protected function getOptions()
 	{
+		$this->show_select = $this->getAttribute('show_select', false) === 'true';
+
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		$query->select('id, title');
@@ -48,7 +52,10 @@ class SeasonsField extends ListField{
 		$teams = $db->loadObjectList();
 
 		$options = [];
-		$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_SEASON'));
+		if($this->show_select)
+		{
+			$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_SEASON'));
+		}
 		foreach ($teams as $team)
 		{
 			$options[] = HTMLHelper::_('select.option', $team->id, $team->title);
