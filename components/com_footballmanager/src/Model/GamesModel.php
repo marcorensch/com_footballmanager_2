@@ -19,11 +19,11 @@ class GamesModel extends BaseDatabaseModel
 
 	public function getItems(): array
 	{
-		$season = $this->getState('filter.season', null);
-		$league = $this->getState('filter.league', null);
 		$teamId = $this->getState('filter.teamId', array());
+		$seasonId = $this->getState('filter.seasonId', null);
+		$leagueId = $this->getState('filter.leagueId', null);
 
-		if(!$season) return array();
+		if (!$seasonId) return array();
 
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -35,6 +35,18 @@ class GamesModel extends BaseDatabaseModel
 		{
 			$query->where($db->quoteName('g.home_team_id') . ' IN (' . implode(',', $teamId) . ')');
 			$query->where($db->quoteName('g.away_team_id') . ' IN (' . implode(',', $teamId) . ')');
+		}
+
+		// Filter Season
+		if ($seasonId)
+		{
+			$query->where($db->quoteName('g.season_id') . ' = ' . $db->quote($seasonId));
+		}
+
+		// Filter League
+		if ($leagueId)
+		{
+			$query->where($db->quoteName('g.league_id') . ' = ' . $db->quote($leagueId));
 		}
 
 		// SubQuery for Home Team
