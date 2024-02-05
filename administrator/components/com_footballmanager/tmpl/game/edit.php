@@ -50,14 +50,19 @@ $current_user = Factory::getApplication()->getIdentity();
       method="post" name="adminForm" id="player-form" class="form-validate form-vertical">
 
     <div class="row">
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-3">
 			<?php echo $this->getForm()->renderField('home_team_id'); ?>
         </div>
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-3">
 			<?php echo $this->getForm()->renderField('away_team_id'); ?>
         </div>
-        <div class="col-md-6 col-lg-4">
-			<?php echo $this->getForm()->renderField('alias'); ?>
+        <div class="col-md-6 col-lg-3">
+	        <?php echo $this->getForm()->renderField('location_id'); ?>
+
+        </div>
+        <div class="col-md-6 col-lg-3">
+		    <?php echo $this->getForm()->renderField('kickoff'); ?>
+
         </div>
     </div>
 
@@ -123,8 +128,6 @@ $current_user = Factory::getApplication()->getIdentity();
                     <div>
                         <div class="row">
                             <div class="col-12">
-								<?php echo $this->getForm()->renderField('kickoff'); ?>
-								<?php echo $this->getForm()->renderField('location_id'); ?>
 								<?php echo $this->getForm()->renderField('matchday'); ?>
 								<?php echo $this->getForm()->renderField('tickets_link'); ?>
                             </div>
@@ -242,6 +245,7 @@ $current_user = Factory::getApplication()->getIdentity();
 				<?php echo $this->getForm()->renderField('access'); ?>
 				<?php echo $this->getForm()->renderField('published'); ?>
 				<?php echo $this->getForm()->renderField('catid'); ?>
+				<?php echo $this->getForm()->renderField('alias'); ?>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>

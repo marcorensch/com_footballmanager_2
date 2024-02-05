@@ -87,7 +87,7 @@ if($params->get('show_filters_by_default', 0)){
                                 <th scope="col" style="min-width:130px" class="d-none d-md-table-cell">
                                 </th>
 
-                                <th scope="col" style="min-width:1%" class="">
+                                <th scope="col" style="min-width:10%" class="">
 		                            <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_KICKOFF', 'a.kickoff', $listDirn, $listOrder); ?>
                                 </th>
 
