@@ -19,7 +19,7 @@ class GamesModel extends BaseDatabaseModel
 
 	public function getItems(): array
 	{
-		$teamId = $this->getState('filter.teamId', array());
+		$teamId = $this->getState('filter.teamId', null);
 		$seasonId = $this->getState('filter.seasonId', null);
 		$leagueId = $this->getState('filter.leagueId', null);
 
@@ -38,28 +38,30 @@ class GamesModel extends BaseDatabaseModel
 		}
 
 		// Filter Season
-		if ($seasonId)
-		{
-			$query->where($db->quoteName('g.season_id') . ' = ' . $db->quote($seasonId));
-		}
+		$query->where($db->quoteName('g.season_id') . ' IN (' . implode(',', $seasonId) . ')' );
 
 		// Filter League
 		if ($leagueId)
 		{
-			$query->where($db->quoteName('g.league_id') . ' = ' . $db->quote($leagueId));
+			$query->where($db->quoteName('g.league_id') . ' IN (' . implode(',', $leagueId) . ')');
 		}
 
+		// Join Location Information
+		$query->select('l.title as location_title')
+			->join('LEFT', $db->quoteName('#__footballmanager_locations', 'l') . ' ON ' . $db->quoteName('l.id') . ' = ' . $db->quoteName('g.location_id'));
+
+		$JsonObject = 'JSON_OBJECT("title", t.title, "logo", t.logo, "shortcode", shortcode, "shortname", shortname,"color", color)';
 		// SubQuery for Home Team
 		$home = $db->getQuery(true);
-		$home->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "logo", t.logo))')->from($db->quoteName('#__footballmanager_teams', 't'))
-			->where('t.id = g.home_team');
+		$home->select('JSON_ARRAYAGG('.$JsonObject.')')->from($db->quoteName('#__footballmanager_teams', 't'))
+			->where('t.id = g.home_team_id');
 
 		$query->select('(' . $home . ') as home');
 
 		// SubQuery for Away Team
 		$away = $db->getQuery(true);
-		$away->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "logo", t.logo))')->from($db->quoteName('#__footballmanager_teams', 't'))
-			->where('t.id = g.away_team');
+		$away->select('JSON_ARRAYAGG('.$JsonObject.')')->from($db->quoteName('#__footballmanager_teams', 't'))
+			->where('t.id = g.away_team_id');
 
 		$query->select('(' . $away . ') as away');
 
