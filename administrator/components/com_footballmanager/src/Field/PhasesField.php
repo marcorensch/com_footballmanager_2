@@ -39,6 +39,7 @@ class PhasesField extends ListField{
 	 */
 	protected function getOptions()
 	{
+		$show_select = $this->getAttribute('show_select', 'true') === 'true';
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		$query->select('id, title');
@@ -48,7 +49,10 @@ class PhasesField extends ListField{
 		$teams = $db->loadObjectList();
 
 		$options = [];
+		if($show_select)
+		{
 		$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_SEASON_PHASE'));
+		}
 		foreach ($teams as $team)
 		{
 			$options[] = HTMLHelper::_('select.option', $team->id, $team->title);

@@ -19,12 +19,11 @@
         >
             <option value="">JOPTION_SELECT_PUBLISHED</option>
         </field>
-
         <field
                 name="home_team_id"
                 type="Teams"
                 show_select="false"
-                label="COM_FOOTBALLMANAGER_HOME_GROUND"
+                label="COM_FOOTBALLMANAGER_HOME_TEAM_FILTER"
                 onchange="this.form.submit();"
                 default=""
         >
@@ -35,12 +34,45 @@
                 name="away_team_id"
                 type="Teams"
                 show_select="false"
-                label="COM_FOOTBALLMANAGER_HOME_GROUND"
+                label="COM_FOOTBALLMANAGER_AWAY_TEAM_FILTER"
                 onchange="this.form.submit();"
                 default=""
         >
             <option value="">COM_FOOTBALLMANAGER_OPTION_SELECT_AWAY</option>
         </field>
+
+        <field
+                name="season_id"
+                type="Seasons"
+                show_select="false"
+                label="COM_FOOTBALLMANAGER_SEASON"
+                onchange="this.form.submit();"
+                default=""
+        >
+            <option value="">COM_FOOTBALLMANAGER_OPTION_SELECT_SEASON</option>
+        </field>
+
+        <field
+                name="phase_id"
+                type="Phases"
+                show_select="false"
+                label="COM_FOOTBALLMANAGER_SEASONPHASES"
+                onchange="this.form.submit();"
+                default=""
+        >
+            <option value="">COM_FOOTBALLMANAGER_OPTION_SELECT_SEASON_PHASE</option>
+        </field>
+
+            <field
+                    name="league_id"
+                    type="Leagues"
+                    show_select="false"
+                    label="COM_FOOTBALLMANAGER_HOME_GROUND"
+                    onchange="this.form.submit();"
+                    default=""
+            >
+                <option value="">COM_FOOTBALLMANAGER_OPTION_SELECT_LEAGUE</option>
+            </field>
 
         <field
                 name="location_id"

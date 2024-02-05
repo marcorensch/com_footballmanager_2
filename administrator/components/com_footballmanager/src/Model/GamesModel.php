@@ -51,6 +51,9 @@ class GamesModel extends ListModel
 				'season_name', 's.title',
 				'season_phase_name', 'sp.title',
 				'league_name', 'lg.title',
+				'league_id', 'lg.id',
+				'season_id', 'a.season_id',
+				'phase_id', 'a.phase_id',
 			);
 
 			$assoc = Associations::isEnabled();
@@ -156,23 +159,22 @@ class GamesModel extends ListModel
 				$db->quoteName('#__footballmanager_leagues', 'lg') . ' ON ' . $db->quoteName('lg.id') . ' = ' . $db->quoteName('a.league_id')
 			);
 
-
-		// Filter by Home Team
-		if ($homeTeamId = $this->getState('filter.home_team_id'))
-		{
-			$query->where($db->quoteName('a.home_team_id') . ' = ' . (int) $homeTeamId);
-		}
-
-		// Filter by Away Team
-		if ($awayTeamId = $this->getState('filter.away_team_id'))
-		{
-			$query->where($db->quoteName('a.away_team_id') . ' = ' . (int) $awayTeamId);
-		}
-
 		// Filter by Location
 		if ($locationId = $this->getState('filter.location_id'))
 		{
 			$query->where($db->quoteName('a.location_id') . ' = ' . (int) $locationId);
+		}
+
+		// Filter by League
+		if ($leagueId = $this->getState('filter.league_id'))
+		{
+			$query->where($db->quoteName('a.league_id') . ' = ' . (int) $leagueId);
+		}
+
+		// Filter by Season
+		if ($seasonId = $this->getState('filter.season_id'))
+		{
+			$query->where($db->quoteName('a.season_id') . ' = ' . (int) $seasonId);
 		}
 
 		// Filter by access level.
@@ -182,9 +184,7 @@ class GamesModel extends ListModel
 		}
 
 		// Filter by published state
-		// Filter by published state
-		$published = $this->getState('filter.published');
-		if (is_numeric($published))
+		if (is_numeric($published = $this->getState('filter.published')))
 		{
 			$query->where($db->quoteName('a.published') . ' = ' . (int) $published);
 		}
@@ -199,8 +199,8 @@ class GamesModel extends ListModel
 		}
 
 		// Filter by a single or group of categories.
-		$categoryId = $this->getState('filter.category_id');
-		if (is_numeric($categoryId))
+
+		if (is_numeric($categoryId = $this->getState('filter.category_id')))
 		{
 			$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
 		}
@@ -223,6 +223,21 @@ class GamesModel extends ListModel
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
 				$query->where('(' . $db->quoteName('a.title') . ' LIKE ' . $search . ')');
 			}
+		}
+
+		$homeTeamId = $this->getState('filter.home_team_id', null);
+		$awayTeamId = $this->getState('filter.away_team_id', null);
+
+		// Filter by Home Team
+		if ($homeTeamId)
+		{
+			$query->where($db->quoteName('a.home_team_id') . ' = ' . (int) $homeTeamId);
+		}
+
+		// Filter by Away Team
+		if ($awayTeamId)
+		{
+			$query->where($db->quoteName('a.away_team_id') . ' = ' . (int) $awayTeamId);
 		}
 
 		// Add the list ordering clause.

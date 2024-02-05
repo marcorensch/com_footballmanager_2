@@ -33,8 +33,8 @@ class GamesModel extends BaseDatabaseModel
 		// Filter Team ID's
 		if (!empty($teamId))
 		{
-			$query->where($db->quoteName('g.home_team') . ' IN (' . implode(',', $teamId) . ')');
-			$query->where($db->quoteName('g.away_team') . ' IN (' . implode(',', $teamId) . ')');
+			$query->where($db->quoteName('g.home_team_id') . ' IN (' . implode(',', $teamId) . ')');
+			$query->where($db->quoteName('g.away_team_id') . ' IN (' . implode(',', $teamId) . ')');
 		}
 
 		// SubQuery for Home Team
