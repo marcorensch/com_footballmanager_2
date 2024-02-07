@@ -22,6 +22,9 @@ class PlayersModel extends BaseDatabaseModel
 		$teamId = $this->getState('filter.teamId', null);
 		$onlyCurrentTeam = $this->getState('filter.currentTeamOnly', '0');
 		$onlyActivePositions = $this->getState('filter.activePositionsOnly', '0');
+		$sortingDirection = $this->getState('sorting.direction', 'ASC');
+		$orderBy = $this->getState('sorting.orderBy', 'ordering');
+
 		if(!$teamId) return array();
 
 		$db    = $this->getDatabase();
@@ -29,7 +32,7 @@ class PlayersModel extends BaseDatabaseModel
 
 		$query->select($db->quoteName(
 			array('p.id','p.firstname', 'p.lastname', 'p.nickname','p.image','p.height','p.weight', 'p.sponsors', 'p.about', 'p.birthday'),
-			array('id','firstname', 'lastname','nickname', 'image', 'height', 'weight','sponsors', 'about', 'birthday')))
+			array('id','firstname', 'lastname','nickname', 'image', 'height', 'weight','sponsors', 'about', 'birthdate')))
 			->from($db->quoteName('#__footballmanager_players', 'p'));
 
 		// Create a subquery for the team(s) DATA (only used for display)
@@ -87,6 +90,12 @@ class PlayersModel extends BaseDatabaseModel
 
 		// Only Published Players
 		$query->where($db->quoteName('p.published') . ' = ' . $db->quote('1'));
+
+		// Order by Rules (Number & Position will be handled differently inside the module helper)
+		if(!in_array($orderBy ,array('number','position')))
+		{
+			$query->order('p.' . $orderBy . ' ' . $sortingDirection);
+		}
 
 		$db->setQuery($query);
 		$players = $db->loadObjectList();
