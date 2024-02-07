@@ -20,8 +20,9 @@ class PlayersModel extends BaseDatabaseModel
 	public function getItems(): array
 	{
 		$teamId = $this->getState('filter.teamId', null);
+		$leagueIds = $this->getState('filter.leagueIds', null);
 		$onlyCurrentTeam = $this->getState('filter.currentTeamOnly', '0');
-		$onlyActivePositions = $this->getState('filter.activePositionsOnly', '0');
+		$onlyActivePositions = $this->getState('filter.activePositionsOnly', 0);
 		$sortingDirection = $this->getState('sorting.direction', 'ASC');
 		$orderBy = $this->getState('sorting.orderBy', 'ordering');
 
@@ -71,12 +72,18 @@ class PlayersModel extends BaseDatabaseModel
 
 		// <<< END OF SUBQUERY for team(s) DATA
 
-		// Create a subquery for the team FILTER
+		// Create a subquery for the Team & League Filter
 
 		$subQueryFilterTeam = $db->getQuery(true);
 		$subQueryFilterTeam->select('GROUP_CONCAT(' . $db->quoteName('ptf.team_id') . ' ORDER BY ' . $db->quoteName('ptf.ordering') . ' SEPARATOR ",")')
 			->from($db->quoteName('#__footballmanager_players_teams', 'ptf'))
 			->where($db->quoteName('ptf.player_id') . ' = ' . $db->quoteName('p.id'));
+
+		// Filter: League IDs
+		if ($leagueIds)
+		{
+			$subQueryFilterTeam->where('(' . $db->quoteName('ptf.league_id') . ' IN (' . implode(',', $leagueIds) . '))');
+		}
 
 		// filter for active Only
 		if (true)
@@ -87,6 +94,7 @@ class PlayersModel extends BaseDatabaseModel
 
 		// Modify the main query to include the nested query in the WHERE clause
 		$query->where('FIND_IN_SET (' . $db->quote($teamId) . ', (' . $subQueryFilterTeam . '))');
+
 
 		// Only Published Players
 		$query->where($db->quoteName('p.published') . ' = ' . $db->quote('1'));
