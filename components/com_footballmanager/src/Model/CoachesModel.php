@@ -42,7 +42,7 @@ class CoachesModel extends BaseDatabaseModel
 		// Create a subquery for the team(s) DATA (only used for display)
 		$subQuery = $db->getQuery(true);
 		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "registrationId", ct.id, "image", ct.image, "since", ct.since, "until", ct.until, "ordering", ct.ordering, "position", pos.title, "position_description", pos.description, "position_link", pos.learnmore_link)) as teams')
-			->from($db->quoteName('#__footballmanager_coaches_teams', 'pt'))
+			->from($db->quoteName('#__footballmanager_coaches_teams', 'ct'))
 			->join(
 				'LEFT',
 				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('ct.team_id')
@@ -55,7 +55,7 @@ class CoachesModel extends BaseDatabaseModel
 			->where($db->quoteName('ct.coach_id') . ' = ' . $db->quoteName('p.id'));
 
 		// Filter: Current Team only
-		if ($onlyCurrentTeam)
+		if ($onlyCurrentTeam && $teamId)
 		{
 			$subQuery->where('(' . $db->quoteName('ct.team_id') . ' = ' . $db->quote($teamId) . ')');
 		}
@@ -76,7 +76,7 @@ class CoachesModel extends BaseDatabaseModel
 
 		$subQueryFilterTeam = $db->getQuery(true);
 		$subQueryFilterTeam->select('GROUP_CONCAT(' . $db->quoteName('ctf.team_id') . ' ORDER BY ' . $db->quoteName('ctf.ordering') . ' SEPARATOR ",")')
-			->from($db->quoteName('#__footballmanager_coachs_teams', 'ctf'))
+			->from($db->quoteName('#__footballmanager_coaches_teams', 'ctf'))
 			->where($db->quoteName('ctf.coach_id') . ' = ' . $db->quoteName('p.id'));
 
 		// filter for active Only
@@ -117,6 +117,7 @@ class CoachesModel extends BaseDatabaseModel
 
 		foreach ($coaches as $coach)
 		{
+			$coach->teams = $coach->teams ? json_decode($coach->teams) : null;
 			$coach->cfields = $this->getCustomFields($coach);
 		}
 		return $coaches;

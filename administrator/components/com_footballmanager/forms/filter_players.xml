@@ -19,7 +19,7 @@
                 onchange="this.form.submit();"
                 default=""
         >
-            <option value="">COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM</option>
+            <option value="">COM_FOOTBALLMANAGER_FIELD_FILTER_DEFAULT_SELECT_TEAM</option>
         </field>
 
         <field
