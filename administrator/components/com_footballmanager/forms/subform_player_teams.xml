@@ -35,7 +35,7 @@
 
         <field
                 name="player_number"
-                type="text"
+                type="number"
                 required="true"
                 filter="integer"
                 label="COM_FOOTBALLMANAGER_FIELD_PLAYER_NUMBER_LABEL"
@@ -44,8 +44,6 @@
                 name="team_id"
                 type="Teams"
                 label="COM_FOOTBALLMANAGER_TEAM_TITLE"
-                onfocus="this.oldvalue = this.value;"
-                onchange="console.log(this.oldvalue, this.value);"
         />
 
         <field
@@ -56,8 +54,6 @@
                 filter="integer"
                 layout="joomla.form.field.list-fancy-select"
                 label="COM_FOOTBALLMANAGER_POSITION_TITLE"
-                onfocus="this.oldvalue = this.value;"
-                onchange="console.log(this.oldvalue, this.value);"
         />
     </fieldset>
     <fieldset name="additional" class="col-lg-6 col-xl-4">

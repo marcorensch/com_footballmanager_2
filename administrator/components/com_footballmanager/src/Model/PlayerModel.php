@@ -303,7 +303,7 @@ class PlayerModel extends AdminModel
 
 				// Cleanup empty fields
 				if(!$teamLinkData['team_id']) $teamLinkData['team_id'] = null;
-				if(!$teamLinkData['player_number']) $teamLinkData['player_number'] = null;
+				if(!$teamLinkData['player_number']) $teamLinkData['player_number'] = "0";
 				if(!$teamLinkData['position_id']) $teamLinkData['position_id'] = null;
 				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
 				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
@@ -331,7 +331,7 @@ class PlayerModel extends AdminModel
 					);
 
 					foreach(array('image','player_number','since', 'until', 'team_id', 'league_id') as $key){
-						if(!$teamLinkData[$key]){
+						if($teamLinkData[$key] === null){
 							$fields[] = $db->quoteName($key) . ' = NULL';
 						}else{
 							$fields[] = $db->quoteName($key) . ' = ' . $db->quote($teamLinkData[$key]);
