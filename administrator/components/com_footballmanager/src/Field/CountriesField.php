@@ -21,14 +21,16 @@ use Joomla\Database\DatabaseInterface;
 
 defined('_JEXEC') or die;
 
-class OfficialsField extends ListField{
+class CountriesField extends ListField{
 	/**
 	 * The form field type.
 	 *
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	protected $type = 'Officials';
+	protected $type = 'Countries';
+
+	protected $showPleaseSelect = true;
 
 	/**
 	 * Method to get the field options.
@@ -39,21 +41,26 @@ class OfficialsField extends ListField{
 	 */
 	protected function getOptions()
 	{
+		//Check if the options have been set
+		$this->showPleaseSelect = $this->getAttribute('show_select', 'true') === 'true';
+
+
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
-		$query->select('id, firstname, lastname');
-		$query->from('#__footballmanager_officials');
+		$query->select('id, title');
+		$query->from('#__footballmanager_countries');
+		$query->where('published = 1');
 		$query->order('ordering ASC');
 		$db->setQuery($query);
-		$teams = $db->loadObjectList();
-
-		// check if multiple is set
-		$multiple = $this->element['multiple'] ?? false;
+		$countries = $db->loadObjectList();
 
 		$options = [];
-		foreach ($teams as $team)
+		if($this->showPleaseSelect)
+			$options[] = HTMLHelper::_('select.option', '', Text::_('COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_COUNTRY'));
+
+		foreach ($countries as $c)
 		{
-			$options[] = HTMLHelper::_('select.option', $team->id, $team->firstname . ' ' . $team->lastname);
+			$options[] = HTMLHelper::_('select.option', $c->id, $c->title);
 		}
 
 

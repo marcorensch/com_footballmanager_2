@@ -23,11 +23,11 @@ use NXD\Component\Footballmanager\Administrator\Helper\ImportHelper;
 use Joomla\CMS\Language\Text;
 
 /**
- * Positions list controller class.
+ * Countries list controller class.
  *
  * @since  __BUMP_VERSION__
  */
-class PositionsController extends AdminController
+class CountriesController extends AdminController
 {
     /**
      * Constructor.
@@ -57,7 +57,7 @@ class PositionsController extends AdminController
      *
      * @since   __BUMP_VERSION__
      */
-    public function getModel($name = 'position', $prefix = 'Administrator', $config = ['ignore_request' => true])
+    public function getModel($name = 'country', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {
         return parent::getModel($name, $prefix, $config);
     }
@@ -65,10 +65,10 @@ class PositionsController extends AdminController
 	public function export()
 	{
 		$ids = $this->input->get('cid', [], 'array');
-		$model = $this->getModel('positions');
+		$model = $this->getModel('countries');
 		$data  = $model->exportItems($ids);
 
-		ExportHelper::export($data, 'positions');
+		ExportHelper::export($data, 'countries');
 	}
 
 	#[NoReturn] public function import(): void
@@ -111,7 +111,7 @@ class PositionsController extends AdminController
 			$app->enqueueMessage(Text::_('COM_FOOTBALLMANAGER_TEXT_UPLOAD_ERROR'), 'error');
 		}
 
-		$app->enqueueMessage('Importing seasons is not supported yet', 'warning');
-		$this->setRedirect(Route::_('index.php?option=com_footballmanager&view=positions', false));
+		$app->enqueueMessage('Importing countries is not supported yet', 'warning');
+		$this->setRedirect(Route::_('index.php?option=com_footballmanager&view=countries', false));
 	}
 }

@@ -14,11 +14,11 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\FormController;
 
 /**
- * Controller for a single position.
+ * Controller for a single country.
  *
  * @since  __BUMP_VERSION__
  */
-class PositionController extends FormController
+class CountryController extends FormController
 {
 
 }

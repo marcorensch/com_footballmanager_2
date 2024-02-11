@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset
+            addruleprefix="NXD\Component\Footballmanager\Administrator\Rule"
+            addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
+    >
+        <field
+                name="id"
+                type="number"
+                label="JGLOBAL_FIELD_ID_LABEL"
+                default="0"
+                class="readonly hidden"
+                hidden="true"
+                readonly="true"
+        />
+
+        <field
+                name="language"
+                type="contentlanguage"
+                label="JFIELD_LANGUAGE_LABEL"
+        >
+            <option value="*">JALL</option>
+        </field>
+        <field
+                name="title"
+                type="text"
+                validate=""
+                class=""
+                label="COM_FOOTBALLMANAGER_FIELD_NAME_LABEL"
+                size="40"
+                required="true"
+        />
+
+        <field
+                name="alias"
+                type="text"
+                label="JFIELD_ALIAS_LABEL"
+                size="45"
+                hint="JFIELD_ALIAS_PLACEHOLDER"
+        />
+        <field
+                name="published"
+                type="list"
+                label="JSTATUS"
+                default="1"
+                id="published"
+                class="custom-select-color-state"
+                size="1"
+        >
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+            <option value="2">JARCHIVED</option>
+            <option value="-2">JTRASHED</option>
+        </field>
+
+        <field
+                name="created_by"
+                type="user"
+                label="COM_FOOTBALLMANAGER_CREATED_BY_LABEL"
+                readonly="true"
+                class="readonly"
+        />
+        <field
+                name="created_at"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_CREATED_AT_LABEL"
+                translateformat="true"
+                showtime="true"
+                size="22"
+                filter="user_utc"
+                readonly="true"
+                default="now"
+        />
+
+        <field
+                name="modified_by"
+                type="user"
+                label="COM_FOOTBALLMANAGER_MODIFIED_BY_LABEL"
+                readonly="true"
+                class="readonly"
+        />
+
+        <field
+                name="ordering"
+                type="ordering"
+                label="JFIELD_ORDERING_LABEL"
+                content_type="com_footballmanager.location"
+        />
+        <!-- Country Specific Fields -->
+
+       <field name="iso" type="text" label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_ISO_LABEL" hint="COM_FOOTBALLMANAGER_FIELD_COUNTRY_ISO_PLACEHOLDER" description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_ISO_DESC" />
+       <field name="iso3" type="text" label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_ISO3_LABEL" hint="COM_FOOTBALLMANAGER_FIELD_COUNTRY_ISO3_PLACEHOLDER" description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_ISO3_DESC"  />
+       <field name="numcode" type="text" label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_NUMCODE_LABEL" hint="COM_FOOTBALLMANAGER_FIELD_COUNTRY_NUMCODE_PLACEHOLDER" description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_NUMCODE_DESC" />
+
+
+        <field
+                name="catid"
+                type="categoryedit"
+                label="JCATEGORY"
+                extension="com_footballmanager.countries"
+                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+                required="true"
+                default=""
+        />
+
+        <field name="params" type="textarea" label="params" description="params" />
+
+    </fieldset>
+</form>

@@ -115,6 +115,13 @@
                     <menu-quicktask>index.php?option=com_footballmanager&amp;view=position&amp;layout=edit</menu-quicktask>
                 </params>
             </menu>
+            <menu link="option=com_footballmanager&amp;view=countries">
+                COM_FOOTBALLMANAGER_COUNTRIES
+                <params>
+                    <menu-quicktask-title>COM_FOOTBALLMANAGER_FORM_VIEW_DEFAULT_TITLE</menu-quicktask-title>
+                    <menu-quicktask>index.php?option=com_footballmanager&amp;view=country&amp;layout=edit</menu-quicktask>
+                </params>
+            </menu>
             <menu link="option=com_footballmanager&amp;view=players">
                 COM_FOOTBALLMANAGER_PLAYERS
                 <params>

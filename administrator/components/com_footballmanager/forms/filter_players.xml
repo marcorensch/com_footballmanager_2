@@ -48,6 +48,18 @@
         </field>
 
         <field
+                name="country_id"
+                type="Countries"
+                label="COM_FOOTBALLMANAGER_COUNTRY"
+                show_select="false"
+                onchange="this.form.submit();"
+                default=""
+        >
+            <option value="">COM_FOOTBALLMANAGER_FIELD_FILTER_DEFAULT_SELECT_COUNTRY</option>
+            <option value="-1">COM_FOOTBALLMANAGER_FIELD_FILTER_NOT_SET</option>
+        </field>
+
+        <field
                 name="published"
                 type="status"
                 label="JOPTION_SELECT_PUBLISHED"

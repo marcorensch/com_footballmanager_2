@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `#__footballmanager_countries`
 (
     `id`          int(11)      NOT NULL AUTO_INCREMENT,
-    `name`        varchar(255) NOT NULL,
+    `title`       varchar(255) NOT NULL,
     `alias`       varchar(255) NOT NULL,
     `iso`         varchar(2)            DEFAULT NULL,
     `iso3`        varchar(3)            DEFAULT NULL,
@@ -23,4 +23,4 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_countries`
 
 ALTER TABLE `#__footballmanager_players`
     ADD COLUMN `country_id` int(11) DEFAULT NULL AFTER `sponsors`,
-    ADD CONSTRAINT fk_players_country FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries`(id) ON DELETE SET NULL ON UPDATE CASCADE;
+    ADD CONSTRAINT fk_players_country FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE;

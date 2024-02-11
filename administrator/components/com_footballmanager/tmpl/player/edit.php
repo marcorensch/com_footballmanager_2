@@ -103,6 +103,7 @@ $current_user = Factory::getApplication()->getIdentity();
             <div class=" col-lg-4 col-xl-3">
 	            <?php echo $this->getForm()->renderField('image'); ?>
 	            <?php echo $this->getForm()->renderField('birthday'); ?>
+	            <?php echo $this->getForm()->renderField('country_id'); ?>
 	            <?php echo $this->getForm()->renderField('weight'); ?>
 	            <?php echo $this->getForm()->renderField('height'); ?>
             </div>

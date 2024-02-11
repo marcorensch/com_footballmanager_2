@@ -47,6 +47,7 @@ class PlayersModel extends ListModel
 				'ordering', 'a.ordering',
 				'author_name', 'a.author_name',
 				'created_at', 'a.created_at',
+				'country_id', 'a.country_id',
 			);
 
 			$assoc = Associations::isEnabled();
@@ -132,6 +133,20 @@ class PlayersModel extends ListModel
 		// Filter by League ID
 		$filterLeagueId = $this->getState('filter.league_id');
 
+		// Filter by Country ID
+		$filterCountryId = $this->getState('filter.country_id');
+		if (is_numeric($filterCountryId))
+		{
+			if((int) $filterCountryId === -1)
+			{
+				error_log('Filtering by country_id should be null: ' . $filterCountryId);
+				$query->where($db->quoteName('a.country_id') . ' IS NULL');
+			}
+			else
+			{
+				$query->where($db->quoteName('a.country_id') . ' = ' . (int) $filterCountryId);
+			}
+		}
 
 		// Subquery all teams for a player and use them as array in the player object as "teams"
 		$subQuery = $db->getQuery(true);

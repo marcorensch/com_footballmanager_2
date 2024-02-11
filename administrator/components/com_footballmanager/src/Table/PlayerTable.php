@@ -42,6 +42,7 @@ class PlayerTable extends Table
 	    if (!$this->height)  $this->height = NULL;
 	    if (!$this->weight)  $this->weight = NULL;
 	    if (!$this->birthday)  $this->birthday = NULL;
+	    if (!$this->country_id)  $this->country_id = NULL;
 
         try {
             parent::check();

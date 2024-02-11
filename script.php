@@ -70,6 +70,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$this->installCategoryForView('com_footballmanager.coaches');
 		$this->installCategoryForView('com_footballmanager.cheerleaders');
 		$this->installCategoryForView('com_footballmanager.positions');
+		$this->installCategoryForView('com_footballmanager.countries');
 		$this->cheerleaderPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Cheerleader');
 		$this->playerPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Player');
 		$this->coachPositionsCategoryId = $this->installCategoryForView('com_footballmanager.positions', 'Coach');
@@ -78,9 +79,26 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		return true;
 	}
 
+	private function getCategoryIfExists($view, $alias): int|bool|null
+	{
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$query = $db->getQuery(true);
+		$query->select('id')
+			->from($db->quoteName('#__categories'))
+			->where($db->quoteName('extension') . ' = ' . $db->quote($view))
+			->where($db->quoteName('alias') . ' = ' . $db->quote($alias));
+		$db->setQuery($query);
+		$id = $db->loadResult();
+		return $id;
+	}
+
 	private function installCategoryForView($view, $title = "Uncategorised"): int|bool|null
 	{
 		$alias   = ApplicationHelper::stringURLSafe($title);
+
+		if($existingId = $this->getCategoryIfExists($view, $alias)){
+			return $existingId;
+		}
 
 		// Boot CategoryComponentHelper
 		$category = Factory::getApplication()->bootComponent('com_categories')->getMVCFactory()->createTable('Category');
@@ -155,6 +173,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	public function update($parent): bool
 	{
 //		echo Text::_('COM_FOOTBALLMANAGER_INSTALLERSCRIPT_UPDATE');
+		$this->installCategoryForView('com_footballmanager.countries');
 
 		return true;
 	}
@@ -226,12 +245,14 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 			if($this->playerPositionsCategoryId)
 			{
 				$this->installPosition('Player', 'Quarterback', 'QB');
+				$this->installPosition('Player', 'Offensive Line', 'OL');
 				$this->installPosition('Player', 'Running Back', 'RB');
 				$this->installPosition('Player', 'Wide Receiver', 'WR');
 				$this->installPosition('Player', 'Tight End', 'TE');
 				$this->installPosition('Player', 'Center', 'C');
 				$this->installPosition('Player', 'Guard', 'G');
 				$this->installPosition('Player', 'Tackle', 'T');
+				$this->installPosition('Player', 'Defensive Line', 'DL');
 				$this->installPosition('Player', 'Defensive End', 'DE');
 				$this->installPosition('Player', 'Defensive Tackle', 'DT');
 				$this->installPosition('Player', 'Linebacker', 'LB');
