@@ -7,7 +7,7 @@
     <authorUrl>https://www.nx-designs.ch</authorUrl>
     <copyright>Copyright ©2023 by nx-designs</copyright>
     <license>GNU General Public License version 2 or later;</license>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <description>COM_FOOTBALLMANAGER_XML_DESCRIPTION</description>
     <namespace path="src">NXD\Component\Footballmanager</namespace>
     <scriptfile>script.php</scriptfile>
