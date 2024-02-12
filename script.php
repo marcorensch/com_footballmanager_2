@@ -18,7 +18,7 @@ use Joomla\CMS\Installer\InstallerScript;
 use Joomla\Database\DatabaseInterface;
 
 /**
- * Script file of Company location Component
+ * Script file of the Football Manager 2 Component
  *
  * @since  __BUMP_VERSION__
  */
@@ -94,6 +94,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 
 	private function installCategoryForView($view, $title = "Uncategorised"): int|bool|null
 	{
+		$app = Factory::getApplication();
 		$alias   = ApplicationHelper::stringURLSafe($title);
 
 		if($existingId = $this->getCategoryIfExists($view, $alias)){
@@ -133,11 +134,14 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 
 		// Check to make sure our location data is valid.
 		if (!$category->check()) {
+			$app->enqueueMessage($category->getError(), 'error');
 			return false;
 		}
 
 		// Store the category.
 		if (!$category->store(true)) {
+			$app->enqueueMessage($category->getError(), 'error');
+			return false;
 		}
 
 		return $category->id;
