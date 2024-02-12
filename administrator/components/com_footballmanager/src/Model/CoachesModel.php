@@ -122,16 +122,21 @@ class CoachesModel extends ListModel
 //			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
 //		}
 
-		// JetBrains AI Assistant (will result in multiple entries if a coach is in multiple teams > will be concatenated later)
-		$query->select('t.title as team_title, t.id as team_id, ct.since as team_since, ct.until as team_until')
-			->join(
-				'LEFT',
-				$db->quoteName('#__footballmanager_coaches_teams', 'ct') . ' ON ' . $db->quoteName('a.id') . ' = ' . $db->quoteName('ct.coach_id')
-			)
+		// Subquery all teams for a player and use them as array in the player object as "teams"
+		$subQuery = $db->getQuery(true);
+		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", ct.since, "until", ct.until, "ordering", ct.ordering, "position", pos.title)) as teams')
+			->from($db->quoteName('#__footballmanager_coaches_teams', 'ct'))
 			->join(
 				'LEFT',
 				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('ct.team_id')
-			);
+			)
+			->join(
+				'LEFT',
+				$db->quoteName('#__footballmanager_positions', 'pos') . ' ON ' . $db->quoteName('pos.id') . ' = ' . $db->quoteName('ct.position_id')
+			)
+			->where($db->quoteName('ct.coach_id') . ' = ' . $db->quoteName('a.id'));
+
+		$query->select('(' . $subQuery . ') as teams');
 
 		// Join over the author user
 		$query->select($db->quoteName('u.name', 'author_name'))
@@ -258,32 +263,15 @@ class CoachesModel extends ListModel
 	public function getItems()
 	{
 		$items = parent::getItems();
-		$processedResults = array();
-		// Add Team Details
+		// JSON Decode Teams
 		foreach ($items as &$item)
 		{
-			// Required to prevent multiple entries for the same coach
-			if(!isset($processedResults[$item->id])){
-				$processedResults[$item->id] = $item;
-				$processedResults[$item->id]->teams = array();
-			}
-
-			// Add Team Details to Player
-			if($item->team_id && $item->team_title){
-				$teamObject = new \stdClass();
-				$teamObject->id = $item->team_id;
-				$teamObject->title = $item->team_title;
-				$teamObject->since = $item->team_since;
-				$teamObject->until = $item->team_until;
-			}else{
-				$teamObject = null;
-			}
-			if($teamObject) $processedResults[$item->id]->teams[] = $teamObject;
-			unset($item->team_id);
-			unset($item->team_title);
+			$item->teams = $item->teams !== null ? json_decode($item->teams) : [];
+			// order teams by ordering
+			usort($item->teams, fn($a, $b) => $a->ordering <=> $b->ordering);
 		}
 
-		return $processedResults;
+		return $items;
 	}
 
 	protected function getLinkedTeams($coachId){
