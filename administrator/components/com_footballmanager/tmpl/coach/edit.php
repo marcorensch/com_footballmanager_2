@@ -99,6 +99,7 @@ $current_user = Factory::getApplication()->getIdentity();
             </div>
             <div class="col-lg-4">
 	            <?php echo $this->getForm()->renderField('image'); ?>
+	            <?php echo $this->getForm()->renderField('country_id'); ?>
             </div>
         </div>
 	    <?php echo HTMLHelper::_('uitab.endTab'); ?>

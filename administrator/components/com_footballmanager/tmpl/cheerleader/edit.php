@@ -65,6 +65,7 @@ $current_user = Factory::getApplication()->getIdentity();
             <div class="col-lg-4">
 				<?php echo $this->getForm()->renderField('image'); ?>
 				<?php echo $this->getForm()->renderField('birthday'); ?>
+				<?php echo $this->getForm()->renderField('country_id'); ?>
 				<?php echo $this->getForm()->renderField('height'); ?>
 				<?php echo $this->getForm()->renderField('weight'); ?>
 				<?php echo $this->getForm()->renderField('linked_team_id'); ?>
