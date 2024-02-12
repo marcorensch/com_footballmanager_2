@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Table;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
@@ -36,7 +37,7 @@ class PlayerTable extends Table
         parent::__construct('#__footballmanager_players', 'id', $db);
     }
 
-    public function check()
+    public function check(): bool
     {
 
 	    if (!$this->height)  $this->height = NULL;
@@ -47,14 +48,15 @@ class PlayerTable extends Table
         try {
             parent::check();
         } catch (\Exception $e) {
-            $this->setError($e->getMessage());
+	        $app = Factory::getApplication();
+	        $app->enqueueMessage($e->getMessage(), 'error');
             return false;
         }
 
         return true;
     }
 
-    public function store($updateNulls = true)
+    public function store($updateNulls = true): bool
     {
 	    // Transform the params field
 	    if (is_array($this->params)) {

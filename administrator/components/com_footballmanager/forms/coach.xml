@@ -94,7 +94,7 @@
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
         />
-        <!-- Location Fields -->
+        <!-- Coach Fields -->
 
         <field
                 name="image"
@@ -110,6 +110,13 @@
                 filter="safehtml"
                 buttons="true"
                 height="572"
+        />
+
+        <field
+                name="country_id"
+                type="Countries"
+                show_select="true"
+                label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_LABEL"
         />
 
         <field

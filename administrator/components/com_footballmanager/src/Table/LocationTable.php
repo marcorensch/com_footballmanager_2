@@ -47,18 +47,23 @@ class LocationTable extends Table
 
 	}
 
-    public function check()
+	/**
+	 * @throws \Exception
+	 */
+	public function check(): bool
     {
+	    $app = Factory::getApplication();
+
         try {
             parent::check();
         } catch (\Exception $e) {
-            $this->setError($e->getMessage());
+	        $app->enqueueMessage($e->getMessage(), 'error');
             return false;
         }
 
         // Check the publishing down date is not earlier than publish up.
         if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
-            $this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
+	        $app->enqueueMessage(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'), 'error');
             return false;
         }
 
@@ -73,7 +78,7 @@ class LocationTable extends Table
         return true;
     }
 
-    public function store($updateNulls = true)
+    public function store($updateNulls = true): bool
     {
 	    // Transform the params field
 	    if (is_array($this->params)) {

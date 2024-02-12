@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Table;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
@@ -36,7 +37,7 @@ class CheerleaderTable extends Table
         parent::__construct('#__footballmanager_cheerleaders', 'id', $db);
     }
 
-    public function check()
+    public function check(): bool
     {
 
 	    // Handle Empty Fields
@@ -45,11 +46,13 @@ class CheerleaderTable extends Table
 	    if (!$this->birthday)  $this->birthday = NULL;
 	    if (!$this->linked_team_id)  $this->linked_team_id = NULL;
 	    if (!$this->position_id)  $this->position_id = NULL;
+	    if (!$this->country_id)  $this->country_id = NULL;
 
-        try {
+	    try {
             parent::check();
         } catch (\Exception $e) {
-            $this->setError($e->getMessage());
+            $app = Factory::getApplication();
+			$app->enqueueMessage($e->getMessage(), 'error');
             return false;
         }
 

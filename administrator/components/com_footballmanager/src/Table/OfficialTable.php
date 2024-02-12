@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Table;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
@@ -36,7 +37,7 @@ class OfficialTable extends Table
         parent::__construct('#__footballmanager_officials', 'id', $db);
     }
 
-    public function check()
+    public function check(): bool
     {
 
 	    if (!$this->linked_team_id)  $this->linked_team_id = NULL;
@@ -45,7 +46,8 @@ class OfficialTable extends Table
         try {
             parent::check();
         } catch (\Exception $e) {
-            $this->setError($e->getMessage());
+	        $app = Factory::getApplication();
+	        $app->enqueueMessage($e->getMessage(), 'error');
             return false;
         }
 

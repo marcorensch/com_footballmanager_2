@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Table;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
@@ -22,46 +23,53 @@ use Joomla\Registry\Registry;
  */
 class GameTable extends Table
 {
-    /**
-     * Constructor
-     *
-     * @param   DatabaseDriver  $db  Database connector object
-     *
-     * @since   __BUMP_VERSION__
-     */
-    public function __construct(DatabaseDriver $db)
-    {
-        $this->typeAlias = 'com_footballmanager.game';
+	/**
+	 * Constructor
+	 *
+	 * @param   DatabaseDriver  $db  Database connector object
+	 *
+	 * @since   __BUMP_VERSION__
+	 */
+	public function __construct(DatabaseDriver $db)
+	{
+		$this->typeAlias = 'com_footballmanager.game';
 
-        parent::__construct('#__footballmanager_games', 'id', $db);
-    }
+		parent::__construct('#__footballmanager_games', 'id', $db);
+	}
 
-    public function check()
-    {
+	public function check(): bool
+	{
 
-	    if (!$this->matchday)  $this->matchday = NULL;
-	    if (!$this->new_game_id)  $this->new_game_id = NULL;
+		if (!$this->matchday) $this->matchday = null;
+		if (!$this->new_game_id) $this->new_game_id = null;
 
-        try {
-            parent::check();
-        } catch (\Exception $e) {
-            $this->setError($e->getMessage());
-            return false;
-        }
+		try
+		{
+			parent::check();
+		}
+		catch (\Exception $e)
+		{
+			$app = Factory::getApplication();
+			$app->enqueueMessage($e->getMessage(), 'error');
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    public function store($updateNulls = true)
-    {
-	    // Transform the params field
-	    if (is_array($this->params)) {
-		    $registry = new Registry($this->params);
-		    $this->params = (string) $registry;
-	    }else{
+	public function store($updateNulls = true): bool
+	{
+		// Transform the params field
+		if (is_array($this->params))
+		{
+			$registry     = new Registry($this->params);
+			$this->params = (string) $registry;
+		}
+		else
+		{
 			$this->params = '';
-	    }
+		}
 
-	    return parent::store($updateNulls);
-    }
+		return parent::store($updateNulls);
+	}
 }

@@ -48,7 +48,8 @@ class TeamTable extends Table
 	    try {
             parent::check();
         } catch (\Exception $e) {
-            $this->setError($e->getMessage());
+		    $app = Factory::getApplication();
+		    $app->enqueueMessage($e->getMessage(), 'error');
             return false;
         }
 

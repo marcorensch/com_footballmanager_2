@@ -11,6 +11,7 @@ namespace NXD\Component\Footballmanager\Administrator\Table;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
@@ -36,7 +37,7 @@ class CountryTable extends Table
 		parent::__construct('#__footballmanager_countries', 'id', $db);
 	}
 
-	public function check()
+	public function check(): bool
 	{
 		// Set null for empty fields
 		if ($this->numcode === '')
@@ -49,7 +50,8 @@ class CountryTable extends Table
 		}
 		catch (\Exception $e)
 		{
-			$this->setError($e->getMessage());
+			$app = Factory::getApplication();
+			$app->enqueueMessage($e->getMessage(), 'error');
 
 			return false;
 		}
@@ -57,7 +59,7 @@ class CountryTable extends Table
 		return true;
 	}
 
-	public function store($updateNulls = true)
+	public function store($updateNulls = true): bool
 	{
 		// Transform the params field
 		if (is_array($this->params))

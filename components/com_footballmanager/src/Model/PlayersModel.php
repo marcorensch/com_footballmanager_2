@@ -32,9 +32,13 @@ class PlayersModel extends BaseDatabaseModel
 		$query = $db->getQuery(true);
 
 		$query->select($db->quoteName(
-			array('p.id','p.firstname', 'p.lastname', 'p.nickname','p.image','p.height','p.weight', 'p.sponsors', 'p.about', 'p.birthday'),
-			array('id','firstname', 'lastname','nickname', 'image', 'height', 'weight','sponsors', 'about', 'birthdate')))
+			array('p.id','p.firstname', 'p.lastname', 'p.nickname','p.image','p.height','p.weight', 'p.sponsors', 'p.about', 'p.birthday', 'p.country_id'),
+			array('id','firstname', 'lastname','nickname', 'image', 'height', 'weight','sponsors', 'about', 'birthdate', 'country_id')))
 			->from($db->quoteName('#__footballmanager_players', 'p'));
+
+		// Join over the country
+		$query->select('c.title as country')
+			->join('LEFT', $db->quoteName('#__footballmanager_countries', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('p.country_id'));
 
 		// Create a subquery for the team(s) DATA (only used for display)
 		$subQuery = $db->getQuery(true);
