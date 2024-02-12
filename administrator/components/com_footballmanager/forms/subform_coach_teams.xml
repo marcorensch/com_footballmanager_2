@@ -41,10 +41,9 @@
     <field
             name="position_id"
             type="positions"
+            layout="joomla.form.field.list-fancy-select"
             context="coach"
             label="COM_FOOTBALLMANAGER_POSITION_TITLE"
-            onfocus="this.oldvalue = this.value;"
-            onchange="console.log(this.oldvalue, this.value);"
     />
 
     </fieldset>

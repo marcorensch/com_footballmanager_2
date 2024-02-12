@@ -30,9 +30,13 @@ class CheerleadersModel extends BaseDatabaseModel
 		$query = $db->getQuery(true);
 
 		$query->select($db->quoteName(
-			array('p.id','p.firstname', 'p.lastname', 'p.image','p.height','p.weight', 'p.about', 'p.birthday'),
-			array('id','firstname', 'lastname', 'image', 'height', 'weight', 'about', 'birthdate')))
+			array('p.id','p.firstname', 'p.lastname', 'p.image','p.height','p.weight', 'p.about', 'p.birthday', 'p.country_id'),
+			array('id','firstname', 'lastname', 'image', 'height', 'weight', 'about', 'birthdate', 'country_id')))
 			->from($db->quoteName('#__footballmanager_cheerleaders', 'p'));
+
+		// Join Country
+		$query->select('c.title as country')
+			->join('LEFT', $db->quoteName('#__footballmanager_countries', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('p.country_id'));
 
 		// Join Position
 		$query->select('pos.title as position')

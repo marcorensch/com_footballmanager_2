@@ -33,7 +33,7 @@ class PlayersModel extends BaseDatabaseModel
 
 		$query->select($db->quoteName(
 			array('p.id','p.firstname', 'p.lastname', 'p.nickname','p.image','p.height','p.weight', 'p.sponsors', 'p.about', 'p.birthday', 'p.country_id'),
-			array('id','firstname', 'lastname','nickname', 'image', 'height', 'weight','sponsors', 'about', 'birthdate', 'country_id')))
+			array('id','firstname', 'lastname','nickname', 'image', 'height', 'weight','sponsor_ids', 'about', 'birthdate', 'country_id')))
 			->from($db->quoteName('#__footballmanager_players', 'p'));
 
 		// Join over the country
@@ -89,7 +89,7 @@ class PlayersModel extends BaseDatabaseModel
 			$subQueryFilterTeam->where('(' . $db->quoteName('ptf.league_id') . ' IN (' . implode(',', $leagueIds) . '))');
 		}
 
-		// filter for active Only
+		// Filter for active Only
 		if (true)
 		{
 			$subQueryFilterTeam->where('(' . $db->quoteName('ptf.since') . ' IS NULL OR ' . $db->quoteName('ptf.since') . ' <= NOW())');

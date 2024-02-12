@@ -323,14 +323,8 @@ class PlayerModel extends AdminModel
 				$query = $db->getQuery(true);
 
 				if($teamLinkData['id'] > 0){
-					// Fields to update.
-					// Below fields needs a special handling
-					$fields = array(
-						$db->quoteName('position_id') . ' = ' . $db->quote(json_encode($teamLinkData['position_id'])),
-						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
-					);
 
-					foreach(array('image','player_number','since', 'until', 'team_id', 'league_id') as $key){
+					foreach(array('ordering', 'image','player_number','since', 'until', 'team_id', 'league_id' ,'position_id') as $key){
 						if($teamLinkData[$key] === null){
 							$fields[] = $db->quoteName($key) . ' = NULL';
 						}else{
@@ -347,7 +341,7 @@ class PlayerModel extends AdminModel
 
 					$db->setQuery($query);
 
-					$result = $db->execute();
+					$db->execute();
 				}else{
 					$teamLinkDataObj = (object) $teamLinkData;
 					$teamLinkDataObj->player_id = $data['id'];

@@ -310,13 +310,7 @@ class CoachModel extends AdminModel
 				$query = $db->getQuery(true);
 
 				if($teamLinkData['id'] > 0){
-					// Fields to update.
-					$fields = array(
-						$db->quoteName('image') . ' = ' . $db->quote($teamLinkData['image']),
-						$db->quoteName('ordering') . ' = ' . $db->quote($teamLinkData['ordering']),
-					);
-
-					foreach(array('since', 'until', 'position_id', 'team_id') as $key){
+					foreach(array('since', 'until', 'position_id', 'team_id', 'image', 'ordering') as $key){
 						if(!$teamLinkData[$key]){
 							$fields[] = $db->quoteName($key) . ' = NULL';
 						}else{
