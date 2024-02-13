@@ -44,7 +44,7 @@ class CheerleaderTable extends Table
 	    if (!$this->height)  $this->height = NULL;
 	    if (!$this->weight)  $this->weight = NULL;
 	    if (!$this->birthday)  $this->birthday = NULL;
-	    if (!$this->linked_team_id)  $this->linked_team_id = NULL;
+	    if (!$this->team_id)  $this->team_id = NULL;
 	    if (!$this->position_id)  $this->position_id = NULL;
 	    if (!$this->country_id)  $this->country_id = NULL;
 	    if (!$this->since)  $this->since = NULL;

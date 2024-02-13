@@ -106,22 +106,6 @@ class CoachesModel extends ListModel
 				$db->quoteName('#__languages', 'l') . ' ON ' . $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language')
 			);
 
-//		// Join over the Associations.
-//		if (Associations::isEnabled())
-//		{
-//			$subQuery = $db->getQuery(true)
-//				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
-//				->from($db->quoteName('#__associations', 'asso1'))
-//				->join('INNER', $db->quoteName('#__associations', 'asso2') . ' ON ' . $db->quoteName('asso1.key') . ' = ' . $db->quoteName('asso2.key'))
-//				->where(
-//					[
-//						$db->quoteName('asso1.id') . ' = ' . $db->quoteName('a.id'),
-//						$db->quoteName('asso1.context') . ' = ' . $db->quote('com_footballmanager.team')
-//					]
-//				);
-//			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
-//		}
-
 		// Subquery all teams for a player and use them as array in the player object as "teams"
 		$subQuery = $db->getQuery(true);
 		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", ct.since, "until", ct.until, "ordering", ct.ordering, "position", pos.title)) as teams')

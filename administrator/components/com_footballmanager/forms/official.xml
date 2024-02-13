@@ -71,10 +71,10 @@
                 height="572"
         />
 
-        <field name="linked_team_id"
+        <field name="team_id"
                type="Teams"
                layout="joomla.form.field.list-fancy-select"
-               label="COM_FOOTBALLMANAGER_FIELD_LINKED_TEAM_LABEL"
+               label="COM_FOOTBALLMANAGER_FIELD_TEAM_LABEL"
                addfieldprefix="Joomla\Component\Footballmanager\Administrator\Field"
                default=""
         >

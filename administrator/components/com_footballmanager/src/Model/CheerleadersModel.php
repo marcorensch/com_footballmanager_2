@@ -111,7 +111,7 @@ class CheerleadersModel extends ListModel
 		$query->select($db->quoteName('t.title', 'team_title'))
 			->join(
 				'LEFT',
-				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('a.linked_team_id')
+				$db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('a.team_id')
 			);
 
 		// Join over the author user
@@ -131,7 +131,12 @@ class CheerleadersModel extends ListModel
 		$teamId = $this->getState('filter.team_id');
 		if (is_numeric($teamId))
 		{
-			$query->where($db->quoteName('linked_team_id') . ' = ' . (int) $teamId);
+			if($teamId > 0)
+			{
+				$query->where($db->quoteName('team_id') . ' = ' . (int) $teamId);
+			}else{
+				$query->where($db->quoteName('team_id') . ' IS NULL');
+			}
 		}
 
 		// Filter by access level.

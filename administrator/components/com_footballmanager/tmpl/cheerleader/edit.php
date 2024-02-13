@@ -73,7 +73,7 @@ $current_user = Factory::getApplication()->getIdentity();
                 </fieldset>
                 <fieldset class="options-form">
                     <legend><?php echo Text::_('COM_FOOTBALLMANAGER_CONST_TEAM_DETAILS'); ?></legend>
-				<?php echo $this->getForm()->renderField('linked_team_id'); ?>
+				<?php echo $this->getForm()->renderField('team_id'); ?>
 				<?php echo $this->getForm()->renderField('position_id'); ?>
 				<?php echo $this->getForm()->renderField('since'); ?>
                 </fieldset>

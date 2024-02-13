@@ -97,15 +97,18 @@ $current_user = Factory::getApplication()->getIdentity();
 
 	    <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'base', Text::_('COM_FOOTBALLMANAGER_TAB_BASE_LABEL')); ?>
         <div class="row">
-            <div class="col-lg-8 col-xl-9">
+            <div class="col-lg-8">
 			    <?php echo $this->getForm()->renderField('about'); ?>
             </div>
-            <div class=" col-lg-4 col-xl-3">
-	            <?php echo $this->getForm()->renderField('image'); ?>
-	            <?php echo $this->getForm()->renderField('birthday'); ?>
-	            <?php echo $this->getForm()->renderField('country_id'); ?>
-	            <?php echo $this->getForm()->renderField('weight'); ?>
-	            <?php echo $this->getForm()->renderField('height'); ?>
+            <div class=" col-lg-4">
+                <fieldset class="options-form">
+                    <legend><?php echo Text::_('COM_FOOTBALLMANAGER_CONST_PERSON_DETAILS'); ?></legend>
+                    <?php echo $this->getForm()->renderField('image'); ?>
+                    <?php echo $this->getForm()->renderField('birthday'); ?>
+                    <?php echo $this->getForm()->renderField('country_id'); ?>
+                    <?php echo $this->getForm()->renderField('weight'); ?>
+                    <?php echo $this->getForm()->renderField('height'); ?>
+                </fieldset>
             </div>
         </div>
 	    <?php echo HTMLHelper::_('uitab.endTab'); ?>
@@ -123,8 +126,8 @@ $current_user = Factory::getApplication()->getIdentity();
             <div class="col-lg-6">
 			    <?php echo $this->getForm()->renderField('sponsors'); ?>
             </div>
-            <div class="col-lg-6 d-none d-lg-block text-center">
-                <i class="fas fa-handshake fa-lg" style="font-size: 20rem; opacity: .3"></i>
+            <div class="col-lg-6 d-none d-lg-block text-center" style="height: 200px;">
+
             </div>
         </div>
 	    <?php echo HTMLHelper::_('uitab.endTab'); ?>

@@ -65,9 +65,8 @@ $current_user = Factory::getApplication()->getIdentity();
             <div class="col-lg-4">
 				<?php echo $this->getForm()->renderField('image'); ?>
 				<?php echo $this->getForm()->renderField('country_id'); ?>
-				<?php echo $this->getForm()->renderField('linked_team_id'); ?>
+				<?php echo $this->getForm()->renderField('team_id'); ?>
 				<?php echo $this->getForm()->renderField('position_id'); ?>
-				<?php echo $this->getForm()->renderField('catid'); ?>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
@@ -79,6 +78,7 @@ $current_user = Factory::getApplication()->getIdentity();
 				<?php echo $this->getForm()->renderField('created_by'); ?>
 				<?php echo $this->getForm()->renderField('access'); ?>
 				<?php echo $this->getForm()->renderField('published'); ?>
+				<?php echo $this->getForm()->renderField('catid'); ?>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
