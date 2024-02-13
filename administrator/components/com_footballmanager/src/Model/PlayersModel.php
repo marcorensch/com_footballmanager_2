@@ -48,6 +48,7 @@ class PlayersModel extends ListModel
 				'author_name', 'a.author_name',
 				'created_at', 'a.created_at',
 				'country_id', 'a.country_id',
+				'has_sponsors', 'a.sponsors',
 			);
 
 			$assoc = Associations::isEnabled();
@@ -146,6 +147,19 @@ class PlayersModel extends ListModel
 			{
 				$query->where($db->quoteName('a.country_id') . ' = ' . (int) $filterCountryId);
 			}
+		}
+
+		// Filter for Players with Sponsors
+		$filterHasSponsors = $this->getState('filter.has_sponsors');
+		// Note: Sponsor IDS are stored as JSON Array in the database - when no sponsors are set the field could be NULL but is mostly an empty array
+		if ($filterHasSponsors === '1')
+		{
+			// Filter where a.sponsor is NOT NULL AND the lentgh of the string is greater than 3
+			$query->where('(' . $db->quoteName('a.sponsors') . ' IS NOT NULL AND LENGTH(' . $db->quoteName('a.sponsors') . ') > 3)');
+
+		}elseif ($filterHasSponsors === '0')
+		{
+			$query->where('(' . $db->quoteName('a.sponsors') . ' IS NULL OR ' . $db->quoteName('a.sponsors') . ' = "[]")');
 		}
 
 		// Subquery all teams for a player and use them as array in the player object as "teams"

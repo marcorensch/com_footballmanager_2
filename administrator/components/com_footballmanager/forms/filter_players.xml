@@ -60,6 +60,18 @@
         </field>
 
         <field
+                name="has_sponsors"
+                type="list"
+                label="COM_FOOTBALLMANAGER_HAS_SPONSORS"
+                onchange="this.form.submit();"
+                default=""
+        >
+            <option value="">COM_FOOTBALLMANAGER_FIELD_FILTER_DEFAULT_SELECT_HAS_SPONSORS</option>
+            <option value="1">COM_FOOTBALLMANAGER_FIELD_FILTER_SELECT_HAS_SPONSORS</option>
+            <option value="0">COM_FOOTBALLMANAGER_FIELD_FILTER_SELECT_HAS_NO_SPONSORS</option>
+        </field>
+
+        <field
                 name="published"
                 type="status"
                 label="JOPTION_SELECT_PUBLISHED"
