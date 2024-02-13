@@ -43,6 +43,7 @@
         <field
                 name="team_id"
                 type="Teams"
+                context="footballmanager.team.football"
                 label="COM_FOOTBALLMANAGER_TEAM_TITLE"
         />
 
