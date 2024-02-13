@@ -66,6 +66,7 @@ $current_user = Factory::getApplication()->getIdentity();
 				<?php echo $this->getForm()->renderField('image'); ?>
 				<?php echo $this->getForm()->renderField('country_id'); ?>
 				<?php echo $this->getForm()->renderField('team_id'); ?>
+				<?php echo $this->getForm()->renderField('since'); ?>
 				<?php echo $this->getForm()->renderField('position_id'); ?>
             </div>
         </div>

@@ -91,6 +91,9 @@
                 label="COM_FOOTBALLMANAGER_POSITION_TITLE"
         />
 
+        <field name="since" type="number" label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL" hint="COM_FOOTBALLMANAGER_FIELD_MEMBER_SINCE_HINT" />
+
+
         <field
                 name="published"
                 type="list"
