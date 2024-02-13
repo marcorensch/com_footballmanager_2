@@ -63,14 +63,20 @@ $current_user = Factory::getApplication()->getIdentity();
 	            <?php echo $this->getForm()->renderField('about'); ?>
             </div>
             <div class="col-lg-4">
-				<?php echo $this->getForm()->renderField('image'); ?>
-				<?php echo $this->getForm()->renderField('birthday'); ?>
-				<?php echo $this->getForm()->renderField('country_id'); ?>
-				<?php echo $this->getForm()->renderField('height'); ?>
-				<?php echo $this->getForm()->renderField('weight'); ?>
+                <fieldset class="options-form">
+                    <legend><?php echo Text::_('COM_FOOTBALLMANAGER_CONST_PERSON_DETAILS'); ?></legend>
+                    <?php echo $this->getForm()->renderField('image'); ?>
+                    <?php echo $this->getForm()->renderField('birthday'); ?>
+                    <?php echo $this->getForm()->renderField('country_id'); ?>
+                    <?php echo $this->getForm()->renderField('height'); ?>
+                    <?php echo $this->getForm()->renderField('weight'); ?>
+                </fieldset>
+                <fieldset class="options-form">
+                    <legend><?php echo Text::_('COM_FOOTBALLMANAGER_CONST_TEAM_DETAILS'); ?></legend>
 				<?php echo $this->getForm()->renderField('linked_team_id'); ?>
 				<?php echo $this->getForm()->renderField('position_id'); ?>
-				<?php echo $this->getForm()->renderField('catid'); ?>
+				<?php echo $this->getForm()->renderField('since'); ?>
+                </fieldset>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
@@ -82,6 +88,7 @@ $current_user = Factory::getApplication()->getIdentity();
 				<?php echo $this->getForm()->renderField('created_by'); ?>
 				<?php echo $this->getForm()->renderField('access'); ?>
 				<?php echo $this->getForm()->renderField('published'); ?>
+				<?php echo $this->getForm()->renderField('catid'); ?>
             </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>

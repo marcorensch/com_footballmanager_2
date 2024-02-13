@@ -73,6 +73,7 @@
 
         <field name="linked_team_id"
                type="Teams"
+               context="footballmanager.team.cheerleader"
                layout="joomla.form.field.list-fancy-select"
                label="COM_FOOTBALLMANAGER_FIELD_LINKED_TEAM_LABEL"
                addfieldprefix="Joomla\Component\Footballmanager\Administrator\Field"
@@ -80,6 +81,8 @@
         >
             <option value="">COM_FOOTBALLMANAGER_FIELD_DEFAULT_SELECT_TEAM</option>
         </field>
+
+        <field name="since" type="number" label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL" hint="COM_FOOTBALLMANAGER_FIELD_MEMBER_SINCE_HINT" />
 
         <field
                 name="position_id"

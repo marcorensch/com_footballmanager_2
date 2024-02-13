@@ -47,6 +47,7 @@ class CheerleaderTable extends Table
 	    if (!$this->linked_team_id)  $this->linked_team_id = NULL;
 	    if (!$this->position_id)  $this->position_id = NULL;
 	    if (!$this->country_id)  $this->country_id = NULL;
+	    if (!$this->since)  $this->since = NULL;
 
 	    try {
             parent::check();
