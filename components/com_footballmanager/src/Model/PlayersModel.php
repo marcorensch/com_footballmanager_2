@@ -127,7 +127,7 @@ class PlayersModel extends BaseDatabaseModel
 			$player->weight = $player->weight ? $player->weight . ' ' . $weightUnit : null;
 			$player->height = $player->height ? $player->height . ' ' . $heightUnit : null;
 			$player->teams = $player->teams ? json_decode($player->teams) : null;
-			$player->sponsors = $player->sponsors ? $this->getSponsors($player->sponsors) : null;
+			$player->sponsors = $this->getSponsors($player);
 			$player->cfields = $this->getCustomFields($player);
 		}
 		return $players;
@@ -185,7 +185,7 @@ class PlayersModel extends BaseDatabaseModel
 
 	protected function getSponsors($sponsors)
 	{
-		$sponsors = json_decode($sponsors);
+		$sponsors = json_decode($sponsors->sponsor_ids);
 
 		$sponsorIds = array();
 		foreach ($sponsors as $sponsor)
