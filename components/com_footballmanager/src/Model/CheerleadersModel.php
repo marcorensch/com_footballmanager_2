@@ -44,7 +44,7 @@ class CheerleadersModel extends BaseDatabaseModel
 
 		// Filter for Team
 		if($teamId){
-			$query->where($db->quoteName('p.linked_team_id') . ' = ' . $db->quote($teamId));
+			$query->where($db->quoteName('p.team_id') . ' = ' . $db->quote($teamId));
 		}
 
 		// Only Published Items

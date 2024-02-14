@@ -302,6 +302,8 @@ class CoachModel extends AdminModel
 				if(!$teamLinkData['position_id']) $teamLinkData['position_id'] = null;
 				if(!$teamLinkData['since']) $teamLinkData['since'] = null;
 				if(!$teamLinkData['until']) $teamLinkData['until'] = null;
+				if(!$teamLinkData['league_id']) $teamLinkData['league_id'] = null;
+
 
 				if(!$teamLinkData['id'] && !$teamLinkData['team_id'] && !$teamLinkData['image'] && !$teamLinkData['since'] && !$teamLinkData['until'] && !$teamLinkData['position_id']){
 					continue;
@@ -310,7 +312,7 @@ class CoachModel extends AdminModel
 				$query = $db->getQuery(true);
 
 				if($teamLinkData['id'] > 0){
-					foreach(array('since', 'until', 'position_id', 'team_id', 'image', 'ordering') as $key){
+					foreach(array('since', 'until', 'position_id', 'team_id', 'image', 'ordering', 'league_id') as $key){
 						if(!$teamLinkData[$key]){
 							$fields[] = $db->quoteName($key) . ' = NULL';
 						}else{

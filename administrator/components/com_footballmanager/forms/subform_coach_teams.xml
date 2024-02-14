@@ -4,64 +4,74 @@
         addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
 >
     <fieldset name="image" class="col-lg-6 col-xl-4">
-    <field
-            name="id"
-            type="hidden"
-            label="JGLOBAL_FIELD_ID_LABEL"
-            default="0"
-            class="readonly hidden"
-            hidden="true"
-            readonly="true"
-    />
+        <field
+                name="id"
+                type="hidden"
+                label="JGLOBAL_FIELD_ID_LABEL"
+                default="0"
+                class="readonly hidden"
+                hidden="true"
+                readonly="true"
+        />
 
-    <field
-        name="ordering"
-        type="hidden"
-        class="ordering"
-        label="JGRID_HEADING_ORDERING"
-        default="0"
-    />
+        <field
+                name="ordering"
+                type="hidden"
+                class="ordering"
+                label="JGRID_HEADING_ORDERING"
+                default="0"
+        />
 
-    <field
-            name="image"
-            type="media"
-            label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
-            directory="images"
-            destination="com_footballmanager"
-    />
+        <field
+                name="image"
+                type="media"
+                label="COM_FOOTBALLMANAGER_FIELD_PHOTO_LABEL"
+                directory="images"
+                destination="com_footballmanager"
+        />
     </fieldset>
     <fieldset name="details" class="col-lg-6 col-xl-4">
-    <field
-            name="team_id"
-            type="Teams"
-            label="COM_FOOTBALLMANAGER_TEAM_TITLE"
-            onfocus="this.oldvalue = this.value;"
-            onchange="console.log(this.oldvalue, this.value);"
-    />
-    <field
-            name="position_id"
-            type="positions"
-            layout="joomla.form.field.list-fancy-select"
-            context="coach"
-            label="COM_FOOTBALLMANAGER_POSITION_TITLE"
-    />
+        <field
+                name="team_id"
+                type="Teams"
+                label="COM_FOOTBALLMANAGER_TEAM_TITLE"
+                onfocus="this.oldvalue = this.value;"
+                onchange="console.log(this.oldvalue, this.value);"
+        />
+        <field
+                name="league_id"
+                type="Leagues"
+                label="COM_FOOTBALLMANAGER_FIELD_SELECT_LEAGUE_LABEL"
+                default="0"
+                show_select="false"
+                class="btn-group btn-group-yesno"
+        >
+            <option value="0">COM_FOOTBALLMANAGER_OPTION_INACTIVE</option>
+        </field>
+        <field
+                name="position_id"
+                type="positions"
+                layout="joomla.form.field.list-fancy-select"
+                context="coach"
+                label="COM_FOOTBALLMANAGER_POSITION_TITLE"
+        />
 
     </fieldset>
     <fieldset name="dates" class="col-lg-6 col-xl-4">
 
-    <field
-            name="since"
-            type="calendar"
-            label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL"
-            translateformat="true"
-            filter="user_utc"
-    />
-    <field
-            name="until"
-            type="calendar"
-            label="COM_FOOTBALLMANAGER_FIELD_UNTIL_LABEL"
-            translateformat="true"
-            filter="user_utc"
-    />
+        <field
+                name="since"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_SINCE_LABEL"
+                translateformat="true"
+                filter="user_utc"
+        />
+        <field
+                name="until"
+                type="calendar"
+                label="COM_FOOTBALLMANAGER_FIELD_UNTIL_LABEL"
+                translateformat="true"
+                filter="user_utc"
+        />
     </fieldset>
 </form>

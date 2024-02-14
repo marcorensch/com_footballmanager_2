@@ -23,6 +23,8 @@ class CoachesModel extends BaseDatabaseModel
 	public function getItems(): array
 	{
 		$teamId = $this->getState('filter.teamId', null);
+		$leagueIds = $this->getState('filter.leagueIds', null);
+
 		$sortingDirection = $this->getState('sorting.direction', 'ASC');
 		$orderBy = $this->getState('sorting.orderBy', 'ordering');
 
@@ -44,7 +46,7 @@ class CoachesModel extends BaseDatabaseModel
 
 		// Create a subquery for the team(s) DATA (only used for display)
 		$subQuery = $db->getQuery(true);
-		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "registrationId", ct.id, "image", ct.image, "since", ct.since, "until", ct.until, "ordering", ct.ordering, "position", pos.title, "position_description", pos.description, "position_link", pos.learnmore_link)) as teams')
+		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "registration_id", ct.id, "position_id", ct.position_id, "image", ct.image, "since", ct.since, "until", ct.until, "ordering", ct.ordering, "position", pos.title, "position_description", pos.description, "position_link", pos.learnmore_link)) as teams')
 			->from($db->quoteName('#__footballmanager_coaches_teams', 'ct'))
 			->join(
 				'LEFT',
@@ -61,6 +63,11 @@ class CoachesModel extends BaseDatabaseModel
 		if ($onlyCurrentTeam && $teamId)
 		{
 			$subQuery->where('(' . $db->quoteName('ct.team_id') . ' = ' . $db->quote($teamId) . ')');
+		}
+
+		if ($leagueIds)
+		{
+			$subQuery->where('(' . $db->quoteName('ct.league_id') . ' IN (' . implode(',', $leagueIds) . '))');
 		}
 
 		// Display Filter for ACTIVE Positions only
@@ -81,6 +88,23 @@ class CoachesModel extends BaseDatabaseModel
 		$subQueryFilterTeam->select('GROUP_CONCAT(' . $db->quoteName('ctf.team_id') . ' ORDER BY ' . $db->quoteName('ctf.ordering') . ' SEPARATOR ",")')
 			->from($db->quoteName('#__footballmanager_coaches_teams', 'ctf'))
 			->where($db->quoteName('ctf.coach_id') . ' = ' . $db->quoteName('p.id'));
+
+		// Filter: League IDs
+		if ($leagueIds)
+		{
+			$subQueryFilterTeam->where('(' . $db->quoteName('ctf.league_id') . ' IN (' . implode(',', $leagueIds) . '))');
+		}
+
+		// Filter for Current Team only
+		if($onlyCurrentTeam)
+		{
+			$subQueryFilterTeam->where('(' . $db->quoteName('ctf.team_id') . ' = ' . $db->quote($teamId) . ')');
+			// Filter for League IDs
+			if ($leagueIds)
+			{
+				$subQueryFilterTeam->where('(' . $db->quoteName('ctf.league_id') . ' IN (' . implode(',', $leagueIds) . '))');
+			}
+		}
 
 		// filter for active Only
 		if (true)
