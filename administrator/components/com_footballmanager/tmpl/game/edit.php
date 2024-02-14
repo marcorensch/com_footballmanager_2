@@ -36,6 +36,7 @@ $isModal = $input->get('layout') === 'modal';
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('keepalive')
 	->useScript('form.validate')
+    ->useScript('jquery')
     ->useScript('com_footballmanager.admin-game-roster-js')
     ->useScript('com_footballmanager.admin-game-officials-js')
     ->useStyle('com_footballmanager.admin-game-officials-css');
