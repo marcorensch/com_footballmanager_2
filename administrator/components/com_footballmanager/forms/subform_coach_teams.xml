@@ -42,15 +42,15 @@
                 name="league_id"
                 type="Leagues"
                 label="COM_FOOTBALLMANAGER_FIELD_SELECT_LEAGUE_LABEL"
-                default="0"
-                show_select="false"
+                default=""
+                show_select="true"
                 class="btn-group btn-group-yesno"
         >
             <option value="0">COM_FOOTBALLMANAGER_OPTION_INACTIVE</option>
         </field>
         <field
                 name="position_id"
-                type="positions"
+                type="Positions"
                 layout="joomla.form.field.list-fancy-select"
                 context="coach"
                 label="COM_FOOTBALLMANAGER_POSITION_TITLE"

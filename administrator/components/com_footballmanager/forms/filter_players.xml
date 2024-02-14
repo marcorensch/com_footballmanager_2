@@ -16,6 +16,7 @@
                 name="team_id"
                 type="Teams"
                 label="COM_FOOTBALLMANAGER_TEAM"
+                context="footballmanager.team.football"
                 onchange="this.form.submit();"
                 default=""
         >
