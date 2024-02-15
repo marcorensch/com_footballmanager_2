@@ -67,6 +67,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 		$this->installCategoryForView('com_footballmanager.teams');
 		$this->installCategoryForView('com_footballmanager.games');
 		$this->installCategoryForView('com_footballmanager.officials');
+		$this->installCategoryForView('com_footballmanager.players');
 		$this->installCategoryForView('com_footballmanager.coaches');
 		$this->installCategoryForView('com_footballmanager.cheerleaders');
 		$this->installCategoryForView('com_footballmanager.positions');
