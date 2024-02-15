@@ -151,8 +151,8 @@ class HtmlView extends BaseHtmlView
 		// Add import / export buttons
 		if ($user->authorise('core.edit'))
 		{
-			ToolbarHelper::custom('sponsors.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
-			ToolbarHelper::custom('sponsors.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
+//			ToolbarHelper::custom('sponsors.import', 'upload', '', 'COM_FOOTBALLMANAGER_IMPORT', false);
+//			ToolbarHelper::custom('sponsors.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))

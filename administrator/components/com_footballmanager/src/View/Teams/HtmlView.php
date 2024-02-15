@@ -145,8 +145,8 @@ class HtmlView extends BaseHtmlView
 		// Add import / export buttons
 		if ($user->authorise('core.edit'))
 		{
-			ToolbarHelper::modal('import-modal', 'fas fa-upload', 'COM_FOOTBALLMANAGER_IMPORT');
-			ToolbarHelper::custom('teams.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
+//			ToolbarHelper::modal('import-modal', 'fas fa-upload', 'COM_FOOTBALLMANAGER_IMPORT');
+//			ToolbarHelper::custom('teams.export', 'download', '', 'COM_FOOTBALLMANAGER_EXPORT', true);
 		}
 
 		if ($user->authorise('core.admin', 'com_footballmanager') || $user->authorise('core.options', 'com_footballmanager'))
