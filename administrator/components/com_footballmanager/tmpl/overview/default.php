@@ -82,6 +82,12 @@ $widgets = array(
         'link' => 'index.php?option=com_footballmanager&view=leagues',
         'category' => null,
     ),
+    'com_footballmanager.countries' => array(
+	    'title' => Text::_('COM_FOOTBALLMANAGER_COUNTRIES'),
+	    'icon' => 'fas fa-globe fa-4x',
+	    'link' => 'index.php?option=com_footballmanager&view=countries',
+	    'category' => 'com_footballmanager.countries',
+    ),
     'com_footballmanager.locations' => array(
         'title' => Text::_('COM_FOOTBALLMANAGER_LOCATIONS'),
         'icon' => 'fas fa-map-marker-alt fa-4x',
@@ -92,7 +98,7 @@ $widgets = array(
         'title' => Text::_('COM_FOOTBALLMANAGER_POSITIONS'),
         'icon' => 'fas fa-hat-cowboy fa-4x',
         'link' => 'index.php?option=com_footballmanager&view=positions',
-        'category' => 'com_footballmanager.positions',
+        'category' => null,
     ),
     'com_footballmanager.teams' => array(
         'title' => Text::_('COM_FOOTBALLMANAGER_TEAMS'),
@@ -118,6 +124,12 @@ $widgets = array(
         'link' => 'index.php?option=com_footballmanager&view=players',
         'category' => 'com_footballmanager.players',
     ),
+    'com_footballmanager.cheerleaders' => array(
+	    'title' => Text::_('COM_FOOTBALLMANAGER_CHEERLEADERS'),
+	    'icon' => 'fas fa-smile fa-4x',
+	    'link' => 'index.php?option=com_footballmanager&view=cheerleaders',
+	    'category' => 'com_footballmanager.cheerleaders',
+    ),
     'com_footballmanager.officials' => array(
         'title' => Text::_('COM_FOOTBALLMANAGER_OFFICIALS'),
         'icon' => 'fas fa-id-card-alt fa-4x',
@@ -130,12 +142,12 @@ $widgets = array(
 	    'link' => 'index.php?option=com_footballmanager&view=sponsors',
 	    'category' => 'com_footballmanager.sponsors',
     ),
-    'com_footballmanager.categories' => array(
-        'title' => Text::_('JCATEGORIES'),
-        'icon' => 'fas fa-folder fa-4x',
-        'link' => 'index.php?option=com_footballmanager&view=categories',
-        'category' => null,
-    ),
+//    'com_footballmanager.categories' => array(
+//        'title' => Text::_('JCATEGORIES'),
+//        'icon' => 'fas fa-folder fa-4x',
+//        'link' => 'index.php?option=com_footballmanager&view=categories',
+//        'category' => null,
+//    ),
     'com_footballmanager.manual' => array(
         'title' => Text::_('COM_FOOTBALLMANAGER_MANUAL'),
         'icon' => 'fas fa-life-ring fa-4x',
