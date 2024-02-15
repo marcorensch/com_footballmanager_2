@@ -30,8 +30,8 @@
                 description="COM_FOOTBALLMANAGER_FILTER_ONLY_ACTIVE_DESC"
                 onchange="this.form.submit();"
         >
-            <option value="0">COM_FOOTBALLMANAGER_FILTER_ALL_PLAYERS_LABEL</option>
-            <option value="1">COM_FOOTBALLMANAGER_FILTER_ONLY_ACTIVE_PLAYERS_LABEL</option>
+            <option value="0">COM_FOOTBALLMANAGER_FILTER_ALL_COACHES_LABEL</option>
+            <option value="1">COM_FOOTBALLMANAGER_FILTER_ONLY_ACTIVE_COACHES_LABEL</option>
         </field>
 
         <field
