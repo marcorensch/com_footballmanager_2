@@ -136,18 +136,22 @@ class CoachesModel extends ListModel
 			);
 
 		// Filter by Team ID
-		$teamId = $this->getState('filter.team_id');
-		if (is_numeric($teamId))
-		{
-			$query->where($db->quoteName('team_id') . ' = ' . (int) $teamId);
+		$filterTeamId = $this->getState('filter.team_id');
+		if (is_numeric($filterTeamId)){
+			$subQueryFilterTeam = $db->getQuery(true);
+			$subQueryFilterTeam->select('GROUP_CONCAT(' . $db->quoteName('ctf.team_id') . ' ORDER BY ' . $db->quoteName('ctf.ordering') . ' SEPARATOR ",")')
+				->from($db->quoteName('#__footballmanager_coaches_teams', 'ctf'))
+				->where($db->quoteName('ctf.coach_id') . ' = ' . $db->quoteName('a.id'));
 
-			// Switch for only active players by checking current date against team_since and team_until but only if pt.since and pt.until are not null
-			$onlyActive = $this->getState('filter.only_active');
-			if ($onlyActive)
+			// Filter by active only
+			if ($this->getState('filter.only_active') === '1')
 			{
-				$query->where('(' . $db->quoteName('pt.since') . ' IS NULL OR ' . $db->quoteName('pt.since') . ' <= NOW())');
-				$query->where('(' . $db->quoteName('pt.until') . ' IS NULL OR ' . $db->quoteName('pt.until') . ' >= NOW())');
+				$subQueryFilterTeam->where('(' . $db->quoteName('ctf.since') . ' IS NULL OR ' . $db->quoteName('ctf.since') . ' <= NOW())');
+				$subQueryFilterTeam->where('(' . $db->quoteName('ctf.until') . ' IS NULL OR ' . $db->quoteName('ctf.until') . ' >= NOW())');
 			}
+
+			// Modify the main query to include the nested query in the WHERE clause
+			$query->where('FIND_IN_SET (' . $db->quote($filterTeamId) . ', (' . $subQueryFilterTeam . '))');
 		}
 
 		// Filter by access level.
