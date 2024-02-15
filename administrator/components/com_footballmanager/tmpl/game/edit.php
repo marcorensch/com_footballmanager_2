@@ -232,9 +232,6 @@ $current_user = Factory::getApplication()->getIdentity();
             <div class="col-lg-6">
 				<?php echo $this->getForm()->renderField('sponsors'); ?>
             </div>
-            <div class="col-lg-6 d-none d-lg-block text-center">
-                <i class="fas fa-handshake fa-lg" style="font-size: 20rem; opacity: .3"></i>
-            </div>
         </div>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
