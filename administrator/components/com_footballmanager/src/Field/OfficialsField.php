@@ -51,6 +51,7 @@ class OfficialsField extends ListField{
 		$multiple = $this->element['multiple'] ?? false;
 
 		$options = [];
+		$options[] = HTMLHelper::_('select.option', '', Text::_('JGLOBAL_SELECT_AN_OPTION'));
 		foreach ($teams as $team)
 		{
 			$options[] = HTMLHelper::_('select.option', $team->id, $team->firstname . ' ' . $team->lastname);
