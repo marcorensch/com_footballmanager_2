@@ -131,6 +131,8 @@ $current_user = Factory::getApplication()->getIdentity();
                             <div class="col-12">
 								<?php echo $this->getForm()->renderField('matchday'); ?>
 								<?php echo $this->getForm()->renderField('tickets_link'); ?>
+								<?php echo $this->getForm()->renderField('id'); ?>
+								<?php echo $this->getForm()->renderField('support_games'); ?>
                             </div>
                         </div>
                         <div class="row">

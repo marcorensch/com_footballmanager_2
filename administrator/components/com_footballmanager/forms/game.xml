@@ -278,6 +278,17 @@
                 default=""
         />
 
+        <field name="support_games"
+               showon="id!:0"
+               datefilterfieldname="kickoff"
+               showSelect="false"
+               layout="joomla.form.field.list-fancy-select"
+               type="Games"
+               label="COM_FOOTBALLMANAGER_FIELD_SUPPORTING_GAMES_LABEL"
+               description="COM_FOOTBALLMANAGER_FIELD_SUPPORTING_GAMES_DESC"
+               multiple="true"
+        />
+
 
         <!-- Rosters -->
         <field

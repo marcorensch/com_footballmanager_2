@@ -44,8 +44,8 @@ class TeamsField extends ListField{
 	{
 
 		// Get the context from the field params
-		$this->context = $this->element['context'] ?? null;
-		$this->show_select = $this->getAttribute('show_select', false) === 'true';
+		$this->context = $this->getAttribute('context', null);
+		$this->show_select = $this->getAttribute('show_select', 'false') === 'true';
 
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);

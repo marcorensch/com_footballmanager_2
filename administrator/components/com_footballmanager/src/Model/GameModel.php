@@ -125,15 +125,14 @@ class GameModel extends AdminModel
 			$data['created_by'] = $user->id;
 		}
 
-		// handle sponsors
-		$data['sponsors'] = json_encode($data['sponsors']);
-		$data['officials'] = json_encode($data['officials']);
-		$data['home_roster_offense'] = json_encode($data['home_roster_offense']);
-		$data['home_roster_defense'] = json_encode($data['home_roster_defense']);
-		$data['home_roster_special_teams'] = json_encode($data['home_roster_special_teams']);
-		$data['away_roster_offense'] = json_encode($data['away_roster_offense']);
-		$data['away_roster_defense'] = json_encode($data['away_roster_defense']);
-		$data['away_roster_special_teams'] = json_encode($data['away_roster_special_teams']);
+		// handle array data
+		foreach ($data as $key => $value)
+		{
+			if (is_array($value))
+			{
+				$data[$key] = json_encode($value);
+			}
+		}
 
 		// Alter the title for save as copy
 		if ($input->get('task') == 'save2copy')

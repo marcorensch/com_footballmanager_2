@@ -42,6 +42,7 @@ class GameTable extends Table
 
 		if (!$this->matchday) $this->matchday = null;
 		if (!$this->new_game_id) $this->new_game_id = null;
+		if (!$this->head_referee_id) $this->head_referee_id = null;
 
 		try
 		{
