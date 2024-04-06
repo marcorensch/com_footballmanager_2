@@ -21,6 +21,9 @@ class NextGameModel extends BaseDatabaseModel
 	{
 		$teamIds = $this->getState('filter.teamIds', null);
 		$leagueIds = $this->getState('filter.leagueIds', null);
+		echo 'COMPONENT:';
+		echo '<pre>' . var_export($leagueIds, true) . '</pre>';
+		echo '<pre>' . var_export($teamIds, true) . '</pre>';
 		$limit = 1;
 
 		$db    = $this->getDatabase();

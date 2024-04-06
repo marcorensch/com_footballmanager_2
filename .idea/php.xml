@@ -14,6 +14,7 @@
     <include_path>
       <path value="$USER_HOME$/Sites/joomla4" />
       <path value="$USER_HOME$/Sites/joomla4" />
+      <path value="$USER_HOME$/Sites/broncos24" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

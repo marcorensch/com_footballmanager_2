@@ -27,6 +27,15 @@ $wa->addInlineScript("
         });
     });");
 
+$wa->addInlineStyle('
+    .past-game-row > * {
+        background-color: #f5f5f5 !important;
+        & > * {
+         opacity: 0.9;
+         }
+    }'
+);
+
 $canChange = true;
 $assoc     = Associations::isEnabled();
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -139,8 +148,9 @@ if($params->get('show_filters_by_default', 0)){
 							$n = count($this->items);
 							foreach ($this->items as $i => $item) :
 								$ordering = ($listOrder == 'ordering');
+                                $pastGameCls = $item->kickoff < date('Y-m-d H:i:s') ? 'past-game-row' : '';
 								?>
-                                <tr class="row<?php echo $i % 2; ?>" data-draggable-group="playerItems">
+                                <tr class="row<?php echo $i % 2; ?> <?php echo $pastGameCls;?>" data-draggable-group="playerItems">
                                     <td class="text-center">
 										<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                     </td>

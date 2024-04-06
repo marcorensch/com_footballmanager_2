@@ -23,8 +23,6 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use NXD\Component\Footballmanager\Administrator\Extension\FootballmanagerComponent;
-use NXD\Component\Footballmanager\Administrator\Helper\AssociationsHelper;
-use Joomla\CMS\Association\AssociationExtensionInterface;
 
 
 /**

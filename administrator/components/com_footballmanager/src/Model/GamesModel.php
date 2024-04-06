@@ -241,13 +241,14 @@ class GamesModel extends ListModel
 		}
 
 		// Add the list ordering clause.
-		$orderCol  = $this->state->get('list.ordering', 'a.created_at');
-		$orderDirn = $this->state->get('list.direction', 'desc');
+		$orderCol  = $this->state->get('list.ordering', 'kickoff');
+		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
 		{
 			$orderCol = $db->quoteName('c.title') . ' ' . $orderDirn . ', ' . $db->quoteName('a.ordering');
 		}
+
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
