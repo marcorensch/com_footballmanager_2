@@ -102,6 +102,10 @@ if($params->get('show_filters_by_default', 0)){
                                 </th>
 
                                 <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
+		                            <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_NUMBER'); ?>
+                                </th>
+
+                                <th scope="col" style="min-width:150px" class="d-none d-md-table-cell">
 		                            <?php echo Text::_('COM_FOOTBALLMANAGER_TABLEHEAD_DURATION'); ?>
                                 </th>
                                 <th scope="col" style="width:10%" class="d-none d-md-table-cell">
@@ -188,6 +192,13 @@ if($params->get('show_filters_by_default', 0)){
 		                                <?php foreach ($item->teams as $linkedTeam): ?>
                                             <div>
                                                 <span class="team-name"><?php echo $linkedTeam->position; ?></span>
+                                            </div>
+		                                <?php endforeach; ?>
+                                    </td>
+                                    <td class="small">
+		                                <?php foreach ($item->teams as $linkedTeam): ?>
+                                            <div>
+                                                <span class="player-number"><?php echo $linkedTeam->number; ?></span>
                                             </div>
 		                                <?php endforeach; ?>
                                     </td>

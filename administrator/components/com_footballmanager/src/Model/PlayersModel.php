@@ -164,7 +164,7 @@ class PlayersModel extends ListModel
 
 		// Subquery all teams for a player and use them as array in the player object as "teams"
 		$subQuery = $db->getQuery(true);
-		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "since", pt.since, "until", pt.until, "ordering", pt.ordering, "position", pos.title, "league" , l.title)) as teams')
+		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "number" , pt.player_number, "since", pt.since, "until", pt.until, "ordering", pt.ordering, "position", pos.title, "league" , l.title)) as teams')
 			->from($db->quoteName('#__footballmanager_players_teams', 'pt'))
 			->join(
 				'LEFT',
@@ -263,6 +263,23 @@ class PlayersModel extends ListModel
 			if (stripos($search, 'id:') === 0)
 			{
 				$query->where($db->quoteName('a.id') . ' = ' . (int) substr($search, 3));
+			}
+			elseif (is_numeric($search)){
+				// Select player numbers using a nested query
+				$subQueryFilterByPlayerNumber = $db->getQuery(true);
+				$subQueryFilterByPlayerNumber->select('GROUP_CONCAT(' . $db->quoteName('ptnf.player_number') . ' ORDER BY ' . $db->quoteName('ptnf.ordering') . ' SEPARATOR ",") AS playerNumbers')
+					->from($db->quoteName('#__footballmanager_players_teams', 'ptnf'))
+					->where($db->quoteName('ptnf.player_id') . ' = ' . $db->quoteName('a.id'));
+
+				// Adding Custom Filter if only active && teamId is set to show only active players for the selected team AND the selected league
+				if (is_numeric($filterTeamId) && $onlyActive === '1')
+				{
+					$subQueryFilterByPlayerNumber->where('(' . $db->quoteName('ptnf.player_number') . ' LIKE ' . $db->escape(trim($search), true));
+				}
+
+
+				// Modify the main query to include the nested query in the WHERE clause
+				$query->where('FIND_IN_SET (' . $db->quote($search) . ', (' . $subQueryFilterByPlayerNumber . '))');
 			}
 			else
 			{
