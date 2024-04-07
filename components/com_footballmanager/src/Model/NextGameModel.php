@@ -27,6 +27,22 @@ class NextGameModel extends BaseDatabaseModel
 		$query = $db->getQuery(true);
 		$query->clear();
 
+		$JsonObject = 'JSON_OBJECT("title", t.title, "logo", t.logo, "shortcode", shortcode, "shortname", shortname,"color", color)';
+
+		// >> SubQueries for Home and Away Teams
+
+		// SubQuery for Home Team
+		$home = $db->getQuery(true);
+		$home->select('JSON_ARRAYAGG('.$JsonObject.')')->from($db->quoteName('#__footballmanager_teams', 't'))
+			->where('t.id = g.home_team_id');
+
+		// SubQuery for Away Team
+		$away = $db->getQuery(true);
+		$away->select('JSON_ARRAYAGG('.$JsonObject.')')->from($db->quoteName('#__footballmanager_teams', 't'))
+			->where('t.id = g.away_team_id');
+
+		// << SubQueries for Home and Away Teams
+
 		$query->select('g.*')->from($db->quoteName('#__footballmanager_games', 'g'));
 
 		// Join (get) the League Title and  League alias from leagues table
@@ -37,38 +53,28 @@ class NextGameModel extends BaseDatabaseModel
 		$query->select('l.title as location_title')
 			->join('LEFT', $db->quoteName('#__footballmanager_locations', 'l') . ' ON ' . $db->quoteName('l.id') . ' = ' . $db->quoteName('g.location_id'));
 
-		$JsonObject = 'JSON_OBJECT("title", t.title, "logo", t.logo, "shortcode", shortcode, "shortname", shortname,"color", color)';
-
-		// SubQuery for Home Team
-		$home = $db->getQuery(true);
-		$home->select('JSON_ARRAYAGG('.$JsonObject.')')->from($db->quoteName('#__footballmanager_teams', 't'))
-			->where('t.id = g.home_team_id');
-
 		$query->select('(' . $home . ') as home');
-
-		// SubQuery for Away Team
-		$away = $db->getQuery(true);
-		$away->select('JSON_ARRAYAGG('.$JsonObject.')')->from($db->quoteName('#__footballmanager_teams', 't'))
-			->where('t.id = g.away_team_id');
 
 		$query->select('(' . $away . ') as away');
 
+		// FILTERS
 		// Filter League
-		if ($leagueIds)
+		if (!empty($leagueIds))
 		{
 			$query->where($db->quoteName('g.league_id') . ' IN (' . implode(',', $leagueIds) . ')');
 		}
 
+		// Filter Only Games that are not yet played (Kickoff is in the future)
+		$query->where($db->quoteName('g.kickoff') . ' > CURRENT_TIMESTAMP');
 
-		$query->where($db->quoteName('g.kickoff') . ' >= NOW()');
-		if($teamIds)
+		// Filter for published Games only
+		$query->where($db->quoteName('g.published') . ' = ' . $db->quote('1'));
+
+		// Filter for Team
+		if(!empty($teamIds))
 		{
-			$query->andWhere('(' . $db->quoteName('g.home_team_id') . ' IN (' . implode(',', $teamIds) . ')');
-			$query->orWhere($db->quoteName('g.away_team_id') . ' IN (' . implode(',', $teamIds) . '))');
+			$query->where('(' . $db->quoteName('g.home_team_id') . ' IN (' . implode(',', $teamIds) . ') OR ' . $db->quoteName('g.away_team_id')  .' IN (' . implode(',', $teamIds) . '))');
 		}
-
-		// Only Published Games
-		$query->andWhere($db->quoteName('g.published') . ' = ' . $db->quote('1'));
 
 		// Order by Kickoff date
 		$query->order($db->quoteName('g.kickoff') . ' ASC');
@@ -76,7 +82,8 @@ class NextGameModel extends BaseDatabaseModel
 		$query->setLimit($limit, 0);
 
 		$db->setQuery($query);
-		return $db->loadObject();
+		$game = $db->loadObject();
+		return $game;
 	}
 
 	/**
@@ -126,7 +133,7 @@ class NextGameModel extends BaseDatabaseModel
 		$query->select('(' . $away . ') as away');
 
 		$query->where($db->quoteName('g.id') . ' IN (' . implode(',', $ids) . ')');
-		$query->where($db->quoteName('g.published') . ' = ' . $db->quote('1'));
+		$query->where($db->quoteName('g.published') . ' = 1');
 		$query->order($db->quoteName('g.kickoff') . ' ASC');
 		$db->setQuery($query);
 		return $db->loadObjectList();
