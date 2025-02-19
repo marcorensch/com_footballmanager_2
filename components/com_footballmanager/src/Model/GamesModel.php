@@ -34,6 +34,34 @@ class GamesModel extends BaseDatabaseModel
 
 		$query->select('g.*')->from($db->quoteName('#__footballmanager_games', 'g'));
 
+		// FILTERS
+
+		// Filter Season
+		$query->where($db->quoteName('g.season_id') . ' IN (' . implode(',', $seasonId) . ')' );
+
+		// Filter League
+		if ($leagueId && is_array($leagueId))
+		{
+			$query->where($db->quoteName('g.league_id') . ' IN (' . implode(',', $leagueId) . ')');
+		}
+
+		// Filter Upcoming Games
+		if ($onlyUpcoming)
+		{
+			$query->where($db->quoteName('g.kickoff') . ' >= NOW()');
+		}
+
+		// Filter Team ID's - Select Only Games where the team is involved as Home OR Away Team
+		if (!empty($teamId))
+		{
+			$query->where('(' . $db->quoteName('g.home_team_id') . ' IN (' . implode(',', $teamId) . ') OR ' . $db->quoteName('g.away_team_id') . ' IN (' . implode(',', $teamId) . '))');
+		}
+
+		// Only Published Games
+		$query->andWhere($db->quoteName('g.published') . ' = ' . $db->quote('1'));
+
+		// END OF FILTERS
+
 		// Join (get) the League Title and  League alias from leagues table
 		$query->select(array('league.title as league_title', 'league.alias as league_alias'))
 			->join('LEFT', $db->quoteName('#__footballmanager_leagues', 'league') . ' ON ' . $db->quoteName('league.id') . ' = ' . $db->quoteName('g.league_id'));
@@ -58,31 +86,6 @@ class GamesModel extends BaseDatabaseModel
 
 		$query->select('(' . $away . ') as away');
 
-		// Filter Season
-		$query->where($db->quoteName('g.season_id') . ' IN (' . implode(',', $seasonId) . ')' );
-
-		// Filter League
-		if ($leagueId)
-		{
-			$query->where($db->quoteName('g.league_id') . ' IN (' . implode(',', $leagueId) . ')');
-		}
-
-		// Filter Upcoming Games
-		if ($onlyUpcoming)
-		{
-			$query->where($db->quoteName('g.kickoff') . ' >= NOW()');
-		}
-
-		// Filter Team ID's - Select Only Games where the team is involved as Home OR Away Team
-		if (!empty($teamId))
-		{
-			$query->andWhere('(' . $db->quoteName('g.home_team_id') . ' IN (' . implode(',', $teamId) . ')');
-			$query->orWhere($db->quoteName('g.away_team_id') . ' IN (' . implode(',', $teamId) . '))');
-		}
-
-		// Only Published Games
-		$query->andWhere($db->quoteName('g.published') . ' = ' . $db->quote('1'));
-
 		// Order by Kickoff date
 		$query->order($db->quoteName('g.kickoff') . ' ' . $direction);
 
@@ -90,7 +93,6 @@ class GamesModel extends BaseDatabaseModel
 		if($limit) {
 			$query->setLimit($limit, 0);
 		}
-
 
 		$db->setQuery($query);
 		$games = $db->loadObjectList();

@@ -1,0 +1,44 @@
+
+# Composer dependency directories
+/vendor/
+
+# Composer generated files
+composer.lock
+
+# Node modules for frontend dependencies
+/node_modules/
+
+# PHPStorm and other IDEs
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Logs and temporary data
+*.log
+*.cache
+*.tmp
+
+# PHPUnit
+.phpunit.result.cache
+
+# Generated files
+/public/build/
+/public/uploads/
+/storage/framework/
+/storage/logs/
+
+# Environment variables
+.env
+.env.*.local
+
+# Symfony config
+/config/routes/*.yaml
+/config/secrets/prod/prod.decrypt.private.php
+
+# Laravel IDE Helper files
+_ide_helper.php
+_ide_helper_models.php
+
+# Code Coverage reports
+coverage/

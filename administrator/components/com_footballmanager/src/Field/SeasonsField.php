@@ -47,7 +47,7 @@ class SeasonsField extends ListField{
 		$query = $db->getQuery(true);
 		$query->select('id, title');
 		$query->from('#__footballmanager_seasons');
-		$query->order('ordering ASC');
+		$query->order('ordering DESC');
 		$db->setQuery($query);
 		$teams = $db->loadObjectList();
 
