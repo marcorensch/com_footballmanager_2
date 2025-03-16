@@ -42,7 +42,7 @@ class PlayersModel extends BaseDatabaseModel
 
 		// Create a subquery for the team(s) DATA (only used for display)
 		$subQuery = $db->getQuery(true);
-		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "team_color", t.color, "registrationId", pt.id, "image", pt.image, "number", pt.player_number, "since", pt.since, "until", pt.until, "ordering", pt.ordering, "position", pos.title, "position_description", pos.description, "position_link", pos.learnmore_link, "league" , l.title)) as teams')
+		$subQuery->select('JSON_ARRAYAGG(JSON_OBJECT("title", t.title, "team_id", t.id, "team_color", t.color, "team_logo", t.logo, "registrationId", pt.id, "image", pt.image, "number", pt.player_number, "since", pt.since, "until", pt.until, "ordering", pt.ordering, "position", pos.title, "position_description", pos.description, "position_link", pos.learnmore_link, "league" , l.title)) as teams')
 			->from($db->quoteName('#__footballmanager_players_teams', 'pt'))
 			->join(
 				'LEFT',
