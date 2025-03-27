@@ -38,6 +38,18 @@ class CheerleadersModel extends BaseDatabaseModel
 		$query->select('c.title as country')
 			->join('LEFT', $db->quoteName('#__footballmanager_countries', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('p.country_id'));
 
+		// Join Team Data
+		$query->select(
+			[
+				't.title as team_name',
+				't.logo as team_logo',
+				't.color as team_color',
+				't.id as team_id'
+			]
+		)
+			->join('LEFT', $db->quoteName('#__footballmanager_teams', 't') . ' ON ' . $db->quoteName('t.id') . ' = ' . $db->quoteName('p.team_id'));
+
+
 		// Join Position
 		$query->select('pos.title as position')
 			->join('LEFT', $db->quoteName('#__footballmanager_positions', 'pos') . ' ON ' . $db->quoteName('pos.id') . ' = ' . $db->quoteName('p.position_id'));

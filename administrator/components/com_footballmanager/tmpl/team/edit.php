@@ -64,6 +64,7 @@ $current_user = Factory::getApplication()->getIdentity();
 	                    <?php echo $this->getForm()->renderField('shortcode'); ?>
 
 	                    <?php echo $this->getForm()->renderField('color'); ?>
+	                    <?php echo $this->getForm()->renderField('secondary_color'); ?>
 
 
 	                    <?php echo $this->getForm()->renderField('location_id'); ?>
@@ -79,10 +80,13 @@ $current_user = Factory::getApplication()->getIdentity();
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('COM_FOOTBALLMANAGER_IMAGES')); ?>
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
 	            <?php echo $this->getForm()->renderField('logo'); ?>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
+		        <?php echo $this->getForm()->renderField('inverted_logo'); ?>
+            </div>
+            <div class="col-lg-4">
 	            <?php echo $this->getForm()->renderField('image'); ?>
             </div>
         </div>

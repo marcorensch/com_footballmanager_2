@@ -1,3 +1,10 @@
+# 2.1.4
+- Implemented additional Fields
+  - Team Secondary Color
+  - Team Inverted Logo
+  - Color and secondary color fields for Cheerleader Teams
+- Fixed some PHP Deprecated Warnings
+
 # 2.1.2
 
 - Bugfix: Model Filter was not working as expected
