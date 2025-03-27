@@ -214,7 +214,6 @@
                label="COM_FOOTBALLMANAGER_FIELD_COLOR_LABEL"
                default="rgba(0,0,0, 1)"
                format="rgba"
-               showon="context:footballmanager.team.football"
         />
 
         <field name="secondary_color"
@@ -222,7 +221,6 @@
                label="COM_FOOTBALLMANAGER_FIELD_SEC_COLOR_LABEL"
                default="rgba(0,0,0, 1)"
                format="rgba"
-               showon="context:footballmanager.team.football"
         />
         <field name="location_id"
                type="locations"
