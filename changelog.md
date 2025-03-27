@@ -2,6 +2,7 @@
 - Implemented additional Fields
   - Team Secondary Color
   - Team Inverted Logo
+- Fixed some PHP Deprecated Warnings
 
 # 2.1.2
 

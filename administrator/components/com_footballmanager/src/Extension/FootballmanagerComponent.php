@@ -59,7 +59,7 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 		$this->getRegistry()->register('footballmanageradministrator', new AdministratorService);
 	}
 
-	protected function getTableNameForSection(string $section = null): string
+	protected function getTableNameForSection(?string $section = null): string
 	{
 		$tableName = 'footballmanager_locations';
 		switch ($section)
@@ -103,7 +103,7 @@ class FootballmanagerComponent extends MVCComponent implements BootableExtension
 		return $tableName;
 	}
 
-	protected function getStateColumnForSection(string $section = null)
+	protected function getStateColumnForSection(?string $section = null)
 	{
 		return 'published';
 	}
