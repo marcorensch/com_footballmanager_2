@@ -156,6 +156,13 @@
         />
 
         <field
+                name="inverted_logo"
+                type="media"
+                label="COM_FOOTBALLMANAGER_FIELD_INVERTED_LOGO_LABEL"
+                directory="images"
+        />
+
+        <field
                 name="image"
                 type="media"
                 label="COM_FOOTBALLMANAGER_FIELD_IMAGE_LOCATION_LABEL"
@@ -205,6 +212,14 @@
         <field name="color"
                type="color"
                label="COM_FOOTBALLMANAGER_FIELD_COLOR_LABEL"
+               default="rgba(0,0,0, 1)"
+               format="rgba"
+               showon="context:footballmanager.team.football"
+        />
+
+        <field name="secondary_color"
+               type="secondary_color"
+               label="COM_FOOTBALLMANAGER_FIELD_SEC_COLOR_LABEL"
                default="rgba(0,0,0, 1)"
                format="rgba"
                showon="context:footballmanager.team.football"
