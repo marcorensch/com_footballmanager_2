@@ -1,3 +1,5 @@
+# 2.1.5
+- Added Inverted Logo to Model for NextGameModel
 # 2.1.4
 - Implemented additional Fields
   - Team Secondary Color

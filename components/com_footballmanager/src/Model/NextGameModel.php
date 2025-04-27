@@ -27,7 +27,7 @@ class NextGameModel extends BaseDatabaseModel
 		$query = $db->getQuery(true);
 		$query->clear();
 
-		$JsonObject = 'JSON_OBJECT("title", t.title, "logo", t.logo, "shortcode", shortcode, "shortname", shortname,"color", color)';
+		$JsonObject = 'JSON_OBJECT("title", t.title, "logo", t.logo, "inverted_logo", t.inverted_logo, "shortcode", shortcode, "shortname", shortname,"color", color)';
 
 		// >> SubQueries for Home and Away Teams
 
