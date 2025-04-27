@@ -116,7 +116,7 @@ class NextGameModel extends BaseDatabaseModel
 		$query->select('l.title as location_title')
 			->join('LEFT', $db->quoteName('#__footballmanager_locations', 'l') . ' ON ' . $db->quoteName('l.id') . ' = ' . $db->quoteName('g.location_id'));
 
-		$JsonObject = 'JSON_OBJECT("title", t.title, "logo", t.logo, "shortcode", shortcode, "shortname", shortname,"color", color)';
+		$JsonObject = 'JSON_OBJECT("title", t.title, "logo", t.logo, "inverted_logo", t.inverted_logo, "shortcode", shortcode, "shortname", shortname,"color", color)';
 
 		// SubQuery for Home Team
 		$home = $db->getQuery(true);
