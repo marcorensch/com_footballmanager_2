@@ -96,7 +96,7 @@ class SponsorModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('sponsor.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.sponsors.filter.category_id')));
+				$data->catid = $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.sponsors.filter.category_id'));
 			}
 		}
 

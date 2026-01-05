@@ -97,7 +97,7 @@ class LeagueModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('league.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.leagues.filter.category_id')));
+				$data->catid = $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.leagues.filter.category_id'));
 			}
 		}
 

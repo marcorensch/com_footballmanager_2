@@ -79,10 +79,23 @@ class CheerleadersModel extends ListModel
 		$query->select(
 			$db->quoteName(
 				[
-					'a.id', 'a.alias',
-					'a.firstname', 'a.lastname', 'a.about', 'a.image',
-					'a.state', 'a.published', 'a.created_at', 'a.created_by', 'a.modified_at', 'a.modified_by',
-					'a.version', 'a.params', 'a.language', 'a.ordering', 'a.catid',
+					'a.id',
+					'a.alias',
+					'a.firstname',
+					'a.lastname',
+					'a.about',
+					'a.image',
+					'a.state',
+					'a.published',
+					'a.created_at',
+					'a.created_by',
+					'a.modified_at',
+					'a.modified_by',
+					'a.version',
+					'a.params',
+					'a.language',
+					'a.ordering',
+					'a.catid'
 				]
 			)
 		);

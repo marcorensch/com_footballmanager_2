@@ -95,7 +95,7 @@ class CheerleaderModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('cheerleader.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.cheerleaders.filter.category_id')));
+				$data->catid = $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.cheerleaders.filter.category_id'));
 			}
 		}
 

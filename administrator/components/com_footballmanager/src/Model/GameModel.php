@@ -99,7 +99,7 @@ class GameModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('game.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->get('catid', $app->getUserState('com_footballmanager.game.filter.category_id'), 'int'));
+				$data->catid = $app->getInput()->get('catid', $app->getUserState('com_footballmanager.game.filter.category_id'), 'int');
 			}
 		}
 

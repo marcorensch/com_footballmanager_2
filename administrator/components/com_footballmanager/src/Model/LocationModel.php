@@ -96,7 +96,7 @@ class LocationModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('location.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->get('catid', $app->getUserState('com_footballmanager.locations.filter.category_id'), 'int'));
+				$data->catid = $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.locations.filter.category_id'));
 			}
 		}
 

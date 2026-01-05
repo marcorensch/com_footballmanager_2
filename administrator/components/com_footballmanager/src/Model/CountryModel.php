@@ -97,7 +97,7 @@ class CountryModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('country.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.positions.filter.category_id')));
+				$data->catid =  $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.positions.filter.category_id'));
 			}
 		}
 

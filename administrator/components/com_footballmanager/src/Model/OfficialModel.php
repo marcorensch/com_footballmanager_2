@@ -95,7 +95,7 @@ class OfficialModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('official.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.officials.filter.category_id')));
+				$data->catid = $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.officials.filter.category_id'));
 			}
 		}
 

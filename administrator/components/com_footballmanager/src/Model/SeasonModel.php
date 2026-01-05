@@ -89,7 +89,7 @@ class SeasonModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('season.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.seasons.filter.category_id')));
+				$data->catid = $app->getInput()->getInt('catid', $app->getUserState('com_footballmanager.seasons.filter.category_id'));
 			}
 		}
 
