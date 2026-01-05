@@ -2,7 +2,7 @@
 
 /**
  * @package     Joomla.Site
- * 
+ *
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -10,7 +10,10 @@
 
 namespace NXD\Component\Footballmanager\Site\Service;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Categories\CategoryFactoryInterface;
@@ -29,7 +32,6 @@ use Joomla\Database\ParameterType;
  *  Routing class from com_footballmanager
  *
  */
-
 class Router extends RouterView
 {
 	protected $noIDs = false;
@@ -45,16 +47,18 @@ class Router extends RouterView
 	 * @param   AbstractMenu              $menu             The menu object to work with
 	 * @param   CategoryFactoryInterface  $categoryFactory  The category object
 	 * @param   DatabaseInterface         $db               The database object
+	 *
+	 * @since 2.0.0
 	 */
 
 	public function __construct(SiteApplication $app, AbstractMenu $menu, CategoryFactoryInterface $categoryFactory, DatabaseInterface $db)
 	{
 		$this->categoryFactory = $categoryFactory;
-		$this->db = $db;
+		$this->db              = $db;
 
-		$params = ComponentHelper::getParams('com_footballmanager');
+		$params      = ComponentHelper::getParams('com_footballmanager');
 		$this->noIDs = (bool) $params->get('sef_ids');
-		$categories = new RouterViewConfiguration('categories');
+		$categories  = new RouterViewConfiguration('categories');
 		$categories->setKey('id');
 		$this->registerView($categories);
 		$category = new RouterViewConfiguration('category');
@@ -87,16 +91,19 @@ class Router extends RouterView
 	 *
 	 */
 
-	public function getCategorySegment($id,$query)
+	public function getCategorySegment($id, $query)
 	{
 		$category = $this->getCategories()->get($id);
 
-		if ($category) {
-			$path = array_reverse($category->getPath(), true);
+		if ($category)
+		{
+			$path    = array_reverse($category->getPath(), true);
 			$path[0] = '1:root';
 
-			if ($this->noIDs) {
-				foreach ($path as &$segment) {
+			if ($this->noIDs)
+			{
+				foreach ($path as &$segment)
+				{
 					list($id, $segment) = explode(':', $segment, 2);
 				}
 			}
@@ -130,8 +137,9 @@ class Router extends RouterView
 	 */
 	public function getLocationSegment($id, $query)
 	{
-		if (!strpos($id, ':')) {
-			$id = (int) $id;
+		if (!strpos($id, ':'))
+		{
+			$id      = (int) $id;
 			$dbquery = $this->db->getQuery(true);
 			$dbquery->select($this->db->quoteName('alias'))
 				->from($this->db->quoteName('#__footballmanager_locations'))
@@ -142,7 +150,8 @@ class Router extends RouterView
 			$id .= ':' . $this->db->loadResult();
 		}
 
-		if ($this->noIDs) {
+		if ($this->noIDs)
+		{
 			list($void, $segment) = explode(':', $id, 2);
 
 			return [$void => $segment];
@@ -176,17 +185,25 @@ class Router extends RouterView
 	 */
 	public function getCategoryId($segment, $query)
 	{
-		if (isset($query['id'])) {
+		if (isset($query['id']))
+		{
 			$category = $this->getCategories(['access' => false])->get($query['id']);
 
-			if ($category) {
-				foreach ($category->getChildren() as $child) {
-					if ($this->noIDs) {
-						if ($child->alias == $segment) {
+			if ($category)
+			{
+				foreach ($category->getChildren() as $child)
+				{
+					if ($this->noIDs)
+					{
+						if ($child->alias == $segment)
+						{
 							return $child->id;
 						}
-					} else {
-						if ($child->id == (int) $segment) {
+					}
+					else
+					{
+						if ($child->id == (int) $segment)
+						{
 							return $child->id;
 						}
 					}
@@ -220,7 +237,8 @@ class Router extends RouterView
 	 */
 	public function getLocationId($segment, $query)
 	{
-		if ($this->noIDs) {
+		if ($this->noIDs)
+		{
 			$dbquery = $this->db->getQuery(true);
 			$dbquery->select($this->db->quoteName('id'))
 				->from($this->db->quoteName('#__footballmanager_locations'))
@@ -243,7 +261,7 @@ class Router extends RouterView
 	/**
 	 * Method to get categories from cache
 	 *
-	 * @param   array  $options   The options for retrieving categories
+	 * @param   array  $options  The options for retrieving categories
 	 *
 	 * @return  CategoryInterface  The object containing categories
 	 *
@@ -253,7 +271,8 @@ class Router extends RouterView
 	{
 		$key = serialize($options);
 
-		if (!isset($this->categoryCache[$key])) {
+		if (!isset($this->categoryCache[$key]))
+		{
 			$this->categoryCache[$key] = $this->categoryFactory->createCategory($options);
 		}
 

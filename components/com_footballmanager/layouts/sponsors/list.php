@@ -7,14 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Layout\LayoutHelper;
-
-defined('_JEXEC') or die;
-
-$document = Factory::getDocument();
-
-
 
 // Die übergebenen Daten abrufen
 $sponsors    = $displayData ?? array(); // Hier greifen wir direkt auf die Sponsoren-Daten zu
@@ -28,7 +26,7 @@ $wa->useStyle('com_footballmanager.sponsorList');
 
 $imgSource = $params->get('sponsors_image_src', 'logo') === '0' ? false : $params->get('sponsors_image_src', 'logo'); // logo or image
 $listLayout = $params->get('sponsors_list_style', 'divider');
-$classList  = 'uk-list uk-list-' . $listLayout . '';
+$classList  = 'uk-list uk-list-' . $listLayout;
 
 ?>
 <div class="uk-margin">

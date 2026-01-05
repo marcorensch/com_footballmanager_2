@@ -9,7 +9,9 @@
 
 namespace NXD\Component\FootballManager\Administrator\Field\Modal;
 
-defined('JPATH_BASE') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;

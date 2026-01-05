@@ -9,12 +9,13 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Helper;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Installer\Installer;
 use Tobscure\JsonApi\Document;
-
-\defined('_JEXEC') or die;
-
 
 class FootballmanagerHelper extends ComponentHelper
 {

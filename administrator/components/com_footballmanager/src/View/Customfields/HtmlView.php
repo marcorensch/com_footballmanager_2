@@ -9,11 +9,13 @@
 
 namespace NXD\Component\Footballmanager\Administrator\View\Customfields;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
-
-defined('_JEXEC') or die;
 
 class HtmlView extends BaseHtmlView
 {

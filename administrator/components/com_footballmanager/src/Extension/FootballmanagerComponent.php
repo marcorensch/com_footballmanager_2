@@ -10,7 +10,9 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Extension;
 
-defined('JPATH_PLATFORM') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Exception;
 use Joomla\CMS\Association\AssociationServiceInterface;

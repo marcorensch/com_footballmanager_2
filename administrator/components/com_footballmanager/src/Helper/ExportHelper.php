@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Helper;
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use JetBrains\PhpStorm\NoReturn;
 use Joomla\CMS\Component\ComponentHelper;
