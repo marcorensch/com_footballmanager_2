@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -23,7 +23,7 @@ use Joomla\String\StringHelper;
 /**
  * Item Model for a location.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class SeasonphaseModel extends AdminModel
 {
@@ -31,7 +31,7 @@ class SeasonphaseModel extends AdminModel
 	 * The type alias for this content type.
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 */
 	public $typeAlias = 'com_footballmanager.seasonphase';
 
@@ -53,7 +53,7 @@ class SeasonphaseModel extends AdminModel
 	 * @return  \JForm|boolean  A JForm object on success, false on failure
 	 *
 	 * @throws  \Exception
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	public function getForm($data = [], $loadData = true)
 	{
@@ -74,7 +74,7 @@ class SeasonphaseModel extends AdminModel
 	 * @return  mixed  The data for the form.
 	 *
 	 * @throws \Exception
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	protected function loadFormData()
 	{

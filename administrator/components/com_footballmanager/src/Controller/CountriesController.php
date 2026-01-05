@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -25,7 +25,7 @@ use Joomla\CMS\Language\Text;
 /**
  * Countries list controller class.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class CountriesController extends AdminController
 {
@@ -39,7 +39,7 @@ class CountriesController extends AdminController
      * @param   CMSApplication       $app      The JApplication for the dispatcher
      * @param   Input                $input    Input
      *
-     * @since   __BUMP_VERSION__
+     * @since   2.0.0
      */
     public function __construct($config = [], MVCFactoryInterface $factory = null, $app = null, $input = null)
     {
@@ -55,7 +55,7 @@ class CountriesController extends AdminController
      *
      * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel
      *
-     * @since   __BUMP_VERSION__
+     * @since   2.0.0
      */
     public function getModel($name = 'country', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {

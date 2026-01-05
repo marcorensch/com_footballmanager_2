@@ -1,8 +1,8 @@
 <?php
 /**
- * @package     Joomla.Administrator
+ * @package     com_footballmanager
  *              Joomla.Site
- * @subpackage  com_footballmanager
+ * 
  * @author      Marco Rensch
  * @since 	    1.0.0
  *

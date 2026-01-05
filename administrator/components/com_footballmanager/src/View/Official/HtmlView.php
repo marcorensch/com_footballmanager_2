@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -22,7 +22,7 @@ use NXD\Component\Footballmanager\Administrator\Model\RefereeModel;
 /**
  * View to edit a foo.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class HtmlView extends BaseHtmlView
 {
@@ -82,7 +82,7 @@ class HtmlView extends BaseHtmlView
 	 * @return  void
 	 *
 	 * @throws \Exception
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
     protected function addToolbar()
     {

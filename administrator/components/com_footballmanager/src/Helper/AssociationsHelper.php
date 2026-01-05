@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -19,7 +19,7 @@ use NXD\Component\Footballmanager\Site\Helper\AssociationHelper;
 /**
  * location associations helper.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class AssociationsHelper extends AssociationExtensionHelper
 {
@@ -28,7 +28,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @var     array   $extension
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	protected $extension = 'com_footballmanager';
 
@@ -37,7 +37,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @var     array   $itemTypes
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	protected $itemTypes = ['location', 'category', 'group'];
 
@@ -46,7 +46,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @var     boolean   $associationsSupport
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	protected $associationsSupport = true;
 
@@ -58,7 +58,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @return  array   Array of associations for the content
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 */
 	public function getAssociationsForItem($id = 0, $view = null)
 	{
@@ -73,7 +73,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @return  array
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	public function getAssociations($typeName, $id)
 	{
@@ -109,7 +109,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @return  Table|null
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	public function getItem($typeName, $id)
 	{
@@ -145,7 +145,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @return  array  Array of content types
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	public function getType($typeName = '')
 	{
@@ -208,7 +208,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @return  array
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	protected function getFieldsTemplate()
 	{

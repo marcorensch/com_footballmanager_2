@@ -2,7 +2,7 @@
 
 /**
  * @package     Joomla.Site
- * @subpackage  com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -159,7 +159,7 @@ class Router extends RouterView
 	 *
 	 * @return  array|string  The segments of this content
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	public function getFormSegment($id, $query)
 	{
@@ -247,7 +247,7 @@ class Router extends RouterView
 	 *
 	 * @return  CategoryInterface  The object containing categories
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	private function getCategories(array $options = []): CategoryInterface
 	{
