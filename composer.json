@@ -1,0 +1,25 @@
+{
+  "name": "nxd/component-footballmanager",
+  "description": "Football Manager 2 Extension for Joomla! 4.x / 5.x",
+  "require": {
+    "php": "^8.3"
+  },
+  "scripts": {
+    "post-install-deploy": [
+      "rm -rf vendor",
+      "composer clear-cache",
+      "composer install --no-dev --optimize-autoloader"
+    ],
+    "deploy-zip": [
+      "@post-install-deploy",
+      "mkdir -p dist",
+      "VERSION=$(awk -F'[<>]' '/<version>/{print $3}' footballmanager.xml) && rm -f ./dist/* && zip -r ./dist/com_footballmanager_${VERSION}.zip . -x '*.DS_Store' -x '*.git*' -x 'Thumbs.db' -x 'node_modules/*' -x  '*/vendor' -x 'vendor/*' -x '*/vendor/*' -x 'vendor/bin/*' -x '.idea' -x '.idea/*' -x '*/.idea' -x '*/.idea/*' '*/.gitignore' -x 'dist/*' -x 'composer.*' -x '*.zip'"
+    ]
+  },
+  "config": {
+    "vendor-dir": "vendor",
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}

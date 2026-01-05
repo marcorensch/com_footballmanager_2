@@ -27,6 +27,7 @@ composer.lock
 /public/uploads/
 /storage/framework/
 /storage/logs/
+dist
 
 # Environment variables
 .env
