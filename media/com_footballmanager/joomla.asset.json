@@ -66,6 +66,14 @@
       }
     },
     {
+      "name": "com_footballmanager.copy-to-clipboard",
+      "type": "script",
+      "uri": "com_footballmanager/site-copy-to-clipboard.js",
+      "attributes": {
+        "defer": false
+      }
+    },
+    {
       "name": "com_footballmanager.uikitcss",
       "type": "style",
       "uri": "com_footballmanager/uikit.min.css"

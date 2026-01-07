@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Model;
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Language\Associations;
@@ -20,7 +22,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Methods supporting a list of season phases records.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class SeasonphasesModel extends ListModel
 {
@@ -31,7 +33,7 @@ class SeasonphasesModel extends ListModel
 	 *
 	 * @see     \JControllerLegacy
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	public function __construct($config = array())
 	{
@@ -65,7 +67,7 @@ class SeasonphasesModel extends ListModel
 	 *
 	 * @return  \Joomla\Database\QueryInterface
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	protected function getListQuery()
 	{

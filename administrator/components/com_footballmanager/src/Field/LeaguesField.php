@@ -1,8 +1,8 @@
 <?php
 /**
- * @package     Joomla.Administrator
+ * @package     com_footballmanager
  *              Joomla.Site
- * @subpackage  com_footballmanager
+ * 
  * @author      Marco Rensch
  * @since 	    1.0.0
  *
@@ -13,13 +13,15 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Field;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
-
-defined('_JEXEC') or die;
 
 class LeaguesField extends ListField{
 	/**

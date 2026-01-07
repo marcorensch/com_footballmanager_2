@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,12 +9,13 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Helper;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Installer\Installer;
 use Tobscure\JsonApi\Document;
-
-\defined('_JEXEC') or die;
-
 
 class FootballmanagerHelper extends ComponentHelper
 {

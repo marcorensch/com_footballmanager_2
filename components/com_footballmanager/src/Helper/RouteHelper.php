@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  com_footballmanager
+ * * @package     NXD.FootballManager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Site\Helper;
 
-defined('_JEXEC') or die;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Categories\CategoryNode;
 use Joomla\CMS\Language\Multilanguage;
@@ -18,8 +20,8 @@ use Joomla\CMS\Language\Multilanguage;
  * FootballManager Component Route Helper
  *
  * @static
- * @package     Joomla.Site
- * @subpackage  com_footballmanager
+ * * @package     NXD.FootballManager
+ * 
  *
  * @since  1.0.0
  */

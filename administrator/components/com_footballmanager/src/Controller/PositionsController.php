@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Controller;
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use JetBrains\PhpStorm\NoReturn;
 use Joomla\CMS\Application\CMSApplication;
@@ -25,7 +27,7 @@ use Joomla\CMS\Language\Text;
 /**
  * Positions list controller class.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class PositionsController extends AdminController
 {
@@ -39,7 +41,7 @@ class PositionsController extends AdminController
      * @param   CMSApplication       $app      The JApplication for the dispatcher
      * @param   Input                $input    Input
      *
-     * @since   __BUMP_VERSION__
+     * @since   2.0.0
      */
     public function __construct($config = [], MVCFactoryInterface $factory = null, $app = null, $input = null)
     {
@@ -55,7 +57,7 @@ class PositionsController extends AdminController
      *
      * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel
      *
-     * @since   __BUMP_VERSION__
+     * @since   2.0.0
      */
     public function getModel($name = 'position', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {

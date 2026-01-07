@@ -1,12 +1,15 @@
 <?php
-
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (c) 2023 NXD | nx-designs
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
+
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;

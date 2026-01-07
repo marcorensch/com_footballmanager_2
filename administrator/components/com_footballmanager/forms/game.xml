@@ -269,6 +269,20 @@
         />
 
         <field
+                name="matchball_sponsor_id"
+                label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSOR_TITLE"
+                description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSOR_DESCRIPTION"
+                type="sql"
+                query="SELECT id, title FROM #__footballmanager_sponsors ORDER BY title DESC"
+                key_field="id"
+                value_field="title"
+                multiple="false"
+                layout="joomla.form.field.list-fancy-select"
+                default=""
+        >
+                <option value="">COM_FOOTBALLMANAGER_SELECT_MATCHBALL_SPONSOR</option>
+        </field>
+        <field
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"

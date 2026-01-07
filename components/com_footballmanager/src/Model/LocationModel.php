@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  com_footballmanager
+ * * @package     NXD.FootballManager
+ * 
  *
  * @copyright   Copyright (c) 2023 NXD | nx-designs
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Site\Model;
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;

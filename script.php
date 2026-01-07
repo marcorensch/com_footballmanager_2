@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseInterface;
 /**
  * Script file of the Football Manager 2 Component
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class Com_FootballmanagerInstallerScript extends InstallerScript
 {
@@ -29,7 +29,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 * Minimum Joomla version to check
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 */
 	private $minimumJoomlaVersion = '4.2';
 
@@ -37,7 +37,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 * Minimum PHP version to check
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 */
 	private $minimumPHPVersion = JOOMLA_MINIMUM_PHP;
 
@@ -55,7 +55,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 * @return  boolean  True on success
 	 *
 	 * @throws Exception
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 */
 	public function install($parent): bool
 	{
@@ -155,7 +155,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 */
 	public function uninstall($parent): bool
 	{
@@ -172,7 +172,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 * @return  boolean  True on success
 	 *
 	 * @throws Exception
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 *
 	 */
 	public function update($parent): bool
@@ -191,7 +191,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 *
 	 * @throws Exception
 	 */
@@ -237,7 +237,7 @@ class Com_FootballmanagerInstallerScript extends InstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 *
 	 */
 	public function postflight($type, $parent): bool

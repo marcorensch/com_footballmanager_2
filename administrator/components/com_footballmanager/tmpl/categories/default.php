@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (c) 2023 NXD | nx-designs
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Joomla\CMS\Layout\LayoutHelper;
-
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
-//echo LayoutHelper::render('admin.submenu', null); // Rendere das Layout
+// phpcs:enable PSR1.Files.SideEffects
+
 ?>
 
 <div class="com_cpanel">

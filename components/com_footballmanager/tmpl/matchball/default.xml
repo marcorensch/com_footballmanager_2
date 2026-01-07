@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_TITLE">
+        <message>
+            <![CDATA[COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_DESC]]>
+        </message>
+    </layout>
+    <fields name="request">
+        <fieldset name="request">
+            <field name="show_become_sponsor"
+                   type="radio"
+                   layout="joomla.form.field.radio.switcher"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_SHOW_BECOME_SPONSOR_LABEL"
+                   default="1"
+            >
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+            <field name="become_sponsor_text"
+                   showon="show_become_sponsor:1"
+                   type="text"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_BECOME_SPONSOR_TEXT_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_BECOME_SPONSOR_TEXT_DESCRIPTION"
+            />
+            <field name="become_sponsor_link"
+                   showon="show_become_sponsor:1"
+                   type="text"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_BECOME_SPONSOR_LINK_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_BECOME_SPONSOR_LINK_DESCRIPTION"
+            />
+        </fieldset>
+        <fieldset name="matchball_texts">
+            <field name="matchball_title"
+                   type="text"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_MATCHBALL_TITLE_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_MATCHBALL_TITLE_DESCRIPTION"
+            />
+
+            <field name="matchball_no_content"
+                   type="editor"
+                   filter="raw"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_EMPTY_TEXT_NO_CONTENT_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_EMPTY_TEXT_NO_CONTENT_DESCRIPTION"
+            />
+            <field name="matchball_before"
+                   type="editor"
+                   filter="raw"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_TEXT_BEFORE_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_TEXT_BEFORE_DESCRIPTION"
+            />
+            <field name="matchball_after"
+                   type="editor"
+                   filter="raw"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_TEXT_AFTER_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_TEXT_AFTER_DESCRIPTION"
+            />
+        </fieldset>
+        <fieldset name="matchball_request">
+            <field name="filter_season"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_FILTER_SEASON_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_FILTER_SEASON_DESCRIPTION"
+                   type="sql"
+                   query="SELECT id, title FROM #__footballmanager_seasons ORDER BY title DESC"
+                   key_field="id"
+                   value_field="title"
+                   multiple="true"
+                   layout="joomla.form.field.list-fancy-select"
+            >
+            </field>
+            <field name="filter_league"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_FILTER_LEAGUE_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_FILTER_LEAGUE_DESCRIPTION"
+                   type="sql"
+                   query="SELECT id, title FROM #__footballmanager_leagues ORDER BY title DESC"
+                   key_field="id"
+                   value_field="title"
+                   multiple="true"
+                   layout="joomla.form.field.list-fancy-select"
+            >
+            </field>
+            <field name="filter_location"
+                   label="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_FILTER_LOCATION_LABEL"
+                   description="COM_FOOTBALLMANAGER_MATCHBALL_SPONSORS_VIEW_DEFAULT_FILTER_LOCATION_DESCRIPTION"
+                   type="sql"
+                   query="SELECT id, title FROM #__footballmanager_locations ORDER BY title DESC"
+                   key_field="id"
+                   value_field="title"
+                   multiple="true"
+                   layout="joomla.form.field.list-fancy-select"
+            >
+            </field>
+        </fieldset>
+    </fields>
+</metadata>

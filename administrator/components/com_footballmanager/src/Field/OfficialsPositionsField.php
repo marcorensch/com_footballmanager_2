@@ -1,8 +1,8 @@
 <?php
 /**
- * @package     Joomla.Administrator
+ * @package     com_footballmanager
  *              Joomla.Site
- * @subpackage  com_footballmanager
+ * 
  * @author      Marco Rensch
  * @since 	    1.0.0
  *
@@ -13,14 +13,16 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Field;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\SubformField;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormFactoryInterface;
 use Joomla\Database\DatabaseInterface;
 use SimpleXMLElement;
-
-defined('_JEXEC') or die;
 
 class OfficialsPositionsField extends SubformField {
 

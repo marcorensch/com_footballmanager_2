@@ -1,13 +1,15 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -231,6 +233,9 @@ $current_user = Factory::getApplication()->getIdentity();
 
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'sponsors', Text::_('COM_FOOTBALLMANAGER_TAB_SPONSORS_LABEL')); ?>
         <div class="row">
+            <div class="col-lg-6">
+                <?php echo $this->getForm()->renderField('matchball_sponsor_id'); ?>
+            </div>
             <div class="col-lg-6">
 				<?php echo $this->getForm()->renderField('sponsors'); ?>
             </div>

@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Controller;
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Language\Text;
@@ -21,7 +23,7 @@ use NXD\Component\Footballmanager\Administrator\Helper\ExportHelper;
 /**
  * Foos list controller class.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class SponsorsController extends AdminController
 {
@@ -35,7 +37,7 @@ class SponsorsController extends AdminController
      * @param   CMSApplication       $app      The JApplication for the dispatcher
      * @param   Input                $input    Input
      *
-     * @since   __BUMP_VERSION__
+     * @since   2.0.0
      */
     public function __construct($config = [], MVCFactoryInterface $factory = null, $app = null, $input = null)
     {
@@ -51,7 +53,7 @@ class SponsorsController extends AdminController
      *
      * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel
      *
-     * @since   __BUMP_VERSION__
+     * @since   2.0.0
      */
     public function getModel($name = 'sponsor', $prefix = 'Administrator', $config = ['ignore_request' => true])
     {

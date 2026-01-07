@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Table;
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
@@ -19,7 +21,7 @@ use Joomla\Registry\Registry;
 /**
  * FootballManager Location Table class.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class PositionTable extends Table
 {
@@ -28,7 +30,7 @@ class PositionTable extends Table
      *
      * @param   DatabaseDriver  $db  Database connector object
      *
-     * @since   __BUMP_VERSION__
+     * @since   2.0.0
      */
     public function __construct(DatabaseDriver $db)
     {

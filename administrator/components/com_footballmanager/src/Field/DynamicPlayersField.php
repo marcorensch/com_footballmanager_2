@@ -13,14 +13,16 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Field;
 
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Database\DatabaseInterface;
 use Joomla\CMS\Language\Text;
-
-defined('_JEXEC') or die;
 
 class DynamicPlayersField extends ListField
 {

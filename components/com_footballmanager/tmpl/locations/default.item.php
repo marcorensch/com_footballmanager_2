@@ -1,16 +1,18 @@
 <?php
 
 /**
- * @package     Joomla.Site
- * @subpackage  com_footballmanager
+ * * @package     NXD.FootballManager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Joomla\CMS\Factory;
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
-defined('_JEXEC') or die;
+use Joomla\CMS\Factory;
 
 $params = Factory::getApplication()->getParams();
 

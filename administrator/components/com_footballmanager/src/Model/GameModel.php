@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_footballmanager
+ * @package     com_footballmanager
+ * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -9,7 +9,9 @@
 
 namespace NXD\Component\Footballmanager\Administrator\Model;
 
+// phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\InputFilter;
@@ -25,7 +27,7 @@ use SimpleXMLElement;
 /**
  * Item Model for a location.
  *
- * @since  __BUMP_VERSION__
+ * @since  2.0.0
  */
 class GameModel extends AdminModel
 {
@@ -33,7 +35,7 @@ class GameModel extends AdminModel
 	 * The type alias for this content type.
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  2.0.0
 	 */
 	public $typeAlias = 'com_footballmanager.game';
 
@@ -62,7 +64,7 @@ class GameModel extends AdminModel
 	 * @return  \JForm|boolean  A JForm object on success, false on failure
 	 *
 	 * @throws  \Exception
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	public function getForm($data = [], $loadData = true)
 	{
@@ -83,7 +85,7 @@ class GameModel extends AdminModel
 	 * @return  mixed  The data for the form.
 	 *
 	 * @throws \Exception
-	 * @since   __BUMP_VERSION__
+	 * @since   2.0.0
 	 */
 	protected function loadFormData(): mixed
 	{
@@ -97,8 +99,13 @@ class GameModel extends AdminModel
 			$data = $this->getItem();
 			if ($this->getState('game.id') == 0)
 			{
-				$data->set('catid', $app->getInput()->get('catid', $app->getUserState('com_footballmanager.game.filter.category_id'), 'int'));
+				$data->catid = $app->getInput()->get('catid', $app->getUserState('com_footballmanager.game.filter.category_id'), 'int');
 			}
+		}
+
+		// Fix Matchball Sponsor ID empty selection
+		if($data->matchball_sponsor_id === NULL){
+			$data->matchball_sponsor_id = "";
 		}
 
 		$this->preprocessData($this->typeAlias, $data);
@@ -132,6 +139,11 @@ class GameModel extends AdminModel
 			{
 				$data[$key] = json_encode($value);
 			}
+		}
+
+		// handle empty matchball sponsor id
+		if($data['matchball_sponsor_id'] === ""){
+			$data['matchball_sponsor_id'] = null;
 		}
 
 		// Alter the title for save as copy
