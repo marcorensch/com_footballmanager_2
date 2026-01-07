@@ -1,45 +1,72 @@
-
-# Composer dependency directories
-/vendor/
-
-# Composer generated files
-composer.lock
-
-# Node modules for frontend dependencies
-/node_modules/
-
-# PHPStorm and other IDEs
-.idea/
+# IDE & Editor
 .vscode/
-*.sublime-workspace
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
 *.sublime-project
+*.sublime-workspace
+.phpstorm.meta.php
+*.iml
 
-# Logs and temporary data
+# Composer
+vendor/
+composer.lock
+composer.phar
+
+# Node & NPM
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+dist/
+build/
+
+# Build & Deployment
+*.zip
+*.tar.gz
+*.rar
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+ehthumbs.db
+Desktop.ini
+
+# Logs
 *.log
-*.cache
+logs/
+
+# Temp Files
 *.tmp
+*.bak
+.~*
 
-# PHPUnit
-.phpunit.result.cache
-
-# Generated files
-/public/build/
-/public/uploads/
-/storage/framework/
-/storage/logs/
-dist
-
-# Environment variables
+# Environment
 .env
+.env.local
 .env.*.local
 
-# Symfony config
-/config/routes/*.yaml
-/config/secrets/prod/prod.decrypt.private.php
-
-# Laravel IDE Helper files
-_ide_helper.php
-_ide_helper_models.php
-
-# Code Coverage reports
+# Testing
 coverage/
+.phpunit.result.cache
+phpunit.xml
+
+# IDE specific
+.vscode/settings.json
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+
+# OS specific
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Project specific (optional)
+.editorconfig
+.gitattributes
