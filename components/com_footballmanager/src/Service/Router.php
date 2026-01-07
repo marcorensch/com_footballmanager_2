@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package     Joomla.Site
+ * * @package     NXD.FootballManager
  *
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
@@ -63,6 +63,10 @@ class Router extends RouterView
 		$this->registerView($categories);
 		$category = new RouterViewConfiguration('category');
 		$category->setKey('id')->setParent($categories, 'catid')->setNestable();
+
+		// matchball
+		$matchball = new RouterViewConfiguration('matchball');
+		$this->registerView($matchball);
 
 		// locations
 		$locations = new RouterViewConfiguration('locations');
@@ -170,10 +174,10 @@ class Router extends RouterView
 	 *
 	 * @since   2.0.0
 	 */
-	public function getFormSegment($id, $query)
-	{
-		return $this->getFooSegment($id, $query);
-	}
+//	public function getFormSegment($id, $query)
+//	{
+//		return $this->getFooSegment($id, $query);
+//	}
 
 	/**
 	 * Method to get the id for a category

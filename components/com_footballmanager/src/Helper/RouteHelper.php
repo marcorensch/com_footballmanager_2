@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Site
+ * * @package     NXD.FootballManager
  * 
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
@@ -20,7 +20,7 @@ use Joomla\CMS\Language\Multilanguage;
  * FootballManager Component Route Helper
  *
  * @static
- * @package     Joomla.Site
+ * * @package     NXD.FootballManager
  * 
  *
  * @since  1.0.0

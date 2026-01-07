@@ -234,6 +234,9 @@ $current_user = Factory::getApplication()->getIdentity();
 		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'sponsors', Text::_('COM_FOOTBALLMANAGER_TAB_SPONSORS_LABEL')); ?>
         <div class="row">
             <div class="col-lg-6">
+                <?php echo $this->getForm()->renderField('matchball_sponsor_id'); ?>
+            </div>
+            <div class="col-lg-6">
 				<?php echo $this->getForm()->renderField('sponsors'); ?>
             </div>
         </div>

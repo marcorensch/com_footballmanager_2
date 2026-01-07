@@ -12,6 +12,7 @@
 // phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -76,7 +77,7 @@ if($params->get('show_filters_by_default', 0)){
 							<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                         </div>
 					<?php else : ?>
-                        <table class="table gamesList" id="gamesList">
+                        <table class="table align-middle gamesList" id="gamesList">
                             <caption class="visually-hidden">
 								<?php echo Text::_('COM_FOOTBALLMANAGER_TABLE_CAPTION'); ?>,
                                 <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -96,10 +97,10 @@ if($params->get('show_filters_by_default', 0)){
 									<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder) ?>
                                 </th>
 
-                                <th scope="col" style="min-width:130px" class="d-none d-md-table-cell">
+                                <th scope="col" style="width: 1%; min-width: 85px" class="d-none d-md-table-cell">
                                 </th>
 
-                                <th scope="col" style="min-width:10%" class="">
+                                <th scope="col" style="width:1%; min-width:160px" class="">
 		                            <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_KICKOFF', 'a.kickoff', $listDirn, $listOrder); ?>
                                 </th>
 
@@ -116,10 +117,6 @@ if($params->get('show_filters_by_default', 0)){
                                 </th>
 
                                 <th scope="col" style="min-width:1%">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_SEASON_PHASE', 'season_phase_name', $listDirn, $listOrder); ?>
-                                </th>
-
-                                <th scope="col" style="min-width:1%">
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_LEAGUE', 'league_name', $listDirn, $listOrder); ?>
                                 </th>
 
@@ -127,9 +124,9 @@ if($params->get('show_filters_by_default', 0)){
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_LOCATION', 'l.title', $listDirn, $listOrder); ?>
                                 </th>
 
-                                <th scope="col" style="min-width:1%">
-		                            <?php echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CATEGORY', 'c.title', $listDirn, $listOrder); ?>
-                                </th>
+<!--                                <th scope="col" style="min-width:1%">-->
+<!--		                            --><?php //echo HTMLHelper::_('searchtools.sort', 'COM_FOOTBALLMANAGER_TABLEHEAD_CATEGORY', 'c.title', $listDirn, $listOrder); ?>
+<!--                                </th>-->
 
                                 <th scope="col" style="min-width:1%">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JAUTHOR', 'a.created_by_username', $listDirn, $listOrder); ?>
@@ -188,7 +185,7 @@ if($params->get('show_filters_by_default', 0)){
                                         <div style="display:none">
 											<?php echo $this->escape($item->lastname) . ', ' . $this->escape($item->firstname); ?>
                                         </div>
-                                        <a class="hasTooltip btn btn-primary btn-sm"
+                                        <a class="hasTooltip btn btn-primary btn-sm text-nowrap"
                                            href="<?php echo Route::_('index.php?option=com_footballmanager&task=game.edit&id=' . (int) $item->id); ?>"
                                            title="<?php echo Text::_('JACTION_EDIT'); ?>">
 											<?php echo Text::_('COM_FOOTBALLMANAGER_EDIT_GAME_BTN_LABEL') ?>
@@ -200,18 +197,26 @@ if($params->get('show_filters_by_default', 0)){
                                     </td>
 
                                     <td>
-                                        <span class="text-nowrap"><?php echo $item->home_team_name; ?></span>
+                                        <span class="text-nowrap">
+                                            <?php
+                                            $home_team_trunc = StringHelper::truncate($item->home_team_name, 22, true);
+                                            echo $home_team_trunc;
+                                            ?>
+                                        </span>
                                     </td>
 
                                     <td>
-                                        <span class="text-nowrap"><?php echo $item->away_team_name; ?></span>
+                                        <span class="text-nowrap">
+                                            <?php
+                                            $away_team_trunc = StringHelper::truncate($item->away_team_name, 22, true);
+                                            echo $away_team_trunc;
+                                            ?>
+                                        </span>
                                     </td>
 
                                     <td>
-                                        <span class="text-nowrap"><?php echo $item->season_name; ?></span>
-                                    </td>
-                                    <td>
-                                        <span class="text-nowrap"><?php echo $item->season_phase_name; ?></span>
+                                        <div class="text-nowrap"><?php echo $item->season_name; ?></div>
+                                        <div class="small text-nowrap"><?php echo $item->season_phase_name; ?></div>
                                     </td>
                                     <td>
                                         <span class="text-nowrap"><?php echo $item->league_name; ?></span>
@@ -221,9 +226,9 @@ if($params->get('show_filters_by_default', 0)){
                                         <span class="text-nowrap"><?php echo $item->location_name; ?></span>
                                     </td>
 
-                                    <td>
-                                        <span class="category text-nowrap"><?php echo $item->category_title; ?></span>
-                                    </td>
+<!--                                    <td>-->
+<!--                                        <span class="category text-nowrap">--><?php //echo $item->category_title; ?><!--</span>-->
+<!--                                    </td>-->
 
                                     <td class="small d-none d-md-table-cell">
 										<?php if ((int) $item->created_by > 0) : ?>

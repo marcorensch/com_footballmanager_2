@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `#__footballmanager_countries`;
 DROP TABLE IF EXISTS `#__footballmanager_games`;
 DROP TABLE IF EXISTS `#__footballmanager_players_teams`;
 DROP TABLE IF EXISTS `#__footballmanager_players`;
@@ -12,4 +11,5 @@ DROP TABLE IF EXISTS `#__footballmanager_seasons`;
 DROP TABLE IF EXISTS `#__footballmanager_leagues`;
 DROP TABLE IF EXISTS `#__footballmanager_sponsors`;
 DROP TABLE IF EXISTS `#__footballmanager_positions`;
+DROP TABLE IF EXISTS `#__footballmanager_countries`;
 DROP TABLE IF EXISTS `#__footballmanager_locations`;

@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_officials`
     KEY `idx_category` (`catid`),
     CONSTRAINT `fk_officials_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_officials_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_officials_country FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT `fk_officials_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -324,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_cheerleaders`
     KEY `idx_category` (`catid`),
     CONSTRAINT `fk_cheerleaders_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_cheerleaders_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_cheerleaders_country FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT `fk_cheerleaders_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -356,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
     KEY `idx_category` (`catid`),
     CONSTRAINT `fk_coaches_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_coaches_country FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT `fk_coaches_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -416,8 +416,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players`
     KEY `idx_category` (`catid`),
     CONSTRAINT `fk_players_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_players_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_players_country FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
-
+    CONSTRAINT `fk_players_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (id) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -497,6 +496,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_games`
     `ordering`                  int(11)          NOT NULL DEFAULT 0,
     `catid`                     int(11)          NOT NULL DEFAULT 0,
     `sponsors`                  TEXT                      DEFAULT NULL,
+    `matchball_sponsor_id`         INT(11)                   DEFAULT NULL,
 
     PRIMARY KEY (`id`),
     KEY `idx_season` (`season_id`),
@@ -511,8 +511,10 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_games`
     CONSTRAINT `fk_games_home_team_id` FOREIGN KEY (`home_team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_games_away_team_id` FOREIGN KEY (`away_team_id`) REFERENCES `#__footballmanager_teams` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_games_location_id` FOREIGN KEY (`location_id`) REFERENCES `#__footballmanager_locations` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_matchball_sponsor_id` FOREIGN KEY (`matchball_sponsor_id`) REFERENCES `#__footballmanager_sponsors` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_games_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT `fk_games_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
+

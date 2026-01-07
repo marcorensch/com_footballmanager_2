@@ -103,6 +103,11 @@ class GameModel extends AdminModel
 			}
 		}
 
+		// Fix Matchball Sponsor ID empty selection
+		if($data->matchball_sponsor_id === NULL){
+			$data->matchball_sponsor_id = "";
+		}
+
 		$this->preprocessData($this->typeAlias, $data);
 
 		return $data;
@@ -134,6 +139,11 @@ class GameModel extends AdminModel
 			{
 				$data[$key] = json_encode($value);
 			}
+		}
+
+		// handle empty matchball sponsor id
+		if($data['matchball_sponsor_id'] === ""){
+			$data['matchball_sponsor_id'] = null;
 		}
 
 		// Alter the title for save as copy

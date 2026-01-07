@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Site
+ * * @package     NXD.FootballManager
  * @subpackage  com_foos
  *
  * @copyright   Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.

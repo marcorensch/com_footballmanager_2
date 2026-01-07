@@ -178,6 +178,11 @@ class GamesModel extends ListModel
 		{
 			$query->where($db->quoteName('a.season_id') . ' = ' . (int) $seasonId);
 		}
+		// Filter by Season
+		if ($phaseId = $this->getState('filter.phase_id'))
+		{
+			$query->where($db->quoteName('a.phase_id') . ' = ' . (int) $phaseId);
+		}
 
 		// Filter by access level.
 		if ($access = $this->getState('filter.access'))
@@ -244,7 +249,7 @@ class GamesModel extends ListModel
 
 		// Add the list ordering clause.
 		$orderCol  = $this->state->get('list.ordering', 'kickoff');
-		$orderDirn = $this->state->get('list.direction', 'asc');
+		$orderDirn = $this->state->get('list.direction', 'desc');
 
 		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
 		{
