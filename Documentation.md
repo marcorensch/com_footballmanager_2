@@ -1,10 +1,13 @@
 # Documentation Football Manager Component for Joomla! 4.x
-Version: 2.0.0<br>
-Date: 2023-07-04<br>
-License: GNU General Public License version 2 or later; see LICENSE.txt<br>
+
+Version: 2.2.0  
+Date: 2026-01-07  
+License: GNU General Public License version 2 or later  
 Authors: [NXD - Marco Rensch](https://www.nx-designs.ch)
 
 ## Description
-This component is an example for a component with a custom backend view and a frontend view.
+
+This Joomla! component allows you to manage everything related to an American football team. Whether it's teams, players,
+cheerleaders, sponsors, locations, games or tables with individual seasons.
 
 ## Specials
