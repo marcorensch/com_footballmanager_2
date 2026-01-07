@@ -1,10 +1,7 @@
 # Football Manager 2
-## Joomla 4 Component
+## Joomla Component
 
-### Main Branch
-This Branch is used to build the base of the component.
-#### When changing the main branch, please update the `version` in the `manifest.xml` file. and create a pull request to the `pro-features` branch.
-
-### Pro-Features Branch
-This Branch is used to build the pro features of the component.
+### Requirements
+- PHP Version 8.3
+- Joomla 4.4.x / 5.4.x / 6.x
 
