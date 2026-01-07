@@ -14,4 +14,5 @@ cheerleaders, sponsors, locations, games or tables with individual seasons.
 ### Requirements
 - PHP Version 8.3
 - Joomla 4.4.x / 5.4.x / 6.x
+- MySQL Version 8.0.x
 
