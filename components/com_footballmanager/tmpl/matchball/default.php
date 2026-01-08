@@ -27,7 +27,7 @@ $this->matchballTitle      = $input->getString('matchball_title', '');
 $this->matchballTextBefore = $input->getRaw('matchball_before', '');
 $this->matchballTextAfter  = $input->getRaw('matchball_after', '');
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 if (intval($params->get('load_uikit', '1')))
 {
     $wa->useScript('com_footballmanager.uikitjs')

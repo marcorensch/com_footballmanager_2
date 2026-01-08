@@ -20,7 +20,7 @@ $input  = Factory::getApplication()->input;
 $this->matchballTitle      = $input->getString('matchball_title', '');
 $this->matchballTextNoContent = $input->getRaw('matchball_no_content', '');
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 if (intval($params->get('load_uikit', '1')))
 {
     $wa->useScript('com_footballmanager.uikitjs')

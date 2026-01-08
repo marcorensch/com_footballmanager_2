@@ -35,7 +35,7 @@ echo '<pre>' . var_export($params, 1) . '</pre>';
 $itemImage = HTMLHelper::_('cleanImageURL', $this->item->image);
 $cleanImgUrl = $this->escape($itemImage->url);
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 
 if ($params->get('load_uikit', 1))
 {
