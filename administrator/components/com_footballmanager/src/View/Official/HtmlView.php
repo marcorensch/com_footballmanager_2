@@ -19,6 +19,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use NXD\Component\Footballmanager\Administrator\Model\CoachModel;
+use NXD\Component\Footballmanager\Administrator\Model\OfficialModel;
 use NXD\Component\Footballmanager\Administrator\Model\RefereeModel;
 
 /**
@@ -54,7 +55,7 @@ class HtmlView extends BaseHtmlView
 	 */
     public function display($tpl = null)
     {
-	    /** @var RefereeModel $model */
+	    /** @var OfficialModel $model */
 	    $model      = $this->getModel();
 	    $this->item = $model->getItem();
 
@@ -91,8 +92,7 @@ class HtmlView extends BaseHtmlView
         Factory::getApplication()->input->set('hidemainmenu', true);
 
 	    $isNew = !$this->item->id;
-
-	    $toolbar = Toolbar::getInstance();
+        $toolbar = $this->getDocument()->getToolbar();
 
 	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_OFFICIAL_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_OFFICIAL_EDIT_TITLE'), 'fas fa-id-badge');
 

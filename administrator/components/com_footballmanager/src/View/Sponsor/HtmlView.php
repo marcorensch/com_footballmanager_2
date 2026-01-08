@@ -91,8 +91,7 @@ class HtmlView extends BaseHtmlView
         Factory::getApplication()->input->set('hidemainmenu', true);
 
 	    $isNew = !$this->item->id;
-
-	    $toolbar = Toolbar::getInstance();
+        $toolbar = $this->getDocument()->getToolbar();
 
 	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_SPONSOR_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_SPONSOR_EDIT_TITLE'), 'fas fa-handshake');
 
@@ -108,8 +107,6 @@ class HtmlView extends BaseHtmlView
 		    }
 	    );
 
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
         $toolbar->cancel('sponsor.cancel', 'JTOOLBAR_CLOSE');
     }
 }

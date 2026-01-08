@@ -19,12 +19,13 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 
 class HtmlView extends BaseHtmlView
 {
-
 	protected $sections;
 
 	public function display($tpl = null): void
 	{
-		$this->sections = $this->get('Sections');
+        /* @var \NXD\Component\Footballmanager\Administrator\Model\CustomfieldsModel $model */
+        $model = $this->getModel();
+		$this->sections = $model->getSections();
 
 		$this->addToolbar();
 
