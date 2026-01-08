@@ -21,6 +21,17 @@ use Joomla\CMS\Session\Session;
 
 $wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
+$wa->addInlineScript(<<<JS
+document.addEventListener("DOMContentLoaded", ()=>{
+    const downloadBtn = document.querySelector("#toolbar-download");
+    const taskField = document.querySelectorAll('[name=\"task\"]');
+    if(!downloadBtn || !taskField) return;
+    downloadBtn.addEventListener("click", ()=>{
+        taskField[0].value = 'seasons.download';
+    });
+});
+JS
+);
 
 $canChange = true;
 $assoc     = Associations::isEnabled();

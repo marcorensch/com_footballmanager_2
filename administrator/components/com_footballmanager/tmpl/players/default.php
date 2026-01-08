@@ -22,13 +22,17 @@ use Joomla\CMS\Session\Session;
 $params = ComponentHelper::getParams('com_footballmanager');
 $wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
-$wa->addInlineScript("
-    jQuery(document).ready(function(){
-        jQuery('#toolbar-download').on('click', function(e){
-            const taskField = document.querySelectorAll('[name=\"task\"]');
-            taskField[0].value = '';
-        });
-    });");
+$wa->addInlineScript(<<<JS
+document.addEventListener("DOMContentLoaded", ()=>{
+    const downloadBtn = document.querySelector("#toolbar-download");
+    const taskField = document.querySelectorAll('[name=\"task\"]');
+    if(!downloadBtn || !taskField) return;
+    downloadBtn.addEventListener("click", ()=>{
+        taskField[0].value = 'players.download';
+    });
+});
+JS
+);
 
 $canChange = true;
 $assoc     = Associations::isEnabled();
