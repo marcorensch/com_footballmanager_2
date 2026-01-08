@@ -13,6 +13,7 @@ namespace NXD\Component\Footballmanager\Administrator\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Filter\OutputFilter;
@@ -126,7 +127,10 @@ class CoachModel extends AdminModel
 		}
 
 		// Load the "linked teams" data
-		if($item->id > 0) $item->coach_teams = $this->getTeamLinks($item->id);
+		if($item->id > 0) {
+            $item->coach_teams = $this->getTeamLinks($item->id);
+            $item->coach_countries = $this->getCountryIds($item->id);
+        }
 
 		return $item;
 	}
@@ -264,7 +268,14 @@ class CoachModel extends AdminModel
 
 		if($status)
 		{
-			$this->handleCoachTeamsOnSave($data);
+            if(!$data['id']){
+                $id = $this->getState($this->getName() . '.id');
+                if($id){
+                    $data['id'] = $id;
+                }
+            }
+            $this->handleCoachTeamsOnSave($data);
+            $this->handleCoachCountriesOnSave($data);
 		}
 
 		return $status;
@@ -378,4 +389,88 @@ class CoachModel extends AdminModel
 		return $teamLinkIds;
 
 	}
+
+    /* Method to get the country ids of a player */
+    private function getCountryIds($id)
+    {
+        $db = $this->getDatabase();
+        $query = $db->getQuery(true);
+        $query->select('country_id');
+        $query->from('#__footballmanager_coaches_countries');
+        $query->where('coach_id = ' . (int)$id);
+        $db->setQuery($query);
+        $countryIds = $db->loadColumn();
+        return $countryIds;
+    }
+
+    private function handleCoachCountriesOnSave(array $data): void
+    {
+        // Check if we have an ID if not something went wrong
+        if (!$data['id']) {
+            return;
+        }
+
+        $db = $this->getDatabase();
+        $coachId = (int)$data['id'];
+
+        // Get ID's of currently stored player countries data from db
+        $existingCountryIds = $this->getCountryIds($coachId);
+
+
+        // Save the player country data
+        if (!empty($data['coach_countries'])) {
+            $countryLinks = $data['coach_countries'];
+
+            // Find countries to delete (in DB but not in new data)
+            $toDelete = array_diff($existingCountryIds, $countryLinks);
+
+            // Find countries to add (in new data but not in DB)
+            $toAdd = array_diff($countryLinks, $existingCountryIds);
+
+            // Delete removed countries
+            if (!empty($toDelete)) {
+                $query = $db->getQuery(true);
+                $query->delete($db->quoteName('#__footballmanager_coaches_countries'))
+                    ->where($db->quoteName('coach_id') . ' = ' . $coachId)
+                    ->where($db->quoteName('country_id') . ' IN (' . implode(',', $toDelete) . ')');
+                $db->setQuery($query);
+                $db->execute();
+            }
+
+            // Add new countries
+            if (!empty($toAdd)) {
+                foreach ($toAdd as $countryId) {
+                    $query = $db->getQuery(true);
+                    $columns = array('coach_id', 'country_id', 'is_primary', 'created');
+
+                    // Set is_primary to 1 for the first country, 0 for others
+                    $isPrimary = 1;
+
+                    $values = array(
+                        $coachId,
+                        (int)$countryId,
+                        $isPrimary,
+                        $db->quote((new Date())->toSql())
+                    );
+
+                    $query->insert($db->quoteName('#__footballmanager_coaches_countries'))
+                        ->columns($db->quoteName($columns))
+                        ->values(implode(',', $values));
+
+                    $db->setQuery($query);
+                    $db->execute();
+                }
+            }
+
+        } else {
+            // Delete all coach <--> country relations in the database
+            $query = $db->getQuery(true);
+            $conditions = array(
+                $db->quoteName('coach_id') . ' = ' . $db->quote($coachId)
+            );
+            $query->delete($db->quoteName('#__footballmanager_coaches_countries'))->where($conditions);
+            $db->setQuery($query);
+            $db->execute();
+        }
+    }
 }

@@ -119,6 +119,17 @@
                 label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_LABEL"
         />
 
+        <field name="coach_countries"
+               type="sql"
+               label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_LABEL"
+               description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_DESCRIPTION"
+               multiple="true"
+               query="SELECT id, title FROM #__footballmanager_countries"
+               key_field="id"
+               value_field="title"
+               layout="joomla.form.field.list-fancy-select"
+        />
+
         <field
                 name="catid"
                 type="categoryedit"

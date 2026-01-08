@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
+    <config>
+        <inlinehelp button="show"/>
+    </config>
     <fieldset
             addruleprefix="NXD\Component\Footballmanager\Administrator\Rule"
             addfieldprefix="NXD\Component\Footballmanager\Administrator\Field"
@@ -133,6 +136,17 @@
                 label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_LABEL"
         />
 
+        <field name="player_countries"
+               type="sql"
+               label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_LABEL"
+               description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_DESCRIPTION"
+               multiple="true"
+               query="SELECT id, title FROM #__footballmanager_countries"
+               key_field="id"
+               value_field="title"
+               layout="joomla.form.field.list-fancy-select"
+        />
+
         <field
                 name="height"
                 type="text"
@@ -179,7 +193,7 @@
                 formsource="administrator/components/com_footballmanager/forms/subform_player_teams.xml"
         />
 
-        <field name="params" type="textarea" label="params" description="params" />
+        <field name="params" type="textarea" label="params" description="params"/>
 
     </fieldset>
 </form>

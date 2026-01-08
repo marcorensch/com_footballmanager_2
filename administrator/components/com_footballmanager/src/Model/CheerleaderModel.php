@@ -13,6 +13,7 @@ namespace NXD\Component\Footballmanager\Administrator\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Filter\OutputFilter;
@@ -124,6 +125,11 @@ class CheerleaderModel extends AdminModel
 			}
 		}
 
+        // Load the linked data (teams, countries, ...)
+        if ($item->id > 0) {
+            $item->cheerleader_countries = $this->getCountryIds($item->id);
+        }
+
 		return $item;
 	}
 
@@ -214,8 +220,103 @@ class CheerleaderModel extends AdminModel
 			}
 		}
 
-		return parent::save($data);
+        $status = parent::save($data);
+
+        if ($status) {
+            if(!$data['id']){
+                $id = $this->getState($this->getName() . '.id');
+                if($id){
+                    $data['id'] = $id;
+                }
+            }
+            $this->handleCheerleaderCountriesOnSave($data);
+        }
+
+        return $status;
 
 	}
 
+    /* Method to get the country ids of a player */
+    private function getCountryIds($id)
+    {
+        $db = $this->getDatabase();
+        $query = $db->getQuery(true);
+        $query->select('country_id');
+        $query->from('#__footballmanager_cheerleaders_countries');
+        $query->where('cheerleader_id = ' . (int)$id);
+        $db->setQuery($query);
+        $countryIds = $db->loadColumn();
+        return $countryIds;
+    }
+
+    private function handleCheerleaderCountriesOnSave(array $data): void
+    {
+        // Check if we have an ID if not something went wrong
+        if (!$data['id']) {
+            return;
+        }
+
+        $db = $this->getDatabase();
+        $cheerleaderId = (int)$data['id'];
+
+        // Get ID's of currently stored player countries data from db
+        $existingCountryIds = $this->getCountryIds($cheerleaderId);
+
+
+        // Save the player country data
+        if (!empty($data['cheerleader_countries'])) {
+            $countryLinks = $data['cheerleader_countries'];
+
+            // Find countries to delete (in DB but not in new data)
+            $toDelete = array_diff($existingCountryIds, $countryLinks);
+
+            // Find countries to add (in new data but not in DB)
+            $toAdd = array_diff($countryLinks, $existingCountryIds);
+
+            // Delete removed countries
+            if (!empty($toDelete)) {
+                $query = $db->getQuery(true);
+                $query->delete($db->quoteName('#__footballmanager_cheerleaders_countries'))
+                    ->where($db->quoteName('cheerleader_id') . ' = ' . $cheerleaderId)
+                    ->where($db->quoteName('country_id') . ' IN (' . implode(',', $toDelete) . ')');
+                $db->setQuery($query);
+                $db->execute();
+            }
+
+            // Add new countries
+            if (!empty($toAdd)) {
+                foreach ($toAdd as $countryId) {
+                    $query = $db->getQuery(true);
+                    $columns = array('cheerleader_id', 'country_id', 'is_primary', 'created');
+
+                    // Set is_primary to 1 for the first country, 0 for others
+                    $isPrimary = 1;
+
+                    $values = array(
+                        $cheerleaderId,
+                        (int)$countryId,
+                        $isPrimary,
+                        $db->quote((new Date())->toSql())
+                    );
+
+                    $query->insert($db->quoteName('#__footballmanager_cheerleaders_countries'))
+                        ->columns($db->quoteName($columns))
+                        ->values(implode(',', $values));
+
+                    $db->setQuery($query);
+                    $db->execute();
+                }
+            }
+
+        } else {
+            // Delete all cheerleader <--> country relations in the database
+            $query = $db->getQuery(true);
+            $conditions = array(
+                $db->quoteName('cheerleader_id') . ' = ' . $db->quote($cheerleaderId)
+            );
+            $query->delete($db->quoteName('#__footballmanager_cheerleaders_countries'))->where($conditions);
+            $db->setQuery($query);
+            $db->execute();
+        }
+    }
 }

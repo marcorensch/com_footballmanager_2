@@ -107,5 +107,6 @@ class HtmlView extends BaseHtmlView
 	    );
 
         $toolbar->cancel('player.cancel', 'JTOOLBAR_CLOSE');
+        ToolbarHelper::inlinehelp();
     }
 }

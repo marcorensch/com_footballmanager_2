@@ -42,8 +42,6 @@ class CoachTable extends Table
     public function check(): bool
     {
 
-	    if (!$this->country_id)  $this->country_id = NULL;
-
 	    try {
             parent::check();
         } catch (\Exception $e) {
