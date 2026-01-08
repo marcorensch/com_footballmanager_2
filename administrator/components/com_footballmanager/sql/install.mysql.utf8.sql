@@ -284,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_officials`
     PRIMARY KEY (`id`),
     KEY `idx_category` (`catid`),
     CONSTRAINT `fk_officials_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT `fk_officials_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_officials_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -320,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_cheerleaders`
     PRIMARY KEY (`id`),
     KEY `idx_category` (`catid`),
     CONSTRAINT `fk_cheerleaders_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT `fk_cheerleaders_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_cheerleaders_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -350,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches`
     PRIMARY KEY (`id`),
     KEY `idx_category` (`catid`),
     CONSTRAINT `fk_coaches_created_by` FOREIGN KEY (`created_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT `fk_coaches_modified_by` FOREIGN KEY (`modified_by`) REFERENCES `#__users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -520,40 +520,48 @@ CREATE TABLE IF NOT EXISTS `#__footballmanager_players_countries`
     UNIQUE KEY `unique_player_country` (`player_id`, `country_id`),
     CONSTRAINT `fk_players_countries_player` FOREIGN KEY (`player_id`) REFERENCES `#__footballmanager_players` (`id`) ON DELETE CASCADE,
     CONSTRAINT `fk_players_countries_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (`id`) ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_coaches_countries`
 (
     `id`         INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `coach_id`  INT(11) NOT NULL,
+    `coach_id`   INT(11) NOT NULL,
     `country_id` INT(11) NOT NULL,
     `is_primary` TINYINT(1) DEFAULT 1,
     `created`    DATETIME   DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY `unique_coach_country` (`coach_id`, `country_id`),
     CONSTRAINT `fk_coaches_countries_coach` FOREIGN KEY (`coach_id`) REFERENCES `#__footballmanager_coaches` (`id`) ON DELETE CASCADE,
     CONSTRAINT `fk_coaches_countries_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (`id`) ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_officials_countries`
 (
-    `id`         INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `official_id`  INT(11) NOT NULL,
-    `country_id` INT(11) NOT NULL,
-    `is_primary` TINYINT(1) DEFAULT 1,
-    `created`    DATETIME   DEFAULT CURRENT_TIMESTAMP,
+    `id`          INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `official_id` INT(11) NOT NULL,
+    `country_id`  INT(11) NOT NULL,
+    `is_primary`  TINYINT(1) DEFAULT 1,
+    `created`     DATETIME   DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY `unique_official_country` (`official_id`, `country_id`),
     CONSTRAINT `fk_officials_countries_official` FOREIGN KEY (`official_id`) REFERENCES `#__footballmanager_officials` (`id`) ON DELETE CASCADE,
     CONSTRAINT `fk_officials_countries_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (`id`) ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__footballmanager_cheerleaders_countries`
 (
-    `id`         INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `cheerleader_id`  INT(11) NOT NULL,
-    `country_id` INT(11) NOT NULL,
-    `is_primary` TINYINT(1) DEFAULT 1,
-    `created`    DATETIME   DEFAULT CURRENT_TIMESTAMP,
+    `id`             INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `cheerleader_id` INT(11) NOT NULL,
+    `country_id`     INT(11) NOT NULL,
+    `is_primary`     TINYINT(1) DEFAULT 1,
+    `created`        DATETIME   DEFAULT CURRENT_TIMESTAMP,
     UNIQUE KEY `unique_official_country` (`cheerleader_id`, `country_id`),
     CONSTRAINT `fk_cheerleaders_countries_cheerleader` FOREIGN KEY (`cheerleader_id`) REFERENCES `#__footballmanager_cheerleaders` (`id`) ON DELETE CASCADE,
     CONSTRAINT `fk_cheerleaders_countries_country` FOREIGN KEY (`country_id`) REFERENCES `#__footballmanager_countries` (`id`) ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  DEFAULT COLLATE = utf8mb4_unicode_ci;
