@@ -19,7 +19,7 @@ use Joomla\CMS\Session\Session;
 
 $app = Factory::getApplication();
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('com_footballmanager.admin-locations-modal');
 
 $function  = $app->input->getCmd('function', 'jSelectLocations');

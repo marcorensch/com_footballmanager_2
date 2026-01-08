@@ -20,7 +20,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
 $wa->addInlineScript(<<<JS
 document.addEventListener("DOMContentLoaded", ()=>{

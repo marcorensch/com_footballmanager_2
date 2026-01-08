@@ -20,7 +20,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
 
 $params = ComponentHelper::getParams('com_footballmanager');
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
 $wa->addInlineScript("
     jQuery(document).ready(function(){
