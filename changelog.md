@@ -1,3 +1,7 @@
+# 2.3.3
+- Improved country selection in Player, Coach, Official and Cheerleader Edit Views
+- Added Support to sort country selection in edit views
+
 # 2.3.0
 - Refactoring HtmlViews to Joomla 6.x coding standards (loading the model)
 - Added support for dual citizenship for players, coaches, officials and cheerleaders
