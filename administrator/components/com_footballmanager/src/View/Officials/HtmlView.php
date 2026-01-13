@@ -47,17 +47,18 @@ class HtmlView extends BaseHtmlView
 
 	public function display($tpl = null): void
 	{
-		$this->items            = $this->get('Items');
-		$this->pagination       = $this->get('Pagination');
-		$this->filterForm       = $this->get('FilterForm');
-		$this->activeFilters    = $this->get('ActiveFilters');
-		$this->state            = $this->get('State');
-		$this->importform       = $this->get('Importform');
-
-		if (count($errors = $this->get('Errors')))
-		{
-			throw new GenericDataException(implode("\n", $errors), 500);
-		}
+        try {
+            /* @var \NXD\Component\Footballmanager\Administrator\Model\OfficialsModel $model */
+            $model = $this->getModel();
+            $this->items = $model->getItems();
+            $this->pagination = $model->getPagination();
+            $this->filterForm = $model->getFilterForm();
+            $this->activeFilters = $model->getActiveFilters();
+            $this->state = $model->getState();
+            $this->importform = $model->getImportform();
+        }catch (GenericDataException $e) {
+            throw new GenericDataException($e->getMessage(), 500, $e);
+        }
 
 		// Preprocess the list of items to find ordering divisions.
 		foreach ($this->items as &$item)
@@ -66,7 +67,7 @@ class HtmlView extends BaseHtmlView
 			$item->order_dn = true;
 		}
 
-		if (!count($this->items) && $this->get('IsEmptyState'))
+		if (!count($this->items) && $model->getIsEmptyState())
 		{
 			$this->setLayout('emptystate');
 		}
@@ -87,7 +88,7 @@ class HtmlView extends BaseHtmlView
 		$user          = Factory::getApplication()->getIdentity();
 
 		// Get the toolbar object instance
-		$toolbar = Toolbar::getInstance();
+        $toolbar = $this->getDocument()->getToolbar();
 		ToolbarHelper::title(Text::_('COM_FOOTBALLMANAGER_OFFICIALS'), 'fas fa-id-badge');
 
 		// Show Buttons only if the user is allowed to do so

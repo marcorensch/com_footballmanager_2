@@ -13,7 +13,7 @@
 
 use Joomla\CMS\Language\Text;
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->addInlineStyle('
 .nxd-overview-item {
     background-color: #f8f9fa;

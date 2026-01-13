@@ -31,7 +31,7 @@ $this->useCoreUI        = true;
 
 $isModal = $input->get('layout') === 'modal';
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('keepalive')
 	->useScript('form.validate');
 
@@ -66,7 +66,7 @@ $current_user = Factory::getApplication()->getIdentity();
             </div>
             <div class="col-lg-4">
 				<?php echo $this->getForm()->renderField('image'); ?>
-				<?php echo $this->getForm()->renderField('country_id'); ?>
+				<?php echo $this->getForm()->renderField('official_countries'); ?>
 				<?php echo $this->getForm()->renderField('team_id'); ?>
 				<?php echo $this->getForm()->renderField('since'); ?>
 				<?php echo $this->getForm()->renderField('position_id'); ?>

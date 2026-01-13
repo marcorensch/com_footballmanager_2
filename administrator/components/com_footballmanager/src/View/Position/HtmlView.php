@@ -91,10 +91,9 @@ class HtmlView extends BaseHtmlView
 		Factory::getApplication()->input->set('hidemainmenu', true);
 
 		$isNew = !$this->item->id;
+        $toolbar = $this->getDocument()->getToolbar();
+
 		ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_POSITION_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_POSITION_EDIT_TITLE'), 'fas fa-hat-cowboy');
-
-		$toolbar = Toolbar::getInstance();
-
 
 		$toolbar->apply('position.apply');
 
@@ -108,8 +107,6 @@ class HtmlView extends BaseHtmlView
 			}
 		);
 
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
 		$toolbar->cancel('position.cancel', 'JTOOLBAR_CLOSE');
 	}
 }

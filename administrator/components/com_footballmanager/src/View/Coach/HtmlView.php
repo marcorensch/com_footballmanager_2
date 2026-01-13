@@ -91,7 +91,7 @@ class HtmlView extends BaseHtmlView
 
 	    $isNew = !$this->item->id;
 
-	    $toolbar = Toolbar::getInstance();
+        $toolbar = $this->getDocument()->getToolbar();
 
 	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_COACH_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_COACH_EDIT_TITLE'), 'fas fa-chalkboard-teacher');
 
@@ -107,8 +107,6 @@ class HtmlView extends BaseHtmlView
 		    }
 	    );
 
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
         $toolbar->cancel('coach.cancel', 'JTOOLBAR_CLOSE');
     }
 }

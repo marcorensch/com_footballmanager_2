@@ -13,8 +13,8 @@ namespace NXD\Component\Footballmanager\Administrator\Model;
 \defined('_JEXEC') or die;
 // phpcs:enable PSR1.Files.SideEffects
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
@@ -126,7 +126,10 @@ class CoachModel extends AdminModel
 		}
 
 		// Load the "linked teams" data
-		if($item->id > 0) $item->coach_teams = $this->getTeamLinks($item->id);
+		if($item->id > 0) {
+            $item->coach_teams = $this->getTeamLinks($item->id);
+            $item->coach_countries = $this->getCountryIds($item->id, 'structured');
+        }
 
 		return $item;
 	}
@@ -264,7 +267,14 @@ class CoachModel extends AdminModel
 
 		if($status)
 		{
-			$this->handleCoachTeamsOnSave($data);
+            if(!$data['id']){
+                $id = $this->getState($this->getName() . '.id');
+                if($id){
+                    $data['id'] = $id;
+                }
+            }
+            $this->handleCoachTeamsOnSave($data);
+            $this->handleCoachCountriesOnSave($data);
 		}
 
 		return $status;
@@ -378,4 +388,120 @@ class CoachModel extends AdminModel
 		return $teamLinkIds;
 
 	}
+
+    /* Method to get the country ids of a player */
+    private function getCountryIds($id, $format = 'flat'): array
+    {
+        $db = $this->getDatabase();
+        $query = $db->getQuery(true);
+        $query->select('id, country_id, ordering');
+        $query->from('#__footballmanager_coaches_countries');
+        $query->where('coach_id = ' . (int)$id);
+        $query->order('ordering ASC');
+        $db->setQuery($query);
+        $results = $db->loadAssocList();
+
+        // Create the correct formatted output for subform
+        if($results && $format !== 'flat'){
+            $formatted = array();
+            foreach ($results as $result) {
+                $formatted[] = array(
+                    'id' => $result['id'],
+                    'country_id' => $result['country_id'],
+                    'ordering' => $result['ordering']
+                );
+            }
+            return $formatted;
+        }
+
+        // Return only country IDs for flat format
+        $countryIds = array();
+        foreach ($results as $result) {
+            $countryIds[] = $result['country_id'];
+        }
+        return $countryIds;
+    }
+
+    private function handleCoachCountriesOnSave(array $data): void
+    {
+        // Check if we have an ID if not something went wrong
+        if (!$data['id']) {
+            return;
+        }
+
+        $db = $this->getDatabase();
+        $coachId = (int)$data['id'];
+
+        // Get ID's of currently stored coach countries data from db
+        $countriesFromDb = $this->getCountryIds($coachId);
+
+        // Save the coach country data
+        if (!empty($data['coach_countries'])) {
+            $countriesFromForm = array();
+            $ordering = 0;
+
+            foreach ($data['coach_countries'] as $countryLink) {
+                $countryId = (int)$countryLink['country_id'];
+                $countriesFromForm[] = $countryId;
+
+                // Update or insert country with ordering
+                $query = $db->getQuery(true);
+
+                // Check if country already exists for this player
+                $checkQuery = $db->getQuery(true);
+                $checkQuery->select('id')
+                    ->from($db->quoteName('#__footballmanager_coaches_countries'))
+                    ->where($db->quoteName('coach_id') . ' = ' . $coachId)
+                    ->where($db->quoteName('country_id') . ' = ' . $countryId);
+                $db->setQuery($checkQuery);
+                $existingId = $db->loadResult();
+
+                if ($existingId) {
+                    // Update existing record with new ordering
+                    $query->update($db->quoteName('#__footballmanager_coaches_countries'))
+                        ->set($db->quoteName('ordering') . ' = ' . (int)$ordering)
+                        ->where($db->quoteName('id') . ' = ' . (int)$existingId);
+                } else {
+                    // Insert new record
+                    $columns = array('coach_id', 'country_id', 'ordering', 'created');
+                    $values = array(
+                        $coachId,
+                        $countryId,
+                        (int)$ordering,
+                        $db->quote((new Date())->toSql())
+                    );
+
+                    $query->insert($db->quoteName('#__footballmanager_coaches_countries'))
+                        ->columns($db->quoteName($columns))
+                        ->values(implode(',', $values));
+                }
+
+                $db->setQuery($query);
+                $db->execute();
+
+                $ordering++;
+            }
+
+            // Delete countries that are no longer in the form
+            $toDelete = array_diff($countriesFromDb, $countriesFromForm);
+            if (!empty($toDelete)) {
+                $query = $db->getQuery(true);
+                $query->delete($db->quoteName('#__footballmanager_coaches_countries'))
+                    ->where($db->quoteName('coach_id') . ' = ' . $coachId)
+                    ->where($db->quoteName('country_id') . ' IN (' . implode(',', $toDelete) . ')');
+                $db->setQuery($query);
+                $db->execute();
+            }
+
+        } else {
+            // Delete all player <--> country relations in the database
+            $query = $db->getQuery(true);
+            $conditions = array(
+                $db->quoteName('coach_id') . ' = ' . $db->quote($coachId)
+            );
+            $query->delete($db->quoteName('#__footballmanager_coaches_countries'))->where($conditions);
+            $db->setQuery($query);
+            $db->execute();
+        }
+    }
 }

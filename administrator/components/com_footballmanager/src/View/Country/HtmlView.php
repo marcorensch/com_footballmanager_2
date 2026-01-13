@@ -93,8 +93,7 @@ class HtmlView extends BaseHtmlView
 		$isNew = !$this->item->id;
 		ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_COUNTRY_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_COUNTRY_EDIT_TITLE'), 'fas fa-globe');
 
-		$toolbar = Toolbar::getInstance();
-
+        $toolbar = $this->getDocument()->getToolbar();
 
 		$toolbar->apply('country.apply');
 
@@ -108,8 +107,6 @@ class HtmlView extends BaseHtmlView
 			}
 		);
 
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
 		$toolbar->cancel('country.cancel', 'JTOOLBAR_CLOSE');
 	}
 }

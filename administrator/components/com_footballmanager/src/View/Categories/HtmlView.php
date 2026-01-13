@@ -25,7 +25,9 @@ class HtmlView extends BaseHtmlView
 
 	public function display($tpl = null): void
 	{
-		$this->sections = $this->get('Sections');
+        /* @var \NXD\Component\Footballmanager\Administrator\Model\CategoriesModel $model */
+        $model = $this->getModel();
+		$this->sections = $model->getSections();
 
 		$this->addToolbar();
 

@@ -18,6 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use NXD\Component\Footballmanager\Administrator\Model\LeagueModel;
 use NXD\Component\Footballmanager\Administrator\Model\LocationModel;
 
 /**
@@ -85,13 +86,13 @@ class HtmlView extends BaseHtmlView
 	 * @throws \Exception
 	 * @since   2.0.0
 	 */
-    protected function addToolbar()
+    protected function addToolbar(): void
     {
         Factory::getApplication()->input->set('hidemainmenu', true);
 
 	    $isNew = !$this->item->id;
 
-	    $toolbar = Toolbar::getInstance();
+        $toolbar = $this->getDocument()->getToolbar();
 
 	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_LEAGUE_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_LEAGUE_EDIT_TITLE'), 'fas fa-layer-group');
 
@@ -107,8 +108,6 @@ class HtmlView extends BaseHtmlView
 		    }
 	    );
 
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
         $toolbar->cancel('league.cancel', 'JTOOLBAR_CLOSE');
     }
 }

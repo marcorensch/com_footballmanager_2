@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 
 $params = Factory::getApplication()->getParams();
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument->getWebAssetManager();
 if(intval($params->get('load_uikit','1'))){
     $wa->useScript('com_footballmanager.uikitjs')
         ->useScript('com_footballmanager.uikitIconsjs')

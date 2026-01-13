@@ -19,6 +19,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use NXD\Component\Footballmanager\Administrator\Model\LocationModel;
+use NXD\Component\Footballmanager\Administrator\Model\SeasonModel;
 
 /**
  * View to edit a season.
@@ -90,8 +91,7 @@ class HtmlView extends BaseHtmlView
         Factory::getApplication()->input->set('hidemainmenu', true);
 
 	    $isNew = !$this->item->id;
-
-	    $toolbar = Toolbar::getInstance();
+        $toolbar = $this->getDocument()->getToolbar();
 
 	    ToolbarHelper::title($isNew ? Text::_('COM_FOOTBALLMANAGER_SEASON_NEW_TITLE') : Text::_('COM_FOOTBALLMANAGER_SEASON_EDIT_TITLE'), 'fas fa-trophy');
 
@@ -107,8 +107,6 @@ class HtmlView extends BaseHtmlView
 		    }
 	    );
 
-//		ToolbarHelper::save('location.save');
-//		ToolbarHelper::save2new('location.save2new');
         $toolbar->cancel('season.cancel', 'JTOOLBAR_CLOSE');
     }
 }

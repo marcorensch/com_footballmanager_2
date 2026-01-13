@@ -31,7 +31,7 @@ $this->useCoreUI        = true;
 
 $isModal = $input->get('layout') === 'modal';
 
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('keepalive')
 	->useScript('form.validate');
 
@@ -107,7 +107,7 @@ $current_user = Factory::getApplication()->getIdentity();
                     <legend><?php echo Text::_('COM_FOOTBALLMANAGER_CONST_PERSON_DETAILS'); ?></legend>
                     <?php echo $this->getForm()->renderField('image'); ?>
                     <?php echo $this->getForm()->renderField('birthday'); ?>
-                    <?php echo $this->getForm()->renderField('country_id'); ?>
+                    <?php echo $this->getForm()->renderField('player_countries'); ?>
                     <?php echo $this->getForm()->renderField('weight'); ?>
                     <?php echo $this->getForm()->renderField('height'); ?>
                 </fieldset>
