@@ -121,10 +121,10 @@
 
         <field name="coach_countries"
                type="subform"
-               hiddenLabel="true"
                multiple="true"
                min="0"
                max="5"
+               label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_LABEL"
                description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_DESCRIPTION"
         >
             <form>

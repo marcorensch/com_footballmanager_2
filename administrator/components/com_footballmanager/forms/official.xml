@@ -63,15 +63,25 @@
         />
 
         <field name="official_countries"
-               type="sql"
-               label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_LABEL"
-               description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_DESCRIPTION"
+               type="subform"
                multiple="true"
-               query="SELECT id, title FROM #__footballmanager_countries"
-               key_field="id"
-               value_field="title"
-               layout="joomla.form.field.list-fancy-select"
-        />
+               min="0"
+               max="5"
+               label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_LABEL"
+               description="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_DESCRIPTION"
+        >
+            <form>
+                <field name="country_id"
+                       type="sql"
+                       label="COM_FOOTBALLMANAGER_FIELD_COUNTRY_SELECT_LABEL"
+                       multiple="false"
+                       query="SELECT id, title FROM #__footballmanager_countries"
+                       key_field="id"
+                       value_field="title"
+                       layout="joomla.form.field.list-fancy-select"
+                />
+            </form>
+        </field>
 
         <field
                 name="about"

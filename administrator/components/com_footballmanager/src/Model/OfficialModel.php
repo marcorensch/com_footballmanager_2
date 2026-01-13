@@ -15,12 +15,10 @@ namespace NXD\Component\Footballmanager\Administrator\Model;
 
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
-use Joomla\CMS\Language\LanguageHelper;
 
 /**
  * Item Model for a location.
@@ -127,7 +125,7 @@ class OfficialModel extends AdminModel
 
         // Load the linked data (teams, countries, ...)
         if ($item->id > 0) {
-            $item->official_countries = $this->getCountryIds($item->id);
+            $item->official_countries = $this->getCountryIds($item->id, 'structured');
         }
 
 		return $item;
@@ -241,15 +239,35 @@ class OfficialModel extends AdminModel
 	}
 
     /* Method to get the country ids of an official */
-    private function getCountryIds($id)
+    private function getCountryIds($id, $format = 'flat'): array
     {
         $db = $this->getDatabase();
         $query = $db->getQuery(true);
-        $query->select('country_id');
+        $query->select('id, country_id, ordering');
         $query->from('#__footballmanager_officials_countries');
         $query->where('official_id = ' . (int)$id);
+        $query->order('ordering ASC');
         $db->setQuery($query);
-        $countryIds = $db->loadColumn();
+        $results = $db->loadAssocList();
+
+        // Create the correct formatted output for subform
+        if($results && $format !== 'flat'){
+            $formatted = array();
+            foreach ($results as $result) {
+                $formatted[] = array(
+                    'id' => $result['id'],
+                    'country_id' => $result['country_id'],
+                    'ordering' => $result['ordering']
+                );
+            }
+            return $formatted;
+        }
+
+        // Return only country IDs for flat format
+        $countryIds = array();
+        foreach ($results as $result) {
+            $countryIds[] = $result['country_id'];
+        }
         return $countryIds;
     }
 
@@ -264,19 +282,57 @@ class OfficialModel extends AdminModel
         $officialId = (int)$data['id'];
 
         // Get ID's of currently stored player countries data from db
-        $existingCountryIds = $this->getCountryIds($officialId);
+        $countriesFromDb = $this->getCountryIds($officialId);
 
         // Save the player country data
         if (!empty($data['official_countries'])) {
-            $countryLinks = $data['official_countries'];
+            $countriesFromForm = array();
+            $ordering = 0;
 
-            // Find countries to delete (in DB but not in new data)
-            $toDelete = array_diff($existingCountryIds, $countryLinks);
+            foreach ($data['official_countries'] as $countryLink) {
+                $countryId = (int)$countryLink['country_id'];
+                $countriesFromForm[] = $countryId;
 
-            // Find countries to add (in new data but not in DB)
-            $toAdd = array_diff($countryLinks, $existingCountryIds);
+                // Update or insert country with ordering
+                $query = $db->getQuery(true);
 
-            // Delete removed countries
+                // Check if country already exists for this player
+                $checkQuery = $db->getQuery(true);
+                $checkQuery->select('id')
+                    ->from($db->quoteName('#__footballmanager_officials_countries'))
+                    ->where($db->quoteName('official_id') . ' = ' . $officialId)
+                    ->where($db->quoteName('country_id') . ' = ' . $countryId);
+                $db->setQuery($checkQuery);
+                $existingId = $db->loadResult();
+
+                if ($existingId) {
+                    // Update existing record with new ordering
+                    $query->update($db->quoteName('#__footballmanager_officials_countries'))
+                        ->set($db->quoteName('ordering') . ' = ' . (int)$ordering)
+                        ->where($db->quoteName('id') . ' = ' . (int)$existingId);
+                } else {
+                    // Insert new record
+                    $columns = array('official_id', 'country_id', 'ordering', 'created');
+                    $values = array(
+                        $officialId,
+                        $countryId,
+                        (int)$ordering,
+                        $db->quote((new Date())->toSql())
+                    );
+
+                    $query->insert($db->quoteName('#__footballmanager_officials_countries'))
+                        ->columns($db->quoteName($columns))
+                        ->values(implode(',', $values));
+                }
+
+                $db->setQuery($query);
+                $db->execute();
+
+                $ordering++;
+            }
+
+            // Delete countries that are no longer in the form
+            $toDelete = array_diff($countriesFromDb, $countriesFromForm);
             if (!empty($toDelete)) {
                 $query = $db->getQuery(true);
                 $query->delete($db->quoteName('#__footballmanager_officials_countries'))
@@ -284,32 +340,6 @@ class OfficialModel extends AdminModel
                     ->where($db->quoteName('country_id') . ' IN (' . implode(',', $toDelete) . ')');
                 $db->setQuery($query);
                 $db->execute();
-            }
-
-            // Add new countries
-            if (!empty($toAdd)) {
-                foreach ($toAdd as $countryId) {
-                    error_log("adding country: $countryId to official: $officialId");
-                    $query = $db->getQuery(true);
-                    $columns = array('official_id', 'country_id', 'is_primary', 'created');
-
-                    // Set is_primary to 1 for the first country, 0 for others
-                    $isPrimary = 1;
-
-                    $values = array(
-                        $officialId,
-                        (int)$countryId,
-                        $isPrimary,
-                        $db->quote((new Date())->toSql())
-                    );
-
-                    $query->insert($db->quoteName('#__footballmanager_officials_countries'))
-                        ->columns($db->quoteName($columns))
-                        ->values(implode(',', $values));
-
-                    $db->setQuery($query);
-                    $db->execute();
-                }
             }
 
         } else {
