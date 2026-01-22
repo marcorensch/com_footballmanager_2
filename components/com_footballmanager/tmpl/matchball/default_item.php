@@ -41,7 +41,7 @@ use NXD\Component\Footballmanager\Site\Helper\ManagerHelper;
     <td class="uk-text-right">
         <?php echo $this->item->home_team_title; ?>
     </td>
-    <td>vs</td>
+    <td class="uk-text-center">vs</td>
     <td>
         <?php echo $this->item->away_team_title; ?>
     </td>
