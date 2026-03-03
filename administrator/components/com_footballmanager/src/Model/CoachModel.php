@@ -299,11 +299,15 @@ class CoachModel extends AdminModel
 		// Save the coach teams data
 		if($data['coach_teams'])
 		{
+            $index = 0;
 			$teamLinks = $data['coach_teams'];
 			$db = $this->getDatabase();
 
-			foreach($teamLinks as $teamLinkData)
+            foreach($teamLinks as $teamLinkData)
 			{
+                // Set ordering based on index of array
+                $teamLinkData['ordering'] = $index;
+                $index++;
 				// remove from array if exists (leftovers will be deleted)
 				if($teamLinkData['id'] > 0 && in_array($teamLinkData['id'], $coachTeamIds)){
 					unset($coachTeamIds[array_search($teamLinkData['id'], $coachTeamIds)]);
@@ -324,25 +328,28 @@ class CoachModel extends AdminModel
 				$query = $db->getQuery(true);
 
 				if($teamLinkData['id'] > 0){
-					foreach(array('since', 'until', 'position_id', 'team_id', 'image', 'ordering', 'league_id') as $key){
-						if(!$teamLinkData[$key]){
-							$fields[] = $db->quoteName($key) . ' = NULL';
+                    $queryValueRows = array();
+
+                    foreach(array('since', 'until', 'position_id', 'team_id', 'image', 'ordering', 'league_id') as $key){
+						if(!isset($teamLinkData[$key]) || $teamLinkData[$key] === ''){
+                            $queryValueRows[] = $db->quoteName($key) . ' = NULL';
 						}else{
-							$fields[] = $db->quoteName($key) . ' = ' . $db->quote($teamLinkData[$key]);
+                            $queryValueRows[] = $db->quoteName($key) . ' = ' . $db->quote($teamLinkData[$key]);
 						}
 					}
 
-					// Conditions for which records should be updated.
+                    // Conditions for which records should be updated.
 					$conditions = array(
 						$db->quoteName('id') . ' = ' . $db->quote($teamLinkData['id'])
 					);
 
-					$query->update($db->quoteName('#__footballmanager_coaches_teams'))->set($fields)->where($conditions);
+					$query->update($db->quoteName('#__footballmanager_coaches_teams'))->set($queryValueRows)->where($conditions);
 
 					$db->setQuery($query);
 
 					$result = $db->execute();
 				}else{
+                    error_log(print_r($teamLinkData, true));
 					$teamLinkDataObj = (object) $teamLinkData;
 					$teamLinkDataObj->coach_id = $data['id'];
 					$result        = $this->getDatabase()->insertObject('#__footballmanager_coaches_teams', $teamLinkDataObj);
