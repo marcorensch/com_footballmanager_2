@@ -278,7 +278,12 @@ class PlayerModel extends AdminModel
             $teamLinks = $data['player_teams'];
             $db = $this->getDatabase();
 
+            $index = 0;
             foreach ($teamLinks as $teamLinkData) {
+                // Set ordering based on index of array
+                $teamLinkData['ordering'] = $index;
+                $index++;
+
                 // remove from array if exists (leftovers will be deleted)
                 if ($teamLinkData['id'] > 0 && in_array($teamLinkData['id'], $playerTeamIds)) {
                     unset($playerTeamIds[array_search($teamLinkData['id'], $playerTeamIds)]);
@@ -306,9 +311,9 @@ class PlayerModel extends AdminModel
                 $query = $db->getQuery(true);
 
                 if ($teamLinkData['id'] > 0) {
-
+                    $fields = array();
                     foreach (array('ordering', 'image', 'player_number', 'since', 'until', 'team_id', 'league_id', 'position_id') as $key) {
-                        if ($teamLinkData[$key] === null) {
+                        if(!isset($teamLinkData[$key]) || $teamLinkData[$key] === ''){
                             $fields[] = $db->quoteName($key) . ' = NULL';
                         } else {
                             $fields[] = $db->quoteName($key) . ' = ' . $db->quote($teamLinkData[$key]);
