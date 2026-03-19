@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.5] – March 2026
+- **Added:** Added support for Match Program
+
 ## [2.3.4] – March 2026
 - **Fixed:** Fixed a bug in the coach model for storing coach <---> team associations
 - **Fixed:** Fixed a bug in the player model for storing player <---> team associations
